@@ -7,7 +7,7 @@ This is our personal and customizable Digital Signage System. Every morning when
 The Monitor comes out of the standby mode when he detects a motion.
 
 # Unsere Technologien
-<center> ![Test](http://xibo.org.uk/wp-content/themes/xibov3/img/logo-header.png)
+![Test](http://xibo.org.uk/wp-content/themes/xibov3/img/logo-header.png)
 <p>
 ![XIBOLogo](http://blog.engineeringhall.com/wp-content/uploads/2015/06/odroidhk_green.png)
 <center>![JavaEE](http://i0.wp.com/inform.com.eg/wp-content/uploads/2016/12/javaee-logo-transparent.png)

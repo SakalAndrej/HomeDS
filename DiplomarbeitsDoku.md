@@ -10,7 +10,10 @@
 * Mit den Informationen die Schaltung zusammenstellen
 * TV-B-Gone git Repo (https://github.com/shirriff/Arduino-TV-B-Gone)
 * TV-B-Gone blogpost/intoduction (http://www.righto.com/2010/11/improved-arduino-tv-b-gone.html)
-
+    * PlatformIO projekt created
+    * Connected to lolin wia PIO 
+    * main.ccp edited and upload to lolin 
+    
 ### 2. TV Turn on/off by motion
 
 ### 3. Flower sensor and data transfer 

@@ -2,11 +2,11 @@
 -I/Users/andrejsakal/.platformio/packages/framework-arduinoespressif8266/tools/sdk/lwip/include
 -I/Users/andrejsakal/.platformio/packages/framework-arduinoespressif8266/cores/esp8266
 -I/Users/andrejsakal/.platformio/packages/framework-arduinoespressif8266/variants/nodemcu
--I/Users/andrejsakal/Documents/PlatformIO/Projects/171005-093607-nodemcuv2/src
--I/Users/andrejsakal/Documents/PlatformIO/Projects/171005-093607-nodemcuv2/lib/IRremoteESP8266-2.2.0/src
--I/Users/andrejsakal/Documents/PlatformIO/Projects/171005-093607-nodemcuv2/lib/IRremoteESP8266-2.2.0/src
--I/Users/andrejsakal/Documents/PlatformIO/Projects/171005-093607-nodemcuv2/lib/IRremoteESP8266-2.2.0/src
--I/Users/andrejsakal/Documents/PlatformIO/Projects/171005-093607-nodemcuv2/.piolibdeps/IRremote_ID4
+-I/Users/andrejsakal/Dropbox/Projects/HomeDS/ESPProgram/src
+-I/Users/andrejsakal/Dropbox/Projects/HomeDS/ESPProgram/lib/IRremoteESP8266-2.2.0/src
+-I/Users/andrejsakal/Dropbox/Projects/HomeDS/ESPProgram/lib/IRremoteESP8266-2.2.0/src
+-I/Users/andrejsakal/Dropbox/Projects/HomeDS/ESPProgram/lib/IRremoteESP8266-2.2.0/src
+-I/Users/andrejsakal/Dropbox/Projects/HomeDS/ESPProgram/.piolibdeps/IRremote_ID4
 -I/Users/andrejsakal/.platformio/packages/framework-arduinoespressif8266/libraries/ArduinoOTA
 -I/Users/andrejsakal/.platformio/packages/framework-arduinoespressif8266/libraries/DNSServer/src
 -I/Users/andrejsakal/.platformio/packages/framework-arduinoespressif8266/libraries/EEPROM

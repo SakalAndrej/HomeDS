@@ -3,7 +3,7 @@
 #include <IRutils.h>
 #include "IRsend.h"
 
-uint16_t SEND_PIN = 2; //an IR detector connected to D4
+uint16_t SEND_PIN = 0;
 
 IRsend irsend(SEND_PIN);
 

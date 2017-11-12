@@ -3,7 +3,7 @@
 #include <IRutils.h>
 #include "IRsend.h"
 
-uint16_t SEND_PIN = 0;
+uint16_t SEND_PIN = 2;
 
 IRsend irsend(SEND_PIN);
 

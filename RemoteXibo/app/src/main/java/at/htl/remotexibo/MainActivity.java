@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOGTAG = MainActivity.class.getSimpleName();
     private static final String CLIENT_ID = "vwmpjcZ6wrYmNShhOXVQsW54N8PJulK6AEhfRVeF";
     private static final String CLIENT_SECRET = "Z93XJGgZli3yMA0gYdtJjt5qYPEi2zdMMeddzsYbMMWj5AetOuMIfNAn4kAcNtY1GoYSt9dKjfSVIGRGFHnYbf9GEcrgVibliZRNVCPZyvH1cgDJT8vJywAhoWKGQG2wSjOnViXGIqwuOQTi4ojPgX1ZHK4m6sgpbx1micAkY6e7L7xLly7h2gKEHScXOEIhfF9jAmMFxvK1fqQv9o6vsTJCNsEbfRiEKQYYSzkCqfIya9YFWmTAfykGgGsrj0";
+
+    //10.0.2.2 localhost für android oder 10.0.0.2
     private static final String AUTHORIZE_URL = "http://10.0.2.2:9090/api/authorize/access_token";
     private Future<String> TOKEN;
 
@@ -74,12 +76,12 @@ public class MainActivity extends AppCompatActivity {
         LinkedList<String> param = new LinkedList<>();
         //param.add("displayGroupId");
         //param.add("7");
-        param.add("layoutId");
-        param.add("14");
-        param.add("changeMode");
-        param.add("replace");
+        //param.add("layoutId");
+        //param.add("14");
+        //param.add("changeMode");
+        //param.add("replace");
 
-        executeRequest(param, "http://10.0.2.2:9090/api/displayGroup/7/action/changeLayout");
+       executeRequest(param, "http://10.0.2.2:9090/api/displaygroup/7/action/changeLayout");
 
 /*
         // get layout by layout id
@@ -91,27 +93,42 @@ public class MainActivity extends AppCompatActivity {
         executeRequest(params, "http://10.0.2.2:9090/api/layout");*/
     }
 
+
+
     private void executeRequest(LinkedList<String> params, String url) {
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
 
-        for (int i = 0; i < params.size() - 1; i = i + 2) {
-            urlBuilder.addQueryParameter(params.get(i), params.get(i + 1));
-        }
+//        for (int i = 0; i < params.size() - 1; i = i + 2) {
+//            urlBuilder.addQueryParameter(params.get(i), params.get(i + 1));
+//        }
+//
+//        try {
+//            urlBuilder.addQueryParameter("access token", TOKEN.get());
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
 
+        String stringbody = "";
         try {
-            urlBuilder.addQueryParameter("access token", TOKEN.get());
+            stringbody ="layoutId=" + "15"
+                    + "&changeMode='replace'"
+                    + "&access token=" + TOKEN.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
+        RequestBody body = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), stringbody );
+
         URL finalUrl = urlBuilder.build().url();
         Log.i(LOGTAG, "FinalUrl: " + finalUrl.toString());
 
         final Request request = new Request.Builder()
-                .get()
+                .post(body)
                 .url(finalUrl)
                 .build();
         Callback result = new Callback() {
@@ -128,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     String resp = response.body().string();
                     Log.i(LOGTAG, "Response Body:" + resp);
+                    Log.i(LOGTAG, "code: " + response.code());
                     textViewAccessToken.setText(resp);
                 }
             }

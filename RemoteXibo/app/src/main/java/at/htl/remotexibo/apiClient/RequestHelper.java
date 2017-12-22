@@ -7,9 +7,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
-import at.htl.remotexibo.MainActivity;
 import at.htl.remotexibo.enums.RequestTypeEnum;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,9 +22,20 @@ import okhttp3.Response;
  * Created by Felix on 19.12.2017.
  */
 
-public class PerformRequest {
-    private static final String LOGTAG = PerformRequest.class.getSimpleName();
+public class RequestHelper {
 
+    private RequestHelper() {}
+
+    private static RequestHelper _instance;
+
+    public static RequestHelper getInstance() {
+        if (_instance==null) {
+            _instance = new RequestHelper();
+        }
+        return _instance;
+    }
+
+    private static final String LOGTAG = RequestHelper.class.getSimpleName();
 
     /**
      *
@@ -48,7 +57,6 @@ public class PerformRequest {
                     while (it.hasNext()) {
                         Map.Entry p = (Map.Entry) it.next();
                         urlBuilder.addQueryParameter(p.getKey().toString(), p.getValue().toString());
-
                     }
 
                 }

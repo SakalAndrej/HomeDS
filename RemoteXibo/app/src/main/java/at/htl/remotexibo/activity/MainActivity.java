@@ -1,5 +1,6 @@
 package at.htl.remotexibo.activity;
 
+import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,9 +14,10 @@ import at.htl.remotexibo.R;
 import at.htl.remotexibo.apiClient.AuthentificationHandler;
 import at.htl.remotexibo.apiClient.RequestHelper;
 import at.htl.remotexibo.enums.RequestTypeEnum;
-import at.htl.remotexibo.fragment.LayoutRecyclerViewFragment;
+import at.htl.remotexibo.fragment.DisplayGroupRecyclerViewFragment;
+import at.htl.remotexibo.fragment.DisplayGroupRecyclerViewFragment.OnFragmentInteractionListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener{
 
     private Future<String> TOKEN;
 
@@ -30,21 +32,22 @@ public class MainActivity extends AppCompatActivity {
 
         //GET
         try {
-            //Change the Layout
+
+            RequestHelper.getInstance().executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:9090/api/clock",TOKEN.get());
+            RequestHelper.getInstance().getDisplayGroups();
             HashMap<String,String> params = new HashMap<String,String>();
             params.put("layoutId","15");
             params.put("changeMode","replace");
 
             RequestHelper.getInstance().executeRequest(RequestTypeEnum.POST,params,"http://10.0.2.2:9090/api/displaygroup/7/action/changeLayout",TOKEN.get());
 
-            RequestHelper.getInstance().executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:9090/api/clock",TOKEN.get());
 
             // get layout by layout id
-            params = new HashMap<String,String>();
+            /*params = new HashMap<String,String>();
             params.put("envelop","14");
             params.put("embed","regions,playlists,widgets");
             RequestHelper.getInstance().executeRequest(RequestTypeEnum.POST,params,"http://10.0.2.2:9090/api/layout", TOKEN.get());
-
+            */
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -53,10 +56,15 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        LayoutRecyclerViewFragment layoutRecyclerViewFragment = new LayoutRecyclerViewFragment();
+        DisplayGroupRecyclerViewFragment displayGroupRecyclerViewFragment = new DisplayGroupRecyclerViewFragment();
 
-        fragmentManager.beginTransaction().add(R.id.container_main, layoutRecyclerViewFragment, null).commit();
+        fragmentManager.beginTransaction().add(R.id.container_main, displayGroupRecyclerViewFragment, null).commit();
 
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }

@@ -22,10 +22,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-/**
- * Created by Felix on 19.12.2017.
- */
-
 public class AuthentificationHandler {
 
     //handles the authentification process with OAuth2 later on the client id/secret will be provided by params
@@ -37,15 +33,17 @@ public class AuthentificationHandler {
     private static final String AUTHORIZE_URL = "http://10.0.2.2:9090/api/authorize/access_token";
     //private static final String AUTHORIZE_URL = "http://localhost:9090/api/authorize/access_token";
 
+    public static Future<String> TOKEN;
+
     //authenticates at the xibo application
     public Future<String> authenticate(){
         final AuthentificationHandler.OkHttpHandler handler = new AuthentificationHandler.OkHttpHandler();
         ExecutorService executor = Executors.newCachedThreadPool();
 
-        return executor.submit(new Callable<String>() {
+        return (TOKEN = executor.submit(new Callable<String>() {
             public String call() {
                 try {
-                    return handler.execute(new URL(AUTHORIZE_URL)).get().getString("access_token");
+                    return (handler.execute(new URL(AUTHORIZE_URL)).get().getString("access_token"));
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -58,7 +56,7 @@ public class AuthentificationHandler {
                 Log.i(LOGTAG, "No Token was got!!!");
                 return "noToken";
             }
-        });
+        }));
 
     }
 

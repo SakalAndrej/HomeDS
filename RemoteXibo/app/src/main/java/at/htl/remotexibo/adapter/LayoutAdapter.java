@@ -9,11 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import at.htl.remotexibo.entity.Layout;
-import at.htl.remotexibo.recyclerview.viewholder.LayoutViewHolder;
-
-/**
- * Created by Felix on 12.12.2017.
- */
+import at.htl.remotexibo.viewholder.LayoutViewHolder;
 
 public class LayoutAdapter extends RecyclerView.Adapter<LayoutViewHolder> {
     private List<Layout> layouts = new LinkedList<>();

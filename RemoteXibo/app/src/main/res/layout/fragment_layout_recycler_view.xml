@@ -3,7 +3,7 @@
     android:id="@+id/fragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="at.htl.remotexibo.fragment.LayoutRecyclerViewFragment">
+    tools:context="at.htl.remotexibo.fragment.DisplayGroupRecyclerViewFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

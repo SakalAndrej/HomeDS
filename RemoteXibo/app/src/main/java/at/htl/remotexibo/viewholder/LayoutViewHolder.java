@@ -7,10 +7,6 @@ import android.widget.TextView;
 
 import at.htl.remotexibo.entity.Layout;
 
-/**
- * Created by Felix on 12.12.2017.
- */
-
 public class LayoutViewHolder extends RecyclerView.ViewHolder {
 
     TextView tv1, tv2;

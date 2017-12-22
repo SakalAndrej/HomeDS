@@ -1,9 +1,5 @@
 package at.htl.remotexibo.entity;
 
-/**
- * Created by Felix on 12.12.2017.
- */
-
 public class Layout {
 
     private String layoutId;

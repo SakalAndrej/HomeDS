@@ -14,22 +14,24 @@ import android.view.ViewGroup;
 import java.util.LinkedList;
 
 import at.htl.remotexibo.R;
-import at.htl.remotexibo.entity.Layout;
-import at.htl.remotexibo.recyclerview.adapter.LayoutAdapter;
+import at.htl.remotexibo.adapter.DisplayGroupAdapter;
+import at.htl.remotexibo.apiClient.RequestHelper;
+import at.htl.remotexibo.entity.DisplayGroup;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LayoutRecyclerViewFragment#newInstance} factory method to
+ * Use the {@link DisplayGroupRecyclerViewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LayoutRecyclerViewFragment extends Fragment {
+public class DisplayGroupRecyclerViewFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public LayoutRecyclerViewFragment() {}
+
+    public DisplayGroupRecyclerViewFragment() {}
 
     /**
      * Use this factory method to create a new instance of
@@ -37,11 +39,11 @@ public class LayoutRecyclerViewFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LayoutRecyclerViewFragment.
+     * @return A new instance of fragment DisplayGroupRecyclerViewFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LayoutRecyclerViewFragment newInstance(String param1, String param2) {
-        LayoutRecyclerViewFragment fragment = new LayoutRecyclerViewFragment();
+    public static DisplayGroupRecyclerViewFragment newInstance(String param1, String param2) {
+        DisplayGroupRecyclerViewFragment fragment = new DisplayGroupRecyclerViewFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -64,13 +66,10 @@ public class LayoutRecyclerViewFragment extends Fragment {
 
         RecyclerView rv_layouts = v.findViewById(R.id.rv_layouts);
 
-        LinkedList<Layout> data = new LinkedList<>();
+        LinkedList<DisplayGroup> data = new LinkedList<>();
 
-        Layout layout1 = new Layout();
-        layout1.setLayout("lalala");
-        layout1.setStatusMessage("goood");
-        data.add(layout1);
-        LayoutAdapter adapter = new LayoutAdapter(data);
+
+        DisplayGroupAdapter adapter = new DisplayGroupAdapter(RequestHelper.getInstance().getDisplayGroups());
 
         rv_layouts.setAdapter(adapter);
 

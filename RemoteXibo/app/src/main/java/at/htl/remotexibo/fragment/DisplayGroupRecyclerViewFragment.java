@@ -66,6 +66,7 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
 
         RecyclerView rv_layouts = v.findViewById(R.id.rv_layouts);
 
+
         LinkedList<DisplayGroup> data = new LinkedList<>();
 
 

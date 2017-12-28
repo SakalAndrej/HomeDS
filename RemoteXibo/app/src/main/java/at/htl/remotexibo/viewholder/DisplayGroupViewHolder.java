@@ -1,27 +1,31 @@
 package at.htl.remotexibo.viewholder;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import at.htl.remotexibo.R;
 import at.htl.remotexibo.entity.DisplayGroup;
 
 public class DisplayGroupViewHolder extends RecyclerView.ViewHolder {
 
-    TextView tv1;
+    TextView tvName, tvDescr;
     CheckBox cb1;
 
     public DisplayGroupViewHolder(View itemView) {
         super(itemView);
-        tv1 = itemView.findViewById(at.htl.remotexibo.R.id.tvName);
+        tvName = itemView.findViewById(at.htl.remotexibo.R.id.tvName);
+        tvDescr = itemView.findViewById(R.id.tvDisplayGroupDescription);
         cb1 = itemView.findViewById(R.id.cbPrimary);
 
     }
 
-
     public void updateUI(DisplayGroup displayGroup){
-        tv1.setText(String.format(displayGroup.getDisplayGroupName()));
-        cb1.setChecked(true);
+        tvName.setText(String.format(displayGroup.getDisplayGroupName()));
+        tvDescr.setText(String.format(displayGroup.getDisplayGroupDescription()));
+        cb1.setChecked(false);
     }
 }

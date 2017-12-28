@@ -1,14 +1,19 @@
 package at.htl.remotexibo.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import at.htl.remotexibo.R;
+import at.htl.remotexibo.activity.MainActivity;
 import at.htl.remotexibo.entity.DisplayGroup;
 import at.htl.remotexibo.viewholder.DisplayGroupViewHolder;
 

@@ -1,0 +1,27 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:contextClickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="false"
+    android:focusedByDefault="false"
+    android:longClickable="true"
+    android:theme="@style/Widget.AppCompat.ListView"
+    android:touchscreenBlocksFocus="false"
+    tools:context="at.htl.remotexibo.fragment.DisplayGroupRecyclerViewFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_layouts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:defaultFocusHighlightEnabled="false"
+        android:longClickable="true" />
+</android.support.constraint.ConstraintLayout>

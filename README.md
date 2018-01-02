@@ -2,11 +2,7 @@
 
 This is our personal and customizable Digital Signage System. Our Project should help to easily and with a minimal effort create really beautiful Desktop Diashows.
 
-The Layouts and Designs should be easily changed through various apps. 
-
-Our Project also includes a remote control for all devices especially for TV's.
-
-Displaying personal data like Weater, Youtube Feed, News Feed or whole Web Pages gets very easy and adaptive.
+The Layouts and Designs should be easily changed through our Android App and with our special remote control you can turn off/on all Devices. Displaying personal data like Wheater, Youtube Feeds, News Feed or whole Web Pages gets very easy and adaptive.
 
 # Team
 

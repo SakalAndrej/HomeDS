@@ -20,19 +20,19 @@ Developer for Android, Java and Odroid programming
 
 # Our technologies
 
-![android](./Pictures\android.jpg)
+![android](./Pictures/android.jpg)
 
 
 
 
 
-![cpp](./Pictures\cpp.png)
+![cpp](./Pictures/cpp.png)
 
-![java](./Pictures\java.webp)
+![java](./Pictures/java.webp)
 
 
 
-![xibo](./Pictures\xibo.svg)
+![xibo](./Pictures/xibo.svg)
 
 
 

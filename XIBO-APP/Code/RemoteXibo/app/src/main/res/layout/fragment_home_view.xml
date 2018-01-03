@@ -30,7 +30,7 @@
         app:layout_constraintGuide_percent="0.45" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btChangeWidget"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="2dp"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btChangeLayoutOfDiplaygroup"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="2dp"
@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btChangeDataset"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="2dp"
@@ -79,7 +79,7 @@
         app:layout_constraintGuide_percent="0.7" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvServerStatus"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="2dp"

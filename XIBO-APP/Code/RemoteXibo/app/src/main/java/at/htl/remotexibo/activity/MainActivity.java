@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -18,7 +20,7 @@ import at.htl.remotexibo.fragment.DisplayGroupRecyclerViewFragment;
 import at.htl.remotexibo.fragment.DisplayGroupRecyclerViewFragment.OnFragmentInteractionListener;
 import at.htl.remotexibo.fragment.HomeViewFragment;
 
-public class MainActivity extends AppCompatActivity implements HomeViewFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements HomeViewFragment.OnFragmentInteractionListener, DisplayGroupRecyclerViewFragment.OnFragmentInteractionListener{
 
     private Future<String> TOKEN;
 
@@ -56,11 +58,10 @@ public class MainActivity extends AppCompatActivity implements HomeViewFragment.
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-
-        //DisplayGroupRecyclerViewFragment displayGroupRecyclerViewFragment = new DisplayGroupRecyclerViewFragment();
-
         HomeViewFragment homeViewFragment = new HomeViewFragment();
         fragmentManager.beginTransaction().add(R.id.container_main, homeViewFragment, null).commit();
+
+
 
 
     }
@@ -68,6 +69,12 @@ public class MainActivity extends AppCompatActivity implements HomeViewFragment.
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public void openDisplayGroupRecyclerViewFragment(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        DisplayGroupRecyclerViewFragment displayGroupRecyclerViewFragment = new DisplayGroupRecyclerViewFragment();
+        fragmentManager.beginTransaction().replace(R.id.container_main, displayGroupRecyclerViewFragment, null).commit();
     }
 }
 

@@ -18,14 +18,6 @@ import at.htl.remotexibo.adapter.DisplayGroupAdapter;
 import at.htl.remotexibo.apiClient.RequestHelper;
 import at.htl.remotexibo.entity.DisplayGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DisplayGroupRecyclerViewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DisplayGroupRecyclerViewFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
@@ -33,15 +25,6 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
 
     public DisplayGroupRecyclerViewFragment() {}
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DisplayGroupRecyclerViewFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DisplayGroupRecyclerViewFragment newInstance(String param1, String param2) {
         DisplayGroupRecyclerViewFragment fragment = new DisplayGroupRecyclerViewFragment();
         Bundle args = new Bundle();
@@ -57,18 +40,11 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_layout_recycler_view, container, false);
 
 
         RecyclerView rv_layouts = v.findViewById(R.id.rv_layouts);
-
-
-        LinkedList<DisplayGroup> data = new LinkedList<>();
-
 
         DisplayGroupAdapter adapter = new DisplayGroupAdapter(RequestHelper.getInstance().getDisplayGroups());
 

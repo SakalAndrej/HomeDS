@@ -53,5 +53,5 @@ Request request = new Request.Builder()
   - Alls alle gewünschte Requests dann funktioniert haben. Haben wir einen RequestHelper geschrieben der sich um alle API Funktionen kümmert
   - Dann ging es um das Designtechnische wir haben uns vorgenommen alles Einfach und Simple zu halten der Benutzer soll einfach und schnell seine gewünschten Sachen erledigen können
 	- hier sind einige unserer ersten Skizzen zu unserem Design 
-
+<br>
 ![RemoteXiboHomeScreen Sketch](RemoteXiboHomeScreen.png)

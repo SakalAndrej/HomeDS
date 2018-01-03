@@ -16,8 +16,9 @@ import at.htl.remotexibo.apiClient.RequestHelper;
 import at.htl.remotexibo.enums.RequestTypeEnum;
 import at.htl.remotexibo.fragment.DisplayGroupRecyclerViewFragment;
 import at.htl.remotexibo.fragment.DisplayGroupRecyclerViewFragment.OnFragmentInteractionListener;
+import at.htl.remotexibo.fragment.HomeViewFragment;
 
-public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements HomeViewFragment.OnFragmentInteractionListener{
 
     private Future<String> TOKEN;
 
@@ -56,9 +57,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        DisplayGroupRecyclerViewFragment displayGroupRecyclerViewFragment = new DisplayGroupRecyclerViewFragment();
+        //DisplayGroupRecyclerViewFragment displayGroupRecyclerViewFragment = new DisplayGroupRecyclerViewFragment();
 
-        fragmentManager.beginTransaction().add(R.id.container_main, displayGroupRecyclerViewFragment, null).commit();
+        HomeViewFragment homeViewFragment = new HomeViewFragment();
+        fragmentManager.beginTransaction().add(R.id.container_main, homeViewFragment, null).commit();
 
 
     }

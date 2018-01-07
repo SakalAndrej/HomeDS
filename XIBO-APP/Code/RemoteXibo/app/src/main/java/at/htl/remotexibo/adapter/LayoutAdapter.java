@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class LayoutAdapter extends RecyclerView.Adapter<LayoutViewHolder> {
 
     @Override
     public void onBindViewHolder(LayoutViewHolder holder, int position) {
-    holder.updateUI(layouts.get(position));
+        holder.updateUI(layouts.get(position));
     }
 
     @Override

@@ -41,7 +41,7 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_layout_recycler_view, container, false);
+        View v = inflater.inflate(R.layout.fragment_display_recycler_view, container, false);
 
 
         RecyclerView rv_layouts = v.findViewById(R.id.rv_layouts);

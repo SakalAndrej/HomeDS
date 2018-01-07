@@ -8,6 +8,8 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.LinkedList;
+
 import at.htl.remotexibo.R;
 import at.htl.remotexibo.entity.DisplayGroup;
 
@@ -15,6 +17,8 @@ public class DisplayGroupViewHolder extends RecyclerView.ViewHolder {
 
     TextView tvName, tvDescr;
     CheckBox cb1;
+
+    LinkedList<DisplayGroup> selectedDisplayGroupList = new LinkedList<>();
 
     public DisplayGroupViewHolder(View itemView) {
         super(itemView);
@@ -32,7 +36,12 @@ public class DisplayGroupViewHolder extends RecyclerView.ViewHolder {
         cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(itemView.getContext(), "Selected: " + displayGroup.displayGroupName, Toast.LENGTH_LONG).show();
+                Toast.makeText(itemView.getContext(), "Selected: " + displayGroup.displayGroupName, Toast.LENGTH_SHORT).show();
+
+                if (isChecked==true)
+                    selectedDisplayGroupList.add(displayGroup);
+                else
+                    selectedDisplayGroupList.remove(displayGroup);
             }
         });
     }

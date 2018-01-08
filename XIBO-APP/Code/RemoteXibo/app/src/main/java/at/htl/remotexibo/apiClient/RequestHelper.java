@@ -46,6 +46,24 @@ public class RequestHelper {
 
     private LinkedList<Layout> layouts = new LinkedList<>();
 
+    private String responseBody;
+    private int responseCode;
+
+    public int getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public String getResponseBody() {
+        return responseBody;
+    }
+
+    public void setResponseBody(String responseBody) {
+        this.responseBody = responseBody;
+    }
 
     /**
      *
@@ -121,7 +139,9 @@ public class RequestHelper {
                 } else {
                     String resp = response.body().string();
                     Log.i(LOGTAG, "Response Body:" + resp);
+                    responseBody = resp;
                     Log.i(LOGTAG, "code: " + response.code());
+                    responseCode = response.code();
                 }
             }
         };
@@ -227,4 +247,6 @@ public class RequestHelper {
         return displayGroups;*/
         return null;
     }
+
+
 }

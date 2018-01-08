@@ -11,12 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
 
 import at.htl.remotexibo.R;
 import at.htl.remotexibo.adapter.DisplayGroupAdapter;
+import at.htl.remotexibo.apiClient.AuthentificationHandler;
 import at.htl.remotexibo.apiClient.RequestHelper;
 import at.htl.remotexibo.entity.DisplayGroup;
+import at.htl.remotexibo.enums.RequestTypeEnum;
 
 public class DisplayGroupRecyclerViewFragment extends Fragment {
 
@@ -46,7 +53,32 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
 
         RecyclerView rv_layouts = v.findViewById(R.id.rv_layouts);
 
-        DisplayGroupAdapter adapter = new DisplayGroupAdapter(RequestHelper.getInstance().getDisplayGroups());
+        RequestHelper rh = new RequestHelper();
+        try {
+            rh.executeRequest(RequestTypeEnum.GET, null, "http://10.0.2.2:9090/api/display", AuthentificationHandler.TOKEN.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray jsonArray = null;
+        LinkedList<DisplayGroup> displayGroups = new LinkedList<>();
+
+        try {
+            jsonArray = new JSONArray(rh.getResponseBody());
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                displayGroups.add(new DisplayGroup(jsonObject.getString("display"),jsonObject.getString("description"),jsonObject.getLong("displayGroupId")));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        DisplayGroupAdapter adapter = new DisplayGroupAdapter(displayGroups);
 
         rv_layouts.setAdapter(adapter);
 

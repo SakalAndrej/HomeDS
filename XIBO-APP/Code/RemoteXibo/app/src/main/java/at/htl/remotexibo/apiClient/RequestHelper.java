@@ -29,16 +29,7 @@ import okhttp3.Response;
 
 public class RequestHelper {
 
-    private RequestHelper() {}
-
-    private static RequestHelper _instance;
-
-    public static RequestHelper getInstance() {
-        if (_instance==null) {
-            _instance = new RequestHelper();
-        }
-        return _instance;
-    }
+    public RequestHelper() {}
 
     private static final String LOGTAG = RequestHelper.class.getSimpleName();
 
@@ -147,55 +138,6 @@ public class RequestHelper {
         };
         client.newCall(request).enqueue(result);
 
-    }
-
-
-    public LinkedList<DisplayGroup> getDisplayGroups() {
-        OkHttpClient client = new OkHttpClient();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://10.0.2.2:9090/api/display").newBuilder();
-        try {
-            urlBuilder.addQueryParameter("access token", AuthentificationHandler.TOKEN.get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        Request.Builder rb = new Request.Builder();
-
-        final Request request = rb.get().url(urlBuilder.build().url()).build();
-        Callback result = new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    Log.i(LOGTAG, response.message());
-
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    String resp = response.body().string();
-                    Log.i(LOGTAG, "Response Body:" + resp);
-                    Log.i(LOGTAG, "code: " + response.code());
-                    displayGroups.clear();
-                    try {
-                        JSONArray jsonArray = new JSONArray(resp);
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            displayGroups.add(new DisplayGroup(jsonObject.getString("display"),jsonObject.getString("description"),jsonObject.getLong("displayGroupId")));
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            }
-        };
-        client.newCall(request).enqueue(result);
-        return displayGroups;
     }
 
     public LinkedList<Layout> getLayouts() {

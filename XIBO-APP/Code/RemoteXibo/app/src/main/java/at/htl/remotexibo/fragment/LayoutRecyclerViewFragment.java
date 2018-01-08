@@ -74,9 +74,9 @@ public class LayoutRecyclerViewFragment extends android.support.v4.app.Fragment 
 
         RecyclerView rv = v.findViewById(R.id.rv_layouts);
 
-        LayoutAdapter adapter = new LayoutAdapter(RequestHelper.getInstance().getLayouts());
+        //LayoutAdapter adapter = new LayoutAdapter(RequestHelper.getInstance().getLayouts());
 
-        rv.setAdapter(adapter);
+        //rv.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(llm);

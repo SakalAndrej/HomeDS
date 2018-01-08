@@ -11,10 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
+
 import at.htl.remotexibo.R;
 import at.htl.remotexibo.adapter.DisplayGroupAdapter;
 import at.htl.remotexibo.adapter.LayoutAdapter;
+import at.htl.remotexibo.apiClient.AuthentificationHandler;
 import at.htl.remotexibo.apiClient.RequestHelper;
+import at.htl.remotexibo.entity.Layout;
+import at.htl.remotexibo.enums.RequestTypeEnum;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,16 +80,30 @@ public class LayoutRecyclerViewFragment extends android.support.v4.app.Fragment 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_layout_recycler_view, container, false);
-
-
         RecyclerView rv = v.findViewById(R.id.rv_layouts);
-
-        //LayoutAdapter adapter = new LayoutAdapter(RequestHelper.getInstance().getLayouts());
-
-        //rv.setAdapter(adapter);
-
+        RequestHelper rh = new RequestHelper();
+        try {
+            rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:9090/api/layout", AuthentificationHandler.TOKEN.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        JSONArray jsonArray = null;
+        LinkedList<Layout> layouts = new LinkedList<>();
+        try {
+            jsonArray = new JSONArray(rh.getResponseBody());
+            for (int i = 0; i < jsonArray.length();i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                layouts.add(new Layout(jsonObject.getString("layout"),jsonObject.getLong("displayGroupId")));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LayoutAdapter adapter = new LayoutAdapter(layouts);
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(llm);
+        rv.setAdapter(adapter);
         return v;
     }
 

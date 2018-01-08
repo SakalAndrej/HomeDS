@@ -79,12 +79,11 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
         }
 
         DisplayGroupAdapter adapter = new DisplayGroupAdapter(displayGroups);
-
-        rv_layouts.setAdapter(adapter);
-
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv_layouts.setLayoutManager(llm);
         rv_layouts.setAdapter(adapter);
+
+
         return v;
     }
 

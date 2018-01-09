@@ -89,13 +89,20 @@ public class LayoutRecyclerViewFragment extends android.support.v4.app.Fragment 
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String response = rh.getResponseBody();
+
         JSONArray jsonArray = null;
         LinkedList<Layout> layouts = new LinkedList<>();
         try {
-            jsonArray = new JSONArray(rh.getResponseBody());
+            jsonArray = new JSONArray(response);
             for (int i = 0; i < jsonArray.length();i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                layouts.add(new Layout(jsonObject.getString("layout"),jsonObject.getLong("displayGroupId")));
+                layouts.add(new Layout(jsonObject.getString("layout"),jsonObject.getLong("layoutId")));
             }
         } catch (JSONException e) {
             e.printStackTrace();

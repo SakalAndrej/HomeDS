@@ -4,10 +4,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,20 +54,13 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_display_recycler_view, container, false);
-        Button floatingActionButton = v.findViewById(R.id.fabNextStep);
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity)getActivity()).openLayoutRecyclerViewFragment();
-            }
-        });
 
         RecyclerView rv_layouts = v.findViewById(R.id.rv_layouts);
 
         RequestHelper rh = new RequestHelper();
         try {
             rh.executeRequest(RequestTypeEnum.GET, null, "http://10.0.2.2:9090/api/display", AuthentificationHandler.TOKEN.get());
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -76,7 +71,14 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
         LinkedList<DisplayGroup> displayGroups = new LinkedList<>();
 
         try {
-            jsonArray = new JSONArray(rh.getResponseBody());
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String response = rh.getResponseBody();
+
+        try {
+            jsonArray = new JSONArray(response);
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -92,6 +94,18 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv_layouts.setLayoutManager(llm);
         rv_layouts.setAdapter(adapter);
+
+        FloatingActionButton floatingActionButton = v.findViewById(R.id.fabNextStep);
+
+        Log.i("iwas", "FinalUrl:");
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).openLayoutRecyclerViewFragment();
+                Log.i("iwas2", "FinalUrl:");
+            }
+        });
+        Log.i("iwas3", "FinalUrl:");
 
         return v;
     }

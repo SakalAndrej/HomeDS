@@ -6,14 +6,12 @@ import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,7 +57,7 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
 
         RequestHelper rh = new RequestHelper();
         try {
-            rh.executeRequest(RequestTypeEnum.GET, null, "http://10.0.2.2:9090/api/display", AuthentificationHandler.TOKEN.get());
+            rh.executeRequest(RequestTypeEnum.GET, null, MainActivity.BASEURL + "api/display", AuthentificationHandler.TOKEN.get());
 
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +18,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
 import at.htl.remotexibo.R;
-import at.htl.remotexibo.adapter.DisplayGroupAdapter;
+import at.htl.remotexibo.activity.MainActivity;
 import at.htl.remotexibo.adapter.LayoutAdapter;
 import at.htl.remotexibo.apiClient.AuthentificationHandler;
 import at.htl.remotexibo.apiClient.RequestHelper;
@@ -83,7 +82,7 @@ public class LayoutRecyclerViewFragment extends android.support.v4.app.Fragment 
         RecyclerView rv = v.findViewById(R.id.rv_layouts);
         RequestHelper rh = new RequestHelper();
         try {
-            rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:9090/api/layout", AuthentificationHandler.TOKEN.get());
+            rh.executeRequest(RequestTypeEnum.GET,null, MainActivity.BASEURL + "api/layout", AuthentificationHandler.TOKEN.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

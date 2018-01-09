@@ -4,13 +4,7 @@ import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
@@ -19,7 +13,6 @@ import java.util.concurrent.Future;
 import at.htl.remotexibo.R;
 import at.htl.remotexibo.apiClient.AuthentificationHandler;
 import at.htl.remotexibo.apiClient.RequestHelper;
-import at.htl.remotexibo.entity.DisplayGroup;
 import at.htl.remotexibo.enums.RequestTypeEnum;
 import at.htl.remotexibo.fragment.ChangeDatasetFragment;
 import at.htl.remotexibo.fragment.DisplayGroupRecyclerViewFragment;
@@ -31,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements HomeViewFragment.
         ,ChangeDatasetFragment.OnFragmentInteractionListener {
 
     private Future<String> TOKEN;
+
+    public static final String BASEURL = "http://10.0.2.2:9090/";
 
     private TextView textViewAccessToken;
 
@@ -47,20 +42,20 @@ public class MainActivity extends AppCompatActivity implements HomeViewFragment.
         try {
 
             RequestHelper rh = new RequestHelper();
-            rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:9090/api/clock",TOKEN.get());
+            rh.executeRequest(RequestTypeEnum.GET,null, BASEURL + "api/clock",TOKEN.get());
 
             HashMap<String,String> params = new HashMap<String,String>();
             params.put("layoutId","15");
             params.put("changeMode","replace");
 
-            rh.executeRequest(RequestTypeEnum.POST,params,"http://10.0.2.2:9090/api/displaygroup/7/action/changeLayout",TOKEN.get());
+            rh.executeRequest(RequestTypeEnum.POST,params,BASEURL + "api/displaygroup/7/action/changeLayout",TOKEN.get());
 
 
              //get layout by layout id
             params = new HashMap<String,String>();
             /*params.put("envelop","14");
             params.put("embed","regions,playlists,widgets");*/
-            rh.executeRequest(RequestTypeEnum.POST,params,"http://10.0.2.2:9090/api/layout", TOKEN.get());
+            rh.executeRequest(RequestTypeEnum.POST,params,BASEURL + "api/layout", TOKEN.get());
 
         } catch (InterruptedException e) {
             e.printStackTrace();

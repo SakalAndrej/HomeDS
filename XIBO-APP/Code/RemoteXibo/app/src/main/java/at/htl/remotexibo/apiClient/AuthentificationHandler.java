@@ -30,7 +30,7 @@ public class AuthentificationHandler {
     private static final String CLIENT_SECRET = "Z93XJGgZli3yMA0gYdtJjt5qYPEi2zdMMeddzsYbMMWj5AetOuMIfNAn4kAcNtY1GoYSt9dKjfSVIGRGFHnYbf9GEcrgVibliZRNVCPZyvH1cgDJT8vJywAhoWKGQG2wSjOnViXGIqwuOQTi4ojPgX1ZHK4m6sgpbx1micAkY6e7L7xLly7h2gKEHScXOEIhfF9jAmMFxvK1fqQv9o6vsTJCNsEbfRiEKQYYSzkCqfIya9YFWmTAfykGgGsrj0";
 
     //10.0.2.2 localhost für android oder 10.0.0.2
-    private static final String AUTHORIZE_URL = "http://10.0.2.2:9090/api/authorize/access_token";
+    private static final String AUTHORIZE_URL = MainActivity.BASEURL+"api/authorize/access_token";
     //private static final String AUTHORIZE_URL = "http://localhost:9090/api/authorize/access_token";
 
     public static Future<String> TOKEN;

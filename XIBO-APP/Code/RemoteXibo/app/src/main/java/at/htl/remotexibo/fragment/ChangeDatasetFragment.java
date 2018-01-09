@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import at.htl.remotexibo.R;
+import at.htl.remotexibo.activity.MainActivity;
 import at.htl.remotexibo.apiClient.AuthentificationHandler;
 import at.htl.remotexibo.apiClient.RequestHelper;
 import at.htl.remotexibo.enums.RequestTypeEnum;
@@ -93,12 +94,23 @@ public class ChangeDatasetFragment extends android.support.v4.app.Fragment {
                     params.put("dataSetColumnId_2",etData.getText().toString());
 
                     try {
-                        rh.executeRequest(RequestTypeEnum.PUT,params,"http://10.0.2.2:9090/api/dataset/data/2/3", AuthentificationHandler.TOKEN.get());
+                        rh.executeRequest(RequestTypeEnum.PUT,params, (MainActivity.BASEURL + "api/dataset/data/2/3"), AuthentificationHandler.TOKEN.get());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     }
+
+                    RequestHelper requestHelper = new RequestHelper();
+
+                    try {
+                        requestHelper.executeRequest(RequestTypeEnum.POST, null, MainActivity.BASEURL + "api/displaygroup/7/action/collectNow", AuthentificationHandler.TOKEN.get());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             });
 

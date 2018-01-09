@@ -33,9 +33,9 @@ public class RequestHelper {
 
     private static final String LOGTAG = RequestHelper.class.getSimpleName();
 
-    private LinkedList<DisplayGroup> displayGroups = new LinkedList<>();
+    //private LinkedList<DisplayGroup> displayGroups = new LinkedList<>();
 
-    private LinkedList<Layout> layouts = new LinkedList<>();
+    //private LinkedList<Layout> layouts = new LinkedList<>();
 
     private String responseBody;
     private int responseCode;
@@ -106,6 +106,7 @@ public class RequestHelper {
                 break;
             case PUT:
                 rb = rb.put(body);
+                Log.i("Body",String.valueOf(body));
                 break;
             case POST:
                 rb = rb.post(body);

@@ -78,6 +78,14 @@ public class HomeViewFragment extends android.support.v4.app.Fragment{
             }
         });
 
+        Button btChangeDataset = v.findViewById(R.id.btChangeDataset);
+        btChangeDataset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).openChangeDatasetFragment();
+            }
+        });
+
         return v;
     }
 

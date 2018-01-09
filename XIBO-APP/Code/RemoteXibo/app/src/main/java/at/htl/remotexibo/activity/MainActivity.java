@@ -21,11 +21,14 @@ import at.htl.remotexibo.apiClient.AuthentificationHandler;
 import at.htl.remotexibo.apiClient.RequestHelper;
 import at.htl.remotexibo.entity.DisplayGroup;
 import at.htl.remotexibo.enums.RequestTypeEnum;
+import at.htl.remotexibo.fragment.ChangeDatasetFragment;
 import at.htl.remotexibo.fragment.DisplayGroupRecyclerViewFragment;
 import at.htl.remotexibo.fragment.HomeViewFragment;
 import at.htl.remotexibo.fragment.LayoutRecyclerViewFragment;
 
-public class MainActivity extends AppCompatActivity implements HomeViewFragment.OnFragmentInteractionListener, DisplayGroupRecyclerViewFragment.OnFragmentInteractionListener, LayoutRecyclerViewFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements HomeViewFragment.OnFragmentInteractionListener,
+        DisplayGroupRecyclerViewFragment.OnFragmentInteractionListener, LayoutRecyclerViewFragment.OnFragmentInteractionListener
+        ,ChangeDatasetFragment.OnFragmentInteractionListener {
 
     private Future<String> TOKEN;
 
@@ -86,6 +89,13 @@ public class MainActivity extends AppCompatActivity implements HomeViewFragment.
         FragmentManager fragmentManager = getSupportFragmentManager();
         LayoutRecyclerViewFragment layoutRecyclerViewFragment = new LayoutRecyclerViewFragment();
         fragmentManager.beginTransaction().replace(R.id.container_main, layoutRecyclerViewFragment, null).commit();
+    }
+
+
+    public void openChangeDatasetFragment(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        ChangeDatasetFragment changeDatasetFragment = new ChangeDatasetFragment();
+        fragmentManager.beginTransaction().replace(R.id.container_main, changeDatasetFragment, null).commit();
     }
 }
 

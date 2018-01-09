@@ -30,7 +30,7 @@ public class LayoutViewHolder extends RecyclerView.ViewHolder {
 
     public void updateUI(Layout layout){
        tvName.setText(String.format(layout.getLayout()));
-       tvDescr.setText(String.format(layout.getLayoutId()));
+       tvDescr.setText(String.valueOf(layout.getLayoutId()));
        cb1.setChecked(false);
 
        cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

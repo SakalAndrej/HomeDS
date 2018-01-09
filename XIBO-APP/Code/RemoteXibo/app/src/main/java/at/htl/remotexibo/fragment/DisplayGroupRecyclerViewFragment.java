@@ -5,11 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +21,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
 import at.htl.remotexibo.R;
+import at.htl.remotexibo.activity.MainActivity;
 import at.htl.remotexibo.adapter.DisplayGroupAdapter;
 import at.htl.remotexibo.apiClient.AuthentificationHandler;
 import at.htl.remotexibo.apiClient.RequestHelper;
@@ -49,7 +52,14 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_display_recycler_view, container, false);
+        Button floatingActionButton = v.findViewById(R.id.fabNextStep);
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).openLayoutRecyclerViewFragment();
+            }
+        });
 
         RecyclerView rv_layouts = v.findViewById(R.id.rv_layouts);
 
@@ -82,7 +92,6 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv_layouts.setLayoutManager(llm);
         rv_layouts.setAdapter(adapter);
-
 
         return v;
     }

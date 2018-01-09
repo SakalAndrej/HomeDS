@@ -2,7 +2,7 @@ package at.htl.remotexibo.entity;
 
 public class Layout {
 
-    private String layoutId;
+    private Long layoutId;
     private String ownerId;
     private String campaignId;
     private String backgroundImageId;
@@ -24,7 +24,11 @@ public class Layout {
     public Layout() {
     }
 
-    public Layout(String layoutId, String ownerId, String campaignId, String backgroundImageId, String schemaVersion,
+    public Layout(String layout, Long layoutId ){
+        this.layout = layout;
+        this.layoutId = layoutId;
+    }
+    public Layout(Long layoutId, String ownerId, String campaignId, String backgroundImageId, String schemaVersion,
                   String layout, String description, String backgroundColor, String createdDt, String modifiedDt, String status,
                   String retired, String backgroundzIndex, String width, String height, String displayOrder, String duration,
                   String statusMessage) {
@@ -48,11 +52,11 @@ public class Layout {
         this.statusMessage = statusMessage;
     }
 
-    public String getLayoutId() {
+    public Long getLayoutId() {
         return layoutId;
     }
 
-    public void setLayoutId(String layoutId) {
+    public void setLayoutId(Long layoutId) {
         this.layoutId = layoutId;
     }
 

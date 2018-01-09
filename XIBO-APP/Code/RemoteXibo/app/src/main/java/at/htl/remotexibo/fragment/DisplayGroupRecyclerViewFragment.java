@@ -4,28 +4,30 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
 
 import at.htl.remotexibo.R;
+import at.htl.remotexibo.activity.MainActivity;
 import at.htl.remotexibo.adapter.DisplayGroupAdapter;
+import at.htl.remotexibo.apiClient.AuthentificationHandler;
 import at.htl.remotexibo.apiClient.RequestHelper;
 import at.htl.remotexibo.entity.DisplayGroup;
+import at.htl.remotexibo.enums.RequestTypeEnum;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DisplayGroupRecyclerViewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DisplayGroupRecyclerViewFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
@@ -33,15 +35,6 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
 
     public DisplayGroupRecyclerViewFragment() {}
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DisplayGroupRecyclerViewFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DisplayGroupRecyclerViewFragment newInstance(String param1, String param2) {
         DisplayGroupRecyclerViewFragment fragment = new DisplayGroupRecyclerViewFragment();
         Bundle args = new Bundle();
@@ -57,26 +50,61 @@ public class DisplayGroupRecyclerViewFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_layout_recycler_view, container, false);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_display_recycler_view, container, false);
 
         RecyclerView rv_layouts = v.findViewById(R.id.rv_layouts);
 
+        RequestHelper rh = new RequestHelper();
+        try {
+            rh.executeRequest(RequestTypeEnum.GET, null, MainActivity.BASEURL + "api/display", AuthentificationHandler.TOKEN.get());
 
-        LinkedList<DisplayGroup> data = new LinkedList<>();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
+        JSONArray jsonArray = null;
+        LinkedList<DisplayGroup> displayGroups = new LinkedList<>();
 
-        DisplayGroupAdapter adapter = new DisplayGroupAdapter(RequestHelper.getInstance().getDisplayGroups());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String response = rh.getResponseBody();
 
-        rv_layouts.setAdapter(adapter);
+        try {
+            jsonArray = new JSONArray(response);
+            for (int i = 0; i < jsonArray.length(); i++) {
 
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                displayGroups.add(new DisplayGroup(jsonObject.getString("display"),jsonObject.getString("description"),jsonObject.getLong("displayGroupId")));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        DisplayGroupAdapter adapter = new DisplayGroupAdapter(displayGroups);
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv_layouts.setLayoutManager(llm);
         rv_layouts.setAdapter(adapter);
+
+        FloatingActionButton floatingActionButton = v.findViewById(R.id.fabNextStep);
+
+        Log.i("iwas", "FinalUrl:");
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).openLayoutRecyclerViewFragment();
+                Log.i("iwas2", "FinalUrl:");
+            }
+        });
+        Log.i("iwas3", "FinalUrl:");
+
         return v;
     }
 

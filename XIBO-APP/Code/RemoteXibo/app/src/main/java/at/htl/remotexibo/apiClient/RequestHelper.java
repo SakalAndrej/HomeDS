@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 import at.htl.remotexibo.activity.MainActivity;
 import at.htl.remotexibo.entity.DisplayGroup;
+import at.htl.remotexibo.entity.Layout;
 import at.htl.remotexibo.enums.RequestTypeEnum;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,20 +29,32 @@ import okhttp3.Response;
 
 public class RequestHelper {
 
-    private RequestHelper() {}
-
-    private static RequestHelper _instance;
-
-    public static RequestHelper getInstance() {
-        if (_instance==null) {
-            _instance = new RequestHelper();
-        }
-        return _instance;
-    }
+    public RequestHelper() {}
 
     private static final String LOGTAG = RequestHelper.class.getSimpleName();
 
-    private LinkedList<DisplayGroup> displayGroups = new LinkedList<>();
+    //private LinkedList<DisplayGroup> displayGroups = new LinkedList<>();
+
+    //private LinkedList<Layout> layouts = new LinkedList<>();
+
+    private String responseBody;
+    private int responseCode;
+
+    public int getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public String getResponseBody() {
+        return responseBody;
+    }
+
+    public void setResponseBody(String responseBody) {
+        this.responseBody = responseBody;
+    }
 
     /**
      *
@@ -93,6 +106,7 @@ public class RequestHelper {
                 break;
             case PUT:
                 rb = rb.put(body);
+                rb = rb.addHeader("Authorization","Bearer "+TOKEN);
                 break;
             case POST:
                 rb = rb.post(body);
@@ -117,7 +131,9 @@ public class RequestHelper {
                 } else {
                     String resp = response.body().string();
                     Log.i(LOGTAG, "Response Body:" + resp);
+                    responseBody = resp;
                     Log.i(LOGTAG, "code: " + response.code());
+                    responseCode = response.code();
                 }
             }
         };
@@ -125,9 +141,8 @@ public class RequestHelper {
 
     }
 
-
-    public LinkedList<DisplayGroup> getDisplayGroups() {
-        OkHttpClient client = new OkHttpClient();
+    public LinkedList<Layout> getLayouts() {
+        /*OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse("http://10.0.2.2:9090/api/displaygroup").newBuilder();
         try {
             urlBuilder.addQueryParameter("access token", AuthentificationHandler.TOKEN.get());
@@ -155,12 +170,13 @@ public class RequestHelper {
                     String resp = response.body().string();
                     Log.i(LOGTAG, "Response Body:" + resp);
                     Log.i(LOGTAG, "code: " + response.code());
-                    displayGroups.clear();
+                    layouts.clear();
                     try {
                         JSONArray jsonArray = new JSONArray(resp);
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            displayGroups.add(new DisplayGroup(jsonObject.getString("displayGroup"),jsonObject.getString("description"),jsonObject.getLong("displayGroupId")));
+                            Layout newLayout =
+                            layouts.add(new Layout(jsonObject.getString("displayGroup"),jsonObject.getString("description"),jsonObject.getLong("displayGroupId")));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -171,6 +187,9 @@ public class RequestHelper {
             }
         };
         client.newCall(request).enqueue(result);
-        return displayGroups;
+        return displayGroups;*/
+        return null;
     }
+
+
 }

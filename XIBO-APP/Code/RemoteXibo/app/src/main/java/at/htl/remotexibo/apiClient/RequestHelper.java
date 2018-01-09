@@ -106,7 +106,7 @@ public class RequestHelper {
                 break;
             case PUT:
                 rb = rb.put(body);
-                Log.i("Body",String.valueOf(body));
+                rb = rb.addHeader("Authorization","Bearer "+TOKEN);
                 break;
             case POST:
                 rb = rb.post(body);

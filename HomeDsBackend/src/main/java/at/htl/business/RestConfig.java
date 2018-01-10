@@ -1,4 +1,4 @@
-package at.htl.Business;
+package at.htl.business;
 
 import at.htl.rest.CrossOriginResourceSharingFilter;
 import io.swagger.jaxrs.config.BeanConfig;

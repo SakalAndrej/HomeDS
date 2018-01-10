@@ -5,16 +5,29 @@ import io.swagger.annotations.ApiOperation;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-@Path("product")
-@Api("Product")
+@Path("dataset")
+@Api("Dataset")
 public class ProductEndpoint {
 
-    @Path("seo")
-    @ApiOperation("Seo Audit triggern")
     @GET
-    public Response seoAudit() {
-        return Response.ok("hi").build();
+    @Produces("application/json")
+    @Path("/")
+    @ApiOperation("Get all or filter DataSets from Server")
+    public Response getDataSet(@QueryParam("dataSetId") int dataSetId,
+                               @QueryParam("dataSet") String dataSet,
+                               @QueryParam("dataSetCode") String dataSetCode) {
+        int responseCode = 400;
+
+
+        if (responseCode == 200) {
+            return Response.ok(responseCode).build();
+        }
+        else {
+            return Response.status(responseCode).build();
+        }
     }
 }

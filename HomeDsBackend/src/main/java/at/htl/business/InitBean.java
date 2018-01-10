@@ -1,4 +1,4 @@
-package at.htl.Business;
+package at.htl.business;
 
 import javax.ejb.Singleton;
 import javax.ejb.Startup;

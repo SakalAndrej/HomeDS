@@ -1,11 +1,14 @@
 package at.htl.utils;
 
 import at.htl.enums.RequestTypeEnum;
-import okhttp3.*;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,75 +16,78 @@ import java.util.Map;
 
 public class RequestHelper {
 
-    public void executeRequest(RequestTypeEnum executeType, HashMap<String, String> params, String url, String TOKEN) {
-        OkHttpClient client = new OkHttpClient();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+    private RequestHelper() { }
 
-        RequestBody body = null;
+    private static RequestHelper _instance;
 
-        if (executeType == RequestTypeEnum.GET || executeType == RequestTypeEnum.DELETE) {
+    public static RequestHelper get_instance() {
+        if (_instance==null)
+            _instance = new RequestHelper();
+        return _instance;
+    }
 
-            if (params != null && params.size() > 0) {
-                Iterator it = params.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry p = (Map.Entry) it.next();
-                    urlBuilder.addQueryParameter(p.getKey().toString(), p.getValue().toString());
-                }
+    public HttpURLConnection executeRequest(RequestTypeEnum executeType, String paramsBody, String url, String TOKEN) {
 
+        URL obj = null;
+        try {
+            obj = new URL(url);
+
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            switch (executeType) {
+                case GET:
+                    con.setRequestMethod("GET");
+                    break;
+                case PUT:
+                    con.setRequestMethod("PUT");
+                    con.setDoOutput(true);
+                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                    wr.writeBytes(paramsBody);
+                    wr.flush();
+                    wr.close();
+                    con.setRequestProperty("Authorization","Bearer "+TOKEN);
+                    break;
+                case POST:
+                    con.setDoOutput(true);
+                    DataOutputStream write = new DataOutputStream(con.getOutputStream());
+                    write.writeBytes(paramsBody);
+                    write.flush();
+                    write.close();
+                    con.setRequestMethod("POST");
+                    break;
+                case DELETE:
+                    con.setRequestMethod("DELETE");
+                    break;
             }
-            urlBuilder.addQueryParameter("access token", TOKEN);
 
-        } else {
-            String stringbody = "access token=" + TOKEN;
+        int responseCode = con.getResponseCode();
+        System.out.println("nSending 'POST' request to URL : " + url);
+        System.out.println("Post Data : " + paramsBody);
+        System.out.println("Response Code : " + responseCode);
 
-            if (params != null && params.size() > 0) {
-                Iterator it = params.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry p = (Map.Entry) it.next();
-                    stringbody += "&" + p.getKey().toString() + "=" + p.getValue().toString();
-                }
-            }
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String output;
+        StringBuffer response = new StringBuffer();
 
-            body = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), stringbody);
-
+        while ((output = in.readLine()) != null) {
+            response.append(output);
         }
+        in.close();
 
-        URL finalUrl = urlBuilder.build().url();
+        //printing result from response
+        System.out.println(response.toString());
 
-        Request.Builder rb = new Request.Builder();
-        switch (executeType) {
-            case GET:
-                rb = rb.get();
-                break;
-            case PUT:
-                rb = rb.put(body);
-                rb = rb.addHeader("Authorization", "Bearer " + TOKEN);
-                break;
-            case POST:
-                rb = rb.post(body);
-                break;
-            case DELETE:
-                rb = rb.delete();
-                break;
+        return con;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        final Request request = rb.url(finalUrl).build();
-        Callback result = new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    String resp = response.body().string();
-                }
-            }
-        };
-        client.newCall(request).enqueue(result);
+        return null;
     }
 }
 

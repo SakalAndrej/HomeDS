@@ -16,7 +16,7 @@ public class RestConfig extends Application{
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion("1.0.0");
         beanConfig.setTitle("HomeDSBackend");
-        beanConfig.setSchemes(new String[]{"https"});
+        beanConfig.setSchemes(new String[]{"http"});
         beanConfig.setHost("localhost:8080");
         beanConfig.setBasePath("/homeds/rs");
         beanConfig.setResourcePackage("at/htl/rest");

@@ -10,35 +10,32 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
+// Singleton Pattern
 public class RequestHelper {
 
     private RequestHelper() { }
 
     private static RequestHelper _instance;
-
-    public static RequestHelper get_instance() {
-        if (_instance==null)
-            _instance = new RequestHelper();
-        return _instance;
-    }
+    public String BASE_URL = "http://localhost:9090/";
 
     public HttpURLConnection executeRequest(RequestTypeEnum executeType, String paramsBody, String url, String TOKEN) {
 
         URL obj = null;
+        HttpURLConnection con = null;
+
         try {
+
+            // Building Connection
             obj = new URL(url);
-
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
+            con = (HttpURLConnection) obj.openConnection();
+            con.setRequestProperty("Authorization", "Bearer " + TOKEN);
             con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             switch (executeType) {
                 case GET:
                     con.setRequestMethod("GET");
                     break;
+
                 case PUT:
                     con.setRequestMethod("PUT");
                     con.setDoOutput(true);
@@ -46,8 +43,8 @@ public class RequestHelper {
                     wr.writeBytes(paramsBody);
                     wr.flush();
                     wr.close();
-                    con.setRequestProperty("Authorization","Bearer "+TOKEN);
                     break;
+
                 case POST:
                     con.setDoOutput(true);
                     DataOutputStream write = new DataOutputStream(con.getOutputStream());
@@ -56,30 +53,31 @@ public class RequestHelper {
                     write.close();
                     con.setRequestMethod("POST");
                     break;
+
                 case DELETE:
                     con.setRequestMethod("DELETE");
                     break;
             }
 
-        int responseCode = con.getResponseCode();
-        System.out.println("nSending 'POST' request to URL : " + url);
-        System.out.println("Post Data : " + paramsBody);
-        System.out.println("Response Code : " + responseCode);
+            // Output for testing purposes
+            System.out.println("nSending " + executeType.name() + " request to URL : " + url);
+            if (paramsBody!=null && (executeType==RequestTypeEnum.POST || RequestTypeEnum.PUT == executeType))
+                System.out.println("Send-Body : " + paramsBody);
+            System.out.println("Response Code : " + con.getResponseCode());
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String output;
-        StringBuffer response = new StringBuffer();
+            // Read response Body
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String output;
+            StringBuffer response = new StringBuffer();
+            while ((output = in.readLine()) != null) {
+                response.append(output);
+            }
+            in.close();
 
-        while ((output = in.readLine()) != null) {
-            response.append(output);
-        }
-        in.close();
+            //printing result from response
+            System.out.println(response.toString());
 
-        //printing result from response
-        System.out.println(response.toString());
-
-        return con;
+            return con;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -87,7 +85,18 @@ public class RequestHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        finally {
+            if (con != null)
+                con.disconnect();
+        }
         return null;
+    }
+
+
+    public static RequestHelper get_instance() {
+        if (_instance == null)
+            _instance = new RequestHelper();
+        return _instance;
     }
 }
 

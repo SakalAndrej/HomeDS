@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @ApplicationPath("rs")
-public class RestConfig extends Application{
+public class RestConfig extends Application {
 
     public RestConfig() {
         BeanConfig beanConfig = new BeanConfig();
@@ -25,8 +25,7 @@ public class RestConfig extends Application{
     }
 
     @Override
-    public Set<Class<?>> getClasses()
-    {
+    public Set<Class<?>> getClasses() {
         HashSet<Class<?>> set = new HashSet<>();
 
         set.add(CrossOriginResourceSharingFilter.class);

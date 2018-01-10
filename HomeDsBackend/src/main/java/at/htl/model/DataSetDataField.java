@@ -2,21 +2,29 @@ package at.htl.model;
 
 import java.util.Date;
 
-public class DataSetDataRow {
+public class DataSetDataField {
 
+    private long dataSetColumnId;
     private String colName;
     private String value;
     private Date expireDate;
 
-    public DataSetDataRow(String colName, String value, Date expireDate) {
+    public DataSetDataField(String colName, String value, Date expireDate) {
         this.colName = colName;
         this.value = value;
         this.expireDate = expireDate;
     }
 
-    public DataSetDataRow() { }
+    public DataSetDataField() { }
 
     //region Getter & Setter
+    public long getDataSetColumnId() {
+        return dataSetColumnId;
+    }
+
+    public void setDataSetColumnId(long dataSetColumnId) {
+        this.dataSetColumnId = dataSetColumnId;
+    }
 
     public String getColName() {
         return colName;

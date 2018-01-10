@@ -46,4 +46,15 @@ public class DataSetEndpoint {
 
         return Response.ok(dataSetDatas).build();
     }
+
+    @GET
+    @Produces("application/json")
+    @Path("/{dataSetId}")
+    @ApiOperation("Get all or filter DataSets from Server")
+    public Response get(@PathParam("dataSetId") long dataSetId) {
+
+        LinkedList<DataSetData> dataSetDatas = dataSetApi.getAllDataSetData(dataSetId);
+
+        return Response.ok(dataSetDatas).build();
+    }
 }

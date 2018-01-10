@@ -1,17 +1,15 @@
 package at.htl.model;
 
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 public class DataSetData {
 
     private long dataId;
-    private LinkedList<DataSetDataRow> rows;
+    private LinkedList<DataSetDataField> fields;
 
-    public DataSetData(long dataId, LinkedList<DataSetDataRow> rows) {
+    public DataSetData(long dataId, LinkedList<DataSetDataField> fields) {
         this.dataId = dataId;
-        this.rows = rows;
+        this.fields = fields;
     }
 
     public DataSetData() { }
@@ -26,12 +24,12 @@ public class DataSetData {
         this.dataId = dataId;
     }
 
-    public LinkedList<DataSetDataRow> getRows() {
-        return rows;
+    public LinkedList<DataSetDataField> getFields() {
+        return fields;
     }
 
-    public void setRows(LinkedList<DataSetDataRow> rows) {
-        this.rows = rows;
+    public void setFields(LinkedList<DataSetDataField> fields) {
+        this.fields = fields;
     }
 
 

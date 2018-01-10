@@ -17,7 +17,7 @@ public class RestConfig extends Application{
         beanConfig.setVersion("1.0.0");
         beanConfig.setTitle("HomeDSBackend");
         beanConfig.setSchemes(new String[]{"https"});
-        beanConfig.setHost("oel-billiger.at:8082");
+        beanConfig.setHost("localhost:8080");
         beanConfig.setBasePath("/homeds/rs");
         beanConfig.setResourcePackage("at/htl/rest");
         beanConfig.setScan(true);

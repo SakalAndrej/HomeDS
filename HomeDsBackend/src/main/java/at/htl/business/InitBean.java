@@ -1,6 +1,6 @@
 package at.htl.business;
 
-import at.htl.utils.AuthentificationHandler;
+import at.htl.xiboClient.helper.AuthentificationHandler;
 
 import javax.ejb.Singleton;
 import javax.ejb.Startup;

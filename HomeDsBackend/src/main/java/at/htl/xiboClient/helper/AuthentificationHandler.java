@@ -1,4 +1,4 @@
-package at.htl.utils;
+package at.htl.xiboClient.helper;
 
 import org.json.JSONObject;
 

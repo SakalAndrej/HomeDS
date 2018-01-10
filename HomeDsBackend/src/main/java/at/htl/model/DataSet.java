@@ -12,6 +12,8 @@ public class DataSet {
         this.description = description;
     }
 
+    public DataSet() { }
+
     //region Getter & Setter
 
     public long getDataSetId() {

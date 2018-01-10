@@ -65,17 +65,17 @@ public class RequestHelper {
                 System.out.println("Send-Body : " + paramsBody);
             System.out.println("Response Code : " + con.getResponseCode());
 
-            // Read response Body
+            /*// Read response Body
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String output;
             StringBuffer response = new StringBuffer();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
-            in.close();
 
             //printing result from response
             System.out.println(response.toString());
+            in.close();*/
 
             return con;
         } catch (MalformedURLException e) {
@@ -84,10 +84,6 @@ public class RequestHelper {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
-            if (con != null)
-                con.disconnect();
         }
         return null;
     }

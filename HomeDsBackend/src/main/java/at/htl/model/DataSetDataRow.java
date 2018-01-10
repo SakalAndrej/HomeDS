@@ -14,6 +14,8 @@ public class DataSetDataRow {
         this.expireDate = expireDate;
     }
 
+    public DataSetDataRow() { }
+
     //region Getter & Setter
 
     public String getColName() {

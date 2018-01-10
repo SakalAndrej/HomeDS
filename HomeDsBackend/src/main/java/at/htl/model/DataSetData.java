@@ -14,6 +14,8 @@ public class DataSetData {
         this.rows = rows;
     }
 
+    public DataSetData() { }
+
     //region Getter & Setter
 
     public long getDataId() {

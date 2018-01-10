@@ -111,7 +111,13 @@ public class DataSetApi {
                     else {
                         DataSetDataRow row = new DataSetDataRow();
                         row.setColName(col);
-                        row.setValue(jsonobject.getString(col));
+
+                        // Check what type and if not null
+                        if (!jsonobject.isNull(col)) {
+                            Object value = jsonobject.get(col);
+                            if (value instanceof String)
+                                row.setValue(String.valueOf(value));
+                        }
                         row.setExpireDate(null);
                         rows.add(row);
                         row = new DataSetDataRow();

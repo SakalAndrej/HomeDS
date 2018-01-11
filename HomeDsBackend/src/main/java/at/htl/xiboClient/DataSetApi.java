@@ -170,4 +170,32 @@ public class DataSetApi {
         }
         return -1;
     }
+
+    public long editDataSetField(long dataSetId, long dataSetDataId, long dataSetColumnId, String dataSetFieldValue) {
+
+        try {
+
+            //Get all Datasets
+            HttpURLConnection con = RequestHelper.get_instance()
+                    .executeRequest(RequestTypeEnum.PUT,
+                            "dataSetColumnId_"+dataSetColumnId+"="+dataSetFieldValue,
+                            RequestHelper.get_instance().BASE_URL + "api/dataset/data/" + dataSetId+"/"+dataSetDataId,
+                            AuthentificationHandler.getTOKEN());
+
+            BufferedReader in = null;
+
+            in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+            String output;
+            StringBuffer response = new StringBuffer();
+            while ((output = in.readLine()) != null) {
+                response.append(output);
+            }
+            System.out.println(response.toString());
+            return 1;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

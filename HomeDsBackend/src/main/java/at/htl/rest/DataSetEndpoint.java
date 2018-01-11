@@ -57,4 +57,15 @@ public class DataSetEndpoint {
 
         return Response.ok(dataSetDatas).build();
     }
+
+    @GET
+    @Produces("application/json")
+    @Path("/{dataSetId}/{dataSetDataId}")
+    @ApiOperation("Get all or filter DataSets from Server")
+    public Response editDataSetField(@PathParam("dataSetId") long dataSetId, @PathParam("dataSetDataId") long dataSetDataId, @QueryParam("dataSetColumnId") long dataSetColumnId, @QueryParam("dataSetFieldValue") String dataSetFieldValue) {
+
+        long id = dataSetApi.editDataSetField(dataSetId, dataSetDataId, dataSetColumnId, dataSetFieldValue);
+        return Response.ok(id).build();
+    }
+
 }

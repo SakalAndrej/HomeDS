@@ -12,21 +12,17 @@ Developer for Android, Java and Odroid programming
 ### Hofmann Felix
 Developer for Android, Java and Odroid programming
 
+## Swagger UI
+**URL:** http://ROOT:PORT/homeds/swagger
 
 
 # Our technologies
 
 ![android](./Pictures/android.jpg)
 
-
-
-
-
 ![cpp](./Pictures/cpp.png)
 
 ![java](./Pictures/java.webp)
-
-
 
 ![xibo](./Pictures/xibo.svg)
 

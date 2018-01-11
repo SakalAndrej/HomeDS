@@ -6,12 +6,6 @@ public class DataSet {
     private String dataSetName;
     private String description;
 
-    public DataSet(long dataSetId, String dataSetName, String description) {
-        this.dataSetId = dataSetId;
-        this.dataSetName = dataSetName;
-        this.description = description;
-    }
-
     public DataSet() { }
 
     //region Getter & Setter

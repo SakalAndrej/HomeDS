@@ -1,19 +1,14 @@
 package at.htl.rest;
 
-import at.htl.enums.RequestTypeEnum;
 import at.htl.model.DataSet;
 import at.htl.model.DataSetData;
 import at.htl.xiboClient.DataSetApi;
-import at.htl.xiboClient.helper.AuthentificationHandler;
-import at.htl.xiboClient.helper.RequestHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.LinkedList;
 
 @Path("dataset")
@@ -39,7 +34,7 @@ public class DataSetEndpoint {
     @GET
     @Produces("application/json")
     @Path("/{dataSetId}")
-    @ApiOperation("Get all or filter DataSets from Server")
+    @ApiOperation("Get the DataSetData filtered by DataSet")
     public Response getDataSetData(@PathParam("dataSetId") long dataSetId) {
 
         LinkedList<DataSetData> dataSetDatas = dataSetApi.getAllDataSetData(dataSetId);
@@ -49,22 +44,15 @@ public class DataSetEndpoint {
 
     @GET
     @Produces("application/json")
-    @Path("/{dataSetId}")
-    @ApiOperation("Get all or filter DataSets from Server")
-    public Response get(@PathParam("dataSetId") long dataSetId) {
-
-        LinkedList<DataSetData> dataSetDatas = dataSetApi.getAllDataSetData(dataSetId);
-
-        return Response.ok(dataSetDatas).build();
-    }
-
-    @GET
-    @Produces("application/json")
     @Path("/{dataSetId}/{dataSetDataId}")
-    @ApiOperation("Get all or filter DataSets from Server")
-    public Response editDataSetField(@PathParam("dataSetId") long dataSetId, @PathParam("dataSetDataId") long dataSetDataId, @QueryParam("dataSetColumnId") long dataSetColumnId, @QueryParam("dataSetFieldValue") String dataSetFieldValue) {
+    @ApiOperation("Edit from a DataSet in the Row one Field by columnid")
+    public Response editDataSetField(@PathParam("dataSetId") long dataSetId,
+                                     @PathParam("dataSetDataId") long dataSetDataId,
+                                     @QueryParam("dataSetColumnId") long dataSetColumnId,
+                                     @QueryParam("dataSetFieldValue") String dataSetFieldValue) {
 
         long id = dataSetApi.editDataSetField(dataSetId, dataSetDataId, dataSetColumnId, dataSetFieldValue);
+
         return Response.ok(id).build();
     }
 

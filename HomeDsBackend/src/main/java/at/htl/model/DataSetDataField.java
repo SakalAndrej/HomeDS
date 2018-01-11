@@ -9,12 +9,6 @@ public class DataSetDataField {
     private String value;
     private Date expireDate;
 
-    public DataSetDataField(String colName, String value, Date expireDate) {
-        this.colName = colName;
-        this.value = value;
-        this.expireDate = expireDate;
-    }
-
     public DataSetDataField() { }
 
     //region Getter & Setter

@@ -7,11 +7,6 @@ public class DataSetData {
     private long dataId;
     private LinkedList<DataSetDataField> fields;
 
-    public DataSetData(long dataId, LinkedList<DataSetDataField> fields) {
-        this.dataId = dataId;
-        this.fields = fields;
-    }
-
     public DataSetData() { }
 
     //region Getter & Setter

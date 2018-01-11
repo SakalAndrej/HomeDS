@@ -32,7 +32,6 @@ public class RestConfig extends Application {
         set.add(RestConfig.class);
         set.add(DataSetEndpoint.class);
 
-
         set.add(io.swagger.jaxrs.listing.ApiListingResource.class);
         set.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
 

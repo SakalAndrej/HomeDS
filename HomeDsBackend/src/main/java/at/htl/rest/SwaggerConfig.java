@@ -6,7 +6,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class CrossOriginResourceSharingFilter implements ContainerResponseFilter {
+public class SwaggerConfig implements ContainerResponseFilter {
 
     @Override
     public void filter(ContainerRequestContext request, ContainerResponseContext response) {

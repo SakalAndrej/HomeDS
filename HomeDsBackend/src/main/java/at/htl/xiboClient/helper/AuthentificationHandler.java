@@ -81,7 +81,7 @@ public class AuthentificationHandler {
     }
 
     public static String getTOKEN() {
-        if (TOKEN.isEmpty() /*Or 3600 expired*/)
+        if (TOKEN.isEmpty() || TOKEN.equals("noToken")/*Or 3600 expired*/)
             TOKEN = Authenticate();
         return TOKEN;
     }

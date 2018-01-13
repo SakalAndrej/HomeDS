@@ -52,6 +52,14 @@ Request request = new Request.Builder()
   
   - Alls alle gewünschte Requests dann funktioniert haben. Haben wir einen RequestHelper geschrieben der sich um alle API Funktionen kümmert
   - Dann ging es um das Designtechnische wir haben uns vorgenommen alles Einfach und Simple zu halten der Benutzer soll einfach und schnell seine gewünschten Sachen erledigen können
-	- hier sind einige unserer ersten Skizzen zu unserem Design 
+	- hier sind einige unserer ersten groben Skizzen zu unserem Design 
 <br>
 ![RemoteXiboHomeScreen Sketch](RemoteXiboHomeScreen.png)
+	- Finales Design
+
+![RemoteXiboHomeScreen Sketch](RemoteXiboHomeScreen2.png)
+
+## Edit Dataset
+
+Es sollte möglich sein das mit der APP ein Dataset geändert wird.
+

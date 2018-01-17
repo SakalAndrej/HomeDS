@@ -6,7 +6,7 @@ public class DataSetDataField {
 
     private long dataSetColumnId;
     private String colName;
-    private String value;
+    public String value;
     private Date expireDate;
 
     public DataSetDataField() { }

@@ -37,8 +37,8 @@
 
             <!-- DATA SET SELECTION -->
             <b:row>
-                <p class="p">Bitte wählen Sie eine der DataSets aus die Sie ändern möchten!</p>
-                <b:panel title="News bearbeiten (#{dataSetController.dataSetDataById.size()})" look="primary">
+                <p class="p"> #{msg['editNewsInfo']}</p>
+                <b:panel title="#{msg['editNewsTitle']} (#{dataSetController.dataSetDataById.size()})" look="primary">
                     <b:column col-sm="12" col-md="12">
                         <h:form>
                             <b:dataTable
@@ -49,17 +49,17 @@
                             >
                                 <b:dataTableColumn col-sm="2" col-md="3" value="#{actDataSet.dataId}" label="#"/>
 
-                                <b:dataTableColumn col-sm="3" col-md="3" dataSearch="#{actDataSet.fields.get(0).value}" label="Bezeichnung">
+                                <b:dataTableColumn col-sm="3" col-md="3" dataSearch="#{actDataSet.fields.get(0).value}" label="#{msg['content']}">
                                     <h:inputText value="#{actDataSet.fields.get(0).value}"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn col-sm="3" col-md="3" label="Gültig ab:">
+                                <b:dataTableColumn col-sm="3" col-md="3" label="#{msg['validFrom']}:">
                                     <b:datepicker id="dateFrom" mode="toggle-icon" showWeek="true"
                                                   firstDay="1" value="#{dateBean.cdate}" required="true"
                                                   label-col-sm="4"
                                                   col-sm="4" large-screen="full-width"/>
                                     <b:message for="dateFrom" col-sm="6"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn col-sm="2" col-md="3" label="Gültig bis:">
+                                <b:dataTableColumn col-sm="2" col-md="3" label="#{msg['validTil']}:'">
                                     <b:datepicker id="dateTil" mode="toggle-icon" showWeek="true"
                                                   firstDay="1" value="#{dateBean.cdate}" required="true"
                                                   label-col-sm="4"
@@ -73,8 +73,8 @@
                                 </b:dataTableColumn>
                             </b:dataTable>
                             <b:well>
-                                <h3>Neue News? Hier klicken zum Eintragen...
-                                    <b:commandButton ajax="true" value="Hinzufügen" update="@none" look="primary"
+                                <h3>#{msg['newNewsWallText']}
+                                    <b:commandButton ajax="true" value="#{msg['add']}" update="@none" look="primary"
                                                      style="position: sticky;left: 85%;">
                                         <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>
                                     </b:commandButton></h3>

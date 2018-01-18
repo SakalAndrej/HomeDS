@@ -9,7 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+
 import at.htl.remotexibo.R;
+import at.htl.remotexibo.activity.MainActivity;
+import at.htl.remotexibo.apiClient.AuthentificationHandler;
+import at.htl.remotexibo.apiClient.RequestHelper;
+import at.htl.remotexibo.enums.RequestTypeEnum;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +26,7 @@ import at.htl.remotexibo.R;
  * Use the {@link CreateWidgetFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateWidgetFragment extends Fragment {
+public class CreateWidgetFragment extends android.support.v4.app.Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,6 +77,44 @@ public class CreateWidgetFragment extends Fragment {
 
         ImageButton ibClock = v.findViewById(R.id.ibClock);
         ImageButton ibDataSet =  v.findViewById(R.id.ibDataset);
+
+        ibClock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestHelper rh = new RequestHelper();
+                HashMap<String,String> params = new HashMap<String,String>();
+
+                params.put("playlistId","" );
+                try {
+                    rh.executeRequest(RequestTypeEnum.POST,params, MainActivity.BASEURL + "api/widget/clock/", AuthentificationHandler.TOKEN.get());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        ibDataSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestHelper rh = new RequestHelper();
+                HashMap<String,String> params = new HashMap<String,String>();
+
+                params.put("playlistId","" );
+                params.put("dataSetId", "3");
+
+                try {
+                    rh.executeRequest(RequestTypeEnum.POST,params, MainActivity.BASEURL + "api/widget/dataSetView/", AuthentificationHandler.TOKEN.get());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
         return v;
     }
 

@@ -5,13 +5,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+
 import at.htl.remotexibo.R;
 import at.htl.remotexibo.activity.MainActivity;
+import at.htl.remotexibo.apiClient.AuthentificationHandler;
+import at.htl.remotexibo.apiClient.RequestHelper;
+import at.htl.remotexibo.enums.RequestTypeEnum;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +77,9 @@ public class HomeViewFragment extends android.support.v4.app.Fragment{
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_view, container, false);
 
+
+
+
         Button btChangeLayout = v.findViewById(R.id.btChangeLayoutOfDiplaygroup);
         btChangeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +95,15 @@ public class HomeViewFragment extends android.support.v4.app.Fragment{
                 ((MainActivity)getActivity()).openChangeDatasetFragment();
             }
         });
+
+        Button btCreateWidget = v.findViewById(R.id.btCreateWidget);
+            btCreateWidget.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity)getActivity()).openCreateWidgetFragment();
+                }
+            });
+
 
         return v;
     }

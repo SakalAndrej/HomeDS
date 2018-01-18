@@ -88,7 +88,7 @@ public class ChangeDatasetFragment extends android.support.v4.app.Fragment {
                 public void onClick(View view) {
 
                     RequestHelper rh = new RequestHelper();
-                    HashMap<String,String> params = new HashMap<String,String>();
+                        HashMap<String,String> params = new HashMap<String,String>();
                     //params.put("dataSetId ","2");
                     //params.put("rowId","3");
                     params.put("dataSetColumnId_2",etData.getText().toString());

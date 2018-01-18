@@ -76,6 +76,6 @@ public class DynamicColumn {
                 dataTableColumns.add(dataTableColumn);
             }
         }
-        myDataTable.setC(dataTableColumns);
+        //myDataTable.setC(dataTableColumns);
     }
 }

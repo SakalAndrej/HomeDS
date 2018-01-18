@@ -38,7 +38,7 @@ public class DataSetController implements Serializable {
 
     public LinkedList<DataSetData> getDataSetDataById() {
         LinkedList<DataSetData> f = new LinkedList<>();
-        f = dataSetApi.getAllDataSetData(2);
+        f = dataSetApi.getAllDataSetData(3);
 
         return f;
     }

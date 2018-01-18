@@ -69,12 +69,12 @@
                             </b:dataTableColumn>
                         </b:dataTable>
                         <b:well>
-                            <h3>Neue News? Hinzüfugen...
-                                <b:commandButton ajax="true" update="@none" look="primary" style="width:80px">
+                            <h3>Neue News? Hier klicken zum Eintragen...
+                                <b:commandButton ajax="true" value="Hinzufügen" update="@none" look="primary"
+                                                 style="position: sticky;left: 85%;">
                                     <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>
                                 </b:commandButton></h3>
                         </b:well>
-
                     </h:form>
                 </b:column>
             </b:panel>
@@ -83,9 +83,7 @@
     </b:container>
     <b:container id="dataSetSelection" fluid="true">
         <b:row>
-            <b:panel title="1. DataSetData auswählen (#{dataSetController.dataSetDataById.size()})" look="primary">
-
-
+            <b:panel title="Eilmeldung (#{dataSetController.dataSetDataById.size()})" look="primary">
                 <b:column col-sm="12" col-md="12">
                     <h:form>
 
@@ -94,6 +92,11 @@
             </b:panel>
         </b:row>
     </b:container>
-
+    <style type="text/css">
+        .fa-2x {
+            font-size: 2em;
+            vertical-align: middle;
+        }
+    </style>
 </h:body>
 </html>

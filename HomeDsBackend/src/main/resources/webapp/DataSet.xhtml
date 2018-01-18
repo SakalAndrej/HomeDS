@@ -10,87 +10,91 @@
     <title>News hinzufügen oder entfernen</title>
 </h:head>
 
-<h:body style="padding-top: 60px; margin-left: 1%;margin-right: 1%">
-    <b:growl id="growl"
-             globalOnly="true"
-             showDetail="true"
-             severity="info,warn"/>
-    <b:navBar brand="Project name" brandHref="#" inverse="true" fixed="top" fluid="true">
-        <b:navbarLinks pull="right">
-            <b:navLink value="Dashboard" href="#"></b:navLink>
-            <b:navLink value="Datasets" href="#"></b:navLink>
-            <b:navLink value="Displays" href="#"></b:navLink>
-            <b:navLink value="Layouts" href="#"></b:navLink>
-        </b:navbarLinks>
+<h:body style="padding-top: 60px; margin-left: 1%;margin-right: 1%" onresize="updatechartpanel">
+    <b:container id="all">
+        <b:growl id="growl"
+                 globalOnly="true"
+                 showDetail="true"
+                 severity="info,warn"/>
+        <b:navBar brand="Project name" brandHref="#" inverse="true" fixed="top" fluid="true" id="navbar">
+            <b:navbarLinks pull="right">
+                <b:navLink value="Dashboard" href="#"></b:navLink>
+                <b:navLink value="#{msg['changeLanguage']}" href="#" update="all"
+                           onclick="ajax:languageController.countryLocaleCodeChanged()"></b:navLink>
+                <b:navLink value="#{msg['Displays']}" href="#"></b:navLink>
+                <b:navLink value="#{msg['Layouts']}" href="#"></b:navLink>
+            </b:navbarLinks>
 
-        <h:form styleClass="navbar-form navbar-right">
-            <div class="form-group">
-                <b:inputText placeholder="Search..." fieldSize="sm"/>
-            </div>
-        </h:form>
+            <h:form styleClass="navbar-form navbar-right">
+                <div class="form-group">
+                    <b:inputText placeholder="#{msg['Search']}..." fieldSize="sm"/>
+                </div>
+            </h:form>
 
-    </b:navBar>
-    <b:container fluid="true">
-        <h2><span class="glyphicon glyphicon-edit"></span> Datensatz ändern</h2>
+        </b:navBar>
+        <b:container fluid="true" id="addDataSet">
+            <h2><span class="glyphicon glyphicon-edit"></span> #{msg['changeDataset']}</h2>
 
-        <!-- DATA SET SELECTION -->
-        <b:row>
-            <p class="p">Bitte wählen Sie eine der DataSets aus die Sie ändern möchten!</p>
-            <b:panel title="News bearbeiten (#{dataSetController.dataSetDataById.size()})" look="primary">
-                <b:column col-sm="12" col-md="12">
-                    <h:form>
-                        <b:dataTable
-                                id="DataSetParent"
-                                value="#{dataSetController.dataSetDataById}"
-                                var="actDataSet"
-                                update="dataSetSelection growl"
-                        >
-                            <b:dataTableColumn col-sm="3" col-md="3" value="#{actDataSet.dataId}" label="#"/>
+            <!-- DATA SET SELECTION -->
+            <b:row>
+                <p class="p">Bitte wählen Sie eine der DataSets aus die Sie ändern möchten!</p>
+                <b:panel title="News bearbeiten (#{dataSetController.dataSetDataById.size()})" look="primary">
+                    <b:column col-sm="12" col-md="12">
+                        <h:form>
+                            <b:dataTable
+                                    id="DataSetParent"
+                                    value="#{dataSetController.dataSetDataById}"
+                                    var="actDataSet"
+                                    update="dataSetSelection growl"
+                            >
+                                <b:dataTableColumn col-sm="2" col-md="3" value="#{actDataSet.dataId}" label="#"/>
 
-                            <b:dataTableColumn col-sm="3" col-md="3" label="Bezeichnung">
-                                <h:inputText value="#{actDataSet.fields.get(0).value}"/>
-                            </b:dataTableColumn>
-                            <b:dataTableColumn col-sm="3" col-md="3" label="Gültig ab:">
-                                <b:datepicker id="dateFrom" mode="toggle-icon" showWeek="true"
-                                              firstDay="1" value="#{dateBean.cdate}" required="true" label-col-sm="4"
-                                              col-sm="4" large-screen="full-width"/>
-                                <b:message for="dateFrom" col-sm="6"/>
-                            </b:dataTableColumn>
-                            <b:dataTableColumn col-sm="3" col-md="3" label="Gültig bis:">
-                                <b:datepicker id="dateTil" mode="toggle-icon" showWeek="true"
-                                              firstDay="1" value="#{dateBean.cdate}" required="true" label-col-sm="4"
-                                              col-sm="4" large-screen="full-width"/>
-                                <b:message for="dateTil" col-sm="6"/>
-                            </b:dataTableColumn>
-                            <b:dataTableColumn col-sm="3" col-md="3">
-                                <b:commandButton ajax="true" update="@none" look="danger" style="width:80px">
-                                    <b:iconAwesome size="2x" name="fa-remove"></b:iconAwesome>
-                                </b:commandButton>
-                            </b:dataTableColumn>
-                        </b:dataTable>
-                        <b:well>
-                            <h3>Neue News? Hier klicken zum Eintragen...
-                                <b:commandButton ajax="true" value="Hinzufügen" update="@none" look="primary"
-                                                 style="position: sticky;left: 85%;">
-                                    <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>
-                                </b:commandButton></h3>
-                        </b:well>
-                    </h:form>
-                </b:column>
-            </b:panel>
-        </b:row>
+                                <b:dataTableColumn col-sm="3" col-md="3" dataSearch="#{actDataSet.fields.get(0).value}" label="Bezeichnung">
+                                    <h:inputText value="#{actDataSet.fields.get(0).value}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn col-sm="3" col-md="3" label="Gültig ab:">
+                                    <b:datepicker id="dateFrom" mode="toggle-icon" showWeek="true"
+                                                  firstDay="1" value="#{dateBean.cdate}" required="true"
+                                                  label-col-sm="4"
+                                                  col-sm="4" large-screen="full-width"/>
+                                    <b:message for="dateFrom" col-sm="6"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn col-sm="2" col-md="3" label="Gültig bis:">
+                                    <b:datepicker id="dateTil" mode="toggle-icon" showWeek="true"
+                                                  firstDay="1" value="#{dateBean.cdate}" required="true"
+                                                  label-col-sm="4"
+                                                  col-sm="4" large-screen="full-width"/>
+                                    <b:message for="dateTil" col-sm="6"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn col-sm="2" col-md="3">
+                                    <b:commandButton ajax="true" update="@none" look="danger" style="width:80px">
+                                        <b:iconAwesome size="2x" name="fa-remove"></b:iconAwesome>
+                                    </b:commandButton>
+                                </b:dataTableColumn>
+                            </b:dataTable>
+                            <b:well>
+                                <h3>Neue News? Hier klicken zum Eintragen...
+                                    <b:commandButton ajax="true" value="Hinzufügen" update="@none" look="primary"
+                                                     style="position: sticky;left: 85%;">
+                                        <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>
+                                    </b:commandButton></h3>
+                            </b:well>
+                        </h:form>
+                    </b:column>
+                </b:panel>
+            </b:row>
+        </b:container>
+        <b:container id="dataSetSelection" fluid="true">
+            <b:row>
+                <b:panel title="Eilmeldung (#{dataSetController.dataSetDataById.size()})" look="primary">
+                    <b:column col-sm="12" col-md="12">
+                        <h:form>
 
-    </b:container>
-    <b:container id="dataSetSelection" fluid="true">
-        <b:row>
-            <b:panel title="Eilmeldung (#{dataSetController.dataSetDataById.size()})" look="primary">
-                <b:column col-sm="12" col-md="12">
-                    <h:form>
-
-                    </h:form>
-                </b:column>
-            </b:panel>
-        </b:row>
+                        </h:form>
+                    </b:column>
+                </b:panel>
+            </b:row>
+        </b:container>
     </b:container>
     <style type="text/css">
         .fa-2x {

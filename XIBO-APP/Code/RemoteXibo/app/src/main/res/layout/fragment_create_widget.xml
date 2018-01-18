@@ -1,0 +1,69 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="at.htl.remotexibo.fragment.CreateWidgetFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/hello_blank_fragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/etXCoordinate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="X-Coordinate"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/etYCoordinate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Y-Coordinate"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etXCoordinate" />
+
+    <ImageButton
+        android:id="@+id/ibClock"
+        android:layout_width="99dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@android:drawable/presence_away"
+        app:layout_constraintBottom_toTopOf="@+id/ibDataset"
+        app:layout_constraintTop_toBottomOf="@+id/etYCoordinate"
+        tools:layout_editor_absoluteX="143dp" />
+
+    <ImageButton
+        android:id="@+id/ibDataset"
+        android:layout_width="94dp"
+        android:layout_height="90dp"
+        android:src="@android:drawable/ic_menu_send"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="293dp" />
+
+</android.support.constraint.ConstraintLayout>

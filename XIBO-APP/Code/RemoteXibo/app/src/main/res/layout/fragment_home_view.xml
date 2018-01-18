@@ -54,7 +54,7 @@
 
 
     <Button
-        android:id="@+id/btChangeWidget"
+        android:id="@+id/btCreateWidget"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -65,7 +65,7 @@
         android:backgroundTintMode="src_over"
         android:drawableLeft="@android:drawable/ic_menu_view"
         android:fontFamily="@font/advent_pro_semibold"
-        android:text="Change Widget"
+        android:text="Create Widget"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
@@ -110,7 +110,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btChangeWidget"></FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/btCreateWidget"></FrameLayout>
 
     <TextClock
         android:id="@+id/textClock"

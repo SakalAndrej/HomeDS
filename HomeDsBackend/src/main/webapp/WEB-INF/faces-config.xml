@@ -8,7 +8,7 @@
             <default-locale>en</default-locale>
         </locale-config>
         <resource-bundle>
-            <base-name>webapp.ApplicationMessages</base-name>
+            <base-name>ApplicationMessages</base-name>
             <var>msg</var>
         </resource-bundle>
     </application>

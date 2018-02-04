@@ -38,17 +38,21 @@
             <!-- DATA SET SELECTION -->
             <b:row>
                 <p class="p"> #{msg['editNewsInfo']}</p>
-                <b:panel title="#{msg['editNewsTitle']} (#{dataSetController.dataSetDataById.size()})" look="primary">
+                <b:panel title="#{msg['editNewsTitle']} (#{dataSetController.dataSetData.size()})" look="primary">
                     <b:column col-sm="12" col-md="12">
                         <h:form>
                             <b:dataTable
                                     id="DataSetParent"
-                                    value="#{dataSetController.dataSetDataById}"
+                                    value="#{dataSetController.dataSetData}"
                                     var="actDataSet"
                                     update="dataSetSelection growl"
+                                    responsive="true"
                             >
                                 <b:dataTableColumn col-sm="2" col-md="3" value="#{actDataSet.dataId}" label="#"/>
 
+                                <b:dataTableColumn col-sm="3" col-md="3" dataSearch="#{actDataSet.fields.get(0).title}" label="#{msg['title']}">
+                                    <h:inputText value="#{actDataSet.fields.get(0).title}"/>
+                                </b:dataTableColumn>
                                 <b:dataTableColumn col-sm="3" col-md="3" dataSearch="#{actDataSet.fields.get(0).value}" label="#{msg['content']}">
                                     <h:inputText value="#{actDataSet.fields.get(0).value}"/>
                                 </b:dataTableColumn>
@@ -86,7 +90,7 @@
         </b:container>
         <b:container id="dataSetSelection" fluid="true">
             <b:row>
-                <b:panel title="Eilmeldung (#{dataSetController.dataSetDataById.size()})" look="primary">
+                <b:panel title="Eilmeldung (#{dataSetController.dataSetData.size()})" look="primary">
                     <b:column col-sm="12" col-md="12">
                         <h:form>
 

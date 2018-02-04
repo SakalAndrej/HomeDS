@@ -1,13 +1,30 @@
 package at.htl.model;
 
+import com.sun.javafx.beans.IDProperty;
+
+import javax.persistence.*;
 import java.util.Date;
 
+@Table
+@Entity
 public class DataSetDataField {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long dataSetColumnId;
+
+    // Column Header
     private String colName;
-    public String value;
-    private Date expireDate;
+
+    // News Content
+    private String value;
+
+    // Title of the News
+    private String Title;
+
+    // Expiration Properties
+    private Date fromDate;
+    private Date toDate;
 
     public DataSetDataField() { }
 
@@ -36,14 +53,29 @@ public class DataSetDataField {
         this.value = value;
     }
 
-    public Date getExpireDate() {
-        return expireDate;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setExpireDate(Date expireDate) {
-        this.expireDate = expireDate;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
     }
 
+    public Date getToDate() {
+        return toDate;
+    }
 
-    //endregion
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
+
+//endregion
 }

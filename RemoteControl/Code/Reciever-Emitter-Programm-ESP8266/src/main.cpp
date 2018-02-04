@@ -17,11 +17,12 @@ void setup()
   irsend.begin();
   Serial.begin(9600);
   irrecv.enableIRIn(); // Start the receiver
+  Serial.println("Waiting for IR-Signal ");  
 }
 
 void loop() {
+  Serial.print(".");
 
-  Serial.println("Waiting for IR-Signal ...");
   if (irrecv.decode(&results)) {
     for(int i = 0; i < 5; i++) {
       delay(1000);
@@ -31,8 +32,24 @@ void loop() {
     Serial.print("Empfangen: ");
     serialPrintUint64(results.value, HEX);
 
+    if(results.decode_type == NEC)
+    {
+      Serial.println("\nNEC");
+    }
+    if (results.decode_type == UNKNOWN)
+    {
+      Serial.println("Unknown");
+    }
 
-    irsend.sendLG(results.value);
+    irsend.sendRaw((uint16*)results.rawbuf,results.rawlen,38);
+    delay(3000);
+    Serial.println("Send 3 times");
+
+    irsend.sendRaw((uint16*)results.rawbuf,results.rawlen,38);
+    delay(3000);
+    Serial.println("Send another 3 times");
+
+    /*irsend.sendLG(results.value);
       delay(3000);
     Serial.println("Sent 1st signal");
     irsend.sendLG(results.value);
@@ -40,10 +57,8 @@ void loop() {
       Serial.println("Sent 2nd signal");
     irsend.sendLG(results.value);
       delay(3000);
-      Serial.println("Sent 3rd signal");
+      Serial.println("Sent 3rd signal");*/
 
-
-    Serial.println("i made it 2");
     irrecv.resume(); // Receive the next value
   }
 }

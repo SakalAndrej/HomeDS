@@ -1,11 +1,19 @@
 package at.htl.model;
 
+import javax.persistence.*;
 import java.util.LinkedList;
+import java.util.List;
 
+@Table
+@Entity
 public class DataSetData {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long dataId;
-    private LinkedList<DataSetDataField> fields;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<DataSetDataField> fields;
 
     public DataSetData() { }
 
@@ -19,7 +27,7 @@ public class DataSetData {
         this.dataId = dataId;
     }
 
-    public LinkedList<DataSetDataField> getFields() {
+    public List<DataSetDataField> getFields() {
         return fields;
     }
 

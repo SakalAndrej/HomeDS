@@ -2,21 +2,24 @@ package at.htl.facades;
 
 import at.htl.model.DataSetDataField;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@ApplicationScoped
+@Stateless
 public class DataSetFieldFacade {
-
 
     @PersistenceContext
     EntityManager entityManager;
 
-    public void Save(DataSetDataField dataField) {
+    public void save(DataSetDataField dataField) {
         entityManager.persist(dataField);
+    }
+
+    public void update(DataSetDataField dataField) {
+        entityManager.remove(findById(dataField.getDataSetColumnId()));
     }
 
     public DataSetDataField findById(long id) {
@@ -24,7 +27,12 @@ public class DataSetFieldFacade {
     }
 
     public List<DataSetDataField> getAll() {
-        TypedQuery<DataSetDataField> q = entityManager.createNamedQuery("GetAll", DataSetDataField.class);
+        TypedQuery<DataSetDataField> q = entityManager.createNamedQuery("DataSetDataField.GetAll", DataSetDataField.class);
         return q.getResultList();
+    }
+
+    public void delete(long dataSetColumnId) {
+        DataSetDataField entityToDelete = findById(dataSetColumnId);
+        entityManager.remove(entityToDelete);
     }
 }

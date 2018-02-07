@@ -1,53 +1,58 @@
 package at.htl.web;
 
-import at.htl.facades.DataSetDataFacade;
-import at.htl.model.DataSet;
-import at.htl.model.DataSetData;
+import at.htl.facades.DataSetFieldFacade;
+import at.htl.model.DataSetDataField;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.List;
 
 @Model
+@Named
 public class DataSetController implements Serializable {
 
     @Inject
-    DataSetDataFacade dataSetDataFacade;
+    DataSetFieldFacade dataSetFieldFacade;
 
-    private DataSet selectedDataSet;
+    private List<DataSetDataField> dataSetData;
 
-    private LinkedList<DataSetData> dataSetData;
+    private DataSetDataField selectedDataSet;
 
     public DataSetController() {
-        selectedDataSet = new DataSet();
-
+        selectedDataSet = new DataSetDataField();
     }
 
     @PostConstruct
     public void init() {
-        dataSetData = new LinkedList<>();
-        dataSetData.add(dataSetDataFacade.findById(1));
+        dataSetData = dataSetFieldFacade.getAll();
     }
 
-    public void onSelect(DataSet dataSet, String typeOfSelection, String indexes) {
+    public void removeDataSet(DataSetDataField dataSet) {
+        if (dataSet != null && (dataSet.getDataSetColumnId() != -1 || dataSet.getDataSetColumnId() != 0)) {
+            dataSetFieldFacade.delete(dataSet.getDataSetColumnId());
+        }
+    }
+
+    public void onSelect(DataSetDataField dataSet, String typeOfSelection, String indexes) {
         if (null != dataSet) {
             selectedDataSet = dataSet;
 
             MessagesController cr = new MessagesController();
-            cr.setMessage(" " + dataSet.getDataSetName() + " wurde ausgewählt");
+            cr.setMessage(" " + dataSet.getDataId() + " wurde ausgewählt");
             cr.TriggerInfoMessage();
         }
     }
 
     //region Getter
 
-    public LinkedList<DataSetData> getDataSetData() {
+    public List<DataSetDataField> getDataSetData() {
         return dataSetData;
     }
 
-    public void setDataSetData(LinkedList<DataSetData> dataSetData) {
+    public void setDataSetData(List<DataSetDataField> DataSetDataField) {
         this.dataSetData = dataSetData;
     }
 

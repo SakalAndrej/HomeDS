@@ -124,7 +124,7 @@ public class DataSetApi {
                         row = new DataSetDataField();
                     }
                 }
-                act.setFields(rows);
+                //act.setFields(rows);
                 dataSetDatas.add(act);
                 act = new DataSetData();
             }

@@ -1,9 +1,8 @@
 package at.htl.model;
 
-import com.sun.javafx.beans.IDProperty;
-
 import javax.persistence.*;
 import java.util.Date;
+@NamedQueries({ @NamedQuery(name = "DataSetDataField.GetAll", query = "select d from DataSetDataField d")})
 
 @Table
 @Entity
@@ -12,6 +11,9 @@ public class DataSetDataField {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long dataSetColumnId;
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long dataId;
 
     // Column Header
     private String colName;
@@ -77,5 +79,13 @@ public class DataSetDataField {
         Title = title;
     }
 
-//endregion
+    public long getDataId() {
+        return dataId;
+    }
+
+    public void setDataId(long dataId) {
+        this.dataId = dataId;
+    }
+
+    //endregion
 }

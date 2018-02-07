@@ -13,7 +13,8 @@ public class NewsViewholder extends RecyclerView.ViewHolder {
     TextView t1,t2;
     public NewsViewholder(View itemView) {
         super(itemView);
-        //t1 =  itemView.findViewById();
+        t1 =  itemView.findViewById(android.R.layout.simple_list_item_1);
+        t2 = itemView.findViewById(android.R.layout.simple_list_item_2);
 
 
     }

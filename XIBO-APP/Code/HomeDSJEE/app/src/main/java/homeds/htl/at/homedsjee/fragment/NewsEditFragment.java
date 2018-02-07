@@ -7,19 +7,18 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import homeds.htl.at.homedsjee.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeScreenFragment.OnFragmentInteractionListener} interface
+ * {@link NewsEditFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HomeScreenFragment#newInstance} factory method to
+ * Use the {@link NewsEditFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeScreenFragment extends android.support.v4.app.Fragment {
+public class NewsEditFragment extends android.support.v4.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +30,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public HomeScreenFragment() {
+    public NewsEditFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +40,11 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeScreenFragment.
+     * @return A new instance of fragment NewsEditFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeScreenFragment newInstance(String param1, String param2) {
-        HomeScreenFragment fragment = new HomeScreenFragment();
+    public static NewsEditFragment newInstance(String param1, String param2) {
+        NewsEditFragment fragment = new NewsEditFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,17 +65,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-      View v = inflater.inflate(R.layout.fragment_home_screen, container, false);
-
-      ImageButton ibNewsView = v.findViewById(R.id.ibNewsView);
-      ibNewsView.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-
-          }
-      });
-
-      return v;
+        return inflater.inflate(R.layout.fragment_news_edit, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

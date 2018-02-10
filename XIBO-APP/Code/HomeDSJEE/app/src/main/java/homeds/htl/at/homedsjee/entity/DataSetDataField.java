@@ -1,12 +1,13 @@
 package homeds.htl.at.homedsjee.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Felix on 07.02.2018.
  */
 
-public class DataSetDataField {
+public class DataSetDataField implements Serializable {
     private long dataSetColumnId;
     private String colName;
     private String value;

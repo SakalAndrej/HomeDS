@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import homeds.htl.at.homedsjee.R;
+import homeds.htl.at.homedsjee.entity.DataSetDataField;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +66,12 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news_edit, container, false);
+       View v = inflater.inflate(R.layout.fragment_news_edit, container, false);
+
+       Bundle bundle = getArguments();
+        DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
+
+       return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

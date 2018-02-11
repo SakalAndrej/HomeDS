@@ -1,13 +1,32 @@
 package at.htl.model;
 
+import javax.persistence.*;
 import java.util.Date;
+@NamedQueries({ @NamedQuery(name = "DataSetDataField.GetAll", query = "select d from DataSetDataField d")})
 
+@Table
+@Entity
 public class DataSetDataField {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long dataSetColumnId;
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long dataId;
+
+    // Column Header
     private String colName;
+
+    // News Content
     private String value;
-    private Date expireDate;
+
+    // Title of the News
+    private String Title;
+
+    // Expiration Properties
+    private Date fromDate;
+    private Date toDate;
 
     public DataSetDataField() { }
 
@@ -36,14 +55,37 @@ public class DataSetDataField {
         this.value = value;
     }
 
-    public Date getExpireDate() {
-        return expireDate;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setExpireDate(Date expireDate) {
-        this.expireDate = expireDate;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
     }
 
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
+
+    public long getDataId() {
+        return dataId;
+    }
+
+    public void setDataId(long dataId) {
+        this.dataId = dataId;
+    }
 
     //endregion
 }

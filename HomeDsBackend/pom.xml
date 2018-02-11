@@ -86,6 +86,13 @@
             <version>1.0.10</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>net.bootsfaces</groupId>
+            <artifactId>bootsfaces</artifactId>
+            <version>1.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

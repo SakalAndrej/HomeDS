@@ -1,11 +1,12 @@
 package at.htl.model;
 
+import javax.persistence.*;
 import java.util.LinkedList;
+import java.util.List;
 
 public class DataSetData {
 
     private long dataId;
-    private LinkedList<DataSetDataField> fields;
 
     public DataSetData() { }
 
@@ -18,15 +19,6 @@ public class DataSetData {
     public void setDataId(long dataId) {
         this.dataId = dataId;
     }
-
-    public LinkedList<DataSetDataField> getFields() {
-        return fields;
-    }
-
-    public void setFields(LinkedList<DataSetDataField> fields) {
-        this.fields = fields;
-    }
-
 
     //endregion
 }

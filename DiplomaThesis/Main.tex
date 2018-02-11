@@ -1,0 +1,42 @@
+\documentclass[11pt]{report}
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{german}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{xifthen}
+\usepackage{xstring}			% to check content of strings in xifthen
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+
+\include{00_FrontPageDefinitions} % This file should not really be touched
+\include{Globals} % Set basic data (author, title, etc.) of your thesis
+\begin{document}
+\include{00_FrontPage} % Should not be necessary to touch this file
+\include{00_Start} % Declaration of Academic Honesty, Abstracts, Acknowledgments, 
+
+\tableofcontents
+
+\include{01_Introduction}
+\include{02_TheoreticalBackground}
+% create further tex files for all other chapters of your document
+\include{10_Summary}
+
+\bibliography{da_bibliography}{}
+\bibliographystyle{alphaurl} % save alternatives are abbrvurl	alphaurl	plainurl	unsrturl
+
+\listoffigures
+\listoftables
+\include{11_ProjectLogBook}
+
+\appendix
+\include{12_FirstAppendix}
+\include{13_IndividualGoals}
+\end{document}  

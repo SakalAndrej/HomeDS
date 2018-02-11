@@ -28,10 +28,10 @@ public class DataSetApi {
 
         try {
             //Get all Datasets
-            HttpURLConnection con = RequestHelper.get_instance()
+            HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.GET,
                             null,
-                            RequestHelper.get_instance().BASE_URL + "api/dataset",
+                            new RequestHelper().BASE_URL + "api/dataset",
                             AuthentificationHandler.getTOKEN());
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -77,10 +77,10 @@ public class DataSetApi {
         try {
 
             //Get all Datasets
-            HttpURLConnection con = RequestHelper.get_instance()
+            HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.GET,
                             null,
-                            RequestHelper.get_instance().BASE_URL + "api/dataset/data/" + dataSetId,
+                            new RequestHelper().BASE_URL + "api/dataset/data/" + dataSetId,
                             AuthentificationHandler.getTOKEN());
 
             BufferedReader in = null;
@@ -138,10 +138,10 @@ public class DataSetApi {
 
         try {
             //Get all columns from this datasetid
-            HttpURLConnection con = RequestHelper.get_instance()
+            HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.GET,
                             null,
-                            RequestHelper.get_instance().BASE_URL + "api/dataset/" + dataSetId + "/column",
+                            new RequestHelper().BASE_URL + "api/dataset/" + dataSetId + "/column",
                             AuthentificationHandler.getTOKEN());
 
             BufferedReader in = null;
@@ -177,10 +177,37 @@ public class DataSetApi {
         try {
 
             //Get all Datasets
-            HttpURLConnection con = RequestHelper.get_instance()
+            HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.PUT,
                             "dataSetColumnId_"+dataSetColumnId+"="+dataSetFieldValue,
-                            RequestHelper.get_instance().BASE_URL + "api/dataset/data/" + dataSetId+"/"+dataSetDataId,
+                            new RequestHelper().BASE_URL + "api/dataset/data/" + dataSetId+"/"+dataSetDataId,
+                            AuthentificationHandler.getTOKEN());
+
+            BufferedReader in = null;
+
+            in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+            String output;
+            StringBuffer response = new StringBuffer();
+            while ((output = in.readLine()) != null) {
+                response.append(output);
+            }
+            System.out.println(response.toString());
+            return 1;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static long addDataSetField(String dataSetFieldTitle, String dataSetFieldValue) {
+        try {
+
+            //Get all Datasets
+            HttpURLConnection con = new RequestHelper()
+                    .executeRequest(RequestTypeEnum.POST,
+                            "dataSetColumnId_"+8+"="+dataSetFieldTitle+"&dataSetColumnId_"+9+"="+dataSetFieldValue,
+                            new RequestHelper().BASE_URL + "api/dataset/data/" + 5,
                             AuthentificationHandler.getTOKEN());
 
             BufferedReader in = null;

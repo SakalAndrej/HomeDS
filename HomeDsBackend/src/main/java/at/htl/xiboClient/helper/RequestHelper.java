@@ -12,18 +12,14 @@ import java.net.URL;
 // Singleton Pattern
 public class RequestHelper {
 
-    private RequestHelper() { }
-
-    private static RequestHelper _instance;
     public String BASE_URL = "http://localhost:9090/";
 
     public HttpURLConnection executeRequest(RequestTypeEnum executeType, String paramsBody, String url, String TOKEN) {
 
         URL obj = null;
-        HttpURLConnection con = null;
+        HttpURLConnection con;
 
         try {
-
             // Building Connection
             obj = new URL(url);
             con = (HttpURLConnection) obj.openConnection();
@@ -44,12 +40,12 @@ public class RequestHelper {
                     break;
 
                 case POST:
+                    con.setRequestMethod("POST");
                     con.setDoOutput(true);
                     DataOutputStream write = new DataOutputStream(con.getOutputStream());
                     write.writeBytes(paramsBody);
                     write.flush();
                     write.close();
-                    con.setRequestMethod("POST");
                     break;
 
                 case DELETE:
@@ -72,13 +68,6 @@ public class RequestHelper {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    public static RequestHelper get_instance() {
-        if (_instance == null)
-            _instance = new RequestHelper();
-        return _instance;
     }
 }
 

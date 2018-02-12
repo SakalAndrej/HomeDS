@@ -11,12 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.activity.MainActivity;
 import homeds.htl.at.homedsjee.adapter.NewsAdapter;
+import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
+import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,7 +42,7 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private RequestHelper rh = new RequestHelper();
     private OnFragmentInteractionListener mListener;
 
     public NewsOverviewFragment() {
@@ -86,8 +93,36 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
             }
         });
 
+        rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:8080/homeds/rs/datasetdatafield");
+
+
+
 
         LinkedList<DataSetDataField> news = new LinkedList<DataSetDataField>();
+
+        JSONArray jsonArray = null;
+
+        try {
+            String response = getResponseWithWait();
+            jsonArray = new JSONArray(response);
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                news.add(new DataSetDataField(jsonObject.getLong("dataSetColumnId"),
+                        jsonObject.getLong("dataId"),
+                        jsonObject.getString("colName"),
+                        jsonObject.getString("value"),
+                        LocalDate.parse(jsonObject.getString("fromDate")),
+                        LocalDate.parse(jsonObject.getString("toDate")),
+                        jsonObject.getString("Title")));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         NewsAdapter newsAdapter = new NewsAdapter(news);
         rv.setAdapter(newsAdapter);
@@ -136,5 +171,13 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public String getResponseWithWait() throws InterruptedException {
+
+        while(rh.getResponseBody() == null){
+            Thread.sleep(100);
+        }
+        return rh.getResponseBody();
     }
 }

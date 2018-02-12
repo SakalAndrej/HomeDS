@@ -1,6 +1,7 @@
 package homeds.htl.at.homedsjee.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -9,9 +10,22 @@ import java.util.Date;
 
 public class DataSetDataField implements Serializable {
     private long dataSetColumnId;
+    private long dataId;
     private String colName;
     private String value;
-    private Date expireDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
+    private String Title;
+
+    public DataSetDataField(long dataSetColumnId, long dataId, String colName, String value, LocalDate fromDate, LocalDate toDate, String title) {
+        this.dataSetColumnId = dataSetColumnId;
+        this.dataId = dataId;
+        this.colName = colName;
+        this.value = value;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        Title = title;
+    }
 
     public DataSetDataField() { }
 
@@ -40,13 +54,36 @@ public class DataSetDataField implements Serializable {
         this.value = value;
     }
 
-    public Date getExpireDate() {
-        return expireDate;
+
+    public long getDataId() {
+        return dataId;
     }
 
-    public void setExpireDate(Date expireDate) {
-        this.expireDate = expireDate;
+    public void setDataId(long dataId) {
+        this.dataId = dataId;
     }
 
+    public LocalDate getFromDate() {
+        return fromDate;
+    }
 
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public LocalDate getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(LocalDate toDate) {
+        this.toDate = toDate;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
 }

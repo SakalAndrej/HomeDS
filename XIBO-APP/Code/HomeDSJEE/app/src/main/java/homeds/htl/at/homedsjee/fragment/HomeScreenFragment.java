@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import homeds.htl.at.homedsjee.R;
+import homeds.htl.at.homedsjee.activity.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,7 +73,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
       ibNewsView.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-
+              MainActivity.getInstance().openNewsOverview();
           }
       });
 

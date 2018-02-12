@@ -11,7 +11,7 @@ import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
 import homeds.htl.at.homedsjee.fragment.NewsEditFragment;
 import homeds.htl.at.homedsjee.fragment.NewsOverviewFragment;
 
-public class MainActivity extends AppCompatActivity implements HomeScreenFragment.OnFragmentInteractionListener, NewsEditFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements HomeScreenFragment.OnFragmentInteractionListener, NewsEditFragment.OnFragmentInteractionListener,NewsOverviewFragment.OnFragmentInteractionListener {
 
     public static MainActivity instance;
     @Override

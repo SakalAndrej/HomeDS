@@ -11,7 +11,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-import static sun.jvm.hotspot.runtime.PerfMemory.start;
 
 @Model
 @Named

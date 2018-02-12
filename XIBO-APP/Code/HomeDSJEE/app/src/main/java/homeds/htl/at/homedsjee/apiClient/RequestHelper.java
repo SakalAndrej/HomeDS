@@ -55,9 +55,9 @@ public class RequestHelper {
      * @param executeType there is a enum with the options GET POST PUT DELETE
      * @param params hash map with the key value pairs of the parameters for the body or the header depending on request type
      * @param url the final request url !!! the url parameters have to be inserted !!! example http://10.0.2.2:9090/api/displaygroup/7/action/changeLayout
-     * @param TOKEN access_token for the xibo application
+    
      */
-    public void executeRequest(RequestTypeEnum executeType, HashMap<String, String> params, String url, String TOKEN) {
+    public void executeRequest(RequestTypeEnum executeType, HashMap<String, String> params, String url) {
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
 
@@ -73,10 +73,10 @@ public class RequestHelper {
                 }
 
             }
-            urlBuilder.addQueryParameter("access token", TOKEN);
+            //urlBuilder.addQueryParameter("access token", TOKEN);
 
         } else {
-            String stringbody = "access token=" + TOKEN;
+            String stringbody = "";
 
             if (params != null && params.size() > 0) {
                 Iterator it = params.entrySet().iterator();
@@ -100,7 +100,7 @@ public class RequestHelper {
                 break;
             case PUT:
                 rb = rb.put(body);
-                rb = rb.addHeader("Authorization","Bearer "+TOKEN);
+                //rb = rb.addHeader("Authorization","Bearer "+TOKEN);
                 break;
             case POST:
                 rb = rb.post(body);

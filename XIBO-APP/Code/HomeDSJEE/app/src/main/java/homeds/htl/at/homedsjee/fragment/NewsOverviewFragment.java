@@ -85,6 +85,8 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
 
             }
         });
+
+
         LinkedList<DataSetDataField> news = new LinkedList<DataSetDataField>();
 
         NewsAdapter newsAdapter = new NewsAdapter(news);

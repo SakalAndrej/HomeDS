@@ -3,6 +3,7 @@
     <persistence-unit name="myPU" transaction-type="JTA">
         <jta-data-source>java:jboss/datasources/mysql</jta-data-source>
         <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 
             <!--
             <property name="javax.persistence.schema-generation.database.action" value="create"/>

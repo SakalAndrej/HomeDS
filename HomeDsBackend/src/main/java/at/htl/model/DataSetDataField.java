@@ -1,6 +1,7 @@
 package at.htl.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 @NamedQueries({ @NamedQuery(name = "DataSetDataField.GetAll", query = "select d from DataSetDataField d")})
 
@@ -25,8 +26,8 @@ public class DataSetDataField {
     private String Title;
 
     // Expiration Properties
-    private Date fromDate;
-    private Date toDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
     public DataSetDataField() { }
 
@@ -55,19 +56,19 @@ public class DataSetDataField {
         this.value = value;
     }
 
-    public Date getFromDate() {
+    public LocalDate getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Date fromDate) {
+    public void setFromDate(LocalDate fromDate) {
         this.fromDate = fromDate;
     }
 
-    public Date getToDate() {
+    public LocalDate getToDate() {
         return toDate;
     }
 
-    public void setToDate(Date toDate) {
+    public void setToDate(LocalDate toDate) {
         this.toDate = toDate;
     }
 

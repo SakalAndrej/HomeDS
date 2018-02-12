@@ -38,9 +38,10 @@
             <!-- DATA SET SELECTION -->
             <b:row>
                 <p class="p"> #{msg['editNewsInfo']}</p>
-                <b:panel ajax="true" title="#{msg['editNewsTitle']} (#{dataSetController.dataSetData.size()})" look="primary">
+                <b:panel ajax="true" title="#{msg['editNewsTitle']} (#{dataSetController.dataSetData.size()})"
+                         look="primary">
                     <b:column col-sm="12" col-md="12">
-                        <h:form id="dataSetEditor">
+                        <b:form id="dataSetEditor" inline="true">
                             <b:dataTable
                                     id="dataSetParent"
                                     value="#{dataSetController.dataSetData}"
@@ -49,7 +50,8 @@
                                     responsive="true"
                                     ajax="true"
                             >
-                                <b:dataTableColumn col-sm="2" col-md="3" value="#{actDataSet.dataSetColumnId}" label="#"/>
+                                <b:dataTableColumn col-sm="2" col-md="3" value="#{actDataSet.dataSetColumnId}"
+                                                   label="#"/>
 
                                 <b:dataTableColumn col-sm="3" col-md="3" dataSearch="#{actDataSet.title}"
                                                    label="#{msg['title']}">
@@ -74,18 +76,39 @@
                                     <b:message for="dateTil" col-sm="6"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn col-sm="2" col-md="3">
-                                    <b:commandButton update="dataSetEditor" action="#{dataSetController.removeDataSet(actDataSet)}" value="xx23" id="btnDelete" look="danger" style="width:80px">
+                                    <b:commandButton update="dataSetEditor"
+                                                     action="#{dataSetController.removeDataSet(actDataSet)}"
+                                                     value="xx23" id="btnDelete" look="danger" style="width:80px">
                                     </b:commandButton>
                                 </b:dataTableColumn>
                             </b:dataTable>
                             <b:well>
-                                <h3>#{msg['newNewsWallText']}
-                                    <b:commandButton value="#{msg['add']}"  update="@none" look="primary"
-                                                     style="position: sticky;left: 85%;">
+                                <h:panelGrid columns="1" cellpadding="10">
+                                    <h3>#{msg['newNewsWallText']}</h3>
+                                    <b:inputText colMd="10" label="#{msg['title']}" value="#{dataSetController.dataSetToAdd.title}"
+                                                 style="width:100px;"/>
+                                    <br></br>
+                                    <b:inputText colMd="10" label="#{msg['value']}" label-col-md="2"
+                                                 value="#{dataSetController.dataSetToAdd.value}" style="width:100px;"/>
+                                    <br></br>
+
+                                    <b:datepicker label="#{msg['validFrom']}" id="dateFrom"
+                                                  mode="toggle-icon"
+                                                  showWeek="true"
+                                                  firstDay="1" value="#{dataSetController.dataSetToAdd.fromDate}"/><br/>
+                                    <br></br>
+                                    <b:datepicker label="#{msg['validTil']}" label-col-md="2" id="dateTil"
+                                                  mode="toggle-icon"
+                                                  showWeek="true"
+                                                  firstDay="1"
+                                                  value="#{dataSetController.dataSetToAdd.toDate}"/><br/>
+                                    <b:commandButton value="#{msg['add']}" update="dataSetEditor" look="primary"
+                                                     action="#{dataSetController.addDataSet}">
                                         <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>
-                                    </b:commandButton></h3>
+                                    </b:commandButton>
+                                </h:panelGrid>
                             </b:well>
-                        </h:form>
+                        </b:form>
                     </b:column>
                 </b:panel>
             </b:row>

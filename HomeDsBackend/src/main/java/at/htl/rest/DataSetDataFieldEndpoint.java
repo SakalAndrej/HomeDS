@@ -2,10 +2,12 @@ package at.htl.rest;
 
 import at.htl.facades.DataSetFieldFacade;
 import at.htl.model.DataSetDataField;
+import at.htl.xiboClient.DataSetApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import javax.inject.Inject;
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,8 +20,11 @@ public class DataSetDataFieldEndpoint {
     @Inject
     DataSetFieldFacade dataSetFieldFacade;
 
+    @Inject
+    DataSetApi dataSetApi;
+
     @GET
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
     @ApiOperation("Get all DataSets")
     public Response getDataSet() {
@@ -30,6 +35,22 @@ public class DataSetDataFieldEndpoint {
         }
         return Response.noContent().build();
     }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/")
+    @ApiOperation("Save DataSets")
+    public Response addDataSetDataField(DataSetDataField dataField) {
+        if (dataField != null) {
+            dataSetFieldFacade.save(dataField);
+            DataSetApi.addDataSetField(dataField.getTitle(),dataField.getValue());
+            return Response.ok(dataField.getDataId()).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+
+
 
     /*@GET
     @Produces("application/json")

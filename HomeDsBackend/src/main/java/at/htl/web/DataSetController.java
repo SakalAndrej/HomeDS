@@ -31,6 +31,7 @@ public class DataSetController implements Serializable {
     @PostConstruct
     public void init() {
         dataSetData = dataSetFieldFacade.getAll();
+        dataSetToAdd = new DataSetDataField();
     }
 
     public void removeDataSet(DataSetDataField dataSet) {
@@ -52,13 +53,8 @@ public class DataSetController implements Serializable {
     public void addDataSet() {
         dataSetFieldFacade.save(dataSetToAdd);
         dataSetData = dataSetFieldFacade.getAll();
+        DataSetApi.addDataSetField(dataSetToAdd.getTitle(),dataSetToAdd.getValue());
         dataSetToAdd = new DataSetDataField();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                DataSetApi.addDataSetField("test","test");
-            }
-        }).run();
     }
 
     //region Getter

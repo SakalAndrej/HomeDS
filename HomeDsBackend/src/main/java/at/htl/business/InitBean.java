@@ -16,6 +16,5 @@ public class InitBean {
     @PostConstruct
     public void init() {
         AuthentificationHandler.getTOKEN();
-        DataSetApi.addDataSetField("test","test");
     }
 }

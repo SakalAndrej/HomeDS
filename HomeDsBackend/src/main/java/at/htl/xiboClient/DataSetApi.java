@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -119,12 +118,13 @@ public class DataSetApi {
                             if (value instanceof String)
                                 row.setValue(String.valueOf(value));
                         }
-                        row.setExpireDate(null);
+                        row.setFromDate(null);
+                        row.setToDate(null);
                         rows.add(row);
                         row = new DataSetDataField();
                     }
                 }
-                act.setFields(rows);
+                //act.setFields(rows);
                 dataSetDatas.add(act);
                 act = new DataSetData();
             }

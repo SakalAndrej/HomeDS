@@ -1,7 +1,18 @@
-\chapter{Theoretical Background}\label{cha:theoretical-background}
-The details of the structure of your thesis have to be aligned with the supervising teacher. However, most of the theses require to have some description of the models used or some other theoretical background necessary to understand the rest of the text.
+\chapter{XIBO-Server}
+\section{Beschreibung}
+Als zentrale Steuereinheit wird ein XIBO-Server verwendet. Um diesen verwenden zu können, war es Notwendig sich in die Dokumentation einzulesen und die API-Schnittstelle auszuprobieren. Die Website des Servers diente vorerst als Übungsumgebung dadurch wurde es leicht auch die einzelnen Funktionen, inklusive der Vorgangsweise, des Servers zu verstehen.
 
-Since there is enough space here a table is added to show the basic usage of tables in a scientific document. Similarly to images these are also kept outside the normal text flow in a so-called floating body. Table~\ref{tab:types-of-floating-bodies} shows different options.
+\section{API-Schnittstelle}
+Die API-Schnittstelle des XIBO-Servers ist mittels Swagger Dokumentiert, diese Dokumentation deckt die Grundfunktionalitäten und die Form der Anfragen ab. Da die Schnittstelle des Servers später als wesentliches Verbindungsstück zwischen der eigens entwickelten Steuerungssoftware und dem Server dient war es Nötig diese gründlich zu Testen und diese auch zu verstehen. Anfangs wurde dafür mit Postman gearbeitet. 
+
+Es stellte sich heraus, dass die Authentifizierung mittels OAuth2 sehr speziell war was zu Beginn zu einigen Schwierigkeiten führte da es einige Anläufe brauchte um herauszufinden wie die Parameter übergeben werden müssen und in welcher Reihenfolge. Dazu wurde im späteren verlauf eine Java-Klasse entwickelt welche die Authentifizierung automatisch übernimmt.
+
+Auch 
+
+----------STütz fragen ob bsp für request usw einbauen
+
+
+
 
 \begin{table}
 	\begin{center}

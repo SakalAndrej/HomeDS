@@ -11,7 +11,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-
 @Model
 @Named
 public class DataSetController implements Serializable {
@@ -50,10 +49,14 @@ public class DataSetController implements Serializable {
     }
 
     public void addDataSet() {
-        dataSetFieldFacade.save(dataSetToAdd);
-        dataSetData = dataSetFieldFacade.getAll();
-        DataSetApi.addDataSetField(dataSetToAdd.getTitle(),dataSetToAdd.getValue());
-        dataSetToAdd = new DataSetDataField();
+        long id = DataSetApi.addDataSetField(dataSetToAdd.getTitle(),dataSetToAdd.getValue());
+
+        if (id > 0) {
+            dataSetToAdd.setDataId(id);
+            dataSetFieldFacade.save(dataSetToAdd);
+            dataSetData = dataSetFieldFacade.getAll();
+            dataSetToAdd = new DataSetDataField();
+        }
     }
 
     //region Getter

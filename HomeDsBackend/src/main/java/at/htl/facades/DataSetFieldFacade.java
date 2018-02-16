@@ -19,7 +19,9 @@ public class DataSetFieldFacade {
     }
 
     public void update(DataSetDataField dataField) {
-        entityManager.remove(findById(dataField.getDataSetColumnId()));
+        DataSetDataField dataToUpdate = findById(dataField.getDataSetColumnId());
+        dataToUpdate.setTitle(dataField.getTitle());
+        dataToUpdate.setValue(dataField.getValue());
     }
 
     public DataSetDataField findById(long id) {

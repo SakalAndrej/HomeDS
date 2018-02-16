@@ -9,6 +9,8 @@
 \contentsline {chapter}{\numberline {2}XIBO-Server}{5}{chapter.2}
 \contentsline {section}{\numberline {2.1}Beschreibung}{5}{section.2.1}
 \contentsline {section}{\numberline {2.2}API-Schnittstelle}{5}{section.2.2}
+\contentsline {section}{\numberline {2.3}Authentifizierung}{5}{section.2.3}
+\contentsline {section}{\numberline {2.4}Request-Helper}{6}{section.2.4}
 \contentsline {chapter}{\numberline {3}Summary}{7}{chapter.3}
 \contentsline {chapter}{\numberline {A}Additional Information}{12}{appendix.A}
 \contentsline {chapter}{\numberline {B}Individual Goals}{13}{appendix.B}

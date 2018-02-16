@@ -22,7 +22,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AuthentificationHandler {
+public class    AuthentificationHandler {
 
     //handles the authentification process with OAuth2 later on the client id/secret will be provided by params
     private static final String LOGTAG = MainActivity.class.getSimpleName();

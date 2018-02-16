@@ -220,7 +220,8 @@ public class DataSetApi {
                 response.append(output);
             }
             System.out.println(response.toString());
-            return 1;
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            return jsonResponse.getLong("id");
         } catch (IOException e) {
             e.printStackTrace();
          }

@@ -200,7 +200,7 @@ public class DataSetApi {
         return -1;
     }
 
-    public static long addDataSetField(String dataSetFieldTitle, String dataSetFieldValue) {
+    public long addDataSetField(String dataSetFieldTitle, String dataSetFieldValue) {
         try {
 
             //Get all Datasets

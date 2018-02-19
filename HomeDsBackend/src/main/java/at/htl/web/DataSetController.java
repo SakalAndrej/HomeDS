@@ -18,6 +18,9 @@ public class DataSetController implements Serializable {
     @Inject
     DataSetFieldFacade dataSetFieldFacade;
 
+    @Inject
+    DataSetApi dataSetApi;
+
     private List<DataSetDataField> dataSetData;
 
     private DataSetDataField dataSetToAdd;
@@ -49,7 +52,7 @@ public class DataSetController implements Serializable {
     }
 
     public void addDataSet() {
-        long id = DataSetApi.addDataSetField(dataSetToAdd.getTitle(),dataSetToAdd.getValue());
+        long id = this.dataSetApi.addDataSetField(dataSetToAdd.getTitle(),dataSetToAdd.getValue());
 
         if (id > 0) {
             dataSetToAdd.setDataId(id);

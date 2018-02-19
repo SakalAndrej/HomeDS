@@ -44,13 +44,11 @@ public class DataSetDataFieldEndpoint {
     public Response addDataSetDataField(DataSetDataField dataField) {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
-            DataSetApi.addDataSetField(dataField.getTitle(),dataField.getValue());
+            dataSetApi.addDataSetField(dataField.getTitle(),dataField.getValue());
             return Response.ok(dataField.getDataId()).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
-
-
 
     /*@GET
     @Produces("application/json")

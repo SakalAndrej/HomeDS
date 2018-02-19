@@ -15,8 +15,8 @@ Der Server benötigt zur Authentifizierung mit einem Client eine Client_ID diese
 Weiteres wird ein Client_Secret benötigt welches ebenso wie die Client_ID vom Server,für jede Anwendung ,eindeutig erzeugt wird und auch auf der Website erhältlich ist. Zudem ist ein Parameter in der Form "&grant_type=client_credentials" mitzugeben.
 
 Zuerst wird ein Request-Body erstellt dieser hat folgende Parameter in der Form: 
- "client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>&grant_type=client_credentials"
-,die im Body mitgegeben werden und als Format "application/x-www-form-urlencoded"  haben. Anschließend werden dem Header noch der "content-type" mit dem Wert "application/x-www-form-urlencoded" und der Parameter "cache-control" mit dem Wert "no-cache" hinzugefügt. Als ergebniss der Anfrage bekommt der Client einen "access_token", dieser ist nun bei jeder Anfrage von Nöten um sich beim Server zu authentifizieren und es dem Client zu ermöglichen Daten abzurufen beziehungsweise weiterzugeben.
+ ''client\_id=<CLIENT\_ID>\&client\_secret=<CLIENT\_SECRET>\&grant\_type=client\_credentials''
+, die im Body mitgegeben werden und als Format 'application/x-www-form-urlencoded'  haben. Anschließend werden dem Header noch der "content-type" mit dem Wert ''application/x-www-form-urlencoded'' und der Parameter ''cache-control'' mit dem Wert ''no-cache'' hinzugefügt. Als ergebniss der Anfrage bekommt der Client einen '' access\_token '', dieser ist nun bei jeder Anfrage von Nöten um sich beim Server zu authentifizieren und es dem Client zu ermöglichen Daten abzurufen beziehungsweise weiterzugeben.
 
 \section{Request-Helper}
 Um in weiterer folge die Anfragen an den Digital Signage Server einfach und einheitlich durchzuführen gibt es die Klasse "RequestHelper". In dieser Klasse gibt es neben den beiden Parametern "responseBody" und "responseCode", welche zur Fehlerausgabe und zum Erhalt der Daten aus der Anfrage vorhanden sind, auch noch die Methode "executeRequest", diese übernimmt die Hauptaufgabe der Klasse und führt die Anfragen an das Signage System durch.
@@ -30,7 +30,7 @@ Die Parameter dieser Methode Lauten wie folgt:
 		
 	\item {\em Url:} Beinhaltet die URL unter der die Anfrage erreichbar ist. 
 	
-	\item {\em Token:} Ist jener Parameter der den "access_token",der benötigt wird um sich beim Server zu authentifizieren. Der Erhalt dieses Parameters, funktioniert wie bereits im vorigen Unterpunkt Authentifizierung beschrieben.
+	\item {\em Token:} Ist jener Parameter der den '' access\_token '',der benötigt wird um sich beim Server zu authentifizieren. Der Erhalt dieses Parameters, funktioniert wie bereits im vorigen Unterpunkt Authentifizierung beschrieben.
 	
 \end{itemize}
 

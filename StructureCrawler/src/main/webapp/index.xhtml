@@ -9,6 +9,8 @@
     <title>Crawler</title>
 </h:head>
 <h:body>
+    <b:growl id="growl" />
+
     <b:panel look="primary">
         <h1>
             Crawler
@@ -35,7 +37,7 @@
                 <b:row>
                     <b:column>
                         <b:commandButton value="Crawl" look="primary" style="width:100%"
-                                         action="#{indexController.startCrawl}" update="outputPanel"/>
+                                         actionListener="#{indexController.startedCrawlGrowl}" update="outputPanel growl"/>
                     </b:column>
                 </b:row>
             </b:container>

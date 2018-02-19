@@ -5,13 +5,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Model;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.json.JsonObject;
 import java.io.Serializable;
 
-@Model
+@ApplicationScoped
 @Named
 public class IndexController implements Serializable {
 
@@ -34,6 +37,7 @@ public class IndexController implements Serializable {
     @PostConstruct
     public void init() {
         this.startCrawl();
+        actLayoutId = -1;
     }
 
     public void startCrawl() {
@@ -53,12 +57,24 @@ public class IndexController implements Serializable {
         formatterUrl = "\'http://localhost:8080/homeds/rs/crawler" + query + "\'";
         crawl = crawler.getLayoutsWithAllSubEntities(actLayoutId, name);
 
-        if (!crawl.isEmpty() || crawl.length()>2) {
+        if (!crawl.isEmpty() && crawl.length()>2) {
             crawl = new JSONArray(crawl).toString();
             collapsed = "false";
         }
         else
             collapsed = "true";
+    }
+
+    public void startedCrawlGrowl() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        startCrawl();
+
+        if (!crawl.isEmpty() && crawl.length()>2) {
+            context.addMessage(null, new FacesMessage("Successful"));
+        }
+        else {
+            context.addMessage(null, new FacesMessage("No Content"));
+        }
     }
 
     //region Getter & Setter

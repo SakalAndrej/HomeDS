@@ -70,6 +70,9 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
       View v = inflater.inflate(R.layout.fragment_home_screen, container, false);
 
       ImageButton ibNewsView = v.findViewById(R.id.ibNewsView);
+      ImageButton ibStructurePlan = v.findViewById(R.id.ibStructurePlan);
+
+
       ibNewsView.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
@@ -77,6 +80,12 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
           }
       });
 
+      ibStructurePlan.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              MainActivity.getInstance().openStructurePlanFragment();
+          }
+      });
       return v;
     }
 

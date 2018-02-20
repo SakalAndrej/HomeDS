@@ -11,16 +11,16 @@ import java.util.Date;
 public class DataSetDataField implements Serializable {
     private long dataSetColumnId;
     private long dataId;
-    private String colName;
+    //private String colName;
     private String value;
     private LocalDate fromDate;
     private LocalDate toDate;
     private String Title;
 
-    public DataSetDataField(long dataSetColumnId, long dataId, String colName, String value, LocalDate fromDate, LocalDate toDate, String title) {
+    public DataSetDataField(long dataSetColumnId, long dataId, String value, LocalDate fromDate, LocalDate toDate, String title) {
         this.dataSetColumnId = dataSetColumnId;
         this.dataId = dataId;
-        this.colName = colName;
+        //this.colName = colName;
         this.value = value;
         this.fromDate = fromDate;
         this.toDate = toDate;
@@ -38,13 +38,9 @@ public class DataSetDataField implements Serializable {
         this.dataSetColumnId = dataSetColumnId;
     }
 
-    public String getColName() {
-        return colName;
-    }
 
-    public void setColName(String colName) {
-        this.colName = colName;
-    }
+
+
 
     public String getValue() {
         return value;

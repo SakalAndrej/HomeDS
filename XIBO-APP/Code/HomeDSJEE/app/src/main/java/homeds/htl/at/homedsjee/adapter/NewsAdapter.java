@@ -15,7 +15,7 @@ import homeds.htl.at.homedsjee.viewholder.NewsViewholder;
  * Created by Felix on 10.02.2018.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsViewholder> {
+public class    NewsAdapter extends RecyclerView.Adapter<NewsViewholder> {
 
     LinkedList<DataSetDataField> news = new LinkedList<DataSetDataField>();
 

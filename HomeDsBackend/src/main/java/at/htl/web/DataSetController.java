@@ -9,6 +9,7 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Model
@@ -20,6 +21,10 @@ public class DataSetController implements Serializable {
 
     @Inject
     DataSetApi dataSetApi;
+
+    private Date fromDate;
+
+    private Date toDate;
 
     private List<DataSetDataField> dataSetData;
 
@@ -36,9 +41,11 @@ public class DataSetController implements Serializable {
     }
 
     public void removeDataSet(DataSetDataField dataSet) {
-        if (dataSet != null && (dataSet.getDataSetColumnId() != -1 || dataSet.getDataSetColumnId() != 0)) {
-            dataSetFieldFacade.delete(dataSet.getDataSetColumnId());
-            dataSetData = dataSetFieldFacade.getAll();
+        if (dataSet != null && (dataSet.getDataSetId() != -1 || dataSet.getDataSetId() != 0)) {
+            if (dataSetApi.removeRow(dataSet.getDataRowId(), dataSet.getDataSetId()) == 204) {
+                dataSetFieldFacade.delete(dataSet.getDataRowId());
+                dataSetData = dataSetFieldFacade.getAll();
+            }
         }
     }
 
@@ -46,7 +53,7 @@ public class DataSetController implements Serializable {
         if (null != dataSet) {
 
             MessagesController cr = new MessagesController();
-            cr.setMessage(" " + dataSet.getDataId() + " wurde ausgewählt");
+            cr.setMessage(" " + dataSet.getDataRowId() + " wurde ausgewählt");
             cr.TriggerInfoMessage();
         }
     }
@@ -55,7 +62,7 @@ public class DataSetController implements Serializable {
         long id = this.dataSetApi.addDataSetField(dataSetToAdd.getTitle(),dataSetToAdd.getValue());
 
         if (id > 0) {
-            dataSetToAdd.setDataId(id);
+            dataSetToAdd.setDataRowId(id);
             dataSetFieldFacade.save(dataSetToAdd);
             dataSetData = dataSetFieldFacade.getAll();
             dataSetToAdd = new DataSetDataField();
@@ -88,5 +95,20 @@ public class DataSetController implements Serializable {
         this.dataSetToAdd = dataSetToAdd;
     }
 
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
     //endregion
 }

@@ -7,7 +7,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import javax.inject.Inject;
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -45,10 +44,24 @@ public class DataSetDataFieldEndpoint {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
             dataSetApi.addDataSetField(dataField.getTitle(),dataField.getValue());
-            return Response.ok(dataField.getDataId()).build();
+            return Response.ok(dataField.getDataRowId()).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
+
+    /*@DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/")
+    @ApiOperation("Save DataSets")
+    public Response addDataSetDataField(DataSetDataField dataField) {
+        if (dataField != null) {
+            dataSetFieldFacade.save(dataField);
+            dataSetApi.addDataSetField(dataField.getTitle(),dataField.getValue());
+            return Response.ok(dataField.getDataRowId()).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }*/
 
     /*@GET
     @Produces("application/json")

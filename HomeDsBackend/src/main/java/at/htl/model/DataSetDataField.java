@@ -2,6 +2,7 @@ package at.htl.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 @NamedQueries({ @NamedQuery(name = "DataSetDataField.GetAll", query = "select d from DataSetDataField d")})
 
@@ -9,15 +10,10 @@ import java.util.Date;
 @Entity
 public class DataSetDataField {
 
+    private long dataSetId = 5;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long dataSetColumnId;
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long dataId;
-
-    // Column Header
-    private String colName;
+    private long dataRowId;
 
     // News Content
     private String value;
@@ -32,20 +28,12 @@ public class DataSetDataField {
     public DataSetDataField() { }
 
     //region Getter & Setter
-    public long getDataSetColumnId() {
-        return dataSetColumnId;
+    public long getDataSetId() {
+        return dataSetId;
     }
 
-    public void setDataSetColumnId(long dataSetColumnId) {
-        this.dataSetColumnId = dataSetColumnId;
-    }
-
-    public String getColName() {
-        return colName;
-    }
-
-    public void setColName(String colName) {
-        this.colName = colName;
+    public void setDataSetId(long dataSetColumnId) {
+        this.dataSetId = dataSetColumnId;
     }
 
     public String getValue() {
@@ -80,13 +68,40 @@ public class DataSetDataField {
         Title = title;
     }
 
-    public long getDataId() {
-        return dataId;
+    public long getDataRowId() {
+        return dataRowId;
     }
 
-    public void setDataId(long dataId) {
-        this.dataId = dataId;
+    public void setDataRowId(long dataId) {
+        this.dataRowId = dataId;
     }
 
+    public Date getDateFromDate() {
+        if (fromDate != null)
+            return Date.from(fromDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        else
+            return null;
+    }
+
+    public void setDateFromDate(Date fromDate) {
+        if (fromDate != null)
+            this.fromDate = fromDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        else
+            this.fromDate = null;
+    }
+
+    public Date getDateToDate() {
+        if (toDate!=null)
+            return Date.from(toDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        else
+            return null;
+    }
+
+    public void setDateToDate(Date toDate) {
+        if (toDate!=null)
+            this.toDate = toDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        else
+            this.toDate = null;
+    }
     //endregion
 }

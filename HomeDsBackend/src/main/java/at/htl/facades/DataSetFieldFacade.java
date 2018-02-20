@@ -19,7 +19,7 @@ public class DataSetFieldFacade {
     }
 
     public void update(DataSetDataField dataField) {
-        DataSetDataField dataToUpdate = findById(dataField.getDataSetColumnId());
+        DataSetDataField dataToUpdate = findById(dataField.getDataSetId());
         dataToUpdate.setTitle(dataField.getTitle());
         dataToUpdate.setValue(dataField.getValue());
     }
@@ -33,8 +33,8 @@ public class DataSetFieldFacade {
         return q.getResultList();
     }
 
-    public void delete(long dataSetColumnId) {
-        DataSetDataField entityToDelete = findById(dataSetColumnId);
+    public void delete(long getDataRowId) {
+        DataSetDataField entityToDelete = findById(getDataRowId);
         entityManager.remove(entityToDelete);
     }
 }

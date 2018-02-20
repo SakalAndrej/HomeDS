@@ -107,10 +107,7 @@ public class DataSetApi {
                         act.setDataId(jsonobject.getLong(col));
                     } else {
                         DataSetDataField row = new DataSetDataField();
-                        row.setColName(col);
                         long columnId = -1;
-                        if ((columnId = getIdForColumnName(dataSetId,row.getColName()))!=-1)
-                            row.setDataSetColumnId(columnId);
 
                         // Check what type and if not null
                         if (!jsonobject.isNull(col)) {
@@ -146,9 +143,7 @@ public class DataSetApi {
 
             BufferedReader in = null;
 
-
             in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
 
             String output;
             StringBuffer response = new StringBuffer();
@@ -203,7 +198,6 @@ public class DataSetApi {
     public long addDataSetField(String dataSetFieldTitle, String dataSetFieldValue) {
         try {
 
-            //Get all Datasets
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
                             "dataSetColumnId_"+8+"="+dataSetFieldTitle+"&dataSetColumnId_"+9+"="+dataSetFieldValue,
@@ -225,6 +219,31 @@ public class DataSetApi {
         } catch (IOException e) {
             e.printStackTrace();
          }
+        return -1;
+    }
+
+    public long removeRow(long dataSetRowId, long dataid) {
+        try {
+
+            HttpURLConnection con = new RequestHelper()
+                    .executeRequest(RequestTypeEnum.DELETE, null,
+                            new RequestHelper().BASE_URL + "api/dataset/data/" + dataid +"/"+dataSetRowId,
+                            AuthentificationHandler.getTOKEN());
+
+            BufferedReader in = null;
+
+            in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+            String output;
+            StringBuffer response = new StringBuffer();
+            while ((output = in.readLine()) != null) {
+                response.append(output);
+            }
+            System.out.println(response.toString());
+            return con.getResponseCode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return -1;
     }
 }

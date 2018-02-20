@@ -50,62 +50,102 @@
                                     responsive="true"
                                     ajax="true"
                             >
-                                <b:dataTableColumn col-sm="2" col-md="3" value="#{actDataSet.dataSetColumnId}"
+                                <b:dataTableColumn medium-screen="2" value="#{actDataSet.dataSetId}"
                                                    label="#"/>
 
-                                <b:dataTableColumn col-sm="3" col-md="3" dataSearch="#{actDataSet.title}"
+                                <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.title}"
                                                    label="#{msg['title']}">
-                                    <h:inputText value="#{actDataSet.title}"/>
+                                    <h:inputText value="#{actDataSet.title}" style="width: 100%"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn col-sm="3" col-md="3" dataSearch="#{actDataSet.value}"
+                                <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.value}"
                                                    label="#{msg['content']}">
-                                    <h:inputText value="#{actDataSet.value}"/>
+                                    <h:inputText value="#{actDataSet.value}" style="width: 100%"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn col-sm="3" col-md="3" label="#{msg['validFrom']}:">
+                                <b:dataTableColumn medium-screen="2" label="#{msg['validFrom']}:">
                                     <b:datepicker id="dateFrom" mode="toggle-icon" showWeek="true"
-                                                  firstDay="1" value="#{actDataSet.fromDate}"
-                                                  label-col-sm="4"
-                                                  col-sm="4" large-screen="full-width"/>
-                                    <b:message for="dateFrom" col-sm="6"/>
+                                                  firstDay="1" value="#{actDataSet.dateFromDate}"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn col-sm="2" col-md="3" label="#{msg['validTil']}:'">
+                                <b:dataTableColumn medium-screen="2" label="#{msg['validTil']}:'">
                                     <b:datepicker id="dateTil" mode="toggle-icon" showWeek="true"
-                                                  firstDay="1" value="#{actDataSet.toDate}"
-                                                  label-col-sm="4"
-                                                  col-sm="4" large-screen="full-width"/>
-                                    <b:message for="dateTil" col-sm="6"/>
+                                                  firstDay="1" value="#{actDataSet.dateToDate}"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn col-sm="2" col-md="3">
+                                <b:dataTableColumn medium-screen="1">
                                     <b:commandButton update="dataSetEditor"
                                                      action="#{dataSetController.removeDataSet(actDataSet)}"
-                                                     value="xx23" id="btnDelete" look="danger" style="width:80px">
+                                                     value="X" id="btnDelete" look="danger" style="width:100%">
+                                    </b:commandButton>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn medium-screen="1">
+                                    <b:commandButton
+                                            action="#{dataSetController.editDataSet(actDataSet)}"
+                                            value="Y" id="btnSave" look="primary" style="width:100%">
                                     </b:commandButton>
                                 </b:dataTableColumn>
                             </b:dataTable>
+                        </b:form>
+                        <b:form>
                             <b:well>
-                                <h:panelGrid columns="1" cellpadding="10">
+                                <h:panelGrid cellpadding="10">
                                     <h3>#{msg['newNewsWallText']}</h3>
-                                    <b:inputText colMd="10" label="#{msg['title']}" value="#{dataSetController.dataSetToAdd.title}"
-                                                 style="width:100px;"/>
-                                    <br></br>
-                                    <b:inputText colMd="10" label="#{msg['value']}" label-col-md="2"
-                                                 value="#{dataSetController.dataSetToAdd.value}" style="width:100px;"/>
-                                    <br></br>
 
-                                    <b:datepicker label="#{msg['validFrom']}" id="dateFrom"
-                                                  mode="toggle-icon"
-                                                  showWeek="true"
-                                                  firstDay="1" value="#{dataSetController.dataSetToAdd.fromDate}"/><br/>
-                                    <br></br>
-                                    <b:datepicker label="#{msg['validTil']}" label-col-md="2" id="dateTil"
-                                                  mode="toggle-icon"
-                                                  showWeek="true"
-                                                  firstDay="1"
-                                                  value="#{dataSetController.dataSetToAdd.toDate}"/><br/>
-                                    <b:commandButton value="#{msg['add']}" update="dataSetEditor" look="primary"
-                                                     action="#{dataSetController.addDataSet}">
-                                        <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>
-                                    </b:commandButton>
+                                    <b:container fluid="true">
+                                        <b:row><br/></b:row>
+                                        <b:row>
+                                            <b:column medium-screen="2">
+                                                <h:outputText style="line-height: 2.5; font-weight: bold"
+                                                              value="#{msg['title']}"/>
+                                            </b:column>
+                                            <b:column medium-screen="4">
+                                                <b:message for="title" style="color:red"/>
+                                                <b:inputText required="true" id="title"
+                                                             requiredMessage="Please fill in the title"
+                                                             placeholder="#{msg['title']}"
+                                                             value="#{dataSetController.dataSetToAdd.title}"/>
+                                            </b:column>
+                                            <b:column medium-screen="2">
+                                                <h:outputText  style="line-height: 2.5; font-weight: bold"
+                                                              value="#{msg['value']}"/>
+                                            </b:column>
+                                            <b:column medium-screen="4">
+                                                <b:message for="value" style="color:red"/>
+                                                <b:inputText required="true" id="value"
+                                                             requiredMessage="Please fill in the content"
+                                                             placeholder="#{msg['value']}"
+                                                             value="#{dataSetController.dataSetToAdd.value}"/>
+                                            </b:column>
+                                            <b:column medium-screen="2">
+                                                <h:outputText style="line-height: 2.5; font-weight: bold"
+                                                              value="#{msg['validFrom']}"/>
+                                            </b:column>
+                                            <b:column medium-screen="4">
+                                                <b:datepicker id="dateFrom"
+                                                              mode="toggle-icon"
+                                                              showWeek="true"
+                                                              firstDay="1"
+                                                              value="#{dataSetController.dataSetToAdd.dateFromDate}"/>
+                                            </b:column>
+                                            <b:column medium-screen="2">
+                                                <h:outputText style="line-height: 2.5; font-weight: bold"
+                                                              value="#{msg['validTil']}"/>
+                                            </b:column>
+                                            <b:column medium-screen="4">
+                                                <b:datepicker id="dateTil"
+                                                              mode="toggle-icon"
+                                                              showWeek="true"
+                                                              firstDay="1"
+                                                              value="#{dataSetController.dataSetToAdd.dateToDate}"/>
+                                            </b:column>
+                                        </b:row>
+                                        <b:row>
+                                            <b:column>
+                                                <b:commandButton value="#{msg['add']}" update="dataSetEditor @form"
+                                                                 look="primary"
+                                                                 action="#{dataSetController.addDataSet}">
+                                                    <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>
+                                                </b:commandButton>
+                                            </b:column>
+                                        </b:row>
+                                    </b:container>
                                 </h:panelGrid>
                             </b:well>
                         </b:form>

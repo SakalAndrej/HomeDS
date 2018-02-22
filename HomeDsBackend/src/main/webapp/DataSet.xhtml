@@ -50,7 +50,7 @@
                                     responsive="true"
                                     ajax="true"
                             >
-                                <b:dataTableColumn medium-screen="2" value="#{actDataSet.dataSetId}"
+                                <b:dataTableColumn medium-screen="2" value="#{actDataSet.dataRowId}"
                                                    label="#"/>
 
                                 <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.title}"
@@ -70,15 +70,17 @@
                                                   firstDay="1" value="#{actDataSet.dateToDate}"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn medium-screen="1">
-                                    <b:commandButton update="dataSetEditor"
+                                    <b:commandButton update="dataSetEditor growl"
                                                      action="#{dataSetController.removeDataSet(actDataSet)}"
-                                                     value="X" id="btnDelete" look="danger" style="width:100%">
+                                                     id="btnDelete" look="danger" style="width:100%">
+                                        <b:iconAwesome size="1.5x" name="fa-trash"></b:iconAwesome>
                                     </b:commandButton>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn medium-screen="1">
                                     <b:commandButton
                                             action="#{dataSetController.editDataSet(actDataSet)}"
-                                            value="Y" id="btnSave" look="primary" style="width:100%">
+                                            id="btnSave" look="primary" style="width:100%">
+                                        <b:iconAwesome size="1.5x" name="far fa-save"></b:iconAwesome>
                                     </b:commandButton>
                                 </b:dataTableColumn>
                             </b:dataTable>
@@ -138,7 +140,7 @@
                                         </b:row>
                                         <b:row>
                                             <b:column>
-                                                <b:commandButton value="#{msg['add']}" update="dataSetEditor @form"
+                                                <b:commandButton value="#{msg['add']}" update="dataSetEditor @form growl"
                                                                  look="primary"
                                                                  action="#{dataSetController.addDataSet}">
                                                     <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>

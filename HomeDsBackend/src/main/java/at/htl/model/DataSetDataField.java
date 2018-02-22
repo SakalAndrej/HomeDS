@@ -6,7 +6,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 @NamedQueries({@NamedQuery(name = "DataSetDataField.GetAll", query = "select d from DataSetDataField d")
-        , @NamedQuery(name = "DataSetDataField.findById", query = "select d from DataSetDataField d where :id = d.dataRowId")})
+        , @NamedQuery(name = "DataSetDataField.findByRowId", query = "select d from DataSetDataField d where :id = d.dataRowId")})
 
 @Table
 @Entity
@@ -79,6 +79,14 @@ public class DataSetDataField {
 
     public long getDataRowId() {
         return dataRowId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setDataRowId(long dataId) {

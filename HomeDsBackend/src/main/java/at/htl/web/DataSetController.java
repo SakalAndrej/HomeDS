@@ -3,7 +3,6 @@ package at.htl.web;
 import at.htl.exceptions.NoConnectionException;
 import at.htl.facades.DataSetFieldFacade;
 import at.htl.model.DataSetDataField;
-import at.htl.utils.IdHelper;
 import at.htl.xiboClient.DataSetApi;
 
 import javax.annotation.PostConstruct;
@@ -14,9 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 
 @Model
 @Named
@@ -45,16 +42,21 @@ public class DataSetController implements Serializable {
     public void removeDataSet(DataSetDataField dataSet) {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-            if (dataSet != null && (dataSet.getDataSetId() != -1 || dataSet.getDataSetId() != 0)) {
+            if (dataSet != null && dataSet.isActive() && (dataSet.getDataSetId() != -1 || dataSet.getDataSetId() != 0)) {
                 if (dataSetApi.removeRow(dataSet.getDataRowId(), dataSet.getDataSetId()) == 204) {
-                    dataSetFieldFacade.delete(dataSet.getDataRowId());
+                    dataSetFieldFacade.deleteByRowId(dataSet.getDataRowId());
                     dataSetData = dataSetFieldFacade.getAll();
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully deleted DataSetRow: " + dataSet.getDataRowId()));
                 } else {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while deleting DataSetRow: " + dataSet.getDataRowId()));
                 }
-            } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Nothing to delete" + dataSet.getDataRowId()));
+            } else if (dataSet.isActive() == false) {
+                dataSetFieldFacade.deleteById(dataSet.getId());
+                dataSetData = dataSetFieldFacade.getAll();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully deleted DataSetRow"));
+            }
+            else {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Nothing to deleteByRowId" + dataSet.getDataRowId()));
             }
         } catch (NoConnectionException ex) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
@@ -63,25 +65,12 @@ public class DataSetController implements Serializable {
 
     public void addDataSet() {
         FacesContext context = FacesContext.getCurrentInstance();
-
         if ((dataSetToAdd.getFromDate() != null) && (dataSetToAdd.getFromDate().isAfter(LocalDate.now()) == false || dataSetToAdd.getFromDate().isEqual(LocalDate.now()) == true)) {
-            try {
-                long id = this.dataSetApi.addDataSetField(dataSetToAdd);
-
-                if (id > 0) {
-                    dataSetToAdd.setActive(true);
-                    dataSetToAdd.setDataRowId(id);
-                    dataSetFieldFacade.save(dataSetToAdd);
-                    dataSetData = dataSetFieldFacade.getAll();
-                    dataSetToAdd = new DataSetDataField();
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
-                } else {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while adding DataSetRow"));
-                }
-            } catch (NoConnectionException ex) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
-            }
-        } else {
+            this.addDataSetToXibo(dataSetToAdd);
+        } else if ((dataSetToAdd.getFromDate() == null)) {
+            this.addDataSetToXibo(dataSetToAdd);
+        }
+        else {
             dataSetToAdd.setDataRowId(-1);
             dataSetToAdd.setActive(false);
             dataSetFieldFacade.save(dataSetToAdd);
@@ -91,25 +80,80 @@ public class DataSetController implements Serializable {
         }
     }
 
+    public void addDataSetToXibo(DataSetDataField dataFieldToAdd) {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        try {
+            long id = this.dataSetApi.addDataSetField(dataFieldToAdd);
+
+            if (id > 0) {
+                dataFieldToAdd.setActive(true);
+                dataFieldToAdd.setDataRowId(id);
+                dataSetFieldFacade.save(dataFieldToAdd);
+                dataSetData = dataSetFieldFacade.getAll();
+
+                //clear add variable
+                dataSetToAdd = new DataSetDataField();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
+            } else {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while adding DataSetRow"));
+            }
+        } catch (NoConnectionException ex) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
+        }
+    }
+
     public void editDataSet(DataSetDataField dataSetFieldToEdit) {
         FacesContext context = FacesContext.getCurrentInstance();
-        if (dataSetFieldToEdit != null && dataSetFieldToEdit.getDataRowId() > 0 && dataSetFieldToEdit.getValue().isEmpty() == false && dataSetFieldToEdit.getTitle().isEmpty() == false) {
-            try {
-                if (dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 8, dataSetFieldToEdit.getTitle()) == 200 && this.dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 9, dataSetFieldToEdit.getValue()) == 200) {
-                    dataSetFieldFacade.delete(dataSetFieldToEdit.getDataRowId());
-                    dataSetFieldFacade.save(dataSetFieldToEdit);
-                    dataSetFieldFacade.getAll();
+        if (dataSetFieldToEdit != null && dataSetFieldToEdit.getValue().isEmpty() == false && dataSetFieldToEdit.getTitle().isEmpty() == false) {
 
-                    // Get message in proper language and show in growl
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
-                } else {
-                    this.dataSetData = dataSetFieldFacade.getAll();
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while editing DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
+            // editing from date so that it should be active
+            if (dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1)) && dataSetFieldToEdit.isActive() == false) {
+
+                //copy entity
+                DataSetDataField temp = dataSetFieldToEdit;
+                dataSetFieldFacade.deleteById(dataSetFieldToEdit.getId());
+                temp.setId(0);
+                this.addDataSetToXibo(temp);
+            }
+            // just edit unactive dataset
+            else if ((dataSetFieldToEdit.getDataRowId() < 0 || dataSetFieldToEdit.isActive() == false)) {
+                dataSetFieldFacade.merge(dataSetFieldToEdit);
+                this.dataSetData = dataSetFieldFacade.getAll();
+
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
+            }
+            // edit active event && should edit active event to unactive
+            else if (dataSetFieldToEdit.isActive() && dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1))){
+                try {
+                    if (dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 8, dataSetFieldToEdit.getTitle()) == 200 && this.dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 9, dataSetFieldToEdit.getValue()) == 200) {
+                        //dataSetFieldFacade.deleteByRowId(dataSetFieldToEdit.getDataRowId());
+                        //dataSetFieldFacade.save(dataSetFieldToEdit);
+                        dataSetFieldFacade.merge(dataSetFieldToEdit);
+                        this.dataSetData = dataSetFieldFacade.getAll();
+
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
+                    } else {
+                        this.updateList();
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while editing DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
+                    }
+                } catch (NoConnectionException e) {
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
                 }
-            } catch (NoConnectionException e) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
+            }
+            else if (dataSetFieldToEdit.isActive() && dataSetFieldToEdit.getFromDate().isAfter(LocalDate.now())) {
+                this.removeDataSet(dataSetFieldToEdit);
+                dataSetFieldToEdit.setId(0);
+                dataSetFieldToEdit.setActive(false);
+                dataSetFieldToEdit.setDataRowId(-1);
+                dataSetFieldFacade.save(dataSetFieldToEdit);
+                this.updateList();
             }
         }
+    }
+
+    public void updateList() {
+        this.dataSetData = dataSetFieldFacade.getAll();
     }
 
     //region Getter

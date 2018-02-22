@@ -47,9 +47,9 @@ public class DataSetController implements Serializable {
                 if (dataSetApi.removeRow(dataSet.getDataRowId(), dataSet.getDataSetId()) == 204) {
                     dataSetFieldFacade.delete(dataSet.getDataRowId());
                     dataSetData = dataSetFieldFacade.getAll();
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully deleted Entity: " + dataSet.getDataRowId()));
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully deleted DataSetRow: " + dataSet.getDataRowId()));
                 } else {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while deleting Entity: " + dataSet.getDataRowId()));
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while deleting DataSetRow: " + dataSet.getDataRowId()));
                 }
             } else {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Nothing to delete" + dataSet.getDataRowId()));
@@ -71,7 +71,7 @@ public class DataSetController implements Serializable {
                 dataSetToAdd = new DataSetDataField();
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
             } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while adding Entity"));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while adding DataSetRow"));
             }
         } catch (NoConnectionException ex) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
@@ -79,8 +79,24 @@ public class DataSetController implements Serializable {
     }
 
     public void editDataSet(DataSetDataField dataSetFieldToEdit) {
+        FacesContext context = FacesContext.getCurrentInstance();
         if (dataSetFieldToEdit != null && dataSetFieldToEdit.getDataRowId() > 0 && dataSetFieldToEdit.getValue().isEmpty() == false && dataSetFieldToEdit.getTitle().isEmpty() == false) {
-            this.dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId())
+            try {
+                if (dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(),8,dataSetFieldToEdit.getTitle()) == 200 && this.dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(),9,dataSetFieldToEdit.getValue()) == 200)
+                {
+                    dataSetFieldFacade.delete(dataSetFieldToEdit.getDataRowId());
+                    dataSetFieldFacade.save(dataSetFieldToEdit);
+                    dataSetFieldFacade.getAll();
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
+                }
+                else
+                {
+                    this.dataSetData = dataSetFieldFacade.getAll();
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while editing DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
+                }
+            } catch (NoConnectionException e) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
+            }
         }
     }
 

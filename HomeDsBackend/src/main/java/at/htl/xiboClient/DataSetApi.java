@@ -206,7 +206,7 @@ public class DataSetApi {
                 response.append(output);
             }
             System.out.println(response.toString());
-            return 1;
+            return con.getResponseCode();
         } catch (IOException e) {
             e.printStackTrace();
         }

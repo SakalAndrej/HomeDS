@@ -55,11 +55,11 @@
 
                                 <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.title}"
                                                    label="#{msg['title']}">
-                                    <h:inputText value="#{actDataSet.title}" style="width: 100%"/>
+                                    <b:inputText value="#{actDataSet.title}" style="width: 100%"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.value}"
                                                    label="#{msg['content']}">
-                                    <h:inputText value="#{actDataSet.value}" style="width: 100%"/>
+                                    <b:inputText value="#{actDataSet.value}" style="width: 100%"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn medium-screen="2" label="#{msg['validFrom']}:">
                                     <b:datepicker id="dateFrom" mode="toggle-icon" showWeek="true"
@@ -79,7 +79,7 @@
                                 <b:dataTableColumn medium-screen="1">
                                     <b:commandButton
                                             action="#{dataSetController.editDataSet(actDataSet)}"
-                                            id="btnSave" look="primary" style="width:100%">
+                                            id="btnSave" look="primary" style="width:100%" update="@form growl dataSetParent">
                                         <b:iconAwesome size="1.5x" name="far fa-save"></b:iconAwesome>
                                     </b:commandButton>
                                 </b:dataTableColumn>
@@ -112,7 +112,7 @@
                                                 <b:message for="value" style="color:red"/>
                                                 <b:inputText required="true" id="value"
                                                              requiredMessage="Please fill in the content"
-                                                             placeholder="#{msg['value']}"
+                                                             placeholder="#{msg['content']}"
                                                              value="#{dataSetController.dataSetToAdd.value}"/>
                                             </b:column>
                                             <b:column medium-screen="2">
@@ -140,7 +140,7 @@
                                         </b:row>
                                         <b:row>
                                             <b:column>
-                                                <b:commandButton value="#{msg['add']}" update="dataSetEditor @form growl"
+                                                <b:commandButton style="width: 100%" value="#{msg['add']}" update="dataSetEditor @form growl"
                                                                  look="primary"
                                                                  action="#{dataSetController.addDataSet}">
                                                     <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>

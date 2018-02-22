@@ -7,7 +7,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-    <title>News hinzufügen oder entfernen</title>
+    <title>News Verwaltung</title>
 </h:head>
 
 <h:body style="padding-top: 60px; margin-left: 1%;margin-right: 1%">
@@ -15,29 +15,26 @@
         <b:growl id="growl"
                  globalOnly="true"
                  showDetail="true"
-                 severity="info,warn"/>
-        <b:navBar brand="Project name" brandHref="#" inverse="true" fixed="top" fluid="true" id="navbar">
+                 severity="info,warn"
+                 animation-enter="animated slideInRight"
+                 animation-exit="animated slideOutRight"
+                 allowDismiss="true"
+        />
+        <b:navBar brand="HomeDS Systems" brandHref="#" inverse="true" fixed="top" fluid="true" id="navbar">
             <b:navbarLinks pull="right">
                 <b:navLink value="Dashboard" href="#"></b:navLink>
-                <b:navLink value="#{msg['changeLanguage']}" href="#" update="all"
+                <b:navLink value="#{msg['changeLanguage']}" href="#" update="all growl addDataSet dataSetEditor"
                            onclick="ajax:languageController.countryLocaleCodeChanged()"></b:navLink>
                 <b:navLink value="#{msg['Displays']}" href="#"></b:navLink>
                 <b:navLink value="#{msg['Layouts']}" href="#"></b:navLink>
             </b:navbarLinks>
-
-            <h:form styleClass="navbar-form navbar-right">
-                <div class="form-group">
-                    <b:inputText placeholder="#{msg['Search']}..." fieldSize="sm"/>
-                </div>
-            </h:form>
-
         </b:navBar>
+
         <b:container fluid="true" id="addDataSet">
-            <h2><span class="glyphicon glyphicon-edit"></span> #{msg['changeDataset']}</h2>
+            <!-- <h2><span class="glyphicon glyphicon-edit"></span> #{msg['changeDataset']}</h2> -->
 
             <!-- DATA SET SELECTION -->
             <b:row>
-                <p class="p"> #{msg['editNewsInfo']}</p>
                 <b:panel ajax="true" title="#{msg['editNewsTitle']} (#{dataSetController.dataSetData.size()})"
                          look="primary">
                     <b:column col-sm="12" col-md="12">
@@ -46,20 +43,20 @@
                                     id="dataSetParent"
                                     value="#{dataSetController.dataSetData}"
                                     var="actDataSet"
-                                    update="dataSetSelection growl"
+                                    update="growl"
                                     responsive="true"
                                     ajax="true"
                             >
-                                <b:dataTableColumn medium-screen="2" value="#{actDataSet.dataSetId}"
+                                <b:dataTableColumn medium-screen="2" value="#{actDataSet.dataRowId}"
                                                    label="#"/>
 
                                 <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.title}"
                                                    label="#{msg['title']}">
-                                    <h:inputText value="#{actDataSet.title}" style="width: 100%"/>
+                                    <b:inputText value="#{actDataSet.title}" style="width: 100%"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.value}"
                                                    label="#{msg['content']}">
-                                    <h:inputText value="#{actDataSet.value}" style="width: 100%"/>
+                                    <b:inputText value="#{actDataSet.value}" style="width: 100%"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn medium-screen="2" label="#{msg['validFrom']}:">
                                     <b:datepicker id="dateFrom" mode="toggle-icon" showWeek="true"
@@ -70,15 +67,17 @@
                                                   firstDay="1" value="#{actDataSet.dateToDate}"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn medium-screen="1">
-                                    <b:commandButton update="dataSetEditor"
+                                    <b:commandButton update="dataSetEditor growl"
                                                      action="#{dataSetController.removeDataSet(actDataSet)}"
-                                                     value="X" id="btnDelete" look="danger" style="width:100%">
+                                                     id="btnDelete" look="danger" style="width:100%">
+                                        <b:iconAwesome size="1.5x" name="fa-trash"></b:iconAwesome>
                                     </b:commandButton>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn medium-screen="1">
                                     <b:commandButton
                                             action="#{dataSetController.editDataSet(actDataSet)}"
-                                            value="Y" id="btnSave" look="primary" style="width:100%">
+                                            id="btnSave" look="primary" style="width:100%" update="@form growl dataSetParent">
+                                        <b:iconAwesome size="1.5x" name="far fa-save"></b:iconAwesome>
                                     </b:commandButton>
                                 </b:dataTableColumn>
                             </b:dataTable>
@@ -104,13 +103,13 @@
                                             </b:column>
                                             <b:column medium-screen="2">
                                                 <h:outputText  style="line-height: 2.5; font-weight: bold"
-                                                              value="#{msg['value']}"/>
+                                                              value="#{msg['content']}"/>
                                             </b:column>
                                             <b:column medium-screen="4">
                                                 <b:message for="value" style="color:red"/>
                                                 <b:inputText required="true" id="value"
                                                              requiredMessage="Please fill in the content"
-                                                             placeholder="#{msg['value']}"
+                                                             placeholder="#{msg['content']}"
                                                              value="#{dataSetController.dataSetToAdd.value}"/>
                                             </b:column>
                                             <b:column medium-screen="2">
@@ -138,7 +137,7 @@
                                         </b:row>
                                         <b:row>
                                             <b:column>
-                                                <b:commandButton value="#{msg['add']}" update="dataSetEditor @form"
+                                                <b:commandButton style="width: 100%" value="#{msg['add']}" update="dataSetEditor @form growl"
                                                                  look="primary"
                                                                  action="#{dataSetController.addDataSet}">
                                                     <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>
@@ -149,14 +148,6 @@
                                 </h:panelGrid>
                             </b:well>
                         </b:form>
-                    </b:column>
-                </b:panel>
-            </b:row>
-        </b:container>
-        <b:container id="dataSetSelection" fluid="true">
-            <b:row>
-                <b:panel title="Eilmeldung (#{dataSetController.dataSetData.size()})" look="primary">
-                    <b:column col-sm="12" col-md="12">
                     </b:column>
                 </b:panel>
             </b:row>

@@ -1,5 +1,6 @@
 package at.htl.rest;
 
+import at.htl.exceptions.NoConnectionException;
 import at.htl.facades.DataSetFieldFacade;
 import at.htl.model.DataSetDataField;
 import at.htl.xiboClient.DataSetApi;
@@ -44,7 +45,11 @@ public class DataSetDataFieldEndpoint {
     public Response addDataSetDataField(DataSetDataField dataField) {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
-            dataSetApi.addDataSetField(dataField.getTitle(), dataField.getValue());
+            try {
+                dataSetApi.addDataSetField(dataField.getTitle(), dataField.getValue());
+            } catch (NoConnectionException e) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
             return Response.ok(dataField.getDataRowId()).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
@@ -58,7 +63,11 @@ public class DataSetDataFieldEndpoint {
     public Response editDataSetDataField(DataSetDataField dataField) {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
-            dataSetApi.addDataSetField(dataField.getTitle(), dataField.getValue());
+            try {
+                dataSetApi.addDataSetField(dataField.getTitle(), dataField.getValue());
+            } catch (NoConnectionException e) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
             return Response.ok(dataField.getDataRowId()).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
@@ -72,11 +81,15 @@ public class DataSetDataFieldEndpoint {
     public Response addDataSetDataField(
             @PathParam("dataid") long dataId,
             @PathParam("datarowid") long dataRowId) {
-        if (dataSetApi.removeRow(dataRowId, dataId) == 204) {
-            dataSetFieldFacade.delete(dataRowId);
-            return Response.ok().build();
-        }
-        else {
+        try {
+            if (dataSetApi.removeRow(dataRowId, dataId) == 204) {
+                dataSetFieldFacade.delete(dataRowId);
+                return Response.ok().build();
+            }
+            else {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+        } catch (NoConnectionException e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }

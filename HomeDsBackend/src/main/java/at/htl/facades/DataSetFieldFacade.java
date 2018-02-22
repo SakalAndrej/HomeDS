@@ -25,7 +25,8 @@ public class DataSetFieldFacade {
     }
 
     public DataSetDataField findById(long id) {
-        return entityManager.find(DataSetDataField.class, id);
+        TypedQuery<DataSetDataField> q = entityManager.createNamedQuery("DataSetDataField.findById", DataSetDataField.class).setParameter("id",id);
+        return q.getSingleResult();
     }
 
     public List<DataSetDataField> getAll() {

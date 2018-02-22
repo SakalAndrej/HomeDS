@@ -3,6 +3,7 @@ package at.htl.web;
 import at.htl.exceptions.NoConnectionException;
 import at.htl.facades.DataSetFieldFacade;
 import at.htl.model.DataSetDataField;
+import at.htl.utils.IdHelper;
 import at.htl.xiboClient.DataSetApi;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -43,7 +45,6 @@ public class DataSetController implements Serializable {
     public void removeDataSet(DataSetDataField dataSet) {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-
             if (dataSet != null && (dataSet.getDataSetId() != -1 || dataSet.getDataSetId() != 0)) {
                 if (dataSetApi.removeRow(dataSet.getDataRowId(), dataSet.getDataSetId()) == 204) {
                     dataSetFieldFacade.delete(dataSet.getDataRowId());
@@ -62,20 +63,31 @@ public class DataSetController implements Serializable {
 
     public void addDataSet() {
         FacesContext context = FacesContext.getCurrentInstance();
-        try {
-            long id = this.dataSetApi.addDataSetField(dataSetToAdd.getTitle(), dataSetToAdd.getValue());
 
-            if (id > 0) {
-                dataSetToAdd.setDataRowId(id);
-                dataSetFieldFacade.save(dataSetToAdd);
-                dataSetData = dataSetFieldFacade.getAll();
-                dataSetToAdd = new DataSetDataField();
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
-            } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while adding DataSetRow"));
+        if ((dataSetToAdd.getFromDate() != null) && (dataSetToAdd.getFromDate().isAfter(LocalDate.now()) == false || dataSetToAdd.getFromDate().isEqual(LocalDate.now()) == true)) {
+            try {
+                long id = this.dataSetApi.addDataSetField(dataSetToAdd);
+
+                if (id > 0) {
+                    dataSetToAdd.setActive(true);
+                    dataSetToAdd.setDataRowId(id);
+                    dataSetFieldFacade.save(dataSetToAdd);
+                    dataSetData = dataSetFieldFacade.getAll();
+                    dataSetToAdd = new DataSetDataField();
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
+                } else {
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while adding DataSetRow"));
+                }
+            } catch (NoConnectionException ex) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
             }
-        } catch (NoConnectionException ex) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
+        } else {
+            dataSetToAdd.setDataRowId(-1);
+            dataSetToAdd.setActive(false);
+            dataSetFieldFacade.save(dataSetToAdd);
+            dataSetData = dataSetFieldFacade.getAll();
+            dataSetToAdd = new DataSetDataField();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
         }
     }
 
@@ -83,17 +95,14 @@ public class DataSetController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         if (dataSetFieldToEdit != null && dataSetFieldToEdit.getDataRowId() > 0 && dataSetFieldToEdit.getValue().isEmpty() == false && dataSetFieldToEdit.getTitle().isEmpty() == false) {
             try {
-                if (dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(),8,dataSetFieldToEdit.getTitle()) == 200 && this.dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(),9,dataSetFieldToEdit.getValue()) == 200)
-                {
+                if (dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 8, dataSetFieldToEdit.getTitle()) == 200 && this.dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 9, dataSetFieldToEdit.getValue()) == 200) {
                     dataSetFieldFacade.delete(dataSetFieldToEdit.getDataRowId());
                     dataSetFieldFacade.save(dataSetFieldToEdit);
                     dataSetFieldFacade.getAll();
 
                     // Get message in proper language and show in growl
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
-                }
-                else
-                {
+                } else {
                     this.dataSetData = dataSetFieldFacade.getAll();
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while editing DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
                 }

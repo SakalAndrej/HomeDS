@@ -46,7 +46,7 @@ public class DataSetDataFieldEndpoint {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
             try {
-                dataSetApi.addDataSetField(dataField.getTitle(), dataField.getValue());
+                dataSetApi.addDataSetField(dataField);
             } catch (NoConnectionException e) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
@@ -64,7 +64,7 @@ public class DataSetDataFieldEndpoint {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
             try {
-                dataSetApi.addDataSetField(dataField.getTitle(), dataField.getValue());
+                dataSetApi.addDataSetField(dataField);
             } catch (NoConnectionException e) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }

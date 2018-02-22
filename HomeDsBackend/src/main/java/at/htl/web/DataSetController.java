@@ -14,6 +14,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 @Model
 @Named
@@ -87,7 +88,9 @@ public class DataSetController implements Serializable {
                     dataSetFieldFacade.delete(dataSetFieldToEdit.getDataRowId());
                     dataSetFieldFacade.save(dataSetFieldToEdit);
                     dataSetFieldFacade.getAll();
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
+
+                    // Get message in proper language and show in growl
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
                 }
                 else
                 {

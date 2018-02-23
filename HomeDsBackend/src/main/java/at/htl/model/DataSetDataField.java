@@ -4,16 +4,21 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-@NamedQueries({ @NamedQuery(name = "DataSetDataField.GetAll", query = "select d from DataSetDataField d")})
+
+@NamedQueries({@NamedQuery(name = "DataSetDataField.GetAll", query = "select d from DataSetDataField d")
+        , @NamedQuery(name = "DataSetDataField.findByRowId", query = "select d from DataSetDataField d where :id = d.dataRowId")})
 
 @Table
 @Entity
 public class DataSetDataField {
 
-    private long dataSetId = 5;
-
     @Id
-    private long dataRowId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    private Long dataSetId = Long.valueOf(5);
+
+    private Long dataRowId;
 
     // News Content
     private String value;
@@ -25,7 +30,11 @@ public class DataSetDataField {
     private LocalDate fromDate;
     private LocalDate toDate;
 
-    public DataSetDataField() { }
+    // if from date is before date.now
+    private boolean isActive;
+
+    public DataSetDataField() {
+    }
 
     //region Getter & Setter
     public long getDataSetId() {
@@ -72,6 +81,14 @@ public class DataSetDataField {
         return dataRowId;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public void setDataRowId(long dataId) {
         this.dataRowId = dataId;
     }
@@ -91,17 +108,27 @@ public class DataSetDataField {
     }
 
     public Date getDateToDate() {
-        if (toDate!=null)
+        if (toDate != null)
             return Date.from(toDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         else
             return null;
     }
 
     public void setDateToDate(Date toDate) {
-        if (toDate!=null)
+        if (toDate != null)
             this.toDate = toDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         else
             this.toDate = null;
     }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     //endregion
+
 }

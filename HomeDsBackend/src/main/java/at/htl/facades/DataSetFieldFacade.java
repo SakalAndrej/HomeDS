@@ -18,23 +18,40 @@ public class DataSetFieldFacade {
         entityManager.persist(dataField);
     }
 
+    public void merge(DataSetDataField dataField) {
+        entityManager.merge(dataField);
+    }
+
     public void update(DataSetDataField dataField) {
-        DataSetDataField dataToUpdate = findById(dataField.getDataSetId());
+        DataSetDataField dataToUpdate = findByRowId(dataField.getDataRowId());
         dataToUpdate.setTitle(dataField.getTitle());
         dataToUpdate.setValue(dataField.getValue());
+    }
+
+    public DataSetDataField findByRowId(long rowId) {
+        TypedQuery<DataSetDataField> q = entityManager.createNamedQuery("DataSetDataField.findByRowId", DataSetDataField.class).setParameter("id", rowId);
+        return q.getSingleResult();
     }
 
     public DataSetDataField findById(long id) {
         return entityManager.find(DataSetDataField.class, id);
     }
 
+
     public List<DataSetDataField> getAll() {
         TypedQuery<DataSetDataField> q = entityManager.createNamedQuery("DataSetDataField.GetAll", DataSetDataField.class);
         return q.getResultList();
     }
 
-    public void delete(long getDataRowId) {
-        DataSetDataField entityToDelete = findById(getDataRowId);
+    public void deleteByRowId(long getDataRowId) {
+        if (getDataRowId > 0) {
+            DataSetDataField entityToDelete = findByRowId(getDataRowId);
+            entityManager.remove(entityToDelete);
+        }
+    }
+
+    public void deleteById(long id) {
+        DataSetDataField entityToDelete = findById(id);
         entityManager.remove(entityToDelete);
     }
 }

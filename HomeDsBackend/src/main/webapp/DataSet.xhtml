@@ -43,42 +43,59 @@
                                     id="dataSetParent"
                                     value="#{dataSetController.dataSetData}"
                                     var="actDataSet"
-                                    update="growl"
+                                    update="growl dataSetEditor"
                                     responsive="true"
                                     ajax="true"
+                                    searching="true"
                             >
                                 <b:dataTableColumn medium-screen="2" value="#{actDataSet.dataRowId}"
-                                                   label="#"/>
+                                                   label="#" orderable="true" orderBy="#{actDataSet.dataRowId}"/>
 
-                                <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.title}"
+                                <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.title}" orderable="false"
                                                    label="#{msg['title']}">
                                     <b:inputText value="#{actDataSet.title}" style="width: 100%"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.value}"
+                                <b:dataTableColumn medium-screen="2" dataSearch="#{actDataSet.value}" searchable="true"
+                                                   orderable="false"
                                                    label="#{msg['content']}">
                                     <b:inputText value="#{actDataSet.value}" style="width: 100%"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn medium-screen="2" label="#{msg['validFrom']}:">
+                                <b:dataTableColumn medium-screen="2" label="#{msg['validFrom']}:" searchable="true"
+                                                   orderable="true" orderBy="#{actDataSet.fromDate}">
                                     <b:datepicker id="dateFrom" mode="toggle-icon" showWeek="true"
                                                   firstDay="1" value="#{actDataSet.dateFromDate}"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn medium-screen="2" label="#{msg['validTil']}:'">
+                                <b:dataTableColumn medium-screen="2" label="#{msg['validTil']}:'" searchable="true"
+                                                   orderable="true" orderBy="#{actDataSet.toDate}">
                                     <b:datepicker id="dateTil" mode="toggle-icon" showWeek="true"
                                                   firstDay="1" value="#{actDataSet.dateToDate}"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn medium-screen="1">
-                                    <b:commandButton update="dataSetEditor growl"
-                                                     action="#{dataSetController.removeDataSet(actDataSet)}"
-                                                     id="btnDelete" look="danger" style="width:100%">
-                                        <b:iconAwesome size="1.5x" name="fa-trash"></b:iconAwesome>
-                                    </b:commandButton>
+                                <b:dataTableColumn medium-screen="1" label="#{msg['active']}" orderable="false">
+                                    <center>
+                                        <b:iconAwesome size="2x" rendered="#{actDataSet.active == false}"
+                                                       name="fa-close"></b:iconAwesome>
+                                        <b:iconAwesome size="2x" rendered="#{actDataSet.active == true}"
+                                                       name="fa-check"></b:iconAwesome>
+                                    </center>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn medium-screen="1">
-                                    <b:commandButton
-                                            action="#{dataSetController.editDataSet(actDataSet)}"
-                                            id="btnSave" look="primary" style="width:100%" update="@form growl dataSetParent">
-                                        <b:iconAwesome size="1.5x" name="far fa-save"></b:iconAwesome>
-                                    </b:commandButton>
+
+                                <b:dataTableColumn medium-screen="1" label="#{msg['delete']}">
+                                    <center>
+                                        <b:commandButton update="dataSetEditor growl"
+                                                         action="#{dataSetController.removeDataSet(actDataSet)}"
+                                                         id="btnDelete" look="danger">
+                                            <b:iconAwesome size="1.5x" name="fa-trash"></b:iconAwesome>
+                                        </b:commandButton>
+                                    </center>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="#{msg['edit']}">
+                                    <center>
+                                        <b:commandButton
+                                                action="#{dataSetController.editDataSet(actDataSet)}"
+                                                id="btnSave" look="primary" update="@form growl dataSetParent">
+                                            <b:iconAwesome size="1.5x" name="far fa-save"></b:iconAwesome>
+                                        </b:commandButton>
+                                    </center>
                                 </b:dataTableColumn>
                             </b:dataTable>
                         </b:form>
@@ -102,7 +119,7 @@
                                                              value="#{dataSetController.dataSetToAdd.title}"/>
                                             </b:column>
                                             <b:column medium-screen="2">
-                                                <h:outputText  style="line-height: 2.5; font-weight: bold"
+                                                <h:outputText style="line-height: 2.5; font-weight: bold"
                                                               value="#{msg['content']}"/>
                                             </b:column>
                                             <b:column medium-screen="4">
@@ -132,12 +149,15 @@
                                                               mode="toggle-icon"
                                                               showWeek="true"
                                                               firstDay="1"
-                                                              value="#{dataSetController.dataSetToAdd.dateToDate}"/>
+                                                              value="#{dataSetController.dataSetToAdd.dateToDate}"
+
+                                                              tooltip="An diesem Tag bleibt die Info noch da ab den nächsten Tag ist wird die Info gelöscht"/>
                                             </b:column>
                                         </b:row>
                                         <b:row>
                                             <b:column>
-                                                <b:commandButton style="width: 100%" value="#{msg['add']}" update="dataSetEditor @form growl"
+                                                <b:commandButton style="width: 100%" value="#{msg['add']}"
+                                                                 update="dataSetEditor @form growl"
                                                                  look="primary"
                                                                  action="#{dataSetController.addDataSet}">
                                                     <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>

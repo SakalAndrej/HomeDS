@@ -213,12 +213,12 @@ public class DataSetApi {
         return -1;
     }
 
-    public long addDataSetField(String dataSetFieldTitle, String dataSetFieldValue) throws NoConnectionException {
+    public long addDataSetField(DataSetDataField dataField) throws NoConnectionException {
         try {
 
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
-                            "dataSetColumnId_"+8+"="+dataSetFieldTitle+"&dataSetColumnId_"+9+"="+dataSetFieldValue,
+                            "dataSetColumnId_"+8+"="+dataField.getTitle()+"&dataSetColumnId_"+9+"="+dataField.getValue(),
                             new RequestHelper().BASE_URL + "api/dataset/data/" + 5,
                             AuthentificationHandler.getTOKEN());
 

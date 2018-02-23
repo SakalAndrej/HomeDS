@@ -6,7 +6,6 @@ import at.htl.model.DataSetDataField;
 import at.htl.xiboClient.DataSetApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.jaxrs.PATCH;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -46,7 +45,7 @@ public class DataSetDataFieldEndpoint {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
             try {
-                dataSetApi.addDataSetField(dataField.getTitle(), dataField.getValue());
+                dataSetApi.addDataSetField(dataField);
             } catch (NoConnectionException e) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
@@ -64,7 +63,7 @@ public class DataSetDataFieldEndpoint {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
             try {
-                dataSetApi.addDataSetField(dataField.getTitle(), dataField.getValue());
+                dataSetApi.addDataSetField(dataField);
             } catch (NoConnectionException e) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
@@ -83,7 +82,7 @@ public class DataSetDataFieldEndpoint {
             @PathParam("datarowid") long dataRowId) {
         try {
             if (dataSetApi.removeRow(dataRowId, dataId) == 204) {
-                dataSetFieldFacade.delete(dataRowId);
+                dataSetFieldFacade.deleteByRowId(dataRowId);
                 return Response.ok().build();
             }
             else {

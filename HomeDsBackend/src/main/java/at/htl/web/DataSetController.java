@@ -35,7 +35,7 @@ public class DataSetController implements Serializable {
 
     @PostConstruct
     public void init() {
-        dataSetData = dataSetFieldFacade.getAll();
+        this.updateList();
         dataSetToAdd = new DataSetDataField();
     }
 
@@ -45,15 +45,14 @@ public class DataSetController implements Serializable {
             if (dataSet != null && dataSet.isActive() && (dataSet.getDataSetId() != -1 || dataSet.getDataSetId() != 0)) {
                 if (dataSetApi.removeRow(dataSet.getDataRowId(), dataSet.getDataSetId()) == 204) {
                     dataSetFieldFacade.deleteByRowId(dataSet.getDataRowId());
-                    dataSetData = dataSetFieldFacade.getAll();
+                    this.updateList();
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully deleted DataSetRow: " + dataSet.getDataRowId()));
                 } else {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while deleting DataSetRow: " + dataSet.getDataRowId()));
                 }
             } else if (dataSet.isActive() == false) {
                 dataSetFieldFacade.deleteById(dataSet.getId());
-                dataSetData = dataSetFieldFacade.getAll();
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully deleted DataSetRow"));
+                this.updateList();
             }
             else {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Nothing to deleteByRowId" + dataSet.getDataRowId()));
@@ -74,7 +73,7 @@ public class DataSetController implements Serializable {
             dataSetToAdd.setDataRowId(-1);
             dataSetToAdd.setActive(false);
             dataSetFieldFacade.save(dataSetToAdd);
-            dataSetData = dataSetFieldFacade.getAll();
+            this.updateList();
             dataSetToAdd = new DataSetDataField();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
         }
@@ -90,7 +89,7 @@ public class DataSetController implements Serializable {
                 dataFieldToAdd.setActive(true);
                 dataFieldToAdd.setDataRowId(id);
                 dataSetFieldFacade.save(dataFieldToAdd);
-                dataSetData = dataSetFieldFacade.getAll();
+                this.updateList();
 
                 //clear add variable
                 dataSetToAdd = new DataSetDataField();
@@ -115,22 +114,23 @@ public class DataSetController implements Serializable {
                 dataSetFieldFacade.deleteById(dataSetFieldToEdit.getId());
                 temp.setId(0);
                 this.addDataSetToXibo(temp);
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully updated and activated DataSetRow"));
             }
             // just edit unactive dataset
             else if ((dataSetFieldToEdit.getDataRowId() < 0 || dataSetFieldToEdit.isActive() == false)) {
                 dataSetFieldFacade.merge(dataSetFieldToEdit);
-                this.dataSetData = dataSetFieldFacade.getAll();
+                this.updateList();
 
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
             }
-            // edit active event && should edit active event to unactive
+            // edit active event
             else if (dataSetFieldToEdit.isActive() && dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1))){
                 try {
                     if (dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 8, dataSetFieldToEdit.getTitle()) == 200 && this.dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 9, dataSetFieldToEdit.getValue()) == 200) {
                         //dataSetFieldFacade.deleteByRowId(dataSetFieldToEdit.getDataRowId());
                         //dataSetFieldFacade.save(dataSetFieldToEdit);
                         dataSetFieldFacade.merge(dataSetFieldToEdit);
-                        this.dataSetData = dataSetFieldFacade.getAll();
+                        this.updateList();
 
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
                     } else {
@@ -141,6 +141,7 @@ public class DataSetController implements Serializable {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
                 }
             }
+            //should edit active event to unactive
             else if (dataSetFieldToEdit.isActive() && dataSetFieldToEdit.getFromDate().isAfter(LocalDate.now())) {
                 this.removeDataSet(dataSetFieldToEdit);
                 dataSetFieldToEdit.setId(0);
@@ -148,6 +149,7 @@ public class DataSetController implements Serializable {
                 dataSetFieldToEdit.setDataRowId(-1);
                 dataSetFieldFacade.save(dataSetFieldToEdit);
                 this.updateList();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully updated and deactivated DataSetRow"));
             }
         }
     }

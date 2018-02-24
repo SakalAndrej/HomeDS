@@ -111,7 +111,7 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
 
                 news.add(new DataSetDataField(jsonObject.getLong("dataSetColumnId"),
                         jsonObject.getLong("dataId"),
-                        jsonObject.getString("colName"),
+                        //jsonObject.getString("colName"),
                         jsonObject.getString("value"),
                         LocalDate.parse(jsonObject.getString("fromDate")),
                         LocalDate.parse(jsonObject.getString("toDate")),

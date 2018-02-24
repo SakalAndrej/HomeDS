@@ -7,9 +7,16 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import java.util.HashMap;
 
 import homeds.htl.at.homedsjee.R;
+import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
+import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,12 +73,35 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View v = inflater.inflate(R.layout.fragment_news_edit, container, false);
+        View v = inflater.inflate(R.layout.fragment_news_edit, container, false);
 
-       Bundle bundle = getArguments();
+        Bundle bundle = getArguments();
         DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
+        ImageButton ibSaveNews = v.findViewById(R.id.ibSaveNews);
 
-       return v;
+        ibSaveNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        RequestHelper rh = new RequestHelper();
+        HashMap<String,String> params = new HashMap<>();
+        String url = "";
+
+        EditText title = v.findViewById(R.id.etTitle);
+        EditText description = v.findViewById(R.id.etDescription);
+
+        if (news == null){
+
+            params.put("dataSetColumnId","");
+            params.put("dataId","5");
+            params.put("value","");
+            rh.executeRequest(RequestTypeEnum.POST,params,url);
+
+        }
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -112,4 +142,6 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    public void request(){}
 }

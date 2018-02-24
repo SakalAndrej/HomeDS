@@ -10,8 +10,11 @@ import homeds.htl.at.homedsjee.entity.DataSetDataField;
 import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
 import homeds.htl.at.homedsjee.fragment.NewsEditFragment;
 import homeds.htl.at.homedsjee.fragment.NewsOverviewFragment;
+import homeds.htl.at.homedsjee.fragment.StructurePlanFragment;
 
-public class MainActivity extends AppCompatActivity implements HomeScreenFragment.OnFragmentInteractionListener, NewsEditFragment.OnFragmentInteractionListener,NewsOverviewFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements HomeScreenFragment.OnFragmentInteractionListener,
+        NewsEditFragment.OnFragmentInteractionListener,NewsOverviewFragment.OnFragmentInteractionListener,
+        StructurePlanFragment.OnFragmentInteractionListener {
 
     public static MainActivity instance;
     @Override
@@ -53,6 +56,12 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
 
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.container_main, newsEditFragment,null).commit();
+    }
+
+    public void openStructurePlanFragment(){
+        StructurePlanFragment structurePlanFragment = new StructurePlanFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.container_main, structurePlanFragment,null).commit();
     }
 
 }

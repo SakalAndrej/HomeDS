@@ -10,12 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.adapter.NewsAdapter;
 import homeds.htl.at.homedsjee.adapter.StructurePlanAdapter;
+import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.entity.Structure;
+import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,8 +78,20 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_structure_plan, container, false);
-
+        String url = "";
         RecyclerView rvStructurePlan = v.findViewById(R.id.rvStructurePlan);
+
+        RequestHelper rh  = new RequestHelper();
+
+        rh.executeRequest(RequestTypeEnum.GET,null,url);
+
+        JSONObject jo = new JSONObject();
+        try {
+            jo = new JSONObject(rh.getResponseBody());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        getStructureFromJson(jo);
 
         LinkedList<Structure> splan = new LinkedList<>();
 
@@ -111,7 +128,8 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
+     * This interface must be implemented
+     * by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
@@ -123,5 +141,12 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public Structure getStructureFromJson(JSONObject object){
+
+        
+
+        return new Structure();
     }
 }

@@ -145,7 +145,7 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
 
     public Structure getStructureFromJson(JSONObject object){
 
-        
+
 
         return new Structure();
     }

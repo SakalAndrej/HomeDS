@@ -88,7 +88,7 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
         fabAddNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).openEditNewsFragment(null);
+                ((MainActivity)getActivity()).openEditNewsFragment( new DataSetDataField());
 
             }
         });

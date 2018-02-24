@@ -2,15 +2,14 @@ package homeds.htl.at.homedsjee.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Created by Felix on 07.02.2018.
  */
 
 public class DataSetDataField implements Serializable {
-    private long dataSetColumnId;
-    private long dataId;
+    private Long dataSetColumnId;
+    private Long dataId;
     //private String colName;
     private String value;
     private LocalDate fromDate;
@@ -24,17 +23,17 @@ public class DataSetDataField implements Serializable {
         this.value = value;
         this.fromDate = fromDate;
         this.toDate = toDate;
-        Title = title;
+        this.Title = title;
     }
 
     public DataSetDataField() { }
 
     //region Getter & Setter
-    public long getDataSetColumnId() {
+    public Long getDataSetColumnId() {
         return dataSetColumnId;
     }
 
-    public void setDataSetColumnId(long dataSetColumnId) {
+    public void setDataSetColumnId(Long dataSetColumnId) {
         this.dataSetColumnId = dataSetColumnId;
     }
 
@@ -51,11 +50,11 @@ public class DataSetDataField implements Serializable {
     }
 
 
-    public long getDataId() {
+    public Long getDataId() {
         return dataId;
     }
 
-    public void setDataId(long dataId) {
+    public void setDataId(Long dataId) {
         this.dataId = dataId;
     }
 
@@ -80,6 +79,6 @@ public class DataSetDataField implements Serializable {
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.Title = title;
     }
 }

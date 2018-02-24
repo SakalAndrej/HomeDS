@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import homeds.htl.at.homedsjee.R;
@@ -78,29 +79,40 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         Bundle bundle = getArguments();
         DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
         ImageButton ibSaveNews = v.findViewById(R.id.ibSaveNews);
+        EditText title = v.findViewById(R.id.etTitle);
+        EditText description = v.findViewById(R.id.etDescription);
+
+        title.setText(news.getTitle());
+        description.setText(news.getValue());
 
         ibSaveNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            Bundle bundle = getArguments();
+            DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
+                RequestHelper rh = new RequestHelper();
+                HashMap<String,String> params = new HashMap<>();
+                String url = "";
+
+                LocalDate date = LocalDate.now();
+                params.put("dataSetColumnId","");
+                params.put("dataId","5");
+                params.put("value",view.findViewById(R.id.etDescription).toString());
+                params.put("title",view.findViewById(R.id.etTitle).toString());
+                params.put("fromDate",date.toString());
+                params.put("toDate",date.toString());
+
+                if (news.getDataId() == null){
+                    rh.executeRequest(RequestTypeEnum.POST,params,url);
+                }else{
+                    rh.executeRequest(RequestTypeEnum.PUT,params,url);
+
+                }
+
 
             }
         });
 
-        RequestHelper rh = new RequestHelper();
-        HashMap<String,String> params = new HashMap<>();
-        String url = "";
-
-        EditText title = v.findViewById(R.id.etTitle);
-        EditText description = v.findViewById(R.id.etDescription);
-
-        if (news == null){
-
-            params.put("dataSetColumnId","");
-            params.put("dataId","5");
-            params.put("value","");
-            rh.executeRequest(RequestTypeEnum.POST,params,url);
-
-        }
         return v;
     }
 

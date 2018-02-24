@@ -1,22 +1,47 @@
-\chapter{Theoretical Background}\label{cha:theoretical-background}
-The details of the structure of your thesis have to be aligned with the supervising teacher. However, most of the theses require to have some description of the models used or some other theoretical background necessary to understand the rest of the text.
+\chapter{XIBO-Server}
+\section{Beschreibung}
+Als zentrale Steuereinheit wird ein XIBO-Server verwendet. Um diesen verwenden zu können, war es Notwendig sich in die Dokumentation einzulesen und die API-Schnittstelle auszuprobieren. Die Website des Servers diente vorerst als Übungsumgebung dadurch wurde es leicht auch die einzelnen Funktionen, inklusive der Vorgangsweise, des Servers zu verstehen.
 
-Since there is enough space here a table is added to show the basic usage of tables in a scientific document. Similarly to images these are also kept outside the normal text flow in a so-called floating body. Table~\ref{tab:types-of-floating-bodies} shows different options.
+\section{API-Schnittstelle}
+Die API-Schnittstelle des XIBO-Servers ist mittels Swagger Dokumentiert, diese Dokumentation deckt die Grundfunktionalitäten und die Form der Anfragen ab. Da die Schnittstelle des Servers später als wesentliches Verbindungsstück zwischen der eigens entwickelten Steuerungssoftware und dem Server dient war es Nötig diese gründlich zu Testen und diese auch zu verstehen. Anfangs wurde dafür mit Postman gearbeitet. 
 
-\begin{table}
-	\begin{center}
-	\begin{tabular}{|l|l|}
-		\hline
-		\cellcolor{Gray}\textcolor{White}{Body type} & \cellcolor{Gray}\textcolor{White}{Floats} \\
-		\hline
-		Image & Always \\
-		\hline
-		Table & Always \\
-		\hline
-		Algorithm & Sometimes \\
-		\hline
-	\end{tabular}
-	\end{center}
-	\caption{Different types of floating bodies}
-	\label{tab:types-of-floating-bodies}
-\end{table}
+
+\section{Authentifizierung}
+Es stellte sich heraus, dass die Authentifizierung mittels OAuth2 sehr speziell war was zu Beginn zu einigen Schwierigkeiten führte, da es einige Anläufe brauchte um herauszufinden wie die Parameter übergeben werden müssen und in welcher Reihenfolge. Dazu wurde eine Java-Klasse entwickelt welche die Authentifizierung automatisch übernimmt.
+VERWEIS!!!!!!!!!!!!!!!!!!
+https://oauth.net/2/
+
+Der Server benötigt zur Authentifizierung mit einem Client eine Client_ID diese wird vom Server für jeden Client eindeutig erzeugt. Man bekommt sie direkt von der Website des Servers. 
+Weiteres wird ein Client_Secret benötigt welches ebenso wie die Client_ID vom Server,für jede Anwendung ,eindeutig erzeugt wird und auch auf der Website erhältlich ist. Zudem ist ein Parameter in der Form "&grant_type=client_credentials" mitzugeben.
+
+Zuerst wird ein Request-Body erstellt dieser hat folgende Parameter in der Form: 
+ ''client\_id=<CLIENT\_ID>\&client\_secret=<CLIENT\_SECRET>\&grant\_type=client\_credentials''
+, die im Body mitgegeben werden und als Format 'application/x-www-form-urlencoded'  haben. Anschließend werden dem Header noch der "content-type" mit dem Wert ''application/x-www-form-urlencoded'' und der Parameter ''cache-control'' mit dem Wert ''no-cache'' hinzugefügt. Als ergebniss der Anfrage bekommt der Client einen '' access\_token '', dieser ist nun bei jeder Anfrage von Nöten um sich beim Server zu authentifizieren und es dem Client zu ermöglichen Daten abzurufen beziehungsweise weiterzugeben.
+
+\section{Request-Helper}
+Um in weiterer folge die Anfragen an den Digital Signage Server einfach und einheitlich durchzuführen gibt es die Klasse "RequestHelper". In dieser Klasse gibt es neben den beiden Parametern "responseBody" und "responseCode", welche zur Fehlerausgabe und zum Erhalt der Daten aus der Anfrage vorhanden sind, auch noch die Methode "executeRequest", diese übernimmt die Hauptaufgabe der Klasse und führt die Anfragen an das Signage System durch.
+
+Die Parameter dieser Methode Lauten wie folgt:
+
+\begin{itemize}
+	\item {\em RequestTypeEnum:} Der Parameter vom Typ Enum wird genutzt um Herauszufinden welche Http Anfrage vorliegt. Mögliche Werte sind hierbei GET, POST, PUT und DELETE.
+	
+	\item {\em Params:} Hier liegt eine HashMap vor, die als Key-Value Paare alle Benötigten Parameter für den RequestBody beinhaltet. Beispielsweise: "LayoutID":"78", hierbei ist "LayoutID" der Key und "78" das Value.
+		
+	\item {\em Url:} Beinhaltet die URL unter der die Anfrage erreichbar ist. 
+	
+	\item {\em Token:} Ist jener Parameter der den '' access\_token '',der benötigt wird um sich beim Server zu authentifizieren. Der Erhalt dieses Parameters, funktioniert wie bereits im vorigen Unterpunkt Authentifizierung beschrieben.
+	
+\end{itemize}
+
+Zu beginn der Methode wird anhand des Parameters RequestTypeEnum unterschieden, um welche Http Anfrage es sich handelt. Wird GET oder DELETE geliefert wird durch die HashMap iteriert und die einzelnen Key-Value Paare als QeryParameter in der URL einfügt. Beispielsweise: <URL>/layout?layoutID=78&token=ajdlfjßßwkflkd6545.
+Handelt es sich um eine POST oder PUT Anfrage so werden die Key-Value Paare im Body mitgegeben und im Format "application/x-www-form-urlencoded" codiert. Anschließend wird noch die URL mittels HttpUrl.Builder erstellt und ausgegeben. 
+
+
+
+
+Als Ergebnis der Anfrage, mit den Parametern, in der Form
+----------STütz fragen ob bsp für request usw einbauen
+
+
+

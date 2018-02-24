@@ -1,6 +1,7 @@
 package at.htl.xiboClient;
 
 import at.htl.enums.RequestTypeEnum;
+import at.htl.exceptions.NoConnectionException;
 import at.htl.model.DataSet;
 import at.htl.model.DataSetData;
 import at.htl.model.DataSetDataField;
@@ -21,8 +22,9 @@ import java.util.LinkedList;
 @Stateless
 public class DataSetApi {
 
-    public LinkedList<DataSet> getAllDataSet(long dataSetId, String dataSet, String dataSetCode) {
+    public LinkedList<DataSet> getAllDataSet(long dataSetId, String dataSet, String dataSetCode) throws NoConnectionException {
 
+        BufferedReader in;
         LinkedList<DataSet> dataSets = new LinkedList<>();
         DataSet act = new DataSet();
 
@@ -34,7 +36,13 @@ public class DataSetApi {
                             new RequestHelper().BASE_URL + "api/dataset",
                             AuthentificationHandler.getTOKEN());
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            try {
+                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            }
+            catch (NullPointerException ex) {
+                throw new NoConnectionException("Es ist kein Response vorhanden", ex);
+            }
+
             String output;
             StringBuffer response = new StringBuffer();
             while ((output = in.readLine()) != null) {
@@ -107,10 +115,7 @@ public class DataSetApi {
                         act.setDataId(jsonobject.getLong(col));
                     } else {
                         DataSetDataField row = new DataSetDataField();
-                        row.setColName(col);
                         long columnId = -1;
-                        if ((columnId = getIdForColumnName(dataSetId,row.getColName()))!=-1)
-                            row.setDataSetColumnId(columnId);
 
                         // Check what type and if not null
                         if (!jsonobject.isNull(col)) {
@@ -134,7 +139,7 @@ public class DataSetApi {
         return dataSetDatas;
     }
 
-    public long getIdForColumnName(long dataSetId, String columnName) {
+    public long getIdForColumnName(long dataSetId, String columnName) throws NoConnectionException {
 
         try {
             //Get all columns from this datasetid
@@ -146,9 +151,12 @@ public class DataSetApi {
 
             BufferedReader in = null;
 
-
-            in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
+            try {
+                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            }
+            catch (NullPointerException ex) {
+                throw new NoConnectionException("Es ist kein Response vorhanden", ex);
+            }
 
             String output;
             StringBuffer response = new StringBuffer();
@@ -172,7 +180,7 @@ public class DataSetApi {
         return -1;
     }
 
-    public long editDataSetField(long dataSetId, long dataSetDataId, long dataSetColumnId, String dataSetFieldValue) {
+    public long editDataSetField(long dataSetId, long dataSetDataId, long dataSetColumnId, String dataSetFieldValue) throws NoConnectionException {
 
         try {
 
@@ -185,7 +193,12 @@ public class DataSetApi {
 
             BufferedReader in = null;
 
-            in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            try {
+                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            }
+            catch (NullPointerException ex) {
+                throw new NoConnectionException("Es ist kein Response vorhanden", ex);
+            }
 
             String output;
             StringBuffer response = new StringBuffer();
@@ -193,26 +206,30 @@ public class DataSetApi {
                 response.append(output);
             }
             System.out.println(response.toString());
-            return 1;
+            return con.getResponseCode();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return -1;
     }
 
-    public static long addDataSetField(String dataSetFieldTitle, String dataSetFieldValue) {
+    public long addDataSetField(DataSetDataField dataField) throws NoConnectionException {
         try {
 
-            //Get all Datasets
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
-                            "dataSetColumnId_"+8+"="+dataSetFieldTitle+"&dataSetColumnId_"+9+"="+dataSetFieldValue,
+                            "dataSetColumnId_"+8+"="+dataField.getTitle()+"&dataSetColumnId_"+9+"="+dataField.getValue(),
                             new RequestHelper().BASE_URL + "api/dataset/data/" + 5,
                             AuthentificationHandler.getTOKEN());
 
             BufferedReader in = null;
 
-            in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            try {
+                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            }
+            catch (NullPointerException ex) {
+                    throw new NoConnectionException("Es ist kein Response vorhanden", ex);
+            }
 
             String output;
             StringBuffer response = new StringBuffer();
@@ -220,10 +237,41 @@ public class DataSetApi {
                 response.append(output);
             }
             System.out.println(response.toString());
-            return 1;
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            return jsonResponse.getLong("id");
         } catch (IOException e) {
             e.printStackTrace();
          }
+        return -1;
+    }
+
+    public long removeRow(long dataSetRowId, long dataid) throws NoConnectionException {
+        try {
+
+            HttpURLConnection con = new RequestHelper()
+                    .executeRequest(RequestTypeEnum.DELETE, null,
+                            new RequestHelper().BASE_URL + "api/dataset/data/" + dataid +"/"+dataSetRowId,
+                            AuthentificationHandler.getTOKEN());
+
+            BufferedReader in = null;
+
+            try {
+                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            }
+            catch (NullPointerException ex) {
+                throw new NoConnectionException("Es ist kein Response vorhanden", ex);
+            }
+
+            String output;
+            StringBuffer response = new StringBuffer();
+            while ((output = in.readLine()) != null) {
+                response.append(output);
+            }
+            System.out.println(response.toString());
+            return con.getResponseCode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return -1;
     }
 }

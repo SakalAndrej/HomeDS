@@ -1,5 +1,6 @@
 package at.htl.rest;
 
+import at.htl.exceptions.NoConnectionException;
 import at.htl.facades.DataSetFieldFacade;
 import at.htl.model.DataSetDataField;
 import at.htl.xiboClient.DataSetApi;
@@ -7,7 +8,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import javax.inject.Inject;
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -26,7 +26,7 @@ public class DataSetDataFieldEndpoint {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
-    @ApiOperation("Get all DataSets")
+    @ApiOperation("Get all DataSetRows")
     public Response getDataSet() {
         List<DataSetDataField> dataFields = dataSetFieldFacade.getAll();
 
@@ -40,17 +40,58 @@ public class DataSetDataFieldEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/")
-    @ApiOperation("Save DataSets")
+    @ApiOperation("Save DataSetRow")
     public Response addDataSetDataField(DataSetDataField dataField) {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
-            DataSetApi.addDataSetField(dataField.getTitle(),dataField.getValue());
-            return Response.ok(dataField.getDataId()).build();
+            try {
+                dataSetApi.addDataSetField(dataField);
+            } catch (NoConnectionException e) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            return Response.ok(dataField.getDataRowId()).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/")
+    @ApiOperation("Edit DataSetRow")
+    public Response editDataSetDataField(DataSetDataField dataField) {
+        if (dataField != null) {
+            dataSetFieldFacade.save(dataField);
+            try {
+                dataSetApi.addDataSetField(dataField);
+            } catch (NoConnectionException e) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            return Response.ok(dataField.getDataRowId()).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
 
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{dataid}/{datarowid}")
+    @ApiOperation("Delete DataSetRow")
+    public Response addDataSetDataField(
+            @PathParam("dataid") long dataId,
+            @PathParam("datarowid") long dataRowId) {
+        try {
+            if (dataSetApi.removeRow(dataRowId, dataId) == 204) {
+                dataSetFieldFacade.deleteByRowId(dataRowId);
+                return Response.ok().build();
+            }
+            else {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+        } catch (NoConnectionException e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
 
     /*@GET
     @Produces("application/json")

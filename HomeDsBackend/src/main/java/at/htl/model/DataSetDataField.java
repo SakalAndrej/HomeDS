@@ -2,8 +2,11 @@ package at.htl.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
-@NamedQueries({ @NamedQuery(name = "DataSetDataField.GetAll", query = "select d from DataSetDataField d")})
+
+@NamedQueries({@NamedQuery(name = "DataSetDataField.GetAll", query = "select d from DataSetDataField d")
+        , @NamedQuery(name = "DataSetDataField.findByRowId", query = "select d from DataSetDataField d where :id = d.dataRowId")})
 
 @Table
 @Entity
@@ -11,13 +14,11 @@ public class DataSetDataField {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long dataSetColumnId;
+    private long id;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long dataId;
+    private Long dataSetId = Long.valueOf(5);
 
-    // Column Header
-    private String colName;
+    private Long dataRowId;
 
     // News Content
     private String value;
@@ -29,23 +30,19 @@ public class DataSetDataField {
     private LocalDate fromDate;
     private LocalDate toDate;
 
-    public DataSetDataField() { }
+    // if from date is before date.now
+    private boolean isActive;
+
+    public DataSetDataField() {
+    }
 
     //region Getter & Setter
-    public long getDataSetColumnId() {
-        return dataSetColumnId;
+    public long getDataSetId() {
+        return dataSetId;
     }
 
-    public void setDataSetColumnId(long dataSetColumnId) {
-        this.dataSetColumnId = dataSetColumnId;
-    }
-
-    public String getColName() {
-        return colName;
-    }
-
-    public void setColName(String colName) {
-        this.colName = colName;
+    public void setDataSetId(long dataSetColumnId) {
+        this.dataSetId = dataSetColumnId;
     }
 
     public String getValue() {
@@ -80,13 +77,58 @@ public class DataSetDataField {
         Title = title;
     }
 
-    public long getDataId() {
-        return dataId;
+    public long getDataRowId() {
+        return dataRowId;
     }
 
-    public void setDataId(long dataId) {
-        this.dataId = dataId;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setDataRowId(long dataId) {
+        this.dataRowId = dataId;
+    }
+
+    public Date getDateFromDate() {
+        if (fromDate != null)
+            return Date.from(fromDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        else
+            return null;
+    }
+
+    public void setDateFromDate(Date fromDate) {
+        if (fromDate != null)
+            this.fromDate = fromDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        else
+            this.fromDate = null;
+    }
+
+    public Date getDateToDate() {
+        if (toDate != null)
+            return Date.from(toDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        else
+            return null;
+    }
+
+    public void setDateToDate(Date toDate) {
+        if (toDate != null)
+            this.toDate = toDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        else
+            this.toDate = null;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     //endregion
+
 }

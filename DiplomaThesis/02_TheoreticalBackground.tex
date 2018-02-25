@@ -36,6 +36,16 @@ Die Parameter dieser Methode Lauten wie folgt:
 
 Zu beginn der Methode wird anhand des Parameters RequestTypeEnum unterschieden, um welche Http Anfrage es sich handelt. Wird GET oder DELETE geliefert wird durch die HashMap iteriert und die einzelnen Key-Value Paare als QeryParameter in der URL einfügt. Beispielsweise: <URL>/layout?layoutID=78&token=ajdlfjßßwkflkd6545.
 Handelt es sich um eine POST oder PUT Anfrage so werden die Key-Value Paare im Body mitgegeben und im Format "application/x-www-form-urlencoded" codiert. Anschließend wird noch die URL mittels HttpUrl.Builder erstellt und ausgegeben. 
+Anschließend wird per Switch-Case dem Request die richtige Art der Anfrage zugewiesen und danach wird auch noch die URL übergeben. 
+
+Um die Anfragen noch fertig zu stellen wird noch das Interface Callback implementiert. Mit den beiden Methoden onFailure und onResponse wird dem Interface zugewiesen was passiert wenn der Request fehlschlägt oder Funktioniert. 
+
+Sollte der Request fehlschlagen so wird im Log-Fenster der Responsecode und die Fehlermeldung/Exception ausgegeben. 
+Wird der Request ohne Fehler durchgeführt so wird im Log-Fenster ebenfalls der Responsecode und der Responsebody ausgegeben.
+
+Der letzte Schritt ist es dem OkHttpClient mitzuteilen, dass er einen neuen Call ausführen soll, als Parameter wird der Zusammengestellte Request mitgegeben. Über .enwueue wird dem Client gesgat er soll auf einen Response warten Parameter für diese Methode ist das erstellte Interface Callback.
+
+
 
 
 

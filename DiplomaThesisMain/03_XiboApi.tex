@@ -11,7 +11,7 @@ Es stellte sich heraus, dass die Authentifizierung mittels OAuth2 sehr speziell 
 VERWEIS!!!!!!!!!!!!!!!!!!
 https://oauth.net/2/
 
-Der Server benÃ¶tigt zur Authentifizierung mit einem Client eine Client_ID diese wird vom Server fÃ¼r jeden Client eindeutig erzeugt. Man bekommt sie direkt von der Website des Servers. 
+Der Server benötigt zur Authentifizierung mit einem Client eine Client\_ID diese wird vom Server für jeden Client eindeutig erzeugt. Man bekommt sie direkt von der Website des Servers. 
 Weiteres wird ein Client_Secret benötigt welches ebenso wie die Client_ID vom Server,für jede Anwendung ,eindeutig erzeugt wird und auch auf der Website erhältlich ist. Zudem ist ein Parameter in der Form "&grant_type=client_credentials" mitzugeben.
 
 Zuerst wird ein Request-Body erstellt dieser hat folgende Parameter in der Form: 
@@ -34,7 +34,7 @@ Die Parameter dieser Methode Lauten wie folgt:
 	
 \end{itemize}
 
-Zu beginn der Methode wird anhand des Parameters RequestTypeEnum unterschieden, um welche Http Anfrage es sich handelt. Wird GET oder DELETE geliefert wird durch die HashMap iteriert und die einzelnen Key-Value Paare als QeryParameter in der URL einfügt. Beispielsweise: <URL>/layout?layoutID=78&token=ajdlfjkakawkflkd6545.
+Zu beginn der Methode wird anhand des Parameters RequestTypeEnum unterschieden, um welche Http Anfrage es sich handelt. Wird GET oder DELETE geliefert wird durch die HashMap iteriert und die einzelnen Key-Value Paare als QeryParameter in der URL einfügt. Beispielsweise:'' <URL>/layout?layoutID=78&token=ajdlfjkakawkflkd6545''.
 Handelt es sich um eine POST oder PUT Anfrage so werden die Key-Value Paare im Body mitgegeben und im Format "application/x-www-form-urlencoded" codiert. AnschlieÃend wird noch die URL mittels HttpUrl.Builder erstellt und ausgegeben. 
 AnschlieÃend wird per Switch-Case dem Request die richtige Art der Anfrage zugewiesen und danach wird auch noch die URL übergeben. 
 

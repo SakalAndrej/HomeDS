@@ -63,7 +63,8 @@ public class DataSetDataFieldEndpoint {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
             try {
-                dataSetApi.addDataSetField(dataField);
+                dataSetApi.editDataSetField(dataField.getDataSetId(), dataField.getDataRowId(),8, dataField.getTitle());
+                dataSetApi.editDataSetField(dataField.getDataSetId(), dataField.getDataRowId(),9, dataField.getValue());
             } catch (NoConnectionException e) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
@@ -77,7 +78,7 @@ public class DataSetDataFieldEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{dataid}/{datarowid}")
     @ApiOperation("Delete DataSetRow")
-    public Response addDataSetDataField(
+    public Response deleteDataSetDataField(
             @PathParam("dataid") long dataId,
             @PathParam("datarowid") long dataRowId) {
         try {

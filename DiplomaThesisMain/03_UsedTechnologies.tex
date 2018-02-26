@@ -1,17 +1,17 @@
 \chapter{XIBO-Grundlagen}
 \section{Digital Signage}\label{sec:digitalsignage}
-Digital Signage Systeme haben die Aufgabe viele Bildschirme mit Inhalten zu fÃ¼llen und eventuell auch diese Inhalte zu designen. Damit soll das zeit- oder interaktionsgesteuerte Ã¤ndern von Inhalten auf den Bildschirmen einfach und unÃ¼bersichtlich gehalten werden. Digital Signage bietet ein breites Spektrum an Anwendungsbereichen.    https://de.wikipedia.org/wiki/Digital_Signage#Anwendungsbeispiele:_2017.
+Digital Signage Systeme haben die Aufgabe viele Bildschirme mit Inhalten zu füllen und eventuell auch diese Inhalte zu designen. Damit soll das zeit- oder interaktionsgesteuerte ändern von Inhalten auf den Bildschirmen einfach und übersichtlich gehalten werden. Weiters bietet Digital Signage ein breites Spektrum an Anwendungsbereichen.    https://de.wikipedia.org/wiki/Digital_Signage#Anwendungsbeispiele:_2017.
 
 \section{Was ist XIBO?}\label{sec:xibo}
-Das XIBO ist ein Open Source Digital Signage System entwickelt von der Spring Signage LTD. Das XIBO-System besteht aus vielen verschiedenen Komponenten. Das XIBO Paket besteht aus einem klassischen Server-Client Konstrukt. Der Server besteht aus 3 Komponenten Content Managment System das mithilfe von ZeroMq bei Anderung der Inhalte diese aktualisieren soll, einer Datenbank und einer WeboberflÃ¤che die es dem Benutzer ermÃ¶glichen soll das System zu bedienen.
+Das XIBO ist ein Open Source Digital Signage System entwickelt von der Spring Signage LTD. Das XIBO-System besteht aus vielen verschiedenen Komponenten. Das XIBO Paket besteht aus einem klassischen Server-Client Konstrukt. Der Server besteht aus 3 Komponenten Content Managment System das mithilfe von ZeroMq bei Anderung der Inhalte diese aktualisieren soll, einer Datenbank und einer Weboberfläche die es dem Benutzer ermöglichen soll das System zu bedienen.
 
-SYSTEM ARCH PLAN eventuell noch Ã¼ber zeromq schreiben
+SYSTEM ARCH PLAN eventuell noch über zeromq schreiben
 
 \section{WeboberflÃ¤che des XIBO}\label{sec:webpagexibo}
-Das Steuerungszentrum des ganzen Signage System ist die WeboberflÃ¤che die ganz einfach Ã¼ber einen Browser unter der Serveraddresse aufgerufen werden kann. Auf der Willkommenseite sind die wichtigsten Funktionen dargestellt:
+Das Steuerungszentrum des ganzen Signage System ist die WeboberflÃ¤che die ganz einfach über einen Browser unter der Serveraddresse aufgerufen werden kann. Auf der Willkommenseite sind die wichtigsten Funktionen dargestellt:
 
 \begin{enumerate}
-	\item {\em Kalender:} Mit der Kalender Funktion kann eingetragen werden zu welchen Zeitpunkt welcher Inhalt auf welchem Bildschirm angezeigt werden soll. In dem Xibo-Kalender werden auch bereits eingetragene AktivitÃ¤ten angezeigt.
+	\item {\em Kalender:} Mit der Kalender Funktion kann eingetragen werden zu welchen Zeitpunkt welcher Inhalt auf welchem Bildschirm angezeigt werden soll. In dem Xibo-Kalender werden auch bereits eingetragene Aktivitäten angezeigt.
 
 \begin{calendar}
 	\centering
@@ -20,20 +20,20 @@ Das Steuerungszentrum des ganzen Signage System ist die WeboberflÃ¤che die gan
 \end{calendar}	
 	
 	\item {\em Layouts:} 
-	Die Layout Funktion ist einer der wichtigsten Komponenten des Signage Systems es beschÃ¤ftigt sich mit dem designen der Inhalte. Auf diese Funktion kommen wir noch einmal zurÃ¼ck
+	Die Layout Funktion ist einer der wichtigsten Komponenten des Signage Systems es beschäftigt sich mit dem designen der Inhalte. Auf diese Funktion kommen wir noch einmal zurück
 	
 	\item {\em Bibliothek:} 
-	Die Bibliothek Funktion ist zustÃ¤ndig fÃ¼r das Verwalten der Medien. Hier kÃ¶nnen Sie verschiedene Dateien hochladen.  Diese Medien kÃ¶nnen dann in Layouts eingebunden und angezeigt werden.
+	Die Bibliothek Funktion ist zustÃ¤ndig für das Verwalten der Medien. Hier können Sie verschiedene Dateien hochladen.  Diese Medien können dann in Layouts eingebunden und angezeigt werden.
 	
 	\item {\em Benutzer:} 
-	Im MenÃ¼punkt Benutzer kÃ¶nnen neue Benutzer angelegt werden und bereits bestehende bearbeitet oder gelÃ¶scht werden. Dabei gibt es auch ein Rechte-System. Es kÃ¶nnne auch Datenmengen Begrenzungen pro Benutzer eingestellt werden.
+	Im Menüpunkt Benutzer können neue Benutzer angelegt werden und bereits bestehende bearbeitet oder gelöscht werden. Dabei gibt es auch ein Rechte-System. Es könne auch Datenmengen Begrenzungen pro Benutzer eingestellt werden.
 	
 	\item {\em Einstellungen:} 
-	Der MenÃ¼punkt Einstellung gibt dem Nutzer die MÃ¶glichkeit verschiedene Optionen einzustellen. So sind zum Beispiel die richtige Zeitzone, E-Mail Benachrichtigungen wichtige Einstellungen die fÃ¼r ein Einwandfreies funktionieren des Xibo-Servers zustÃ¤ndig wichtig sind.
+	Der Menöpunkt Einstellung gibt dem Nutzer die Möglichkeit verschiedene Optionen einzustellen. So sind zum Beispiel die richtige Zeitzone, E-Mail Benachrichtigungen wichtige Einstellungen die für ein Einwandfreies funktionieren des Xibo-Servers zuständig wichtig sind.
 \end{enumerate}
 
 \section{Designen mit XIBO}\label{sec:designexibo}
-Beim Designen von einem neuen Layout im XIBO muss zuerst die Bildschirm auflÃ¶sung ausgewÃ¤hlt werden. Und dem Layout ein passender Name zugewiesen werden sowie optional auch eine Beschreibung. 
+Beim Designen von einem neuen Layout im XIBO muss zuerst die Bildschirm auflösung ausgewählt werden. Und dem Layout ein passender Name zugewiesen werden sowie optional auch eine Beschreibung. 
 
 \textbf{Layout Maske}
 
@@ -43,22 +43,22 @@ Beim Designen von einem neuen Layout im XIBO muss zuerst die Bildschirm auflÃ¶
 	\label{Calendar}
 \end{calendar}	
 
-Dem Layout kann nun eine Region oder auch mehrere  hinzugefÃ¼gt werden eine Region kann wiederrum mehrere Widgets enthalten. Mit einem Doppelklick auf die Region kann ein Widget hinzugefÃ¼gt werden. Es gibt viele verschiedene Arten von Widgets:
+Dem Layout kann nun eine Region oder auch mehrere  hinzugefügt werden eine Region kann wiederrum mehrere Widgets enthalten. Mit einem Doppelklick auf die Region kann ein Widget hinzugefügt werden. Es gibt viele verschiedene Arten von Widgets:
 
 \begin{widgettypes}
-	\item {\em Bibliothek:} Mit diesem Widget kÃ¶nnen Dateien aus der Medienbibliothek in die Region angezeigt werden. 
+	\item {\em Bibliothek:} Mit diesem Widget können Dateien aus der Medienbibliothek in die Region angezeigt werden. 
 
 	
 	\item {\em Uhr:} 
 	Dieser Widgettyp bindet eine Uhr in die aus
 	
 	\item {\em Bibliothek:} 
-	Die Bibliothek Funktion ist zustÃ¤ndig fÃ¼r das Verwalten der Medien. Hier kÃ¶nnen Sie verschiedene Dateien hochladen.  Diese Medien kÃ¶nnen dann in Layouts eingebunden und angezeigt werden.
+	Die Bibliothek Funktion ist zustÃ¤ndig für das Verwalten der Medien. Hier können Sie verschiedene Dateien hochladen.  Diese Medien können dann in Layouts eingebunden und angezeigt werden.
 	
 	\item {\em Benutzer:} 
-	Im MenÃ¼punkt Benutzer kÃ¶nnen neue Benutzer angelegt werden und bereits bestehende bearbeitet oder gelÃ¶scht werden. Dabei gibt es auch ein Rechte-System. Es kÃ¶nnne auch Datenmengen Begrenzungen pro Benutzer eingestellt werden.
+	Im Menüpunkt Benutzer können neue Benutzer angelegt werden und bereits bestehende bearbeitet oder gelöscht werden. Dabei gibt es auch ein Rechte-System. Es könnne auch Datenmengen Begrenzungen pro Benutzer eingestellt werden.
 	
 	\item {\em Einstellungen:} 
-	Der MenÃ¼punkt Einstellung gibt dem Nutzer die MÃ¶glichkeit verschiedene Optionen einzustellen. So sind zum Beispiel die richtige Zeitzone, E-Mail Benachrichtigungen wichtige Einstellungen die fÃ¼r ein Einwandfreies funktionieren des Xibo-Servers zustÃ¤ndig wichtig sind.
+	Der Menüpunkt Einstellung gibt dem Nutzer die Möglichkeit verschiedene Optionen einzustellen. So sind zum Beispiel die richtige Zeitzone, E-Mail Benachrichtigungen wichtige Einstellungen die für ein Einwandfreies funktionieren des Xibo-Servers zuständig sind.
 \end{widgettypes}
 

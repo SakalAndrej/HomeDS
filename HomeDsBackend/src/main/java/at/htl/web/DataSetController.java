@@ -73,8 +73,8 @@ public class DataSetController implements Serializable {
             dataSetFieldFacade.save(dataSetToAdd);
             this.updateList();
             dataSetToAdd = new DataSetDataField();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
         }
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
     }
 
     public void addDataSetToXibo(DataSetDataField dataFieldToAdd) {

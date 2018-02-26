@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
+import homeds.htl.at.homedsjee.fragment.DatePickerFragment;
 import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
 import homeds.htl.at.homedsjee.fragment.NewsEditFragment;
 import homeds.htl.at.homedsjee.fragment.NewsOverviewFragment;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
     public void openNewsOverview(){
         FragmentManager fm = getSupportFragmentManager();
         NewsOverviewFragment nov = new NewsOverviewFragment();
-        fm.beginTransaction().replace(R.id.container_main, nov ,null).commit();
+        fm.beginTransaction().replace(R.id.container_main, nov ,null).addToBackStack(null).commit();
     }
 
     public void openEditNewsFragment(DataSetDataField news){
@@ -55,13 +56,23 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
         newsEditFragment.setArguments(bundle);
 
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.container_main, newsEditFragment,null).commit();
+        fm.beginTransaction().replace(R.id.container_main, newsEditFragment,null).addToBackStack("actEdit").commit();
     }
 
     public void openStructurePlanFragment(){
         StructurePlanFragment structurePlanFragment = new StructurePlanFragment();
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.container_main, structurePlanFragment,null).commit();
+        fm.beginTransaction().replace(R.id.container_main, structurePlanFragment,null).addToBackStack(null).commit();
+    }
+
+
+    public void openDatePicker(){
+
+        DatePickerFragment dpf = new DatePickerFragment();
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.container_main, dpf,null).addToBackStack(null).commit();
+
     }
 
 }

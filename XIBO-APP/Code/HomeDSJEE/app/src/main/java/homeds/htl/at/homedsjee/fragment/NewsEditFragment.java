@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 import homeds.htl.at.homedsjee.R;
+import homeds.htl.at.homedsjee.activity.MainActivity;
 import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
 import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
@@ -85,6 +86,16 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         title.setText(news.getTitle());
         description.setText(news.getValue());
 
+        TextView tvTimeFrom = v.findViewById(R.id.tvTimeFrom);
+        TextView tvTimeTo = v.findViewById(R.id.tvTimeTo);
+
+        tvTimeFrom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.getInstance().openDatePicker();
+            }
+        });
+
         ibSaveNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +123,8 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
 
             }
         });
+
+
 
         return v;
     }

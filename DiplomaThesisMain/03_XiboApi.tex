@@ -12,11 +12,12 @@ VERWEIS!!!!!!!!!!!!!!!!!!
 https://oauth.net/2/
 
 Der Server benötigt zur Authentifizierung mit einem Client eine Client\_ID diese wird vom Server für jeden Client eindeutig erzeugt. Man bekommt sie direkt von der Website des Servers. 
-Weiteres wird ein Client_Secret benötigt welches ebenso wie die Client_ID vom Server,für jede Anwendung ,eindeutig erzeugt wird und auch auf der Website erhältlich ist. Zudem ist ein Parameter in der Form "&grant_type=client_credentials" mitzugeben.
+Weiteres wird ein Client\_Secret benötigt welches ebenso wie die Client\_ID vom Server,für jede Anwendung ,eindeutig erzeugt wird und auch auf der Website erhältlich ist. Zudem ist ein Parameter in der Form ''&grant\_type=client\_credentials'' mitzugeben.
 
 Zuerst wird ein Request-Body erstellt dieser hat folgende Parameter in der Form: 
- ''client\_id=<CLIENT\_ID>\&client\_secret=<CLIENT\_SECRET>\&grant\_type=client\_credentials''
-, die im Body mitgegeben werden und als Format 'application/x-www-form-urlencoded'  haben. AnschlieÃend werden dem Header noch der "content-type" mit dem Wert ''application/x-www-form-urlencoded'' und der Parameter ''cache-control'' mit dem Wert ''no-cache'' hinzugefügt. Als ergebniss der Anfrage bekommt der Client einen '' access\_token '', dieser ist nun bei jeder Anfrage von Nöten um sich beim Server zu authentifizieren und es dem Client zu ermöglichen Daten abzurufen beziehungsweise weiterzugeben.
+ ''client\_id=<CLIENT\_ID>\&client\_secret=<CLIENT\_SECRET>\&grant\_type=
+ client\_credentials''
+, die im Body mitgegeben werden und als Format 'application/x-www-form-urlencoded'  haben. Anschließend werden dem Header noch der "content-type" mit dem Wert ''application/x-www-form-urlencoded'' und der Parameter ''cache-control'' mit dem Wert ''no-cache'' hinzugefügt. Als ergebniss der Anfrage bekommt der Client einen '' access\_token '', dieser ist nun bei jeder Anfrage von Nöten um sich beim Server zu authentifizieren und es dem Client zu ermöglichen Daten abzurufen beziehungsweise weiterzugeben.
 
 \section{Request-Helper}
 Um in weiterer folge die Anfragen an den Digital Signage Server einfach und einheitlich durchzuführen gibt es die Klasse "RequestHelper". In dieser Klasse gibt es neben den beiden Parametern "responseBody" und "responseCode", welche zur Fehlerausgabe und zum Erhalt der Daten aus der Anfrage vorhanden sind, auch noch die Methode "executeRequest", diese übernimmt die Hauptaufgabe der Klasse und fährt die Anfragen an das Signage System durch.
@@ -26,7 +27,7 @@ Die Parameter dieser Methode Lauten wie folgt:
 \begin{itemize}
 	\item {\em RequestTypeEnum:} Der Parameter vom Typ Enum wird genutzt um Herauszufinden welche Http Anfrage vorliegt. Mögliche Werte sind hierbei GET, POST, PUT und DELETE.
 	
-	\item {\em Params:} Hier liegt eine HashMap vor, die als Key-Value Paare alle BenÃ¶tigten Parameter für den RequestBody beinhaltet. Beispielsweise: "LayoutID":"78", hierbei ist "LayoutID" der Key und "78" das Value.
+	\item {\em Params:} Hier liegt eine HashMap vor, die als Key-Value Paare alle Benötigten Parameter für den RequestBody beinhaltet. Beispielsweise: "LayoutID":"78", hierbei ist "LayoutID" der Key und "78" das Value.
 		
 	\item {\em Url:} Beinhaltet die URL unter der die Anfrage erreichbar ist. 
 	
@@ -34,7 +35,9 @@ Die Parameter dieser Methode Lauten wie folgt:
 	
 \end{itemize}
 
-Zu beginn der Methode wird anhand des Parameters RequestTypeEnum unterschieden, um welche Http Anfrage es sich handelt. Wird GET oder DELETE geliefert wird durch die HashMap iteriert und die einzelnen Key-Value Paare als QeryParameter in der URL einfügt. Beispielsweise:'' <URL>/layout?layoutID=78&token=ajdlfjkakawkflkd6545''.
+Zu beginn der Methode wird anhand des Parameters RequestTypeEnum unterschieden, um welche Http Anfrage es sich handelt. Wird GET oder DELETE geliefert wird durch die HashMap iteriert und die einzelnen Key-Value Paare als QeryParameter in der URL einfügt.
+
+Beispielsweise:''<URL>/layout?layoutID=78&token=ajdlfjkakawkflkd6545''.
 Handelt es sich um eine POST oder PUT Anfrage so werden die Key-Value Paare im Body mitgegeben und im Format "application/x-www-form-urlencoded" codiert. AnschlieÃend wird noch die URL mittels HttpUrl.Builder erstellt und ausgegeben. 
 AnschlieÃend wird per Switch-Case dem Request die richtige Art der Anfrage zugewiesen und danach wird auch noch die URL übergeben. 
 

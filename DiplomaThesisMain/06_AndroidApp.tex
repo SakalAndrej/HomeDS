@@ -16,5 +16,30 @@ Die Anforderungen an die Android Applikation weichen von den Anforderungen an da
 		
 \end{itemize}
 
-\section{Umsetzung}
-Android wird mit der API(Englisch: application programming interface / Deutsch: Anwendungsprogrammierschnittstelle), in der Version 26 (Oreo / Android 8.0) verwendet.  
+\section{Verwendete Technologien}
+Android wird mit der API(Englisch: application programming interface / Deutsch: Anwendungsprogrammierschnittstelle), in der Version 26 (Oreo / Android 8.0) verwendet. 
+VERWEIS ANDROID !!!!
+Als Erweiterung für die Http Anfragen an den Digital Signage Server und das HomeDsBackend wird OkHttp3 verwendet.
+
+\section{Struktur}
+\begin{itemize}
+	\item {\em activity:} Alle Activities die für die Anwendung benötigt werden. Als Beispiel die MainActivity
+	
+	\item {\em adapter:} Hier befinden sich alle Adapter für die RecyclerViews.
+	
+	\item {\em apiClient:} Beinhaltet die Klasse ''RequestHelper'' mit der die Anfragen an den Digital Signage Server beziehungsweise an das HomeDsBackend vereinfacht werden.
+	
+	\item {\em entity:} Jene Klassen die als Models für die Anwendung benötigt werden. 
+	STÜTZ!!!
+	
+	\item {\em enumeration:} Enumerationen welche die Android Basierte Applikation verwendet. Zum Beispiel das ''RequestTypeEnum''.
+	
+	\item {\em fragment:} Alle Fragments die für das User Interface benötigt werden. Beispiel hierfür ist das Fragment ''NewsOverviewFragment'', welches alle DataSets die am Server sind anzeigt.
+	
+	\item {\em viewholder:} Beinhaltet alle ''ViewHolder'' die für die Verschiedenen ''RecyclerViews'' benötigt werden. 
+	  
+		
+\end{itemize}
+
+\section{DataSet verwaltung}
+Die beiden Fragment

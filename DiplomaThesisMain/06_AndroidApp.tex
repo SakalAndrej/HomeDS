@@ -1,3 +1,18 @@
 \chapter{Android Application}
 \section{Einleitung}
-Um eine höchst mögliche Reichweite an Endgeräten zu erzielen wurde eine Android Application entwickelt, mit der man 
+Um eine höchst mögliche Reichweite an Endgeräten zu erzielen wurde eine Android Applikation entwickelt, mit der die wichtigsten Funktionen abgedeckt werden. Zum Beispiel das wechseln der DataSets des Digital Signage Servers. Wichtig war es die Applikation möglichst einfach und leicht bedienbar zu gestalten, um auch Erstbenutzern die Bedienung zu erleichtern. 
+Prototyp für die aktuelle Applikation war eine Anwendung für Android die direkt mit dem Digital Signage Server kommuniziert, da sehr schnell klar wurde, dass das steuern des Servers direkt über eine Applikation auf Android Basis viel zu umständlich ist, wurde eine weitere Mobile Applikation entwickelt, welche über das HomeDsBackend kommuniziert, um das Funktionsspektrum zu erweitern und die Applikation möglichst kompakt zu gestalten. Beispielsweise ist es durch diese Aufteilung nicht mehr nötig eine Datenbank in der Applikation zu haben, somit wird es auch erleichtert Applikationen für andere Betriebssysteme zu implementieren. 
+
+
+\section{Anforderungen}
+Die Anforderungen an die Android Applikation weichen von den Anforderungen an das Backend leicht ab, da das Backend die gesamte Zeitsteuerung und Datenbank Funktionalität übernimmt. Es besteht die Möglichkeit den Server über die Website des Backend zu steuern, beziehungsweise über die Applikation auf Android Basis. 
+
+\begin{itemize}
+	\item {\em Eilmeldungen:} Dem Benutzer soll es möglich sein Nachrichten in einem Ticker auf den Bildschirmen anzuzeigen.
+	
+	\item {\em Medien Wiedergabe:} Medien die Lokal am Digital Signage Server liegen sollen abgespielt werden können.
+		
+	\item {\em Authentifizierung automatisieren (Prototyp Applikation):} Die Authentifizierung am Digital Signage Server soll automatisiert werden um nicht vom Benutzer durchgeführt werden zu müssen.  
+		
+\end{itemize}
+

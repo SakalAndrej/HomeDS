@@ -10,6 +10,8 @@ QUELLE: https://de.Wikipedia.org/wiki/Java_Platform,_Enterprise_Edition
  
 \section{Anforderungen an den HomeDS Server}\label{sec:homeds}
 Der JavaEE Server soll die verschiedenen komplizierten Abläufe des XIBO-Servers vereinfachen. Die verschiedenen Zugriffe mittels REST die eigentlich direkt auf den XIBO laufen sollen werden über den JavaEE Server verwaltet. Dies hat insofern Vorteile da die komplizierten und meist mit viel Aufwand verknüpften Authentifizierungen wegfallen. Somit können ohne Probleme neue Funktionen hinzugefügt werden und ohne Probleme an neue Anforderungen angepasst werden.
+
+\section{Struktur des Projekt's}\label{sec:javaee}
  
 \section{Funktionen des HomeDS Server}\label{sec:homedsfunction}
 Der JavaEE Server verfügt über eine eigene MySQL Datenbank. Diese wird gebraucht um die "DataSets" aus dem Signage-Server zwischen zu speichern. Dies ist insofern erforderlich da die Aufgabenstellung erfordert die Datensätze entweder nur ab einem bestimmten Datum im Layout anzuzeigen oder bis zu einem bestimmten Datum diese angezeigt werden dürfen. 
@@ -40,4 +42,14 @@ Die Überprüfung ob die DataSets aus der Server-Datenbank im Zeitintervall lieg
 Die Überprüfung ob das Startdatum heute oder vor dem heutigem Datum wird mithilfe der Java Annotation @Schedule realisiert. (siehe Codeausschnitt) 
 
 \section{Jave Enterprise Edition mit Android über REST}\label{sec:javaeeandroidrest}
-Ein weitere essentieller Teil des ... continous
+Ein weitere essentieller Teil des Server auf Java Enterprise Edition Basis ist die Kommunikation mittels REST. Alle Funktionen des Servers werden auch mittels REST für unsere Android Applikation zur Verfügung gestellt. 
+
+\section{Swagger}\label{sec:javaeeandroidrestswagger}
+Swagger wird verwendet um Funktionalität und Möglichkeit einer API übersichtlich zu gestalten. Um die REST-Schnittstellen zu dokumentieren und übersichtlich zu visualisieren wird Swagger verwendet. Dabei gibt es 2 verschiedene Arten eine REST-Dokumentation zu erstellen. 
+
+Die erste wäre mit dem Swagger Editor die Dokumentation in der JSON-Ausdruckssprache mit der Hand zu schreiben und immer wieder zu aktualisieren. Natürlich ist dies bei vielen verschiedenen GETs, POSTs, PUTs und DELETEs sehr aufwendig und mühselig.
+
+Bei der zweiten Methode, die auch bei unserer Diplomarbeit zum Einsatz kommt, werden die API's automatisch von der im Projekt eingebundenen Swagger Engine erkannt. Daraus wird dann auch wieder eine JSON-File generiert die dann mithilfe von Swagger-UI schön im Browser über eine Webseiten URL erreichbar ist.
+
+
+Verweis: https://swagger.io/

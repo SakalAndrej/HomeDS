@@ -14,6 +14,30 @@
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\usepackage{listings}
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{\$\$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
 
 \include{00_FrontPageDefinitions} % This file should not really be touched
 \include{Globals} % Set basic data (author, title, etc.) of your thesis
@@ -26,10 +50,7 @@
 \include{01_Introduction}
 \include{02_XiboGrundlagen}
 \include{03_XiboApi}
-\include{04_Technologien}
 \include{05_HomeDsBackend}
-\include{06_AndroidApp}
-
 % create further tex files for all other chapters of your document
 \include{10_Summary}
 

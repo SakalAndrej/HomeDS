@@ -19,7 +19,7 @@ Einer der wichtigsten Funktionen des Servers ist das hinzufügen, ändern und l�
 
 Die Logik ist simple der Benutzer kann Start- und Enddatum eingeben für jeden einzelnen DataSet eingeben. Und erst wenn das Datum genau in diesem Zeitintervall inklusive den Grenzen liegt wird das DataSet an den Xibo mittels API-Schnittstelle weitergegeben. 
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Java, caption={public void doCheckEvery24Hours()}]
 if (dataset.isActive() == false && (dataset.getFromDate().minusDays(1)
         .isBefore(LocalDate.now()))) {
     try {
@@ -39,38 +39,5 @@ Die Überprüfung ob die DataSets aus der Server-Datenbank im Zeitintervall lieg
 
 Die Überprüfung ob das Startdatum heute oder vor dem heutigem Datum wird mithilfe der Java Annotation @Schedule realisiert. (siehe Codeausschnitt) 
 
-
- 
-\begin{enumerate}
-  \item {\em :} Mit der Kalender Funktion kann eingetragen werden zu welchen Zeitpunkt welcher Inhalt auf welchem Bildschirm angezeigt werden soll. In dem Xibo-Kalender werden auch bereits eingetragene Aktivitäten angezeigt.
- 
-\begin{calendar}
-  \centering
-\includegraphics[width=1\textwidth]{images/xibo-basics-calendar}
-  \label{Calendar}
-\end{calendar}  
-  
-  \item {\em Layouts:} 
-  Die Layout Funktion ist einer der wichtigsten Komponenten des Signage Systems es beschäftigt sich mit dem designen der Inhalte. Auf diese Funktion kommen wir noch einmal zurück
-  
-  \item {\em Bibliothek:} 
-  Die Bibliothek Funktion ist zuständig für das Verwalten der Medien. Hier können Sie verschiedene Dateien hochladen.  Diese Medien können dann in Layouts eingebunden und angezeigt werden.
-  
-  \item {\em Benutzer:} 
-  Im Menüpunkt Benutzer können neue Benutzer angelegt werden und bereits bestehende bearbeitet oder gelöscht werden. Dabei gibt es auch ein Rechte-System. Es könne auch Datenmengen Begrenzungen pro Benutzer eingestellt werden.
-  
-  \item {\em Einstellungen:} 
-  Der Menöpunkt Einstellung gibt dem Nutzer die Möglichkeit verschiedene Optionen einzustellen. So sind zum Beispiel die richtige Zeitzone, E-Mail Benachrichtigungen wichtige Einstellungen die für ein Einwandfreies funktionieren des Xibo-Servers zuständig wichtig sind.
-\end{enumerate}
- 
-\section{Designen mit XIBO}\label{sec:designexibo}
-Beim Designen von einem neuen Layout im XIBO muss zuerst die Bildschirm auflösung ausgewählt werden. Und dem Layout ein passender Name zugewiesen werden sowie optional auch eine Beschreibung. 
- 
-\textbf{Layout Maske}
- 
-\begin{calendar}
-  \centering
-1 file change in working directory
-View change
-commit:c95ae5
-WIP on master: Auto stash before merge of "master" and "origin/master"
+\section{Jave Enterprise Edition mit Android über REST}\label{sec:javaeeandroidrest}
+Ein weitere essentieller Teil des ... continous

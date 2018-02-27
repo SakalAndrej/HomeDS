@@ -46,6 +46,7 @@ public class DataSetController implements Serializable {
                 if (dataSetApi.removeRow(dataSet.getDataRowId(), dataSet.getDataSetId()) == 204) {
                     dataSetFieldFacade.deleteByRowId(dataSet.getDataRowId());
                     this.updateList();
+                    dataSetApi.collectNowAll();
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully deleted DataSetRow: " + dataSet.getDataRowId()));
                 } else {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while deleting DataSetRow: " + dataSet.getDataRowId()));
@@ -74,7 +75,6 @@ public class DataSetController implements Serializable {
             this.updateList();
             dataSetToAdd = new DataSetDataField();
         }
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
     }
 
     public void addDataSetToXibo(DataSetDataField dataFieldToAdd) {
@@ -91,6 +91,8 @@ public class DataSetController implements Serializable {
 
                 //clear add variable
                 dataSetToAdd = new DataSetDataField();
+
+                dataSetApi.collectNowAll();
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully added new DataSetRow"));
             } else {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while adding DataSetRow"));
@@ -104,7 +106,7 @@ public class DataSetController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         if (dataSetFieldToEdit != null && dataSetFieldToEdit.getValue().isEmpty() == false && dataSetFieldToEdit.getTitle().isEmpty() == false) {
 
-            if (dataSetFieldToEdit.getFromDate() != null && dataSetFieldToEdit.getToDate() != null) {
+            if (dataSetFieldToEdit.getFromDate() != null) {
 
                 // editing from date so that it should be active
                 if (dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1)) && dataSetFieldToEdit.isActive() == false) {
@@ -114,7 +116,6 @@ public class DataSetController implements Serializable {
                     dataSetFieldFacade.deleteById(dataSetFieldToEdit.getId());
                     temp.setId(0);
                     this.addDataSetToXibo(temp);
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully updated and activated DataSetRow"));
                 }
                 // just edit unactive dataset
                 else if ((dataSetFieldToEdit.getDataRowId() < 0 || dataSetFieldToEdit.isActive() == false)) {
@@ -132,6 +133,7 @@ public class DataSetController implements Serializable {
                             dataSetFieldFacade.merge(dataSetFieldToEdit);
                             this.updateList();
 
+                            dataSetApi.collectNowAll();
                             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
                         } else {
                             this.updateList();

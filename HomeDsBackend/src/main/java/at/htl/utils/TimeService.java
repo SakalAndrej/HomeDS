@@ -35,7 +35,7 @@ public class TimeService {
                 if (datafields.get(i) != null && datafields.get(i).getFromDate() != null) {
 
                     // check if fromdate is before or today
-                    if (datafields.get(i).getFromDate().isEqual(LocalDate.now()) || datafields.get(i).getFromDate().isBefore(LocalDate.now()) && datafields.get(i).isActive() == false) {
+                    if (datafields.get(i).isActive() == false && (datafields.get(i).getFromDate().isEqual(LocalDate.now()) || datafields.get(i).getFromDate().isBefore(LocalDate.now()))) {
                         long id;
                         try {
                             // if suc added then set active true and add id

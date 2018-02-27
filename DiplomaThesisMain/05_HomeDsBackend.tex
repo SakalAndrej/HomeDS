@@ -1,6 +1,6 @@
 \chapter{HomeDS - Server}
 \section{Einleitung}\label{sec:einleitung}
-Im Rahmen der Diplomarbeit wird neben dem XIBO-Server ein eigen Programmierter Java Enterprise Edition Server eingesetzt. Aufgrund der hohen Komplexität des Signage-Servers aber relativ dünn dokumentierten API-Schnittstellen und begrenzten technischen Möglichkeiten muss ein eigen programmierter Server eingesetzt werden. 
+Im Rahmen der Diplomarbeit wird neben dem XIBO-Server ein eigen Programmierter Java Enterprise Edition Server eingesetzt. Aufgrund der hohen Komplexität des Signage-Servers aber relativ dünn dokumentierten API-Schnittstellen und begrenzten technischen Möglichkeiten muss ein eigen programmierter Server eingesetzt werden. Dieser wird die Kommunikation vom Signage Server zur Android App erleichtern.  
  
 \section{Java Enterprise Edition}\label{sec:javaee}
 Java Platform, Enterprise Edition, oder abgekürzt auch Java EE ist die technische nähere Beschreibung einer Softwarearchitektur die Java Programmierte Anwendungen ausführt.
@@ -15,7 +15,31 @@ Der JavaEE Server soll die verschiedenen komplizierten Abläufe des XIBO-Servers
 Der JavaEE Server verfügt über eine eigene MySQL Datenbank. Diese wird gebraucht um die "DataSets" aus dem Signage-Server zwischen zu speichern. Dies ist insofern erforderlich da die Aufgabenstellung erfordert die Datensätze entweder nur ab einem bestimmten Datum im Layout anzuzeigen oder bis zu einem bestimmten Datum diese angezeigt werden dürfen. 
  
 \section{DataSet mit Ablaufdatum}\label{sec:datasetexpiredate}
-Das Sekretariat 
+Einer der wichtigsten Funktionen des Servers ist das hinzufügen, ändern und löschen vom DataSet. Da der Digital Signage Server über keine Felder wie Start- und Enddatum verfügen.
+
+Die Logik ist simple der Benutzer kann Start- und Enddatum eingeben für jeden einzelnen DataSet eingeben. Und erst wenn das Datum genau in diesem Zeitintervall inklusive den Grenzen liegt wird das DataSet an den Xibo mittels API-Schnittstelle weitergegeben. 
+
+\begin{lstlisting}
+if (dataset.isActive() == false && (dataset.getFromDate().minusDays(1)
+        .isBefore(LocalDate.now()))) {
+    try {
+        //if succesfull added then set active true and add id
+        if ((id=dataSetApi.addDataSetField(dataset)) > 0) {
+            dataset.setDataRowId(id);
+            dataset.setActive(true);
+            dataSetFieldFacade.save(dataset);
+        }
+    } catch (NoConnectionException e) {
+        // Catch Exception
+    }
+}
+\end{lstlisting}
+
+Die Überprüfung ob die DataSets aus der Server-Datenbank im Zeitintervall liegen wird mittels eines "TimeSchedule" jeden Tag um 01:00 Uhr durchgeführt. Falls dieser dann im Intervall liegt wird der DataSet an den XIBO Signage Server gesendet. Diese Überprüfung beinhaltet auch das FromDate dies löscht bei überschreiten des Bis-Datums das DataSet aus dem Digital Signage heraus. 
+
+Die Überprüfung ob das Startdatum heute oder vor dem heutigem Datum wird mithilfe der Java Annotation @Schedule realisiert. (siehe Codeausschnitt) 
+
+
  
 \begin{enumerate}
   \item {\em :} Mit der Kalender Funktion kann eingetragen werden zu welchen Zeitpunkt welcher Inhalt auf welchem Bildschirm angezeigt werden soll. In dem Xibo-Kalender werden auch bereits eingetragene Aktivitäten angezeigt.

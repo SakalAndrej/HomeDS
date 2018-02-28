@@ -18,7 +18,7 @@ import java.util.LinkedList;
 
 @Stateless
 public class MediaApi{
-
+    public final String editWidgetId = "427";
     public LinkedList<Media> getAllMedia() throws NoConnectionException{
 
 
@@ -68,6 +68,46 @@ public class MediaApi{
 
 
         return medias;
+
+    }
+
+
+    public void eidtWidget(String mediaId) throws NoConnectionException {
+
+        BufferedReader in;
+
+
+
+
+
+        try {
+            HttpURLConnection con = new RequestHelper()
+                    .executeRequest(RequestTypeEnum.GET, "mediaIds=["+mediaId+"]",
+                            new RequestHelper().BASE_URL + "api/playlist/widget/"+editWidgetId,
+                            AuthentificationHandler.getTOKEN());
+
+            try{
+                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+            }catch (NullPointerException ex){
+                throw new NoConnectionException("Es ist kein Response vorhanden", ex);
+            }
+
+            String output;
+            StringBuffer response = new StringBuffer();
+            while ((output = in.readLine()) != null){
+                response.append(output);
+            }
+
+            JSONArray jsonArray = new JSONArray(response.toString());
+            System.out.println(response.toString());
+
+
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
 
     }
 

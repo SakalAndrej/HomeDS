@@ -30,6 +30,12 @@ public class MediaController  implements Serializable{
             e.printStackTrace();
         }
 
+        try {
+            mediaApi.eidtWidget("16");
+        } catch (NoConnectionException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

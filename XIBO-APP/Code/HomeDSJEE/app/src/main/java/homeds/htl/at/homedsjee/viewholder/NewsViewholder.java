@@ -24,7 +24,7 @@ public class NewsViewholder extends RecyclerView.ViewHolder {
 
     public void updateUI(final DataSetDataField news){
 
-        t1.setText(String.valueOf(news.getColName()));
+        t1.setText(String.valueOf(news.getValue()));
         t2.setText(String.valueOf(news.getFromDate() +" - "+ news.getToDate()));
 
 

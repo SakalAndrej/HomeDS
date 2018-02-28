@@ -86,13 +86,16 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         title.setText(news.getTitle());
         description.setText(news.getValue());
 
-        TextView tvTimeFrom = v.findViewById(R.id.tvTimeFrom);
+        final TextView tvTimeFrom = v.findViewById(R.id.tvTimeFrom);
         TextView tvTimeTo = v.findViewById(R.id.tvTimeTo);
 
         tvTimeFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivity.getInstance().openDatePicker();
+                Bundle bundle1 = getArguments();
+                TextView tvTimeFron = view.findViewById(R.id.tvTimeFrom);
+                tvTimeFrom.setText(bundle1.getSerializable("pickedDate").toString());
             }
         });
 

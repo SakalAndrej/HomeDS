@@ -1,6 +1,7 @@
 package homeds.htl.at.homedsjee.activity;
 
 import android.net.Uri;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -68,11 +69,19 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
 
     public void openDatePicker(){
 
-        DatePickerFragment dpf = new DatePickerFragment();
+        DialogFragment dpf = new DatePickerFragment();
 
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.container_main, dpf,null).addToBackStack(null).commit();
 
     }
+
+    public void onDatePIcked(){
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStack();
+    }
+
+
 
 }

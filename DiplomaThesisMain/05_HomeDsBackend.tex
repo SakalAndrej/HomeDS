@@ -1,0 +1,57 @@
+\chapter{HomeDS - Server}
+\section{Einleitung}\label{sec:einleitung}
+Im Rahmen der Diplomarbeit wird neben dem XIBO-Server ein eigens programmierter Java Enterprise Edition Server eingesetzt. Aufgrund der hohen Komplexität des Signage-Servers jedoch, relativ dünn dokumentierten API-Schnittstellen und begrenzten technischen Möglichkeiten, muss ein eigens programmierter Server eingesetzt werden. Dieser wird die Kommunikation vom Signage Server zur Android App erleichtern.  
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1 Lesen 2 moi eigens programmierter serrver eingesetzt
+
+
+\section{Java Enterprise Edition}\label{sec:javaee}
+Java Platform, Enterprise Edition oder abgekürzt auch Java EE ist die technische nähere Beschreibung einer Softwarearchitektur, die programmierte Java Anwendungen ausführt.
+(weiter ausführen)
+
+QUELLE: https://de.Wikipedia.org/wiki/Java_Platform,_Enterprise_Edition
+ 
+\section{Anforderungen an den HomeDS Server}\label{sec:homeds}
+Der JavaEE Server soll die verschiedenen komplizierten Abläufe des XIBO-Servers vereinfachen. Die verschiedenen Zugriffe mittels REST die eigentlich direkt auf den XIBO laufen sollen, werden über den JavaEE Server verwaltet. Dies hat insofern Vorteile, da die komplizierten und meist mit viel Aufwand verknüpften Authentifizierungen wegfallen. Somit können ohne Probleme neue Funktionen hinzugefügt und ohne Probleme an neue Anforderungen angepasst werden.
+
+\section{Struktur des Projekt's}\label{sec:javaee}
+ 
+\section{Funktionen des HomeDS Server}\label{sec:homedsfunction}
+Der JavaEE Server verfügt über eine eigene MySQL Datenbank. Diese wird gebraucht, um die ''DataSets'' aus dem Signage-Server zwischenzuspeichern. Dies ist insofern erforderlich, da die Aufgabenstellung erfordert die Datensätze entweder nur ab einem bestimmten Datum im Layout anzuzeigen oder die Datensätze bis zu einem bestimmten Datum angezeigt werden dürfen. 
+ 
+\section{DataSet mit Ablaufdatum}\label{sec:datasetexpiredate}
+Einer der wichtigsten Funktionen des Servers ist das Hinzufügen, Ändern und Löschen vom DataSet. Da der Digital Signage Server über keine Felder wie Start- und Enddatum verfügen.
+
+Die Logik ist simple. Der Benutzer kann Start- und Enddatum für jeden einzelnen DataSet eingeben. Erst wenn das Datum genau in diesem Zeitintervall inklusive den Grenzen liegt, wird das DataSet an den Xibo mittels API-Schnittstelle weitergegeben. 
+
+\begin{lstlisting}[language=Java, caption={public void doCheckEvery24Hours()}]
+if (dataset.isActive() == false && (dataset.getFromDate().minusDays(1)
+        .isBefore(LocalDate.now()))) {
+    try {
+        //if succesfull added then set active true and add id
+        if ((id=dataSetApi.addDataSetField(dataset)) > 0) {
+            dataset.setDataRowId(id);
+            dataset.setActive(true);
+            dataSetFieldFacade.save(dataset);
+        }
+    } catch (NoConnectionException e) {
+        // Catch Exception
+    }
+}
+\end{lstlisting}
+
+Die Überprüfung ob die DataSets aus der Server-Datenbank im Zeitintervall liegen, wird mittels eines ''TimeSchedule'' jeden Tag um 01:00 Uhr durchgeführt. Falls dieses DataSet im Intervall liegt, wird dieses DataSet an den XIBO Signage Server gesendet. Diese Überprüfung beinhaltet auch das FromDate. Dies löscht bei überschreiten des Bis-Datums das DataSet aus dem Digital Signage heraus. 
+
+Die Überprüfung ob das Startdatum heute oder vor dem heutigem Datum liegt, wird mithilfe der Java Annotation @Schedule realisiert. (siehe Codeausschnitt) 
+
+\section{Jave Enterprise Edition mit Android über REST}\label{sec:javaeeandroidrest}
+Ein weiterer essentieller Teil des Server auf Java Enterprise Edition Basis ist die Kommunikation mittels REST. Alle Funktionen des Servers werden auch wieder mit REST für unsere Android Applikation zur Verfügung gestellt. 
+
+\section{Swagger}\label{sec:javaeeandroidrestswagger}
+Swagger wird verwendet um Funktionalität und Möglichkeit einer API übersichtlich zu gestalten. Um die REST Schnittstellen zu dokumentieren und übersichtlich zu visualisieren wird Swagger verwendet. Dabei gibt es zwei verschiedene Arten eine REST-Dokumentation zu erstellen. 
+
+Die erste wäre, mit dem Swagger Editor die Dokumentation in der JSON-Ausdruckssprache mit der Hand zu schreiben und immer wieder zu aktualisieren. Natürlich ist dies bei vielen verschiedenen GETs, POSTs, PUTs und DELETEs sehr aufwendig und mühsam.
+
+Bei der zweiten Methode, die auch bei der Diplomarbeit zum Einsatz kommt, werden die API's automatisch von der im Projekt eingebundenen Swagger Engine erkannt. Daraus wird dann auch wieder eine JSON-File generiert, die dann mithilfe von Swagger-UI gut im Browser über eine Webseiten URL erreichbar ist.
+
+
+Verweis: https://swagger.io/

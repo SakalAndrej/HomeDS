@@ -1,0 +1,69 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{german}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{xifthen}
+\usepackage{xstring}			% to check content of strings in xifthen
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\usepackage{listings}
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{\$\$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+
+\include{00_FrontPageDefinitions} % This file should not really be touched
+\include{Globals} % Set basic data (author, title, etc.) of your thesis
+\begin{document}
+\include{00_FrontPage} % Should not be necessary to touch this file
+\include{00_Start} % Declaration of Academic Honesty, Abstracts, Acknowledgments, 
+
+\tableofcontents
+
+\include{01_Introduction}
+\include{02_XiboGrundlagen}
+\include{03_XiboApi}
+\include{04_Technologien}
+\include{05_HomeDsBackend}
+\include{06_AndroidApp}
+% create further tex files for all other chapters of your document
+\include{10_Summary}
+
+\bibliography{da_bibliography}{}
+\bibliographystyle{alphaurl} % save alternatives are abbrvurl	alphaurl	plainurl	unsrturl
+
+\listoffigures
+\listoftables
+\include{11_ProjectLogBook}
+
+\appendix
+\include{12_FirstAppendix}
+\include{13_IndividualGoals}
+\end{document}  

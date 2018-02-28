@@ -1,0 +1,38 @@
+\rhead{\includegraphics[scale=.9]{images/Logo.png}}
+\cfoot{}
+\begin{titlepage}
+\thispagestyle{fancy}
+
+\begin{center}
+
+\vspace*{8em}
+
+{\LARGE \dalabel}
+
+\vspace{2em}
+
+{\large Höhere Technische Bundeslehranstalt Leonding \\[.5em]
+Abteilung für \department}
+
+%\vspace{8em}
+\vspace*{\fill}
+
+{\Huge \titleofthesis}
+\end{center}
+
+%\vspace{8em}
+\vspace*{\fill}
+
+\begin{tabular}{ll}
+\ifthenelse{\isundefined{\firstauthor}}{}{\submittedlabel: & {\bf \firstauthor, \firstauthorclass}}
+\ifthenelse{\isundefined{\secondauthor}}{}{ \\[.5em] & {\bf \secondauthor, \secondauthorclass}}
+\ifthenelse{\isundefined{\thirdauthor}}{}{ \\[.5em] & {\bf \thirdauthor, \thirdauthorclass}}
+\ifthenelse{\isundefined{\fourthauthor}}{}{ \\[.5em] & {\bf \fourthauthor, \fourthauthorclass}}
+ \\[.5em]
+\datelabel: & {\bf \duedateen} \\[.5em]
+
+\supervisorlabel: & {\bf \supervisor} \\[.5em]
+
+\ifthenelse{\isundefined{\projectpartner}}{}{\projectpartnerlabel: & {\bf \projectpartner}}
+\end{tabular}
+\end{titlepage}

@@ -6,6 +6,8 @@ import at.htl.xiboClient.MediaApi;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -13,38 +15,52 @@ import java.util.List;
 
 @Model
 @Named
-public class MediaController  implements Serializable{
-
+public class MediaController implements Serializable {
 
     @Inject
     MediaApi mediaApi;
 
-
     private List<Media> medias;
 
+    private List<Media> shortMedias;
+
     @PostConstruct
-    public void init(){
+    public void init() {
         try {
-            this.updaeList();
+            this.updateList();
         } catch (NoConnectionException e) {
             e.printStackTrace();
         }
+    }
 
+    private void updateList() throws NoConnectionException {
+        this.medias = mediaApi.getAllMedia(0,300);
+        shortMedias = medias.subList(0,5);
+    }
+
+    public void playMedia(long mediaId) {
+        FacesContext context = FacesContext.getCurrentInstance();
         try {
-            mediaApi.eidtWidget("16");
+            long widgetId = mediaApi.findWidgetByPlaylist();
+            if (widgetId > 0) {
+                if (mediaApi.deleteWidget(widgetId) == 200) {
+                    if (mediaApi.editWidget(mediaId) == 200) {
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully set media to playlist"));
+                    }
+                    else {
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while playing medi"));
+                    }
+                }
+                else {
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while removing media from playlist"));
+                }
+            }
         } catch (NoConnectionException e) {
-            e.printStackTrace();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Could not establish connection"));
         }
-
     }
 
-
-
-    private void updaeList() throws NoConnectionException {
-        this.medias = mediaApi.getAllMedia();
-    }
-
-
+    //region Getter & Setter
     public List<Media> getMedias() {
         return medias;
     }
@@ -52,4 +68,13 @@ public class MediaController  implements Serializable{
     public void setMedias(List<Media> medias) {
         this.medias = medias;
     }
+
+    public List<Media> getShortMedias() {
+        return shortMedias;
+    }
+
+    public void setShortMedias(List<Media> shortMedias) {
+        this.shortMedias = shortMedias;
+    }
+    //endregion
 }

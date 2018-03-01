@@ -19,7 +19,7 @@
                  animation-exit="animated slideOutRight"
                  allowDismiss="true"
         />
-        <b:navBar brand="HomeDS Systems" brandHref="/homeds/index.xhtml" inverse="true" fixed="top" fluid="true"
+        <b:navBar brand="HomeDS Systems" tooltip="#{msg['byMessage']}" brandHref="/homeds/index.xhtml" inverse="true" fixed="top" fluid="true"
                   id="navbar">
             <b:navbarLinks pull="right">
                 <b:navLink value="Dashboard" href="/homeds/index.xhtml"></b:navLink>
@@ -34,6 +34,10 @@
         <b:panel look="primary">
             <h1>
                 Crawler
+                <b:iconAwesome size="1.5x" rendered="#{indexController.online == false}"
+                               name="fa-close" style="color: red;" tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
+                <b:iconAwesome size="1.5x" rendered="#{indexController.online == true}"
+                               name="fa-check" style="color: green;" tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
             </h1>
         </b:panel>
         <b:panel title="Configuration" showCollapseLink="true" look="primary">

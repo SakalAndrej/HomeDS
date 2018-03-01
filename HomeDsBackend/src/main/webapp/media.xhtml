@@ -41,16 +41,15 @@
                      allowDismiss="true"
             />
             <b:dataTable value="#{mediaController.medias}"
-                         var="media">
-                <b:dataTableColumn value="#{media.mediaId}"/>
-                <b:dataTableColumn value="#{media.mediaType}"/>
-                <b:dataTableColumn value="#{media.name}" order="asc"/>
-                <b:dataTableColumn value="#{media.ownerId}"/>
-                <b:dataTableColumn>
+                         var="media" id="mediaTable" responsive="true">
+                <b:dataTableColumn value="#{media.mediaId}" label="Media ID"/>
+                <b:dataTableColumn value="#{media.name}" label="#{msg['mediaName']}" order="asc"/>
+                <b:dataTableColumn value="#{media.mediaType}" label="#{msg['mediaType']}"/>
+                <b:dataTableColumn label="#{msg['playMe']}">
                     <center>
                         <b:commandButton update="medias @form"
                                          action="#{mediaController.playMedia(media.mediaId)}"
-                                         id="btnDelete" look="danger">
+                                         id="btnDelete" look="danger" style="width:100%">
                             <b:iconAwesome size="1.5x" name="fa-play"></b:iconAwesome>
                         </b:commandButton>
                     </center>

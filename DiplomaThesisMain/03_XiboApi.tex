@@ -1,15 +1,19 @@
 \chapter{XIBO-Server}
 \section{Beschreibung}
 Als zentrale Steuereinheit wird ein XIBO-Server verwendet. Um diesen verwenden zu können, war es notwendig sich in die Dokumentation einzulesen und die API-Schnittstelle auszuprobieren. Die Website des Servers diente vorerst als Übungsumgebung. Dadurch wurde es leicht auch die einzelnen Funktionen, inklusive der Vorgangsweise, des Servers zu verstehen.
+\cite{xibo-server}
 
 \section{API-Schnittstelle}
-Die API-Schnittstelle des XIBO-Servers ist mittels Swagger dokumentiert. Diese Dokumentation deckt die Grundfunktionalitäten und die Form der Anfragen ab. Da die Schnittstelle des Servers später als wesentliches Verbindungsstück zwischen der eigens entwickelten Steuerungssoftware und dem Server dient, war es nötig, diese gründlich zu testen und auch zu verstehen. Anfangs wurde dafür mit Postman gearbeitet. Um mit Postman die Requests testen zu können musste festgestellt werden, welche Codierung für den Request verwendet wird. Im Falle des XIBO-Servers wird ''application/x-www-form-urlencoded'' als Codierung verwendet.
+Die API-Schnittstelle des XIBO-Servers ist mittels Swagger dokumentiert. Diese Dokumentation deckt die Grundfunktionalitäten und die Form der Anfragen ab. Da die Schnittstelle des Servers später als wesentliches Verbindungsstück zwischen der eigens entwickelten Steuerungssoftware und dem Server dient, war es nötig, diese gründlich zu testen und auch zu verstehen. Anfangs wurde dafür mit Postman gearbeitet. Um mit Postman die Requests testen zu können musste festgestellt werden, welche Codierung für den Request verwendet wird. Im Falle des XIBO-Servers wird ''application/x-www-form-urlencoded'' als Codierung verwendet. Die Anfragen an den Server wurden im Java Code durch die ''libary'' OkHttp3 übernommen.
+\cite{swagger}
+\cite{postman}
+\cite{Okhttp3}
 
 
 \section{Authentifizierung}
 Es stellte sich heraus, dass die Authentifizierung mittels OAuth2 sehr speziell war, was zu Beginn zu einigen Schwierigkeiten führte. Es benötigte einige Anläufe  um herauszufinden, wie und in welcher Reihenfolge die Parameter übergeben werden müssen. Dazu wurde eine Java-Klasse entwickelt, welche die Authentifizierung automatisch übernimmt.
-VERWEIS!!!!!!!!!!!!!!!!!!
-https://oauth.net/2/
+\cite{oAuth2}
+
 
 Der Server benötigt zur Authentifizierung mit einem Client eine Client\_ID. Diese wird vom Server für jeden Client eindeutig erzeugt. Man bekommt sie direkt von der Website des Servers. 
 Weiteres wird ein Client\_Secret benötigt, das ebenso wie die Client\_ID vom Server für jede Anwendung ,eindeutig erzeugt wird und auch auf der Website erhältlich ist. Zudem ist ein Parameter in der Form ''&grant\_type=client\_credentials'' mitzugeben.
@@ -47,7 +51,7 @@ Sollte der Request fehlschlagen, wird im Log-Fenster der Responsecode und die Fe
 Wird der Request ohne Fehler durchgeführt so wird im Log-Fenster ebenfalls der Responsecode und der Responsebody ausgegeben.
 
 Der letzte Schritt ist es dem OkHttpClient mitzuteilen, dass er einen neuen Call ausführen soll. Als Parameter wird der Zusammengestellte Request mitgegeben. Über .enqueue wird dem Client gesagt er soll auf einen Response warten. Parameter für diese Methode ist das erstellte Interface Callback.
-
+\cite{OkHttp3}
 
 
 

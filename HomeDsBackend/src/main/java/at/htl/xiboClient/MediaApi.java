@@ -21,7 +21,7 @@ public class MediaApi {
 
     public final String editPlaylistId = "157";
 
-    public LinkedList<Media> getAllMedia() throws NoConnectionException {
+    public LinkedList<Media> getAllMedia(int start, int length) throws NoConnectionException {
 
         BufferedReader in;
         LinkedList<Media> medias = new LinkedList<Media>();
@@ -33,7 +33,7 @@ public class MediaApi {
         try {
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.GET, null,
-                            new RequestHelper().BASE_URL + "api/library?start=0&length=100",
+                            new RequestHelper().BASE_URL + "api/library?start=" + start +"&length="+length,
                             AuthentificationHandler.getTOKEN());
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));

@@ -22,6 +22,8 @@ public class MediaController implements Serializable {
 
     private List<Media> medias;
 
+    private List<Media> shortMedias;
+
     @PostConstruct
     public void init() {
         try {
@@ -32,7 +34,8 @@ public class MediaController implements Serializable {
     }
 
     private void updateList() throws NoConnectionException {
-        this.medias = mediaApi.getAllMedia();
+        this.medias = mediaApi.getAllMedia(0,300);
+        shortMedias = medias.subList(0,5);
     }
 
     public void playMedia(long mediaId) {
@@ -64,6 +67,14 @@ public class MediaController implements Serializable {
 
     public void setMedias(List<Media> medias) {
         this.medias = medias;
+    }
+
+    public List<Media> getShortMedias() {
+        return shortMedias;
+    }
+
+    public void setShortMedias(List<Media> shortMedias) {
+        this.shortMedias = shortMedias;
     }
     //endregion
 }

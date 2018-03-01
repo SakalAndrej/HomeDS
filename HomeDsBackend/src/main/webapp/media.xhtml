@@ -40,6 +40,11 @@
                      animation-exit="animated slideOutRight"
                      allowDismiss="true"
             />
+            <b:panel>
+                <h1>
+                    #{msg['playMedia']}
+                </h1>
+            </b:panel>
             <b:dataTable value="#{mediaController.medias}"
                          var="media" id="mediaTable" responsive="true">
                 <b:dataTableColumn value="#{media.mediaId}" label="Media ID"/>

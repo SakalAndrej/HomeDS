@@ -2,6 +2,7 @@ package at.htl.web;
 
 import at.htl.exceptions.NoConnectionException;
 import at.htl.model.Media;
+import at.htl.utils.LayoutChangerUtil;
 import at.htl.xiboClient.MediaApi;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +20,9 @@ public class MediaController implements Serializable {
 
     @Inject
     MediaApi mediaApi;
+
+    @Inject
+    LayoutChangerUtil layoutChangerUtil;
 
     private List<Media> medias;
 
@@ -45,6 +49,7 @@ public class MediaController implements Serializable {
             if (widgetId > 0) {
                 if (mediaApi.deleteWidget(widgetId) == 200) {
                     if (mediaApi.editWidget(mediaId) == 200) {
+                        layoutChangerUtil.changeLayoutForAll(39);
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully set media to playlist"));
                     }
                     else {

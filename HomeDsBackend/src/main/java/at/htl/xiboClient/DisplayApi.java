@@ -53,6 +53,8 @@ public class DisplayApi {
                 act.setDisplay(jsonObject.getString("display"));
                 act.setDisplayId(jsonObject.getLong("displayId"));
                 act.setDisplayGroupId(jsonObject.getLong("displayGroupId"));
+
+                //because of
                 //if (jsonObject.getString("description").)
                 //act.setDescription();
                 //act.setDefaultLayoutId(jsonObject.getLong("defaultLayoutId"));
@@ -67,4 +69,34 @@ public class DisplayApi {
         }
         return displays;
     }
+
+    public void ChangeLayout(long displayGroupId, int layoutId) throws NoConnectionException {
+        BufferedReader in;
+        LinkedList<Display> displays = new LinkedList<>();
+        Display act = new Display();
+        try {
+            //Get all Datasets
+            HttpURLConnection con = new RequestHelper()
+                    .executeRequest(RequestTypeEnum.POST,
+                            "layoutId=" + 39,
+                            new RequestHelper().BASE_URL + "api/displaygroup/" + 14 + "/action/overlayLayout",
+                            AuthentificationHandler.getTOKEN());
+
+            in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+            String output;
+            StringBuffer response = new StringBuffer();
+            while ((output = in.readLine()) != null)
+
+            {
+                response.append(output);
+            }
+        } catch (NullPointerException ex) {
+            throw new NoConnectionException("Es ist kein Response vorhanden", ex);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

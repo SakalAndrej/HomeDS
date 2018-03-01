@@ -42,7 +42,8 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
 
     EditText title;
     EditText description;
-
+    TextView tvTimeTo;
+    TextView tvTimeFrom;
     public NewsEditFragment() {
         // Required empty public constructor
     }
@@ -85,20 +86,22 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         ImageButton ibSaveNews = v.findViewById(R.id.ibSaveNews);
         title = v.findViewById(R.id.etTitle);
         description = v.findViewById(R.id.etDescription);
-
+        if(bundle.getSerializable("pickedDate") != null){
+            tvTimeFrom.setText(bundle.getSerializable("pickedDate").toString());
+        }
         title.setText(news.getTitle());
         description.setText(news.getValue());
 
-        final TextView tvTimeFrom = v.findViewById(R.id.tvTimeFrom);
-        TextView tvTimeTo = v.findViewById(R.id.tvTimeTo);
+        tvTimeFrom = v.findViewById(R.id.tvTimeFrom);
+        tvTimeTo = v.findViewById(R.id.tvTimeTo);
 
         tvTimeFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivity.getInstance().openDatePicker();
                 Bundle bundle1 = getArguments();
-                TextView tvTimeFron = view.findViewById(R.id.tvTimeFrom);
-                tvTimeFrom.setText(bundle1.getSerializable("pickedDate").toString());
+                //TextView tvTimeFron = view.findViewById(R.id.tvTimeFrom);
+
             }
         });
 

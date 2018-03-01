@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
 
     public void openDatePicker(){
 
-    DialogFragment dpf = new DatePickerFragment();
+    DatePickerFragment dpf = new DatePickerFragment();
 
        dpf.show(getSupportFragmentManager(), "DatePicker");
 

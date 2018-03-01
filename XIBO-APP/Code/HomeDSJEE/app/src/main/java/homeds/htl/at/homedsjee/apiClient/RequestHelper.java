@@ -76,7 +76,7 @@ public class RequestHelper {
             //urlBuilder.addQueryParameter("access token", TOKEN);
 
         } else {
-            String stringbody = "";
+            String stringbody = "{";
 
             if (params != null && params.size() > 0) {
                 Iterator it = params.entrySet().iterator();
@@ -87,6 +87,7 @@ public class RequestHelper {
                 }
             }
            stringbody = stringbody.substring(0,stringbody.length() -1);
+            stringbody += "}";
            body = RequestBody.create(MediaType.parse("application/json"), stringbody);
             Log.i(LOGTAG, "sent Body" + stringbody);
 

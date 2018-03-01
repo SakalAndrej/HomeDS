@@ -30,7 +30,7 @@ public class DataSetDataField {
     private String value;
 
     // Title of the News
-    private String Title;
+        private String Title;
 
     // Expiration Properties
     private LocalDate fromDate;

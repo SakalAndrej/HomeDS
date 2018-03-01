@@ -40,6 +40,9 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    EditText title;
+    EditText description;
+
     public NewsEditFragment() {
         // Required empty public constructor
     }
@@ -80,8 +83,8 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         Bundle bundle = getArguments();
         DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
         ImageButton ibSaveNews = v.findViewById(R.id.ibSaveNews);
-        EditText title = v.findViewById(R.id.etTitle);
-        EditText description = v.findViewById(R.id.etDescription);
+        title = v.findViewById(R.id.etTitle);
+        description = v.findViewById(R.id.etDescription);
 
         title.setText(news.getTitle());
         description.setText(news.getValue());
@@ -106,17 +109,18 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
             DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
                 RequestHelper rh = new RequestHelper();
                 HashMap<String,String> params = new HashMap<>();
-                String url = "";
+                String url = "http://10.0.2.2:8080/homeds/rs/datasetdatafield";
 
                 LocalDate date = LocalDate.now();
-                params.put("dataSetColumnId","");
-                params.put("dataId","5");
-                params.put("value",view.findViewById(R.id.etDescription).toString());
-                params.put("title",view.findViewById(R.id.etTitle).toString());
+                params.put("id",news.getId().toString());
+                params.put("dataSetId",news.getDataSetId().toString());
+                params.put("dataRowId",news.getDataRowId().toString());
+                params.put("value",description.getText().toString());
+                params.put("title",title.getText().toString());
                 params.put("fromDate",date.toString());
                 params.put("toDate",date.toString());
 
-                if (news.getDataId() == null){
+                if (news.getId() == null){
                     rh.executeRequest(RequestTypeEnum.POST,params,url);
                 }else{
                     rh.executeRequest(RequestTypeEnum.PUT,params,url);

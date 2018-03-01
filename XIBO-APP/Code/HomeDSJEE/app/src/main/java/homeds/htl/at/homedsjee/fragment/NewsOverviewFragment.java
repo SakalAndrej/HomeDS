@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.R;
@@ -108,14 +109,17 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                news.add(new DataSetDataField(jsonObject.getLong("dataSetColumnId"),
-                        jsonObject.getLong("dataId"),
+                JSONObject toDate = jsonObject.getJSONObject("toDate");
+                JSONObject fromDate = jsonObject.getJSONObject("fromDate");
+                news.add(new DataSetDataField(jsonObject.getLong("id"),
+                        jsonObject.getLong("dataSetId"),
+                        jsonObject.getLong("dataRowId"),
                         //jsonObject.getString("colName"),
                         jsonObject.getString("value"),
-                        LocalDate.parse(jsonObject.getString("fromDate")),
-                        LocalDate.parse(jsonObject.getString("toDate")),
-                        jsonObject.getString("Title")));
+                        LocalDate.ofYearDay(fromDate.getInt("year"),fromDate.getInt("dayOfYear")),
+                        LocalDate.ofYearDay(toDate.getInt("year"),toDate.getInt("dayOfYear")),
+
+                        jsonObject.getString("title")));
 
             }
         } catch (JSONException e) {

@@ -54,7 +54,7 @@ public class DataSetDataFieldEndpoint {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
-    @POST
+    @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/")

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+    <title>Crawler</title>
+</h:head>
+<h:body>
+    <b:growl id="growl" />
+
+    <b:panel look="primary">
+        <h1>
+            Crawler
+        </h1>
+    </b:panel>
+    <b:panel title="Configuration" showCollapseLink="true" look="primary">
+        <b:form prependId="false">
+            <b:container fluid="true">
+                <b:row>
+                    <b:column medium-screen="2">
+                        <h:outputText style="line-height: 2.5; font-weight: bold" value="Layout ID"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputText type="number" placeholder="Layout ID" value="#{crawlController.actLayoutId}"/>
+                    </b:column>
+                    <b:column medium-screen="2">
+                        <h:outputText style="line-height: 2.5; font-weight: bold" value="Layout Name"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputText required="false" placeholder="Layout Name"
+                                       value="#{crawlController.actLayoutName}"/>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column>
+                        <b:commandButton value="Crawl" look="primary" style="width:100%"
+                                         actionListener="#{crawlController.startedCrawlGrowl}" update="outputPanel growl"/>
+                    </b:column>
+                </b:row>
+            </b:container>
+        </b:form>
+    </b:panel>
+    <b:panel title="Ouput" showCollapseLink="true" collapsible="true" look="primary" id="outputPanel" collapsed="#{crawlController.collapsed}">
+        <b:form>
+            <b:commandButton style="
+    margin: 10px 0px;
+    margin-bottom:  5;
+" value="Copy to Clipboard" type="button" onclick="copyToClipboard('input_crawl')"></b:commandButton> <b:commandButton
+                style="
+    margin: 10px 10px 10px 10px;
+" value="See in formater" type="button" onclick="clickUrl(#{crawlController.formatterUrl})"></b:commandButton>
+        </b:form>
+        <b:inputTextarea style="height: 500px;" id="crawl" value="#{crawlController.crawl}"></b:inputTextarea>
+    </b:panel>
+    <script>
+        function copyToClipboard(elementId) {
+
+            // Create an auxiliary hidden input
+            var aux = document.getElementById(elementId);
+
+            // Highlight the content
+            aux.select();
+
+            // Execute the copy command
+            document.execCommand("copy");
+        }
+
+        function clickUrl(url) {
+            window.location = url;
+        }
+    </script>
+</h:body>
+</html>

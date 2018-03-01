@@ -82,7 +82,7 @@ public class MediaApi{
 
         try {
             HttpURLConnection con = new RequestHelper()
-                    .executeRequest(RequestTypeEnum.GET, "mediaIds=["+mediaId+"]",
+                    .executeRequest(RequestTypeEnum.PUT, "\"{mediaIds\"=[\""+mediaId+"\"]}",
                             new RequestHelper().BASE_URL + "api/playlist/widget/"+editWidgetId,
                             AuthentificationHandler.getTOKEN());
 
@@ -99,7 +99,7 @@ public class MediaApi{
                 response.append(output);
             }
 
-            JSONArray jsonArray = new JSONArray(response.toString());
+            //JSONArray jsonArray = new JSONArray(response.toString());
             System.out.println(response.toString());
 
 

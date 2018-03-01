@@ -2,9 +2,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
     <title>Dashboard HomeDs</title>
@@ -33,55 +34,56 @@
         </b:navBar>
 
         <b:container fluid="true">
-            <b:row>
-                <b:column col-sm="3" col-md="2" styleClass="sidebar">
-                    <b:listLinks>
-                        <b:navLink header="Dasboard Links"/>
-                        <b:navLink href="/homeds/index.xhtml" value="Overview" active="true"/>
-                        <b:navLink href="/homeds/dataset.xhtml" value="DataSet ändern"/>
-                        <b:navLink href="/homeds/crawl.xhtml" value="Crawler"/>
-                        <b:navLink href="#" value="Layout ändern"/>
-                    </b:listLinks>
-                </b:column>
+            <h:form>
+                <b:row>
+                    <b:column col-sm="3" col-md="2" styleClass="sidebar">
+                        <b:listLinks>
+                            <b:navLink header="Dasboard Links"/>
+                            <b:navLink value="#{msg['changeDataSet']}" href="/homeds/dataSet.xhtml"></b:navLink>
+                            <b:navLink value="#{msg['playMedia']}" href="/homeds/media.xhtml"></b:navLink>
+                            <b:navLink value="Crawler" href="/homeds/crawl.xhtml"></b:navLink>
+                        </b:listLinks>
+                    </b:column>
 
-                <b:column col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
-                    <h1>Dashboard</h1>
-                    <hr/>
-                    <b:row styleClass="placeholders">
-                        <b:column col-xs="6" col-sm="4" styleClass="placeholder">
-                            <h4>Datasets</h4>
-                            <span class="text-muted">Edit, Show Datasets</span>
-                        </b:column>
-                        <b:column col-xs="6" col-sm="4" styleClass="placeholder">
-                            <h4>Displays</h4>
-                            <span class="text-muted">Show Displays</span>
-                        </b:column>
-                        <b:column col-xs="6" col-sm="4" styleClass="placeholder">
-                            <h4>Layouts</h4>
-                            <span class="text-muted">Show Layouts</span>
-                        </b:column>
-                    </b:row>
-                    <h1>Datasets</h1>
-                    <hr/>
-                    <b:row styleClass="table-responsive">
-                        <h:dataTable styleClass="table table-striped" value="#{dataSetController.dataSetData}"
-                                     var="dataSet">
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="#"/></f:facet>
-                                <h:outputText value="#{dataSet.title}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="Name"/></f:facet>
-                                <h:outputText value="#{dataSet.value}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="Description"/></f:facet>
-                                <h:outputText value="#{dataSet.dataRowId}"/>
-                            </h:column>
-                        </h:dataTable>
-                    </b:row>
-                </b:column>
-            </b:row>
+                    <b:column col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
+                        <h1>Dashboard</h1>
+                        <hr/>
+                        <b:row styleClass="placeholders">
+                            <b:column col-xs="6" col-sm="4" styleClass="placeholder">
+                                <h4>DataSet's</h4>
+                                <span class="text-muted">#{msg['subTextDataSet']}</span>
+                            </b:column>
+                            <b:column col-xs="6" col-sm="4" styleClass="placeholder">
+                                <h4>#{msg['media']}</h4>
+                                <span class="text-muted">#{msg['playMedia']}</span>
+                            </b:column>
+                            <b:column col-xs="6" col-sm="4" styleClass="placeholder">
+                                <h4>Crawler</h4>
+                                <span class="text-muted">Our Crawler</span>
+                            </b:column>
+                        </b:row>
+                        <h1>DataSet's</h1>
+                        <hr/>
+                        <b:row styleClass="table-responsive">
+                            <h:dataTable styleClass="table table-striped" value="#{dataSetController.dataSetData}"
+                                         var="dataSet" id="datasets">
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#"/></f:facet>
+                                    <h:outputText value="#{dataSet.dataRowId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#{msg['title']}"/></f:facet>
+                                    <h:outputText value="#{dataSet.title}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#{msg['description']}"/></f:facet>
+                                    <h:outputText value="#{dataSet.value}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </b:row>
+                    </b:column>
+                </b:row>
+            </h:form>
         </b:container>
     </b:container>
     <style type="text/css">

@@ -1,11 +1,8 @@
 package at.htl.xiboClient;
 
 import at.htl.enums.RequestTypeEnum;
-import at.htl.helper.AuthentificationHandler;
-import at.htl.helper.RequestHelper;
-import at.htl.model.DataSet;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import at.htl.xiboClient.helper.AuthentificationHandler;
+import at.htl.xiboClient.helper.RequestHelper;
 
 import javax.ejb.Stateless;
 import java.io.BufferedReader;

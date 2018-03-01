@@ -1,14 +1,6 @@
 \chapter{HomeDS - Server}
 \section{Einleitung}\label{sec:einleitung}
-Im Rahmen der Diplomarbeit wird neben dem XIBO-Server ein eigens programmierter Java Enterprise Edition Server eingesetzt. Aufgrund der hohen Komplexität des Signage-Servers jedoch, relativ dünn dokumentierten API-Schnittstellen und begrenzten technischen Möglichkeiten, muss ein eigens programmierter Server eingesetzt werden. Dieser wird die Kommunikation vom Signage Server zur Android App erleichtern.  
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1 Lesen 2 moi eigens programmierter serrver eingesetzt
-
-
-\section{Java Enterprise Edition}\label{sec:javaee}
-Java Platform, Enterprise Edition oder abgekürzt auch Java EE ist die technische nähere Beschreibung einer Softwarearchitektur, die programmierte Java Anwendungen ausführt.
-(weiter ausführen)
-
-QUELLE: https://de.Wikipedia.org/wiki/Java_Platform,_Enterprise_Edition
+Im Rahmen der Diplomarbeit wird neben dem XIBO-Server ein weiterer Java Enterprise Edition Server eingesetzt. Aufgrund der hohen Komplexität des Signage-Servers jedoch, relativ dünn dokumentierten API-Schnittstellen und begrenzten technischen Möglichkeiten, muss ein eigens programmierter Server eingesetzt werden. Dieser wird die Kommunikation vom Signage Server zur Android App erleichtern. 
  
 \section{Anforderungen an den HomeDS Server}\label{sec:homeds}
 Der JavaEE Server soll die verschiedenen komplizierten Abläufe des XIBO-Servers vereinfachen. Die verschiedenen Zugriffe mittels REST die eigentlich direkt auf den XIBO laufen sollen, werden über den JavaEE Server verwaltet. Dies hat insofern Vorteile, da die komplizierten und meist mit viel Aufwand verknüpften Authentifizierungen wegfallen. Somit können ohne Probleme neue Funktionen hinzugefügt und ohne Probleme an neue Anforderungen angepasst werden.
@@ -55,3 +47,27 @@ Bei der zweiten Methode, die auch bei der Diplomarbeit zum Einsatz kommt, werden
 
 
 Verweis: https://swagger.io/
+
+\section{Java Server Faces mit JavaEE}\label{sec:javaeejsf}
+Um den Benutzern die Möglichkeit zu geben die Funktionen unseres Servers zu nutzen wurde im Rahmen der Diplomarbeit auch eine Webapplikation erstellt. Und da JSF also Java Server Faces mit einem Java EE Server harmoniert haben wir  uns entschieden eine Webapplikation zu erstellen. Dies hat viele Vorteile wie z. Bsp. die Platformunabhängigkeit und auch die schnellere Entwicklung im Vergleich zu anderen Clients. 
+
+Mit JSF wird nämlich über eine Managed Bean direkt im XHTML auf die Funktionen des Servers zugegriffen somit sind keine REST Zugriffe nötig. 
+
+Unsere Weboberfläche ist Responsive gestaltet und mithilfe von BootsFaces realisiert worden.Boots Framework stellt fertige Komponenten zur Verfügung wie Buttons, Listen, Forms etc. 
+
+BILD VON OBERFLÄCHE
+
+Die Aufgabe der DataSet Webapplikation ist DataSet zu ändern, hinzufügen oder zu löschen. Die Applikation besteht grob gesagt aus 2 Teilen. 
+
+Teil 1 kümmert sich um das Anzeigen aller DataSets in einer Responisve Komponente die "DataTable" gennant wird in der Bibliothek vom Bootsfaces Framework. Im DataTable ist es möglich die Anzahl der angezeigten Elemente pro Seite zu begrenzen oder erweitern,  die einzelnen Spalten sortieren dabei ***ascending*** oder ***descending*** und durch die verschiedenen Spalten einer Zeile eine Suche durchzuführen. 
+
+Es ist auch durch die editierbaren Textfelder und DatePicker möglich die DataSets zu ändern. Durch klicken auf den Speichern Button wird die Änderung des einzelnen DataSets bestätigt. Durch klicken auf den Löschen Button
+Verweis auf JSF Section,
+
+\section{HomeDS Server Projekt-Struktur}\label{sec:javaeestruktur}
+
+
+\section{HomeDS Server Structure Crawler}\label{sec:javaeestructurecrawler}
+Für das verstehen des Aufbaus eines Layouts war es die Aufgabe einen sogennanten StructureCrawler zu erstellen. Dieser soll den JSON Aufbau eines Layouts ausgeben. Durch diese Funktion ist es für uns möglich gewesen das ganze Signage System zu verstehen und zu verwenden. 
+
+WEBOBERFLÄCHE VOM CRAWLER

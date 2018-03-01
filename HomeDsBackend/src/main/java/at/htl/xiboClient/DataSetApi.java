@@ -5,8 +5,8 @@ import at.htl.exceptions.NoConnectionException;
 import at.htl.model.DataSet;
 import at.htl.model.DataSetData;
 import at.htl.model.DataSetDataField;
-import at.htl.xiboClient.helper.AuthentificationHandler;
-import at.htl.xiboClient.helper.RequestHelper;
+import at.htl.utils.AuthentificationHandler;
+import at.htl.utils.RequestHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -301,4 +301,6 @@ public class DataSetApi {
             e.printStackTrace();
         }
     }
+
+
 }

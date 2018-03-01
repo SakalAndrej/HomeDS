@@ -7,16 +7,16 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-    <title>Dashboard BootsFaces</title>
+    <title>Dashboard HomeDs</title>
 </h:head>
 
 <h:body style="padding-top: 60px">
     <b:navBar brand="Project name" brandHref="#" inverse="true" fixed="top" fluid="true">
 
         <b:navbarLinks pull="right">
-            <b:navLink value="Dashboard" href="#"></b:navLink>
-            <b:navLink value="Datasets" href="#"></b:navLink>
-            <b:navLink value="Displays" href="#"></b:navLink>
+            <b:navLink value="Dashboard" href="/homeds/index.xhtml"></b:navLink>
+            <b:navLink value="Datasets" href="/homeds/dataSet.xhtml"></b:navLink>
+            <b:navLink value="Crawler" href="/homeds/crawl.xhtml"></b:navLink>
             <b:navLink value="Layouts" href="#"></b:navLink>
         </b:navbarLinks>
 
@@ -32,10 +32,10 @@
             <b:column col-sm="3" col-md="2" styleClass="sidebar">
                 <b:listLinks>
                     <b:navLink header="Dasboard Links" />
-                    <b:navLink href="#" value="Overview" active="true"/>
-                    <b:navLink href="#" value="Displays" />
-                    <b:navLink href="#" value="Layouts" />
-                    <b:navLink href="#" value="DataSet" />
+                    <b:navLink href="/homeds/index.xhtml" value="Overview" active="true"/>
+                    <b:navLink href="/homeds/dataset.xhtml" value="DataSet ändern" />
+                    <b:navLink href="/homeds/crawl.xhtml" value="Crawler" />
+                    <b:navLink href="#" value="Layout ändern" />
                 </b:listLinks>
             </b:column>
 
@@ -59,18 +59,18 @@
                 <h1>Datasets</h1>
                 <hr/>
                 <b:row styleClass="table-responsive">
-                    <h:dataTable styleClass="table table-striped" value="#{indexController.dataSet}" var="dataSet">
+                    <h:dataTable styleClass="table table-striped" value="#{dataSetController.dataSetData}" var="dataSet">
                         <h:column>
                             <f:facet name="header"><h:outputText value="#"/></f:facet>
-                            <h:outputText value="#{dataSet.dataSetId}"/>
+                            <h:outputText value="#{dataSet.title}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header"><h:outputText value="Name" /></f:facet>
-                            <h:outputText value="#{dataSet.dataSetName}"/>
+                            <h:outputText value="#{dataSet.value}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header"><h:outputText value="Description" /></f:facet>
-                            <h:outputText value="#{dataSet.description}"/>
+                            <h:outputText value="#{dataSet.dataRowId}"/>
                         </h:column>
                     </h:dataTable>
                 </b:row>

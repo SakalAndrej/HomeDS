@@ -12,13 +12,29 @@
 </h:head>q
 <h:body>
 
-    <h:form>
+    <h:form id="medias">
+        <b:growl id="growl"
+                 globalOnly="true"
+                 showDetail="true"
+                 animation-enter="animated slideInRight"
+                 animation-exit="animated slideOutRight"
+                 allowDismiss="true"
+        />
         <b:dataTable value="#{mediaController.medias}"
                      var="media">
             <b:dataTableColumn value="#{media.mediaId}" />
             <b:dataTableColumn value="#{media.mediaType}" />
             <b:dataTableColumn value="#{media.name}" order="asc"/>
             <b:dataTableColumn value="#{media.ownerId}"  />
+            <b:dataTableColumn>
+                <center>
+                    <b:commandButton update="medias @form"
+                                     action="#{mediaController.playMedia(media.mediaId)}"
+                                     id="btnDelete" look="danger">
+                        <b:iconAwesome size="1.5x" name="fa-play"></b:iconAwesome>
+                    </b:commandButton>
+                </center>
+            </b:dataTableColumn>
         </b:dataTable>
     </h:form>
 </h:body>

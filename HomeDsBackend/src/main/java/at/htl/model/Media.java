@@ -14,9 +14,9 @@ public class Media {
         this.mediaType = mediaType;
     }
 
-    public Media() {
-    }
+    public Media() { }
 
+    //region Getter & Setter
     public Long getMediaId() {
         return mediaId;
     }
@@ -48,4 +48,5 @@ public class Media {
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
+    //endregion
 }

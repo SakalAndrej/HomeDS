@@ -63,7 +63,6 @@ public class DataSetController implements Serializable {
     }
 
     public void addDataSet() {
-        FacesContext context = FacesContext.getCurrentInstance();
         if ((dataSetToAdd.getFromDate() != null) && (dataSetToAdd.getFromDate().isAfter(LocalDate.now()) == false || dataSetToAdd.getFromDate().isEqual(LocalDate.now()) == true)) {
             this.addDataSetToXibo(dataSetToAdd);
         } else if ((dataSetToAdd.getFromDate() == null)) {

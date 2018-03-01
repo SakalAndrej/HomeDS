@@ -5,8 +5,14 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-@NamedQueries({@NamedQuery(name = "DataSetDataField.GetAll", query = "select d from DataSetDataField d")
-        , @NamedQuery(name = "DataSetDataField.findByRowId", query = "select d from DataSetDataField d where :id = d.dataRowId")})
+@NamedQueries(
+        {
+                @NamedQuery(name = "DataSetDataField.GetAll",
+                            query = "select d from DataSetDataField d"),
+
+                @NamedQuery(name = "DataSetDataField.findByRowId",
+                            query = "select d from DataSetDataField d where :id = d.dataRowId")
+        })
 
 @Table
 @Entity

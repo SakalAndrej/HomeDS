@@ -14,8 +14,11 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("datasetdatafield")
-@Api("DatasetDataField")
+@Api("DatasetDataField - API")
 public class DataSetDataFieldEndpoint {
+
+
+    //swagger url http://localhost:8080/homeds/swagger/swagger.html
 
     @Inject
     DataSetFieldFacade dataSetFieldFacade;
@@ -39,7 +42,7 @@ public class DataSetDataFieldEndpoint {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/")
+    @Path("/save")
     @ApiOperation("Save DataSetRow")
     public Response addDataSetDataField(DataSetDataField dataField) {
         if (dataField != null) {
@@ -57,13 +60,14 @@ public class DataSetDataFieldEndpoint {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/")
+    @Path("/edit")
     @ApiOperation("Edit DataSetRow")
     public Response editDataSetDataField(DataSetDataField dataField) {
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
             try {
-                dataSetApi.addDataSetField(dataField);
+                dataSetApi.editDataSetField(dataField.getDataSetId(), dataField.getDataRowId(),8, dataField.getTitle());
+                dataSetApi.editDataSetField(dataField.getDataSetId(), dataField.getDataRowId(),9, dataField.getValue());
             } catch (NoConnectionException e) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
@@ -77,7 +81,7 @@ public class DataSetDataFieldEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{dataid}/{datarowid}")
     @ApiOperation("Delete DataSetRow")
-    public Response addDataSetDataField(
+    public Response deleteDataSetDataField(
             @PathParam("dataid") long dataId,
             @PathParam("datarowid") long dataRowId) {
         try {

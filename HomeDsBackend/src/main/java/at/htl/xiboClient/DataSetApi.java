@@ -5,8 +5,8 @@ import at.htl.exceptions.NoConnectionException;
 import at.htl.model.DataSet;
 import at.htl.model.DataSetData;
 import at.htl.model.DataSetDataField;
-import at.htl.xiboClient.helper.AuthentificationHandler;
-import at.htl.xiboClient.helper.RequestHelper;
+import at.htl.utils.AuthentificationHandler;
+import at.htl.utils.RequestHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -274,4 +274,33 @@ public class DataSetApi {
         }
         return -1;
     }
+
+    public void collectNowAll() throws NoConnectionException {
+        try {
+
+            HttpURLConnection con = new RequestHelper()
+                    .executeRequest(RequestTypeEnum.DELETE, null,
+                            new RequestHelper().BASE_URL + "api/displaygroup/17/action/collectNow",
+                            AuthentificationHandler.getTOKEN());
+
+            BufferedReader in = null;
+
+            try {
+                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            }
+            catch (NullPointerException ex) {
+                throw new NoConnectionException("Es ist kein Response vorhanden", ex);
+            }
+
+            String output;
+            StringBuffer response = new StringBuffer();
+            while ((output = in.readLine()) != null) {
+                response.append(output);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

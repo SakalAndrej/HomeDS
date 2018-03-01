@@ -1,8 +1,6 @@
 package at.htl.business;
 
-import at.htl.rest.CrawlerEndpoint;
-import at.htl.rest.CrossOriginResourceSharingFilter;
-import at.htl.rest.DataSetDataFieldEndpoint;
+import at.htl.rest.*;
 import io.swagger.jaxrs.config.BeanConfig;
 
 import javax.ws.rs.ApplicationPath;
@@ -33,6 +31,8 @@ public class RestConfig extends Application {
         set.add(RestConfig.class);
         set.add(DataSetDataFieldEndpoint.class);
         set.add(CrawlerEndpoint.class);
+        set.add(MediaEndpoint.class);
+        set.add(StatusEndpoint.class);
 
         set.add(io.swagger.jaxrs.listing.ApiListingResource.class);
         set.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);

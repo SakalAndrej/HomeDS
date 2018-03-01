@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
 @Stateless
-public class Crawler {
+public class CrawlerApi {
 
     private static RequestHelper requestHelper = new RequestHelper();
 

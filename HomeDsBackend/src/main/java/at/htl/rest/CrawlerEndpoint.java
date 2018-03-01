@@ -1,6 +1,6 @@
 package at.htl.rest;
 
-import at.htl.xiboClient.Crawler;
+import at.htl.xiboClient.CrawlerApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 public class CrawlerEndpoint {
 
     @Inject
-    Crawler crawler;
+    CrawlerApi crawler;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

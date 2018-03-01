@@ -1,6 +1,6 @@
 package at.htl.web;
 
-import at.htl.xiboClient.Crawler;
+import at.htl.xiboClient.CrawlerApi;
 import org.json.JSONArray;
 
 import javax.annotation.PostConstruct;
@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class CrawlController implements Serializable {
 
     @Inject
-    Crawler crawler;
+    CrawlerApi crawler;
 
     private String crawl;
 
@@ -83,11 +83,11 @@ public class CrawlController implements Serializable {
         this.crawl = crawl;
     }
 
-    public Crawler getCrawler() {
+    public CrawlerApi getCrawler() {
         return crawler;
     }
 
-    public void setCrawler(Crawler crawler) {
+    public void setCrawler(CrawlerApi crawler) {
         this.crawler = crawler;
     }
 

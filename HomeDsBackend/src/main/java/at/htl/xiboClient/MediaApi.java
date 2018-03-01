@@ -19,6 +19,7 @@ import java.util.LinkedList;
 @Stateless
 public class MediaApi{
     public final String editWidgetId = "427";
+    public final String editPlaylistId = "157";
     public LinkedList<Media> getAllMedia() throws NoConnectionException{
 
 
@@ -82,8 +83,8 @@ public class MediaApi{
 
         try {
             HttpURLConnection con = new RequestHelper()
-                    .executeRequest(RequestTypeEnum.PUT, "\"{mediaIds\"=[\""+mediaId+"\"]}",
-                            new RequestHelper().BASE_URL + "api/playlist/widget/"+editWidgetId,
+                    .executeRequest(RequestTypeEnum.POST, "media=[16]",
+                            new RequestHelper().BASE_URL + "api/playlist/library/assign/"+editPlaylistId,
                             AuthentificationHandler.getTOKEN());
 
             try{

@@ -20,13 +20,14 @@
                  animation-exit="animated slideOutRight"
                  allowDismiss="true"
         />
-        <b:navBar brand="HomeDS Systems" brandHref="#" inverse="true" fixed="top" fluid="true" id="navbar">
+        <b:navBar brand="HomeDS Systems" brandHref="/homeds/index.xhtml" inverse="true" fixed="top" fluid="true" id="navbar">
             <b:navbarLinks pull="right">
-                <b:navLink value="Dashboard" href="#"></b:navLink>
-                <b:navLink value="#{msg['changeLanguage']}" href="#" update="all growl addDataSet dataSetEditor"
+                <b:navLink value="Dashboard" href="/homeds/index.xhtml"></b:navLink>
+                <b:navLink value="#{msg['changeDataSet']}" href="/homeds/dataSet.xhtml"></b:navLink>
+                <b:navLink value="#{msg['playMedia']}" href="/homeds/media.xhtml"></b:navLink>
+                <b:navLink value="Crawler" href="/homeds/crawl.xhtml"></b:navLink>
+                <b:navLink value="#{msg['changeLanguage']}" href="#" update="all addDataSet dataSetEditor"
                            onclick="ajax:languageController.countryLocaleCodeChanged()"></b:navLink>
-                <b:navLink value="#{msg['Displays']}" href="#"></b:navLink>
-                <b:navLink value="#{msg['Layouts']}" href="#"></b:navLink>
             </b:navbarLinks>
         </b:navBar>
 

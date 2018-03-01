@@ -13,7 +13,7 @@ Developer for Android, Java and Odroid programming
 Developer for Android, Java and Odroid programming
 
 ## Swagger UI
-**URL:** http://ROOT:PORT/homeds/swagger
+**URL:** http://localhost:8080/homeds/swagger/swagger.html
 
 
 # Our technologies

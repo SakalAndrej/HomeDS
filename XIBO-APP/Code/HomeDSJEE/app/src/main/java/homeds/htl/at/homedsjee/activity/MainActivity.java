@@ -3,9 +3,11 @@ package homeds.htl.at.homedsjee.activity;
 import android.app.Dialog;
 import android.net.Uri;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
@@ -58,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
         newsEditFragment.setArguments(bundle);
 
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.container_main, newsEditFragment,null).addToBackStack("actEdit").commit();
+        fm.beginTransaction().replace(R.id.container_main, newsEditFragment,"actEdit").addToBackStack("actEdit").commit();
+
     }
 
     public void openStructurePlanFragment(){
@@ -76,11 +79,17 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
 
     }
 
-    public void onDatePIcked(){
-
-
-
-
+    public void onDatePicked(Bundle bundle){
+        FragmentManager.BackStackEntry backStackEntry = getSupportFragmentManager().getBackStackEntryAt(
+                getSupportFragmentManager().getBackStackEntryCount()-1
+        );
+        Log.d("BACKSTACK", String.valueOf(backStackEntry.getId()));
+        Log.d("BACKSTACK", String.valueOf(getSupportFragmentManager().findFragmentByTag(
+                getSupportFragmentManager().getBackStackEntryAt(backStackEntry.getId()).getName())));
+        Fragment f =  getSupportFragmentManager().findFragmentByTag(
+                getSupportFragmentManager().getBackStackEntryAt(backStackEntry.getId()).getName());
+        f.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main,f).commit();
     }
 
 

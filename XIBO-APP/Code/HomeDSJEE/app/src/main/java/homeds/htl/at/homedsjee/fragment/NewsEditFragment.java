@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,8 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private android.support.v4.app.Fragment mFrag;
+
     EditText title;
     EditText description;
     TextView tvTimeTo;
@@ -69,10 +72,19 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState != null)
+            mFrag = getFragmentManager().getFragment(savedInstanceState, "saveFragment");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Log.d("NEWSEDIT", "onCreate");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getFragmentManager().putFragment(outState, "saveFragment",mFrag);
     }
 
     @Override
@@ -82,6 +94,9 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_news_edit, container, false);
 
         Bundle bundle = getArguments();
+        Log.d("BUNDLDATA", String.valueOf(bundle));
+        if(bundle != null)
+            this.setArguments(bundle);
         DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
         ImageButton ibSaveNews = v.findViewById(R.id.ibSaveNews);
         title = v.findViewById(R.id.etTitle);
@@ -99,7 +114,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
                 MainActivity.getInstance().openDatePicker();
-                Bundle bundle1 = getArguments();
+//                Bundle bundle1 = getArguments();
                 //TextView tvTimeFron = view.findViewById(R.id.tvTimeFrom);
 
             }
@@ -139,6 +154,18 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("NEWSEDIT", "OnResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("NEWSEDIT", "onPause");
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -147,8 +174,16 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     }
 
     @Override
+    public void onAttachFragment(android.support.v4.app.Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+        Log.d("NEWSEDIT", "Attach");
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.d("NEWSEDIT", "Attach1");
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -160,7 +195,20 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        Log.d("NEWSEDIT", "onDetach");
         mListener = null;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("NEWSEDIT", "onStop");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("NEWSEDIT", "onDestroy");
     }
 
     /**

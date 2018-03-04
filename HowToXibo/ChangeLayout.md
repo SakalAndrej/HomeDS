@@ -50,13 +50,19 @@ Der Vorgang des Zuweisens einer Kampagne unterscheidet sich kaum davon, wie es b
 
 ### Anzeigen von Kampagnen über die API Schnittstelle 
 
+Erstellen einer Kampagne erfolgt über einen POST Request der den Namen als einzigen Parameter benötigt. Als Response erhält man die erstellte Kampagne mit der ID die vergeben wurde.
+
+![03_KampagneName](.\images\LayoutChange\03_KampagneName.PNG)
+
+
+
+
+
 Um Kampagnen anzuzeigen ist es, eben so wie über die Website, am besten dies mittels Kalender zu tun. Dazu muss diese einem Event zugewiesen werden. Erstellt wird ein Event über folgenden Request: 
 
 ![02_PostSceduleKampagne](./images/LayoutChange/02_PostSceduleKampagne.PNG)
 
-fehlt das erstellen der kampagne !!!
 
-dann das bearbeitern der Kampagne (Layout zuweisen) !!!
 
 - Bei der eventTypeID ist 1 einzutragen
 - Bei campaignId wird die ID der gewünschten Kampagne übergeben.

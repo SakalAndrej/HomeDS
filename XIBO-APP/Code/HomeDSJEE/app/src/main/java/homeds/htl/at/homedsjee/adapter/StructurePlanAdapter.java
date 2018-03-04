@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONObject;
+
 import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.entity.Structure;
@@ -16,9 +18,9 @@ import homeds.htl.at.homedsjee.viewholder.StructurePlanViewHolder;
 
 public class StructurePlanAdapter extends RecyclerView.Adapter<StructurePlanViewHolder> {
 
-    LinkedList<Structure> structures = new LinkedList<>();
+    LinkedList<JSONObject> structures = new LinkedList<>();
 
-    public StructurePlanAdapter(LinkedList<Structure> structures){this.structures = structures;}
+    public StructurePlanAdapter(LinkedList<JSONObject> structures){this.structures = structures;}
     @Override
     public StructurePlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1,parent,false);

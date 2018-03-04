@@ -8,9 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.activity.MainActivity;
+import homeds.htl.at.homedsjee.apiClient.RequestHelper;
+import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +33,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    RequestHelper rh  = new RequestHelper();
     private OnFragmentInteractionListener mListener;
 
     public HomeScreenFragment() {
@@ -69,9 +73,28 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
       View v = inflater.inflate(R.layout.fragment_home_screen, container, false);
 
+      String url  = "http://10.0.2.2:8080/homeds/rs/status/";
+      rh.executeRequest(RequestTypeEnum.GET,null,url);
+
+
+        ImageView ivUp = v.findViewById(R.id.ivServerUp);
+        ivUp.setVisibility(View.INVISIBLE);
+        ImageView ivDown = v.findViewById(R.id.ivServerDown);
+        ivDown.setVisibility(View.INVISIBLE);
       ImageButton ibNewsView = v.findViewById(R.id.ibNewsView);
       ImageButton ibStructurePlan = v.findViewById(R.id.ibStructurePlan);
       ImageButton ibMediaOverview = v.findViewById(R.id.ibMediaOverview);
+
+        try {
+            String hallo = getResponseWithWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (rh.getResponseCode() == 200 ){
+            ivUp.setVisibility(View.VISIBLE);
+        }else{
+            ivDown.setVisibility(View.VISIBLE);
+        }
 
       ibNewsView.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -133,5 +156,13 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public String getResponseWithWait() throws InterruptedException {
+
+        while(rh.getResponseBody() == null){
+            Thread.sleep(100);
+        }
+        return rh.getResponseBody();
     }
 }

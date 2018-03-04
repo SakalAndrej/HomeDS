@@ -4,36 +4,24 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.LinkedList;
+import android.widget.Scroller;
+import android.widget.TextView;
 
 import homeds.htl.at.homedsjee.R;
-import homeds.htl.at.homedsjee.adapter.NewsAdapter;
-import homeds.htl.at.homedsjee.adapter.StructurePlanAdapter;
-import homeds.htl.at.homedsjee.apiClient.RequestHelper;
-import homeds.htl.at.homedsjee.entity.Structure;
-import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link StructurePlanFragment.OnFragmentInteractionListener} interface
+ * {@link StructureDetailFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link StructurePlanFragment#newInstance} factory method to
+ * Use the {@link StructureDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StructurePlanFragment extends android.support.v4.app.Fragment {
+public class StructureDetailFragment extends android.support.v4.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,10 +30,10 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    RequestHelper rh = new RequestHelper();
+
     private OnFragmentInteractionListener mListener;
 
-    public StructurePlanFragment() {
+    public StructureDetailFragment() {
         // Required empty public constructor
     }
 
@@ -55,11 +43,11 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment StructurePlanFragment.
+     * @return A new instance of fragment StructureDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static StructurePlanFragment newInstance(String param1, String param2) {
-        StructurePlanFragment fragment = new StructurePlanFragment();
+    public static StructureDetailFragment newInstance(String param1, String param2) {
+        StructureDetailFragment fragment = new StructureDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -80,43 +68,13 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_structure_plan, container, false);
+        View v = inflater.inflate(R.layout.fragment_structure_detail, container, false);
+        Bundle bundle = this.getArguments();
+        TextView tvStructureDetailStiring = v.findViewById(R.id.tvStructureDetailString);
+        tvStructureDetailStiring.setMovementMethod(new ScrollingMovementMethod());
+        String detail = bundle.getString("actStructure");
 
-        RecyclerView rvStructurePlan = v.findViewById(R.id.rvStructurePlan);
-
-        HashMap<String,String> params = new HashMap<>();
-        params.put("layoutId","-1");
-    String url ="http://10.0.2.2:8080/homeds/rs/crawler/";
-        rh.executeRequest(RequestTypeEnum.GET,params,url);
-
-
-        LinkedList<JSONObject> structureparts = new LinkedList<>();
-        JSONArray jsonArray = null;
-
-        try {
-            String response = getResponseWithWait();
-            jsonArray = new JSONArray(response);
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                structureparts.add(jsonObject);
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-
-
-        StructurePlanAdapter structurePlanAdapter = new StructurePlanAdapter(structureparts);
-        rvStructurePlan.setAdapter(structurePlanAdapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rvStructurePlan.setLayoutManager(linearLayoutManager);
+        tvStructureDetailStiring.setText(detail);
         return v;
     }
 
@@ -157,13 +115,5 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public String getResponseWithWait() throws InterruptedException {
-
-        while(rh.getResponseBody() == null){
-            Thread.sleep(100);
-        }
-        return rh.getResponseBody();
     }
 }

@@ -46,8 +46,7 @@ public class MediaController implements Serializable {
         try {
             if (medias != null && lastOnline.isAfter(LocalDateTime.now())) {
                 //no need for update
-            }
-            else {
+            } else {
                 this.updateList(tags);
                 lastOnline = LocalDateTime.now().plusMinutes(5);
             }
@@ -64,11 +63,20 @@ public class MediaController implements Serializable {
     }
 
     private void updateList(String cloudTags) throws NoConnectionException {
-        this.medias = mediaApi.getAllMedia(0,50, cloudTags);
-        if (medias.size()>10)
-            shortMedias = medias.subList(0,5);
+        this.medias = mediaApi.getAllMedia(0, 50, cloudTags);
+        if (medias.size() > 10)
+            shortMedias = medias.subList(0, 5);
         else {
             shortMedias = medias;
+        }
+    }
+
+    public void clearCloud() {
+        tags = "";
+        try {
+            this.updateList(tags);
+        } catch (NoConnectionException e) {
+            e.printStackTrace();
         }
     }
 
@@ -81,12 +89,10 @@ public class MediaController implements Serializable {
                     if (mediaApi.editWidget(mediaId) == 200) {
                         layoutChangerUtil.changeLayoutForAll(39);
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully set media to playlist"));
-                    }
-                    else {
+                    } else {
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while playing medi"));
                     }
-                }
-                else {
+                } else {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while removing media from playlist"));
                 }
             }
@@ -99,15 +105,11 @@ public class MediaController implements Serializable {
         TagCloudItem item = (TagCloudItem) event.getObject();
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", item.getLabel());
 
-        //bec of starting not with ,
-        if (tags.isEmpty())
-            tags = item.getLabel();
-        else
-            tags += ","+item.getLabel();
+        tags = item.getLabel();
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
         try {
-            mediaApi.getAllMedia(0,100, tags);
+            this.updateList(tags);
         } catch (NoConnectionException e) {
             e.printStackTrace();
         }

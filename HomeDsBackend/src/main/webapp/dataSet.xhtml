@@ -91,7 +91,7 @@
 
                                 <b:dataTableColumn medium-screen="1" label="#{msg['delete']}">
                                     <center>
-                                        <b:commandButton update="dataSetParent growl"
+                                        <b:commandButton update="dataSetEditor growl"
                                                          action="#{dataSetController.removeDataSet(actDataSet)}"
                                                          id="btnDelete" look="danger">
                                             <b:iconAwesome size="1.5x" name="fa-trash"></b:iconAwesome>
@@ -102,7 +102,7 @@
                                     <center>
                                         <b:commandButton
                                                 action="#{dataSetController.editDataSet(actDataSet)}"
-                                                id="btnSave" look="primary" update="growl dataSetParent">
+                                                id="btnSave" look="primary" update="growl dataSetEditor">
                                             <b:iconAwesome size="1.5x" name="far fa-save"></b:iconAwesome>
                                         </b:commandButton>
                                     </center>

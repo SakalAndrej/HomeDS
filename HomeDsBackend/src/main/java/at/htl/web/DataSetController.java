@@ -25,7 +25,7 @@ public class DataSetController implements Serializable {
     @Inject
     DataSetApi dataSetApi;
 
-    private List<DataSetDataField> dataSetData;
+    private static List<DataSetDataField> dataSetData;
 
     private DataSetDataField dataSetToAdd;
 

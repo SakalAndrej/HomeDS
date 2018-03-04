@@ -28,13 +28,12 @@ public class CrawlController implements Serializable {
 
     private String collapsed;
 
-    private CrawlController() {
-    }
+    private CrawlController() { }
 
     @PostConstruct
     public void init() {
-        this.startCrawl();
         actLayoutId = -1;
+        this.startCrawl();
     }
 
     public void startCrawl() {
@@ -54,11 +53,10 @@ public class CrawlController implements Serializable {
         formatterUrl = "\'http://localhost:8080/homeds/rs/crawler" + query + "\'";
         crawl = crawler.getLayoutsWithAllSubEntities(actLayoutId, name);
 
-        if (!crawl.isEmpty() && crawl.length()>2) {
+        if (!crawl.isEmpty() && crawl.length() > 2) {
             crawl = new JSONArray(crawl).toString();
             collapsed = "false";
-        }
-        else
+        } else
             collapsed = "true";
     }
 
@@ -66,10 +64,9 @@ public class CrawlController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         startCrawl();
 
-        if (!crawl.isEmpty() && crawl.length()>2) {
+        if (!crawl.isEmpty() && crawl.length() > 2) {
             context.addMessage(null, new FacesMessage("Successful"));
-        }
-        else {
+        } else {
             context.addMessage(null, new FacesMessage("No Content"));
         }
     }

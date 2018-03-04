@@ -2,7 +2,6 @@ package at.htl.xiboClient;
 
 import at.htl.enums.RequestTypeEnum;
 import at.htl.exceptions.NoConnectionException;
-import at.htl.model.DataSet;
 import at.htl.model.Display;
 import at.htl.utils.AuthentificationHandler;
 import at.htl.utils.RequestHelper;

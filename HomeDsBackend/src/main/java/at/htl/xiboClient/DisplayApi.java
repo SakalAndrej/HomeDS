@@ -9,11 +9,19 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ejb.Stateless;
+import javax.swing.text.DateFormatter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
+
+import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
 @Stateless
 public class DisplayApi {
@@ -68,7 +76,10 @@ public class DisplayApi {
         return displays;
     }
 
-    public void ChangeLayout(long displayGroupId, int layoutId) throws NoConnectionException {
+    public void ScheduleLayout(LocalDateTime fromDate, LocalDateTime toDate) throws NoConnectionException {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+
         BufferedReader in;
         LinkedList<Display> displays = new LinkedList<>();
         Display act = new Display();
@@ -76,8 +87,9 @@ public class DisplayApi {
             //Get all Datasets
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
-                            "layoutId=" + 21,
-                            new RequestHelper().BASE_URL + "api/displaygroup/" + 14 + "/action/overlayLayout",
+                            "eventTypeId=1&campaignId=" + 44 +
+                                    "&displayOrder=0&isPriority=11&displayGroupIds[]="+14+"&fromDt="+fromDate.format(formatter)+"&toDt="+toDate.format(formatter),
+                            new RequestHelper().BASE_URL + "api/schedule",
                             AuthentificationHandler.getTOKEN());
 
             in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -85,7 +97,6 @@ public class DisplayApi {
             String output;
             StringBuffer response = new StringBuffer();
             while ((output = in.readLine()) != null)
-
             {
                 response.append(output);
             }

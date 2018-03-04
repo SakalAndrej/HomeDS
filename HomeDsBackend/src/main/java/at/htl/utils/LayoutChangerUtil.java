@@ -26,7 +26,7 @@ public class LayoutChangerUtil {
             /*for (int i = 0; i < displays.size(); i++) {
                 displayApi.ChangeLayout(displays.get(i).getDisplayGroupId(), layoutId);
             }*/
-            displayApi.ChangeLayout(11,layoutId);
+            displayApi.ScheduleLayout(11,layoutId);
             dataSetApi.collectNowAll();
         } catch (NoConnectionException e) {
             e.printStackTrace();

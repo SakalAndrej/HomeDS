@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.R;
@@ -84,8 +85,10 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_media_overview, container, false);
         RecyclerView rvMedia = v.findViewById(R.id.rvMedia);
 
-
-        rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:8080/homeds/rs/media/");
+        HashMap<String,String> params = new HashMap<>();
+        params.put("start","1");
+        params.put("length","10");
+        rh.executeRequest(RequestTypeEnum.GET,params,"http://10.0.2.2:8080/homeds/rs/media/");
 
 
 

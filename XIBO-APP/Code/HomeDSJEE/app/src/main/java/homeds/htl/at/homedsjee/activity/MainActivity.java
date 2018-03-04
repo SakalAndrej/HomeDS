@@ -11,11 +11,13 @@ import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
 import homeds.htl.at.homedsjee.fragment.MediaOverviewFragment;
 import homeds.htl.at.homedsjee.fragment.NewsEditFragment;
 import homeds.htl.at.homedsjee.fragment.NewsOverviewFragment;
+import homeds.htl.at.homedsjee.fragment.StructureDetailFragment;
 import homeds.htl.at.homedsjee.fragment.StructurePlanFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeScreenFragment.OnFragmentInteractionListener,
         NewsEditFragment.OnFragmentInteractionListener,NewsOverviewFragment.OnFragmentInteractionListener,
-        StructurePlanFragment.OnFragmentInteractionListener,MediaOverviewFragment.OnFragmentInteractionListener {
+        StructurePlanFragment.OnFragmentInteractionListener,MediaOverviewFragment.OnFragmentInteractionListener,
+        StructureDetailFragment.OnFragmentInteractionListener {
 
     public static MainActivity instance;
     @Override
@@ -69,6 +71,15 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
         MediaOverviewFragment mediaOverviewFragment = new MediaOverviewFragment();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.container_main,mediaOverviewFragment,null).commit();
+    }
+
+    public void openStructureDetailFragment(Bundle bundle){
+     StructureDetailFragment structureDetailFragmen = new StructureDetailFragment();
+     structureDetailFragmen.setArguments(bundle);
+
+     FragmentManager fm = getSupportFragmentManager();
+     fm.beginTransaction().replace(R.id.container_main,structureDetailFragmen,null).commit();
+
     }
 
 }

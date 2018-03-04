@@ -31,7 +31,12 @@ public class MediaController implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            this.updateList();
+            if (medias != null) {
+                //no need for update
+            }
+            else {
+                this.updateList();
+            }
         } catch (NoConnectionException e) {
             e.printStackTrace();
         }

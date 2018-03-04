@@ -32,7 +32,7 @@ public class MediaApi {
 
         try {
             HttpURLConnection con = new RequestHelper()
-                    .executeRequest(RequestTypeEnum.GET, null,
+                    .executeRequest(RequestTypeEnum.GET, "tags=project",
                             new RequestHelper().BASE_URL + "api/library?start=" + start +"&length="+length,
                             AuthentificationHandler.getTOKEN());
             try {

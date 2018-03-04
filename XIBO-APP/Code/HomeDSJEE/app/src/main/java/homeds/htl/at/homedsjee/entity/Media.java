@@ -6,26 +6,36 @@ package homeds.htl.at.homedsjee.entity;
 
 public class Media {
 
-    Long id;
+    Long mediaId;
+    Long ownerId;
     String name;
-    String description;
+    String mediaType;
 
 
-    public Media(Long id, String name, String description) {
-        this.id = id;
+    public Media(Long mediaId,Long ownerId,String name, String mediaType) {
+        this.mediaId = mediaId;
         this.name = name;
-        this.description = description;
+        this.ownerId = ownerId;
+        this.mediaType = mediaType;
     }
 
     public Media() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getMediaId() {
+        return mediaId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMediaId(Long mediaId) {
+        this.mediaId = mediaId;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getName() {
@@ -36,11 +46,11 @@ public class Media {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMediaType() {
+        return mediaType;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
 }

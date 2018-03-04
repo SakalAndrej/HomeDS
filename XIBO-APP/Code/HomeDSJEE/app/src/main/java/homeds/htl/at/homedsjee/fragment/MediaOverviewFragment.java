@@ -85,7 +85,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         RecyclerView rvMedia = v.findViewById(R.id.rvMedia);
 
 
-        rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:8080/");
+        rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:8080/api/media");
 
 
 
@@ -100,9 +100,10 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                medias.add(new Media(jsonObject.getLong("id")
+                medias.add(new Media(jsonObject.getLong("mediaId")
+                        ,jsonObject.getLong("ownerId")
                         ,jsonObject.getString("name")
-                        ,jsonObject.getString("description")));
+                        ,jsonObject.getString("mediaType")));
 
             }
         } catch (JSONException e) {

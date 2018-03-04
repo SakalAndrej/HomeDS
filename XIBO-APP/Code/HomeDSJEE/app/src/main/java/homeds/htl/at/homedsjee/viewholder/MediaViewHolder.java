@@ -38,9 +38,9 @@ public class MediaViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View view) {
                 HashMap<String,String> params = new HashMap<>();
-                params.put("id",media.getId().toString());
+                params.put("id",media.getMediaId().toString());
                 RequestHelper rh = new RequestHelper();
-                String url = "";
+                String url = "http://10.0.2.2:8080/api/media/play";
                 rh.executeRequest(RequestTypeEnum.GET,params,url);
             }
         });

@@ -48,10 +48,10 @@ public class MediaEndpoint {
                     if (mediaApi.editWidget(mediaId) == 200) {
                         Response.ok().build();
                     }
-                    Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+                    return Response.status(Response.Status.OK).build();
                 }
             }
-            Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         } catch (NoConnectionException e) {
             e.printStackTrace();
         }

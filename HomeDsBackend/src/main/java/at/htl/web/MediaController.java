@@ -87,7 +87,7 @@ public class MediaController implements Serializable {
             if (widgetId > 0) {
                 if (mediaApi.deleteWidget(widgetId) == 200) {
                     if (mediaApi.editWidget(mediaId) == 200) {
-                        layoutChangerUtil.changeLayoutForAll(39);
+                        layoutChangerUtil.changeLayout(44,LocalDateTime.now().plusMinutes(2));
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully set media to playlist"));
                     } else {
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while playing medi"));
@@ -105,11 +105,13 @@ public class MediaController implements Serializable {
         TagCloudItem item = (TagCloudItem) event.getObject();
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", item.getLabel());
 
-        tags = item.getLabel();
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
         try {
-            this.updateList(tags);
+            if (!tags.equals(item.getLabel())) {
+                tags = item.getLabel();
+                this.updateList(tags);
+            }
         } catch (NoConnectionException e) {
             e.printStackTrace();
         }

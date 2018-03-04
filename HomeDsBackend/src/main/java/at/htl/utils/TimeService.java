@@ -1,9 +1,12 @@
 package at.htl.utils;
 
 import at.htl.exceptions.NoConnectionException;
+import at.htl.facades.CampaignFacade;
 import at.htl.facades.DataSetFieldFacade;
+import at.htl.model.Campaign;
 import at.htl.model.DataSetDataField;
 import at.htl.xiboClient.DataSetApi;
+import at.htl.xiboClient.DisplayApi;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -11,6 +14,7 @@ import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Singleton
@@ -23,7 +27,16 @@ public class TimeService {
     @EJB
     DataSetApi dataSetApi;
 
-    @Schedule(minute = "15", hour = "22")
+    @EJB
+    DisplayApi displayApi;
+
+    @EJB
+    CampaignFacade campaignFacade;
+
+    @EJB
+    LayoutChangerUtil layoutChangerUtil;
+
+    @Schedule(minute = "*", hour = "23")
     public void doWork() {
         List<DataSetDataField> datafields = dataSetFieldFacade.getAll();
 
@@ -83,6 +96,8 @@ public class TimeService {
         else {
             System.out.println("Every min scheduler had no job :(!");
         }
+
+
     }
 
     @PostConstruct

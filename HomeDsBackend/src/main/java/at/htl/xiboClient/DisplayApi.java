@@ -2,6 +2,7 @@ package at.htl.xiboClient;
 
 import at.htl.enums.RequestTypeEnum;
 import at.htl.exceptions.NoConnectionException;
+import at.htl.model.Campaign;
 import at.htl.model.Display;
 import at.htl.utils.AuthentificationHandler;
 import at.htl.utils.RequestHelper;
@@ -9,19 +10,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ejb.Stateless;
-import javax.swing.text.DateFormatter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
-
-import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
 @Stateless
 public class DisplayApi {
@@ -76,36 +71,42 @@ public class DisplayApi {
         return displays;
     }
 
-    public void ScheduleLayout(LocalDateTime fromDate, LocalDateTime toDate) throws NoConnectionException {
+    public long ScheduleLayout(long campaingLayoutId, LocalDateTime fromDate, LocalDateTime toDate) throws NoConnectionException {
 
+        Campaign act = new Campaign();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
 
         BufferedReader in;
         LinkedList<Display> displays = new LinkedList<>();
-        Display act = new Display();
         try {
             //Get all Datasets
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
-                            "eventTypeId=1&campaignId=" + 44 +
+                            "eventTypeId=1&campaignId=" + campaingLayoutId +
                                     "&displayOrder=0&isPriority=11&displayGroupIds[]="+14+"&fromDt="+fromDate.format(formatter)+"&toDt="+toDate.format(formatter),
                             new RequestHelper().BASE_URL + "api/schedule",
                             AuthentificationHandler.getTOKEN());
 
-            in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            if (con.getResponseCode()==201) {
+                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-            String output;
-            StringBuffer response = new StringBuffer();
-            while ((output = in.readLine()) != null)
-            {
-                response.append(output);
+                String output;
+                StringBuffer response = new StringBuffer();
+                while ((output = in.readLine()) != null) {
+                    response.append(output);
+                }
+
+                JSONObject jsonObject = new JSONObject(response);
+                return jsonObject.getLong("campaignId");
+            }
+            else {
+                return -1;
             }
         } catch (NullPointerException ex) {
             throw new NoConnectionException("Es ist kein Response vorhanden", ex);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new NoConnectionException("IO Exception", e);
         }
-
     }
 
 }

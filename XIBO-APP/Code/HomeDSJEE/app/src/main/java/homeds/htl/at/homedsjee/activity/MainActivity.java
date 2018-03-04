@@ -8,13 +8,14 @@ import android.os.Bundle;
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
 import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
+import homeds.htl.at.homedsjee.fragment.MediaOverviewFragment;
 import homeds.htl.at.homedsjee.fragment.NewsEditFragment;
 import homeds.htl.at.homedsjee.fragment.NewsOverviewFragment;
 import homeds.htl.at.homedsjee.fragment.StructurePlanFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeScreenFragment.OnFragmentInteractionListener,
         NewsEditFragment.OnFragmentInteractionListener,NewsOverviewFragment.OnFragmentInteractionListener,
-        StructurePlanFragment.OnFragmentInteractionListener {
+        StructurePlanFragment.OnFragmentInteractionListener,MediaOverviewFragment.OnFragmentInteractionListener {
 
     public static MainActivity instance;
     @Override
@@ -62,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
         StructurePlanFragment structurePlanFragment = new StructurePlanFragment();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.container_main, structurePlanFragment,null).commit();
+    }
+
+    public void openMediaOverviewFragment(){
+        MediaOverviewFragment mediaOverviewFragment = new MediaOverviewFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.container_main,mediaOverviewFragment,null).commit();
     }
 
 }

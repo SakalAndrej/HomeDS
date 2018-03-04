@@ -71,7 +71,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
 
       ImageButton ibNewsView = v.findViewById(R.id.ibNewsView);
       ImageButton ibStructurePlan = v.findViewById(R.id.ibStructurePlan);
-
+      ImageButton ibMediaOverview = v.findViewById(R.id.ibMediaOverview);
 
       ibNewsView.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -84,6 +84,13 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
           @Override
           public void onClick(View view) {
               MainActivity.getInstance().openStructurePlanFragment();
+          }
+      });
+
+      ibMediaOverview.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              MainActivity.getInstance().openMediaOverviewFragment();
           }
       });
       return v;

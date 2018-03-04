@@ -18,32 +18,11 @@ public class IndexController {
     @Inject
     StatusApi statusApi;
 
-    @Inject
-    DisplayApi displayApi;
-
-    private boolean isOnline = false;
-
-    @PostConstruct
-    public void init() {
-        try {
-            displayApi.GetAllDisplays();
-        } catch (NoConnectionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //region Getter & Setter
-    public boolean isOnline() {
+    public boolean isServerOnline() {
         try {
             return statusApi.getIsOnline();
         } catch (NoConnectionException e) {
             return false;
         }
     }
-
-    public void setOnline(boolean online) {
-        isOnline = online;
-    }
-    //endregion
-
 }

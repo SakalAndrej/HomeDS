@@ -24,7 +24,7 @@ public class RequestHelper {
             obj = new URL(url);
             con = (HttpURLConnection) obj.openConnection();
             con.setRequestProperty("Authorization", "Bearer " + TOKEN);
-            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
             switch (executeType) {
                 case GET:
                     con.setRequestMethod("GET");

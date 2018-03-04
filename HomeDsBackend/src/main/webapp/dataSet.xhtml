@@ -39,9 +39,9 @@
                 <b:panel>
                     <h1>
                         #{msg['changeDataSet']}
-                        <b:iconAwesome size="1.5x" rendered="#{indexController.online == false}"
+                        <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
                                        name="fa-close" style="color: red;" tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
-                        <b:iconAwesome size="1.5x" rendered="#{indexController.online == true}"
+                        <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
                                        name="fa-check" style="color: green;" tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
                     </h1>
                 </b:panel>
@@ -53,7 +53,7 @@
                                     id="dataSetParent"
                                     value="#{dataSetController.dataSetData}"
                                     var="actDataSet"
-                                    update="growl dataSetEditor"
+                                    update="growl"
                                     responsive="true"
                                     ajax="true"
                                     searching="true"
@@ -91,7 +91,7 @@
 
                                 <b:dataTableColumn medium-screen="1" label="#{msg['delete']}">
                                     <center>
-                                        <b:commandButton update="dataSetEditor growl"
+                                        <b:commandButton update="dataSetParent growl"
                                                          action="#{dataSetController.removeDataSet(actDataSet)}"
                                                          id="btnDelete" look="danger">
                                             <b:iconAwesome size="1.5x" name="fa-trash"></b:iconAwesome>
@@ -102,7 +102,7 @@
                                     <center>
                                         <b:commandButton
                                                 action="#{dataSetController.editDataSet(actDataSet)}"
-                                                id="btnSave" look="primary" update="@form growl dataSetParent">
+                                                id="btnSave" look="primary" update="growl dataSetParent">
                                             <b:iconAwesome size="1.5x" name="far fa-save"></b:iconAwesome>
                                         </b:commandButton>
                                     </center>

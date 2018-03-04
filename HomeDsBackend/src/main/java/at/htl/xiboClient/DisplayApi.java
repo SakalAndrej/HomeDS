@@ -44,7 +44,6 @@ public class DisplayApi {
             }
 
             JSONArray jsonarray = new JSONArray(response.toString());
-            System.out.println(response.toString());
 
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonObject = jsonarray.getJSONObject(i);
@@ -78,7 +77,7 @@ public class DisplayApi {
             //Get all Datasets
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
-                            "layoutId=" + 39,
+                            "layoutId=" + 21,
                             new RequestHelper().BASE_URL + "api/displaygroup/" + 14 + "/action/overlayLayout",
                             AuthentificationHandler.getTOKEN());
 

@@ -15,25 +15,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 @Stateless
 public class MediaApi {
 
     public final String editPlaylistId = "157";
 
-    public LinkedList<Media> getAllMedia(int start, int length) throws NoConnectionException {
+    public LinkedList<Media> getAllMedia(int start, int length, String tags) throws NoConnectionException {
 
         BufferedReader in;
         LinkedList<Media> medias = new LinkedList<Media>();
         Media actual = new Media();
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("type", "image");
-
         try {
             HttpURLConnection con = new RequestHelper()
-                    .executeRequest(RequestTypeEnum.GET, "tags=project",
-                            new RequestHelper().BASE_URL + "api/library?start=" + start +"&length="+length,
+                    .executeRequest(RequestTypeEnum.GET, null,
+                            new RequestHelper().BASE_URL + "api/library?start=" + start +"&length="+length+"&tags="+tags,
                             AuthentificationHandler.getTOKEN());
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));

@@ -33,10 +33,10 @@ public class RequestHelper {
                 case PUT:
                     con.setRequestMethod("PUT");
                     con.setDoOutput(true);
-                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                    wr.writeBytes(paramsBody);
-                    wr.flush();
-                    wr.close();
+                    DataOutputStream wr2 = new DataOutputStream(con.getOutputStream());
+                    wr2.writeBytes(paramsBody);
+                    wr2.flush();
+                    wr2.close();
                     break;
 
                 case POST:

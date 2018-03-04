@@ -22,7 +22,7 @@ public class IndexController {
     private static LocalDateTime lastOnline;
 
     public boolean isServerOnline() {
-        if (cnt == 0 || (lastOnline.plusMinutes(2).isBefore(LocalDateTime.now()))) {
+        if (cnt == 0 || (lastOnline.plusSeconds(30).isBefore(LocalDateTime.now()))) {
             try {
                 cnt++;
                 on = true;

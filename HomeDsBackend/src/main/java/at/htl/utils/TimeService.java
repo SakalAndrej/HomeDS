@@ -23,7 +23,7 @@ public class TimeService {
     @EJB
     DataSetApi dataSetApi;
 
-    @Schedule(minute = "*", hour = "*")
+    @Schedule(minute = "15", hour = "22")
     public void doWork() {
         List<DataSetDataField> datafields = dataSetFieldFacade.getAll();
 

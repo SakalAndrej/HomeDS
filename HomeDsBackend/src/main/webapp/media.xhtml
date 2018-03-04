@@ -6,7 +6,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Media Play</title>
@@ -48,6 +48,9 @@
                     <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
                                    name="fa-check" style="color: green;" tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
                 </h1>
+                <p:tagCloud model="#{mediaController.model}">
+                    <p:ajax event="select" update="mediaTable" listener="#{mediaController.onSelect}" />
+                </p:tagCloud>
             </b:panel>
             <b:dataTable value="#{mediaController.medias}"
                          var="media" id="mediaTable" responsive="true">

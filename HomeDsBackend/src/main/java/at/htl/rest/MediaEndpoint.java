@@ -21,14 +21,14 @@ public class MediaEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
     @ApiOperation("Get all Medias")
-    public Response getMedias(@QueryParam("start") int start, @QueryParam("length") int length) {
+    public Response getMedias(@QueryParam("start") int start, @QueryParam("length") int length, @QueryParam("tags") String tags) {
         try {
             if (length == 0 && start == 0) {
 
-                return Response.ok(mediaApi.getAllMedia(start, length)).build();
+                return Response.ok(mediaApi.getAllMedia(start, length, tags)).build();
 
             } else {
-                return Response.ok(mediaApi.getAllMedia(start, length)).build();
+                return Response.ok(mediaApi.getAllMedia(start, length, tags)).build();
             }
         } catch (NoConnectionException e) {
             e.printStackTrace();

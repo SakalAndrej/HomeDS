@@ -1,15 +1,12 @@
 package at.htl.web;
 
 import at.htl.exceptions.NoConnectionException;
-import at.htl.model.Display;
-import at.htl.xiboClient.DisplayApi;
 import at.htl.xiboClient.StatusApi;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Model
 @Named
@@ -18,32 +15,27 @@ public class IndexController {
     @Inject
     StatusApi statusApi;
 
-    @Inject
-    DisplayApi displayApi;
+    private static boolean on;
 
-    private boolean isOnline = false;
+    private static int cnt = 0;
 
-    @PostConstruct
-    public void init() {
-        try {
-            displayApi.GetAllDisplays();
-        } catch (NoConnectionException e) {
-            e.printStackTrace();
+    private static LocalDateTime lastOnline;
+
+    public boolean isServerOnline() {
+        if (cnt == 0 || (lastOnline.plusMinutes(2).isBefore(LocalDateTime.now()))) {
+            try {
+                cnt++;
+                on = true;
+                lastOnline = LocalDateTime.now();
+                return statusApi.getIsOnline();
+            } catch (NoConnectionException e) {
+                cnt++;
+                on = false;
+                lastOnline = LocalDateTime.now();
+                return false;
+            }
+        } else {
+            return on;
         }
     }
-
-    //region Getter & Setter
-    public boolean isOnline() {
-        try {
-            return statusApi.getIsOnline();
-        } catch (NoConnectionException e) {
-            return false;
-        }
-    }
-
-    public void setOnline(boolean online) {
-        isOnline = online;
-    }
-    //endregion
-
 }

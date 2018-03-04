@@ -2,7 +2,6 @@ package at.htl.xiboClient;
 
 import at.htl.enums.RequestTypeEnum;
 import at.htl.exceptions.NoConnectionException;
-import at.htl.model.DataSet;
 import at.htl.model.Display;
 import at.htl.utils.AuthentificationHandler;
 import at.htl.utils.RequestHelper;
@@ -44,7 +43,6 @@ public class DisplayApi {
             }
 
             JSONArray jsonarray = new JSONArray(response.toString());
-            System.out.println(response.toString());
 
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonObject = jsonarray.getJSONObject(i);
@@ -78,7 +76,7 @@ public class DisplayApi {
             //Get all Datasets
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
-                            "layoutId=" + 39,
+                            "layoutId=" + 21,
                             new RequestHelper().BASE_URL + "api/displaygroup/" + 14 + "/action/overlayLayout",
                             AuthentificationHandler.getTOKEN());
 

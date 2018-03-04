@@ -48,9 +48,9 @@
                     <b:column col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
                         <h1>
                             Dashboard
-                            <b:iconAwesome size="1.5x" rendered="#{indexController.online == false}"
+                            <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
                                            name="fa-close" style="color: red;" tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
-                            <b:iconAwesome size="1.5x" rendered="#{indexController.online == true}"
+                            <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
                                            name="fa-check" style="color: green;" tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
                         </h1>
                         <hr/>
@@ -68,7 +68,7 @@
                                 <span class="text-muted">Our Crawler</span>
                             </b:column>
                         </b:row>
-                        <h1>DataSet's</h1>
+                        <h1>Sekretariats DataSet's</h1>
                         <hr/>
                         <b:row styleClass="table-responsive">
                             <h:dataTable styleClass="table table-striped" value="#{dataSetController.dataSetData}"
@@ -87,7 +87,7 @@
                                 </h:column>
                             </h:dataTable>
                         </b:row>
-                        <h1>#{msg['media']}'s</h1>
+                        <h1>Project #{msg['media']}'s</h1>
                         <hr/>
                         <b:row styleClass="table-responsive">
                             <h:dataTable styleClass="table table-striped" value="#{mediaController.shortMedias}"

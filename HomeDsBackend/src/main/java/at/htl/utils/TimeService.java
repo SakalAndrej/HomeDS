@@ -85,18 +85,9 @@ public class TimeService {
         }
     }
 
-    @Schedule(hour = "20", minute = "10")
-    public void doSomething() {
-        System.out.println("hour triggered");
-    }
-
-    public TimeService() {
-        System.out.println("Hello one minute");
-    }
-
     @PostConstruct
     public void init() {
-        System.out.println("something");
+        AuthentificationHandler.Authenticate();
     }
 
 

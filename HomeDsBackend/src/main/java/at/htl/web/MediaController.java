@@ -24,14 +24,19 @@ public class MediaController implements Serializable {
     @Inject
     LayoutChangerUtil layoutChangerUtil;
 
-    private List<Media> medias;
+    private static List<Media> medias;
 
-    private List<Media> shortMedias;
+    private static List<Media> shortMedias;
 
     @PostConstruct
     public void init() {
         try {
-            this.updateList();
+            if (medias != null) {
+                //no need for update
+            }
+            else {
+                this.updateList();
+            }
         } catch (NoConnectionException e) {
             e.printStackTrace();
         }

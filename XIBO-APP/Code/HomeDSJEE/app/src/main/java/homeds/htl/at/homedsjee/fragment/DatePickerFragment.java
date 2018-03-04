@@ -37,6 +37,6 @@ public class DatePickerFragment extends DialogFragment
         NewsEditFragment f = (NewsEditFragment)getActivity().getSupportFragmentManager().findFragmentByTag("actEdit");
         f.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container_main,f).commit();
-        MainActivity.getInstance().onDatePIcked();
+        //MainActivity.getInstance().onDatePIcked();
     }
 }

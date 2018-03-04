@@ -85,7 +85,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         RecyclerView rvMedia = v.findViewById(R.id.rvMedia);
 
 
-        rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:8080/api/media");
+        rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:8080/homeds/rs/media/");
 
 
 

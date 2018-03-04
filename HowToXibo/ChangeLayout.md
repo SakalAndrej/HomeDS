@@ -11,15 +11,15 @@
 ### Zuweisen des Layouts über die Website des Servers
 
 Dies wird in der Funktion "Kalender" gemacht.
-![](.\images\LayoutChange/calendar-overview.png)
+![](./images/LayoutChange/calendar-overview.png)
 
 Und zwar befinden sich in der Tagesansicht die geplanten Events. Ein Event kann dabei eine Kampagne oder ein Layout sein.
 
-![](.\images\LayoutChange/dayview-layout.png)
+![](./images/LayoutChange/dayview-layout.png)
 
 Wenn wir das Event anklicken öffnet sich ein Dialog-Fenster mit den Einstellungen, die vorgenommen werden können. Wird bereits ein Layout angezeigt und soll das neu erstellte Layout sofort angezeigt werden, so muss dem erstellten Layout eine höhere Priorität zugewiesen werden.
 
-![](.\images\LayoutChange/layoutCampaign.png)
+![](./images/LayoutChange/layoutCampaign.png)
 
 ### Zuweisen eines Layouts über die API 
 
@@ -27,7 +27,7 @@ Der schnellste Weg ein Layout sofort oder in gewünschten Zeitabständen anzeige
 
 Um dies zu tun muss ein POST Request durchgeführt werden, der als URL Parameter die Kampagnen ID benötigt und im Body die ID des Layouts enthält. 
 
-![01_PostAssignLayout](.\images\LayoutChange\01_PostAssignLayout.PNG)
+![01_PostAssignLayout](./images/LayoutChange/01_PostAssignLayout.PNG)
 
 
 
@@ -42,6 +42,8 @@ Um dies zu tun muss ein POST Request durchgeführt werden, der als URL Parameter
 ###Zuweisen von Kampagnen über die Website des Servers 
 
 <hr>
+Fehlt das die kampagne dann auch gescheduled werden muss es reicht nicht nur einer kampagne zuzuweisen
+
 Der Vorgang des Zuweisens einer Kampagne unterscheidet sich kaum davon, wie es bei Nr.: 1 gemacht wurde; Der einzige wesentliche Unterschied ist, dass wir kein einzelnes Layout zuweisen sondern eine zuvor erstellte Kampagne. 
 
 
@@ -50,7 +52,11 @@ Der Vorgang des Zuweisens einer Kampagne unterscheidet sich kaum davon, wie es b
 
 Um Kampagnen anzuzeigen ist es, eben so wie über die Website, am besten dies mittels Kalender zu tun. Dazu muss diese einem Event zugewiesen werden. Erstellt wird ein Event über folgenden Request: 
 
-![02_PostSceduleKampagne](.\images\LayoutChange\02_PostSceduleKampagne.PNG)
+![02_PostSceduleKampagne](./images/LayoutChange/02_PostSceduleKampagne.PNG)
+
+fehlt das erstellen der kampagne !!!
+
+dann das bearbeitern der Kampagne (Layout zuweisen) !!!
 
 - Bei der eventTypeID ist 1 einzutragen
 - Bei campaignId wird die ID der gewünschten Kampagne übergeben.

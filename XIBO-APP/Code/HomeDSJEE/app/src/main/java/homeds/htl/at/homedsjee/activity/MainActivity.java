@@ -13,13 +13,16 @@ import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
 import homeds.htl.at.homedsjee.fragment.DatePickerFragment;
 import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
+import homeds.htl.at.homedsjee.fragment.MediaOverviewFragment;
 import homeds.htl.at.homedsjee.fragment.NewsEditFragment;
 import homeds.htl.at.homedsjee.fragment.NewsOverviewFragment;
+import homeds.htl.at.homedsjee.fragment.StructureDetailFragment;
 import homeds.htl.at.homedsjee.fragment.StructurePlanFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeScreenFragment.OnFragmentInteractionListener,
         NewsEditFragment.OnFragmentInteractionListener,NewsOverviewFragment.OnFragmentInteractionListener,
-        StructurePlanFragment.OnFragmentInteractionListener {
+        StructurePlanFragment.OnFragmentInteractionListener,MediaOverviewFragment.OnFragmentInteractionListener,
+        StructureDetailFragment.OnFragmentInteractionListener {
 
     public static MainActivity instance;
     @Override
@@ -71,27 +74,20 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
     }
 
 
-    public void openDatePicker(){
-
-    DatePickerFragment dpf = new DatePickerFragment();
-
-       dpf.show(getSupportFragmentManager(), "DatePicker");
-
+    public void openMediaOverviewFragment(){
+        MediaOverviewFragment mediaOverviewFragment = new MediaOverviewFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.container_main,mediaOverviewFragment,null).commit();
     }
 
-    public void onDatePicked(Bundle bundle){
-        FragmentManager.BackStackEntry backStackEntry = getSupportFragmentManager().getBackStackEntryAt(
-                getSupportFragmentManager().getBackStackEntryCount()-1
-        );
-        Log.d("BACKSTACK", String.valueOf(backStackEntry.getId()));
-        Log.d("BACKSTACK", String.valueOf(getSupportFragmentManager().findFragmentByTag(
-                getSupportFragmentManager().getBackStackEntryAt(backStackEntry.getId()).getName())));
-        Fragment f =  getSupportFragmentManager().findFragmentByTag(
-                getSupportFragmentManager().getBackStackEntryAt(backStackEntry.getId()).getName());
-        f.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main,f).commit();
-    }
+    public void openStructureDetailFragment(Bundle bundle){
+     StructureDetailFragment structureDetailFragmen = new StructureDetailFragment();
+     structureDetailFragmen.setArguments(bundle);
 
+     FragmentManager fm = getSupportFragmentManager();
+     fm.beginTransaction().replace(R.id.container_main,structureDetailFragmen,null).commit();
+
+    }
 
 
 }

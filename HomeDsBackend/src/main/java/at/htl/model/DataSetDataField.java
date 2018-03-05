@@ -11,7 +11,10 @@ import java.util.Date;
                             query = "select d from DataSetDataField d"),
 
                 @NamedQuery(name = "DataSetDataField.findByRowId",
-                            query = "select d from DataSetDataField d where :id = d.dataRowId")
+                            query = "select d from DataSetDataField d where :id = d.dataRowId"),
+
+                @NamedQuery(name = "DataSetDataField.findActive",
+                            query = "select d from DataSetDataField d where d.isActive = true")
         })
 
 @Table

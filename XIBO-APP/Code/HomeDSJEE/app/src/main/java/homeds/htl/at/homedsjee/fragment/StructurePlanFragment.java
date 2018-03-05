@@ -10,8 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.time.LocalDate;
+import java.util.HashMap;
 
 import java.util.LinkedList;
 
@@ -39,7 +43,7 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    RequestHelper rh = new RequestHelper();
     private OnFragmentInteractionListener mListener;
 
     public StructurePlanFragment() {
@@ -81,21 +85,33 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
         String url = "";
         RecyclerView rvStructurePlan = v.findViewById(R.id.rvStructurePlan);
 
-        RequestHelper rh  = new RequestHelper();
 
-        rh.executeRequest(RequestTypeEnum.GET,null,url);
+        HashMap<String,String> params = new HashMap<>();
+        params.put("layoutId","-1");
+    String url ="http://10.0.2.2:8080/homeds/rs/crawler/";
+        rh.executeRequest(RequestTypeEnum.GET,params,url);
 
-        JSONObject jo = new JSONObject();
+
+        LinkedList<JSONObject> structureparts = new LinkedList<>();
+        JSONArray jsonArray = null;
+
         try {
-            jo = new JSONObject(rh.getResponseBody());
+            String response = getResponseWithWait();
+            jsonArray = new JSONArray(response);
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                structureparts.add(jsonObject);
+
+            }
         } catch (JSONException e) {
             e.printStackTrace();
+        }catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        getStructureFromJson(jo);
 
-        LinkedList<Structure> splan = new LinkedList<>();
-
-        StructurePlanAdapter structurePlanAdapter = new StructurePlanAdapter(splan);
+        StructurePlanAdapter structurePlanAdapter = new StructurePlanAdapter(structureparts);
         rvStructurePlan.setAdapter(structurePlanAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -143,10 +159,13 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public Structure getStructureFromJson(JSONObject object){
 
+    public String getResponseWithWait() throws InterruptedException {
 
+        while(rh.getResponseBody() == null){
+            Thread.sleep(100);
+        }
+        return rh.getResponseBody();
 
-        return new Structure();
     }
 }

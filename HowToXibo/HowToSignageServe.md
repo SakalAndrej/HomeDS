@@ -2,7 +2,7 @@
 
 Im Menüpunkt Session unter Hostname, Port und Connection type Daten wie folgt eintragen. Danach unter  Saved Session noch einen Namen zum speichern eintragen. Close Window on exit noch auf Never stellen.
 
-![01_putty](./images/01_putty.PNG)
+![01_putty](./images\HowToXibo/01_putty.PNG)
 
 
 
@@ -10,7 +10,7 @@ Im Menüpunkt Session unter Hostname, Port und Connection type Daten wie folgt e
 
 Im Menüpunkt SSH unter Tunnels noch den zu forwardenden Port eintragen. Unter Source Port und Destionation wie in der Grafik eintragen Local und Auto auswählen und auf Add drücken (Remotes ports do the same auswählen nicht Vergessen / oben in der Grafik)
 
-![04_putty](./images/04_putty.PNG)
+![04_putty](./images\HowToXibo/04_putty.PNG)
 
 
 
@@ -31,7 +31,7 @@ ssh <<IHR_USER>>@leotux.htl-leonding.ac.at -L 9090:172.18.199.120:80
 
 Jetzt kann man unter <b>localhost:9090</b> auf den Server zugreifen und sich dort Einloggen.
 
-![login](./login.png)
+![login](./images\HowToXibo/login.png)
 
 Sie sollten dann zur Anmelde-Maske gelangen und Ihren Benutzer und das dazugehörige Passwort eingeben.
 
@@ -42,9 +42,9 @@ Das Steuerungszentrum des ganzen Signage System ist die Weboberfläche, die ganz
 * <b>Kalender</b><br>
 Mit der Kalender Funktion kann eingetragen werden zu welchem Zeitpunkt, welcher Inhalt, auf welchem Bildschirm angezeigt werden soll. In dem Xibo-Kalender werden auch bereits eingetragene Aktivitäten angezeigt.
 
-![](./xibo-basics-calendar.png)
+![](./images\HowToXibo/xibo-basics-calendar.png)
 
-	
+
 * <b>Layouts</b><br>
 Die Layout-Funktion ist einer der wichtigsten Komponenten des Signage Systems. Es beschäftigt sich mit dem Designen der Inhalte. Auf diese Funktion kommen wir noch einmal zurück
 	
@@ -61,7 +61,7 @@ Die Bibliothek-Funktion ist zuständig für das Verwalten der Medien. Hier könn
 ## Designen mit XIBO
 Beim Designen von einem neuen Layout im XIBO muss zuerst die Bildschirmauflösung ausgewählt und dem Layout ein passender Name zugewiesen werden, sowie optional auch eine Beschreibung. 
 
-![](./xibo-basics-designer.png)	
+![](./images\HowToXibo/xibo-basics-designer.png)	
 
 Dem Layout kann nun eine Region oder auch mehrere  hinzugefügt werden. Eine Region kann widerrum mehrere Widgets enthalten. Mit einem Doppelklick auf die Region kann ein Widget hinzugefügt werden. Es gibt viele verschiedene Arten von Widgets:
 

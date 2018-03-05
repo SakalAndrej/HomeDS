@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Media Play</title>
+</h:head>
+<h:body style="padding-top: 60px; margin-left: 1%;margin-right: 1%">
+    <b:container id="all">
+        <b:growl id="growl"
+                 globalOnly="true"
+                 showDetail="true"
+                 severity="info,warn"
+                 animation-enter="animated slideInRight"
+                 animation-exit="animated slideOutRight"
+                 allowDismiss="true"
+        />
+        <b:navBar brand="HomeDS Systems" tooltip="#{msg['byMessage']}" brandHref="/homeds/index.xhtml" inverse="true" fixed="top" fluid="true"
+                  id="navbar">
+            <b:navbarLinks pull="right">
+                <b:navLink value="Dashboard" href="/homeds/index.xhtml"></b:navLink>
+                <b:navLink value="#{msg['changeDataSet']}" href="/homeds/dataSet.xhtml"></b:navLink>
+                <b:navLink value="#{msg['playMedia']}" href="/homeds/media.xhtml"></b:navLink>
+                <b:navLink value="Crawler" href="/homeds/crawl.xhtml"></b:navLink>
+                <b:navLink value="#{msg['changeLanguage']}" href="#" update="medias all"
+                           onclick="ajax:languageController.countryLocaleCodeChanged()"></b:navLink>
+            </b:navbarLinks>
+        </b:navBar>
+        <h:form id="medias">
+            <b:growl id="growl"
+                     globalOnly="true"
+                     showDetail="true"
+                     animation-enter="animated slideInRight"
+                     animation-exit="animated slideOutRight"
+                     allowDismiss="true"
+            />
+            <b:panel>
+                <h1>
+                    #{msg['playMedia']}
+                    <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
+                                   name="fa-close" style="color: red;" tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
+                    <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
+                                   name="fa-check" style="color: green;" tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
+                </h1>
+            </b:panel>
+            <b:panel>
+                <p:tagCloud id="tagcloud" model="#{mediaController.model}" style="width: 100%">
+                    <p:ajax event="select" update="mediaTable" listener="#{mediaController.onSelect}" />
+                </p:tagCloud>
+            </b:panel>
+            <b:dataTable value="#{mediaController.medias}"
+                         var="media" id="mediaTable" responsive="true">
+                <b:dataTableColumn value="#{media.mediaId}" label="Media ID"/>
+                <b:dataTableColumn value="#{media.name}" label="#{msg['mediaName']}" order="asc"/>
+                <b:dataTableColumn value="#{media.mediaType}" label="#{msg['mediaType']}"/>
+                <b:dataTableColumn label="#{msg['playMe']}">
+                    <center>
+                        <b:commandButton update="medias @form"
+                                         action="#{mediaController.playMedia(media.mediaId)}"
+                                         id="btnDelete" look="danger" style="width:100%">
+                            <b:iconAwesome size="1.5x" name="fa-play"></b:iconAwesome>
+                        </b:commandButton>
+                    </center>
+                </b:dataTableColumn>
+            </b:dataTable>
+        </h:form>
+    </b:container>
+    <style type="text/css">
+        li.ui-tagcloud-strength-5 {
+        font-weight: bold;
+        text-decoration: underline;
+        }
+    </style>
+</h:body>
+
+</html>

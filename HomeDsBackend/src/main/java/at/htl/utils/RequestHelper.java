@@ -1,4 +1,4 @@
-package at.htl.xiboClient.helper;
+package at.htl.utils;
 
 import at.htl.enums.RequestTypeEnum;
 
@@ -24,7 +24,7 @@ public class RequestHelper {
             obj = new URL(url);
             con = (HttpURLConnection) obj.openConnection();
             con.setRequestProperty("Authorization", "Bearer " + TOKEN);
-            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
             switch (executeType) {
                 case GET:
                     con.setRequestMethod("GET");
@@ -33,10 +33,10 @@ public class RequestHelper {
                 case PUT:
                     con.setRequestMethod("PUT");
                     con.setDoOutput(true);
-                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                    wr.writeBytes(paramsBody);
-                    wr.flush();
-                    wr.close();
+                    DataOutputStream wr2 = new DataOutputStream(con.getOutputStream());
+                    wr2.writeBytes(paramsBody);
+                    wr2.flush();
+                    wr2.close();
                     break;
 
                 case POST:

@@ -2,92 +2,129 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-    <title>Dashboard BootsFaces</title>
+    <title>Dashboard HomeDs</title>
 </h:head>
 
-<h:body style="padding-top: 60px">
-    <b:navBar brand="Project name" brandHref="#" inverse="true" fixed="top" fluid="true">
+<h:body style="padding-top: 60px; margin-left: 1%;margin-right: 1%">
+    <b:container id="all">
+        <b:growl id="growl"
+                 globalOnly="true"
+                 showDetail="true"
+                 severity="info,warn"
+                 animation-enter="animated slideInRight"
+                 animation-exit="animated slideOutRight"
+                 allowDismiss="true"
+        />
+        <b:navBar brand="HomeDS Systems" tooltip="#{msg['byMessage']}" brandHref="/homeds/index.xhtml" inverse="true" fixed="top" fluid="true"
+                  id="navbar">
+            <b:navbarLinks pull="right">
+                <b:navLink value="Dashboard" href="/homeds/index.xhtml"></b:navLink>
+                <b:navLink value="#{msg['changeDataSet']}" href="/homeds/dataSet.xhtml"></b:navLink>
+                <b:navLink value="#{msg['playMedia']}" href="/homeds/media.xhtml"></b:navLink>
+                <b:navLink value="Crawler" href="/homeds/crawl.xhtml"></b:navLink>
+                <b:navLink value="#{msg['changeLanguage']}" href="#" update="all"
+                           onclick="ajax:languageController.countryLocaleCodeChanged()"></b:navLink>
+            </b:navbarLinks>
+        </b:navBar>
 
-        <b:navbarLinks pull="right">
-            <b:navLink value="Dashboard" href="#"></b:navLink>
-            <b:navLink value="Datasets" href="#"></b:navLink>
-            <b:navLink value="Displays" href="#"></b:navLink>
-            <b:navLink value="Layouts" href="#"></b:navLink>
-        </b:navbarLinks>
-
-        <h:form styleClass="navbar-form navbar-right">
-            <div class="form-group">
-                <b:inputText placeholder="Search..." fieldSize="sm"/>
-            </div>
-        </h:form>
-
-    </b:navBar>
-    <b:container fluid="true">
-        <b:row>
-            <b:column col-sm="3" col-md="2" styleClass="sidebar">
-                <b:listLinks>
-                    <b:navLink header="Dasboard Links" />
-                    <b:navLink href="#" value="Overview" active="true"/>
-                    <b:navLink href="#" value="Displays" />
-                    <b:navLink href="#" value="Layouts" />
-                    <b:navLink href="#" value="DataSet" />
-                </b:listLinks>
-            </b:column>
-
-            <b:column col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
-                <h1>Dashboard</h1>
-                <hr/>
-                <b:row styleClass="placeholders">
-                    <b:column col-xs="6" col-sm="4" styleClass="placeholder">
-                        <h4>Datasets</h4>
-                        <span class="text-muted">Edit, Show Datasets</span>
+        <b:container fluid="true">
+            <h:form>
+                <b:row>
+                    <b:column col-sm="3" col-md="2" styleClass="sidebar">
+                        <b:listLinks>
+                            <b:navLink header="Dasboard Links"/>
+                            <b:navLink value="#{msg['changeDataSet']}" href="/homeds/dataSet.xhtml"></b:navLink>
+                            <b:navLink value="#{msg['playMedia']}" href="/homeds/media.xhtml"></b:navLink>
+                            <b:navLink value="Crawler" href="/homeds/crawl.xhtml"></b:navLink>
+                        </b:listLinks>
                     </b:column>
-                    <b:column col-xs="6" col-sm="4" styleClass="placeholder">
-                        <h4>Displays</h4>
-                        <span class="text-muted">Show Displays</span>
-                    </b:column>
-                    <b:column col-xs="6" col-sm="4" styleClass="placeholder">
-                        <h4>Layouts</h4>
-                        <span class="text-muted">Show Layouts</span>
+
+                    <b:column col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
+                        <h1>
+                            Dashboard
+                            <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
+                                           name="fa-close" style="color: red;" tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
+                            <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
+                                           name="fa-check" style="color: green;" tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
+                        </h1>
+                        <hr/>
+                        <b:row styleClass="placeholders">
+                            <b:column col-xs="6" col-sm="4" styleClass="placeholder">
+                                <h4>DataSet's</h4>
+                                <span class="text-muted">#{msg['subTextDataSet']}</span>
+                            </b:column>
+                            <b:column col-xs="6" col-sm="4" styleClass="placeholder">
+                                <h4>#{msg['media']}</h4>
+                                <span class="text-muted">#{msg['playMedia']}</span>
+                            </b:column>
+                            <b:column col-xs="6" col-sm="4" styleClass="placeholder">
+                                <h4>Crawler</h4>
+                                <span class="text-muted">Our Crawler</span>
+                            </b:column>
+                        </b:row>
+                        <h1>Sekretariats DataSet's</h1>
+                        <hr/>
+                        <b:row styleClass="table-responsive">
+                            <h:dataTable styleClass="table table-striped" value="#{dataSetController.dataSetData}"
+                                         var="dataSet" id="datasets">
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#"/></f:facet>
+                                    <h:outputText value="#{dataSet.dataRowId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#{msg['title']}"/></f:facet>
+                                    <h:outputText value="#{dataSet.title}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#{msg['description']}"/></f:facet>
+                                    <h:outputText value="#{dataSet.value}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </b:row>
+                        <h1>Project #{msg['media']}'s</h1>
+                        <hr/>
+                        <b:row styleClass="table-responsive">
+                            <h:dataTable styleClass="table table-striped" value="#{mediaController.shortMedias}"
+                                         var="media" id="medias">
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#"/></f:facet>
+                                    <h:outputText value="#{media.mediaId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#{msg['mediaName']}"/></f:facet>
+                                    <h:outputText value="#{media.name}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#{msg['mediaType']}"/></f:facet>
+                                    <h:outputText value="#{media.mediaType}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </b:row>
                     </b:column>
                 </b:row>
-                <h1>Datasets</h1>
-                <hr/>
-                <b:row styleClass="table-responsive">
-                    <h:dataTable styleClass="table table-striped" value="#{indexController.dataSet}" var="dataSet">
-                        <h:column>
-                            <f:facet name="header"><h:outputText value="#"/></f:facet>
-                            <h:outputText value="#{dataSet.dataSetId}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header"><h:outputText value="Name" /></f:facet>
-                            <h:outputText value="#{dataSet.dataSetName}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header"><h:outputText value="Description" /></f:facet>
-                            <h:outputText value="#{dataSet.description}"/>
-                        </h:column>
-                    </h:dataTable>
-                </b:row>
-            </b:column>
-        </b:row>
+            </h:form>
+        </b:container>
     </b:container>
     <style type="text/css">
         .sub-header {
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
         }
+
         .navbar-fixed-top {
             border: 0 none;
         }
+
         .sidebar {
             display: none;
         }
+
         @media (min-width: 768px) {
             .sidebar {
                 background-color: #f5f5f5;
@@ -103,41 +140,51 @@
                 z-index: 1000;
             }
         }
+
         .nav-list {
             margin-bottom: 20px;
             margin-left: -20px;
             margin-right: -21px;
         }
+
         .nav-list > li > a {
             padding-left: 20px;
             padding-right: 20px;
         }
+
         .nav-list > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
             background-color: #428bca;
             color: #fff;
         }
+
         .main {
             padding: 20px;
         }
+
         @media (min-width: 768px) {
             .main {
                 padding-left: 40px;
                 padding-right: 40px;
             }
         }
+
         .main .page-header {
             margin-top: 0;
         }
+
         .placeholders {
             margin-bottom: 30px;
             text-align: center;
         }
+
         .placeholders h4 {
             margin-bottom: 0;
         }
+
         .placeholder {
             margin-bottom: 20px;
         }
+
         .placeholder img {
             border-radius: 50%;
             display: inline-block;

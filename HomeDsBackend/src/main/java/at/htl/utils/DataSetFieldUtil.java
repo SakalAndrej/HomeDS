@@ -8,6 +8,9 @@ import at.htl.xiboClient.DataSetApi;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DataSetFieldUtil {
 
@@ -84,7 +87,6 @@ public class DataSetFieldUtil {
         }
     }
 
-
     public Response.Status addDataSet(DataSetDataField dataSetToAdd) {
         if ((dataSetToAdd.getFromDate() != null) && (dataSetToAdd.getFromDate().isAfter(LocalDate.now()) == false || dataSetToAdd.getFromDate().isEqual(LocalDate.now()) == true)) {
             this.addDataSetToXibo(dataSetToAdd);
@@ -117,6 +119,21 @@ public class DataSetFieldUtil {
             }
         } catch (NoConnectionException ex) {
             return Response.Status.INTERNAL_SERVER_ERROR;
+        }
+    }
+
+    public void checkIfAnyDataSetFieldIsAvailAbleAndActive() {
+        boolean change = false;
+        List<DataSetDataField> dataFields = new ArrayList<>();
+        if ((dataFields = dataSetFieldFacade.getAll()) != null && dataFields.size() > 0) {
+            for (int i = 0; i < dataFields.size(); i++) {
+                if (dataFields.get(i).isActive()) {
+                    change = true;
+                }
+            }
+        }
+        if (change) {
+            // do layout change
         }
     }
 }

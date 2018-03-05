@@ -3,6 +3,7 @@ package at.htl.web;
 import at.htl.exceptions.NoConnectionException;
 import at.htl.facades.DataSetFieldFacade;
 import at.htl.model.DataSetDataField;
+import at.htl.utils.LayoutChangerUtil;
 import at.htl.xiboClient.DataSetApi;
 
 import javax.annotation.PostConstruct;
@@ -25,7 +26,10 @@ public class DataSetController implements Serializable {
     @Inject
     DataSetApi dataSetApi;
 
-    private List<DataSetDataField> dataSetData;
+    @Inject
+    LayoutChangerUtil layoutChangerUtil;
+
+    private static List<DataSetDataField> dataSetData;
 
     private DataSetDataField dataSetToAdd;
 
@@ -37,6 +41,7 @@ public class DataSetController implements Serializable {
     public void init() {
         this.updateList();
         dataSetToAdd = new DataSetDataField();
+        //layoutChangerUtil.campaignLogic();
     }
 
     public void removeDataSet(DataSetDataField dataSet) {
@@ -60,10 +65,10 @@ public class DataSetController implements Serializable {
         } catch (NoConnectionException ex) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
         }
+        layoutChangerUtil.campaignLogic();
     }
 
     public void addDataSet() {
-        FacesContext context = FacesContext.getCurrentInstance();
         if ((dataSetToAdd.getFromDate() != null) && (dataSetToAdd.getFromDate().isAfter(LocalDate.now()) == false || dataSetToAdd.getFromDate().isEqual(LocalDate.now()) == true)) {
             this.addDataSetToXibo(dataSetToAdd);
         } else if ((dataSetToAdd.getFromDate() == null)) {
@@ -88,6 +93,7 @@ public class DataSetController implements Serializable {
                 dataFieldToAdd.setDataRowId(id);
                 dataSetFieldFacade.save(dataFieldToAdd);
                 this.updateList();
+                layoutChangerUtil.campaignLogic();
 
                 //clear add variable
                 dataSetToAdd = new DataSetDataField();
@@ -106,8 +112,35 @@ public class DataSetController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         if (dataSetFieldToEdit != null && dataSetFieldToEdit.getValue().isEmpty() == false && dataSetFieldToEdit.getTitle().isEmpty() == false) {
 
-            if (dataSetFieldToEdit.getFromDate() != null) {
+            // when the fromdate is null then...
+            if  (dataSetFieldToEdit.getFromDate()==null) {
 
+                // when its active just edit no database delete
+                if (dataSetFieldToEdit.getDataRowId()>1) {
+                    try {
+                        if (dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 8, dataSetFieldToEdit.getTitle()) == 200 && this.dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 9, dataSetFieldToEdit.getValue()) == 200) {
+                            dataSetFieldFacade.merge(dataSetFieldToEdit);
+                            this.updateList();
+
+                            dataSetApi.collectNowAll();
+                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
+                        } else {
+                            this.updateList();
+                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while editing DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
+                        }
+                    } catch (NoConnectionException e) {
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
+                    }
+                }
+                else {
+                    // when its not active make it active
+                    DataSetDataField temp = dataSetFieldToEdit;
+                    dataSetFieldFacade.deleteById(dataSetFieldToEdit.getId());
+                    temp.setId(0);
+                    this.addDataSetToXibo(temp);
+                }
+            }
+            else {
                 // editing from date so that it should be active
                 if (dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1)) && dataSetFieldToEdit.isActive() == false) {
 
@@ -128,8 +161,6 @@ public class DataSetController implements Serializable {
                 else if (dataSetFieldToEdit.isActive() && dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1))) {
                     try {
                         if (dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 8, dataSetFieldToEdit.getTitle()) == 200 && this.dataSetApi.editDataSetField(dataSetFieldToEdit.getDataSetId(), dataSetFieldToEdit.getDataRowId(), 9, dataSetFieldToEdit.getValue()) == 200) {
-                            //dataSetFieldFacade.deleteByRowId(dataSetFieldToEdit.getDataRowId());
-                            //dataSetFieldFacade.save(dataSetFieldToEdit);
                             dataSetFieldFacade.merge(dataSetFieldToEdit);
                             this.updateList();
 

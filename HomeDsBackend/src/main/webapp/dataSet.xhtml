@@ -6,9 +6,9 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head>
-    <title>News Verwaltung</title>
-</h:head>
+    <h:head>
+        <title>News Verwaltung</title>
+    </h:head>
 
 <h:body style="padding-top: 60px; margin-left: 1%;margin-right: 1%">
     <b:container id="all">
@@ -20,13 +20,14 @@
                  animation-exit="animated slideOutRight"
                  allowDismiss="true"
         />
-        <b:navBar brand="HomeDS Systems" brandHref="#" inverse="true" fixed="top" fluid="true" id="navbar">
+        <b:navBar brand="HomeDS Systems" tooltip="#{msg['byMessage']}" brandHref="/homeds/index.xhtml" inverse="true" fixed="top" fluid="true" id="navbar">
             <b:navbarLinks pull="right">
-                <b:navLink value="Dashboard" href="#"></b:navLink>
-                <b:navLink value="#{msg['changeLanguage']}" href="#" update="all growl addDataSet dataSetEditor"
+                <b:navLink value="Dashboard" href="/homeds/index.xhtml"></b:navLink>
+                <b:navLink value="#{msg['changeDataSet']}" href="/homeds/dataSet.xhtml"></b:navLink>
+                <b:navLink value="#{msg['playMedia']}" href="/homeds/media.xhtml"></b:navLink>
+                <b:navLink value="Crawler" href="/homeds/crawl.xhtml"></b:navLink>
+                <b:navLink value="#{msg['changeLanguage']}" href="#" update="all addDataSet dataSetEditor"
                            onclick="ajax:languageController.countryLocaleCodeChanged()"></b:navLink>
-                <b:navLink value="#{msg['Displays']}" href="#"></b:navLink>
-                <b:navLink value="#{msg['Layouts']}" href="#"></b:navLink>
             </b:navbarLinks>
         </b:navBar>
 
@@ -35,6 +36,15 @@
 
             <!-- DATA SET SELECTION -->
             <b:row>
+                <b:panel>
+                    <h1>
+                        #{msg['changeDataSet']}
+                        <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
+                                       name="fa-close" style="color: red;" tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
+                        <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
+                                       name="fa-check" style="color: green;" tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
+                    </h1>
+                </b:panel>
                 <b:panel ajax="true" title="#{msg['editNewsTitle']} (#{dataSetController.dataSetData.size()})"
                          look="primary">
                     <b:column col-sm="12" col-md="12">
@@ -43,7 +53,7 @@
                                     id="dataSetParent"
                                     value="#{dataSetController.dataSetData}"
                                     var="actDataSet"
-                                    update="growl dataSetEditor"
+                                    update="growl"
                                     responsive="true"
                                     ajax="true"
                                     searching="true"
@@ -92,7 +102,7 @@
                                     <center>
                                         <b:commandButton
                                                 action="#{dataSetController.editDataSet(actDataSet)}"
-                                                id="btnSave" look="primary" update="@form growl dataSetParent">
+                                                id="btnSave" look="primary" update="growl dataSetEditor">
                                             <b:iconAwesome size="1.5x" name="far fa-save"></b:iconAwesome>
                                         </b:commandButton>
                                     </center>

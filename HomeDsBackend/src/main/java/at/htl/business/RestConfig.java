@@ -1,7 +1,6 @@
 package at.htl.business;
 
-import at.htl.rest.CrossOriginResourceSharingFilter;
-import at.htl.rest.DataSetDataFieldEndpoint;
+import at.htl.rest.*;
 import io.swagger.jaxrs.config.BeanConfig;
 
 import javax.ws.rs.ApplicationPath;
@@ -14,7 +13,7 @@ public class RestConfig extends Application {
 
     public RestConfig() {
         BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setVersion("1.0.0");
+        beanConfig.setVersion("1.1.0");
         beanConfig.setTitle("HomeDSBackend");
         beanConfig.setSchemes(new String[]{"http"});
         beanConfig.setHost("localhost:8080");
@@ -31,6 +30,9 @@ public class RestConfig extends Application {
         set.add(CrossOriginResourceSharingFilter.class);
         set.add(RestConfig.class);
         set.add(DataSetDataFieldEndpoint.class);
+        set.add(CrawlerEndpoint.class);
+        set.add(MediaEndpoint.class);
+        set.add(StatusEndpoint.class);
 
         set.add(io.swagger.jaxrs.listing.ApiListingResource.class);
         set.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);

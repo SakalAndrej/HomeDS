@@ -31,10 +31,6 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        LocalDate date  = LocalDate.of(year,month,day);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("pickedDate",date);
-        MainActivity.getInstance().onDatePicked(bundle);
 
     }
 }

@@ -15,7 +15,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import homeds.htl.at.homedsjee.R;
@@ -120,6 +122,8 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         {
             tvTimeFrom.setText(news.getFromDate().toString());
             tvTimeTo.setText(news.getToDate().toString());
+            dateTo = news.getToDate();
+            dateFrom = news.getFromDate();
 
         }
 
@@ -143,7 +147,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
 
             }
         });
-
+        //https://stackoverflow.com/questions/39916178/how-to-show-datepickerdialog-on-button-click
         tvTimeTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -165,7 +169,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
 
             }
         });
-
+        //https://stackoverflow.com/questions/39916178/how-to-show-datepickerdialog-on-button-click
         ibSaveNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,7 +177,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
             DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
                 RequestHelper rh = new RequestHelper();
                 HashMap<String,String> params = new HashMap<>();
-                String url = "http://10.0.2.2:8080/homeds/rs/datasetdatafield/save";
+                String url = "http://10.0.2.2:8080/homeds/rs/datasetdatafield/";
 
                 //LocalDate date = LocalDate.now();
                 if (news.getId() != null && news.getDataSetId() != null && news.getDataRowId() != null) {
@@ -183,13 +187,13 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                 }
                 params.put("value",description.getText().toString());
                 params.put("title",title.getText().toString());
-                params.put("fromDate",dateFrom.toString());
-                params.put("toDate",dateTo.toString());
+                params.put("fromDate", Date.from(dateFrom.atStartOfDay(ZoneId.systemDefault()).toInstant()).toString());
+                params.put("toDate",Date.from(dateTo.atStartOfDay(ZoneId.systemDefault()).toInstant()).toString());
 
                 if (news.getId() == null){
-                    rh.executeRequest(RequestTypeEnum.POST,params,url);
+                    rh.executeRequest(RequestTypeEnum.POST,params,url+"save");
                 }else{
-                    rh.executeRequest(RequestTypeEnum.PUT,params,url);
+                    rh.executeRequest(RequestTypeEnum.PUT,params,url+"edit");
                 }
             }
         });

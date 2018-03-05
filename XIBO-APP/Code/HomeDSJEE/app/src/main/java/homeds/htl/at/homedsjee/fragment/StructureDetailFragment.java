@@ -74,7 +74,7 @@ public class StructureDetailFragment extends android.support.v4.app.Fragment {
         tvStructureDetailStiring.setMovementMethod(new ScrollingMovementMethod());
         String detail = bundle.getString("actStructure");
 
-        tvStructureDetailStiring.setText(detail);
+        tvStructureDetailStiring.setText(detail.toString());
         return v;
     }
 

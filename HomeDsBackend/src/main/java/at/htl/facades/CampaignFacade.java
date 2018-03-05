@@ -3,11 +3,13 @@ package at.htl.facades;
 import at.htl.model.Campaign;
 import at.htl.model.DataSetDataField;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Stateless
 public class CampaignFacade {
 
     @PersistenceContext

@@ -2,7 +2,6 @@ package at.htl.xiboClient;
 
 import at.htl.enums.RequestTypeEnum;
 import at.htl.exceptions.NoConnectionException;
-import at.htl.model.Campaign;
 import at.htl.model.Display;
 import at.htl.utils.AuthentificationHandler;
 import at.htl.utils.RequestHelper;
@@ -21,7 +20,7 @@ import java.util.LinkedList;
 @Stateless
 public class DisplayApi {
 
-    public LinkedList<Display> GetAllDisplays() throws NoConnectionException {
+    public LinkedList<Display> getAllDisplays() throws NoConnectionException {
         BufferedReader in;
         LinkedList<Display> displays = new LinkedList<>();
         Display act = new Display();
@@ -71,19 +70,17 @@ public class DisplayApi {
         return displays;
     }
 
-    public long ScheduleLayout(long campaingLayoutId, LocalDateTime fromDate, LocalDateTime toDate) throws NoConnectionException {
+    public long scheduleLayout(long campaingLayoutId, LocalDateTime fromDate, LocalDateTime toDate) throws NoConnectionException {
 
-        Campaign act = new Campaign();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         BufferedReader in;
-        LinkedList<Display> displays = new LinkedList<>();
         try {
             //Get all Datasets
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
                             "eventTypeId=1&campaignId=" + campaingLayoutId +
-                                    "&displayOrder=0&isPriority=11&displayGroupIds[]="+14+"&fromDt="+fromDate.format(formatter)+"&toDt="+toDate.format(formatter),
+                                    "&displayOrder=0&isPriority=11&displayGroupIds[]="+14+"&fromDt="+fromDate.format(formatter)+"&toDt="+toDate.format(formatter)+"&syncTimezone=1",
                             new RequestHelper().BASE_URL + "api/schedule",
                             AuthentificationHandler.getTOKEN());
 
@@ -95,8 +92,7 @@ public class DisplayApi {
                 while ((output = in.readLine()) != null) {
                     response.append(output);
                 }
-
-                JSONObject jsonObject = new JSONObject(response);
+                JSONObject jsonObject = new JSONObject(response.toString());
                 return jsonObject.getLong("campaignId");
             }
             else {
@@ -109,4 +105,22 @@ public class DisplayApi {
         }
     }
 
+    public boolean deleteEvent(long campaignId) throws NoConnectionException {
+        try {
+            HttpURLConnection con = new RequestHelper()
+                    .executeRequest(RequestTypeEnum.DELETE, null,
+                            new RequestHelper().BASE_URL + "api/schedule/" + campaignId,
+                            AuthentificationHandler.getTOKEN());
+            if (con.getResponseCode()==204) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        } catch (NullPointerException ex) {
+            throw new NoConnectionException("Es ist kein Response vorhanden", ex);
+        } catch (IOException e) {
+            throw new NoConnectionException("IO Exception", e);
+        }
+    }
 }

@@ -97,6 +97,7 @@ public class TimeService {
             System.out.println("Every min scheduler had no job :(!");
         }
 
+        layoutChangerUtil.campaignLogic();
 
     }
 

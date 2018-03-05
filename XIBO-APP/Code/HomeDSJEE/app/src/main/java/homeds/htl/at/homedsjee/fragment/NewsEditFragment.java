@@ -1,5 +1,6 @@
 package homeds.htl.at.homedsjee.fragment;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,11 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import homeds.htl.at.homedsjee.R;
@@ -47,6 +50,11 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     EditText description;
     TextView tvTimeTo;
     TextView tvTimeFrom;
+    int year;
+    int month;
+    int day;
+    LocalDate dateFrom;
+    LocalDate dateTo;
     public NewsEditFragment() {
         // Required empty public constructor
     }
@@ -113,9 +121,42 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         tvTimeFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.getInstance().openDatePicker();
-//                Bundle bundle1 = getArguments();
-                //TextView tvTimeFron = view.findViewById(R.id.tvTimeFrom);
+            final Calendar c = Calendar.getInstance();
+            year = c.get(Calendar.YEAR);
+            month = c.get(Calendar.MONTH);
+            day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.getInstance()
+                        , new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        tvTimeFrom.setText(year +"-"+ month +"-"+ day);
+                        dateFrom = LocalDate.of(year,month,day);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+
+            }
+        });
+
+        tvTimeTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH);
+                day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.getInstance()
+                        , new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        tvTimeTo.setText(year +"-"+ month +"-"+ day);
+                        dateTo = LocalDate.of(year,month,day);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+
 
             }
         });
@@ -129,56 +170,45 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                 HashMap<String,String> params = new HashMap<>();
                 String url = "http://10.0.2.2:8080/homeds/rs/datasetdatafield";
 
-                LocalDate date = LocalDate.now();
+                //LocalDate date = LocalDate.now();
                 params.put("id",news.getId().toString());
                 params.put("dataSetId",news.getDataSetId().toString());
                 params.put("dataRowId",news.getDataRowId().toString());
                 params.put("value",description.getText().toString());
                 params.put("title",title.getText().toString());
-                params.put("fromDate",date.toString());
-                params.put("toDate",date.toString());
+                params.put("fromDate",dateFrom.toString());
+                params.put("toDate",dateTo.toString());
 
                 if (news.getId() == null){
                     rh.executeRequest(RequestTypeEnum.POST,params,url);
                 }else{
                     rh.executeRequest(RequestTypeEnum.PUT,params,url);
-
                 }
-
-
             }
         });
-
-
-
         return v;
     }
-
     @Override
     public void onResume() {
         super.onResume();
         Log.d("NEWSEDIT", "OnResume");
     }
-
     @Override
     public void onPause() {
         super.onPause();
         Log.d("NEWSEDIT", "onPause");
     }
-
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
-
     @Override
     public void onAttachFragment(android.support.v4.app.Fragment childFragment) {
         super.onAttachFragment(childFragment);
         Log.d("NEWSEDIT", "Attach");
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -191,26 +221,22 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
     @Override
     public void onDetach() {
         super.onDetach();
         Log.d("NEWSEDIT", "onDetach");
         mListener = null;
     }
-
     @Override
     public void onStop() {
         super.onStop();
         Log.d("NEWSEDIT", "onStop");
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d("NEWSEDIT", "onDestroy");
     }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -225,6 +251,5 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
     public void request(){}
 }

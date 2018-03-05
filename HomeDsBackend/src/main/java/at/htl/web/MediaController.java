@@ -4,6 +4,11 @@ import at.htl.exceptions.NoConnectionException;
 import at.htl.model.Media;
 import at.htl.utils.LayoutChangerUtil;
 import at.htl.xiboClient.MediaApi;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.tagcloud.DefaultTagCloudItem;
+import org.primefaces.model.tagcloud.DefaultTagCloudModel;
+import org.primefaces.model.tagcloud.TagCloudItem;
+import org.primefaces.model.tagcloud.TagCloudModel;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -12,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Model
@@ -24,27 +30,54 @@ public class MediaController implements Serializable {
     @Inject
     LayoutChangerUtil layoutChangerUtil;
 
+    private TagCloudModel model;
+
+    private String tags;
+
     private static List<Media> medias;
 
     private static List<Media> shortMedias;
 
+    private static LocalDateTime lastOnline;
+
     @PostConstruct
     public void init() {
+        tags = "";
         try {
-            if (medias != null) {
+            if (medias != null && lastOnline.isAfter(LocalDateTime.now())) {
                 //no need for update
-            }
-            else {
-                this.updateList();
+            } else {
+                this.updateList(tags);
+                lastOnline = LocalDateTime.now().plusMinutes(5);
             }
         } catch (NoConnectionException e) {
             e.printStackTrace();
         }
+        model = new DefaultTagCloudModel();
+        model.addTag(new DefaultTagCloudItem("Informatik", 5));
+        model.addTag(new DefaultTagCloudItem("Medientechnik", 1));
+        model.addTag(new DefaultTagCloudItem("Biomedizin", 1));
+        model.addTag(new DefaultTagCloudItem("Elektronik", 1));
+        model.addTag(new DefaultTagCloudItem("Projekte", 4));
+        model.addTag(new DefaultTagCloudItem("Projektvideos", "#", 2));
     }
 
-    private void updateList() throws NoConnectionException {
-        this.medias = mediaApi.getAllMedia(0,300);
-        shortMedias = medias.subList(0,5);
+    private void updateList(String cloudTags) throws NoConnectionException {
+        this.medias = mediaApi.getAllMedia(0, 50, cloudTags);
+        if (medias.size() > 10)
+            shortMedias = medias.subList(0, 5);
+        else {
+            shortMedias = medias;
+        }
+    }
+
+    public void clearCloud() {
+        tags = "";
+        try {
+            this.updateList(tags);
+        } catch (NoConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
     public void playMedia(long mediaId) {
@@ -54,19 +87,33 @@ public class MediaController implements Serializable {
             if (widgetId > 0) {
                 if (mediaApi.deleteWidget(widgetId) == 200) {
                     if (mediaApi.editWidget(mediaId) == 200) {
-                        layoutChangerUtil.changeLayoutForAll(39);
+                        layoutChangerUtil.changeLayout(44,LocalDateTime.now().plusMinutes(2));
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully set media to playlist"));
-                    }
-                    else {
+                    } else {
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while playing medi"));
                     }
-                }
-                else {
+                } else {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while removing media from playlist"));
                 }
             }
         } catch (NoConnectionException e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Could not establish connection"));
+        }
+    }
+
+    public void onSelect(SelectEvent event) {
+        TagCloudItem item = (TagCloudItem) event.getObject();
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", item.getLabel());
+
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        try {
+            if (!tags.equals(item.getLabel())) {
+                tags = item.getLabel();
+                this.updateList(tags);
+            }
+        } catch (NoConnectionException e) {
+            e.printStackTrace();
         }
     }
 
@@ -86,5 +133,22 @@ public class MediaController implements Serializable {
     public void setShortMedias(List<Media> shortMedias) {
         this.shortMedias = shortMedias;
     }
+
+    public TagCloudModel getModel() {
+        return model;
+    }
+
+    public void setModel(TagCloudModel model) {
+        this.model = model;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
     //endregion
 }

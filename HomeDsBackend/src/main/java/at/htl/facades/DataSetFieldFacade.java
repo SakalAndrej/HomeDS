@@ -37,7 +37,6 @@ public class DataSetFieldFacade {
         return entityManager.find(DataSetDataField.class, id);
     }
 
-
     public List<DataSetDataField> getAll() {
         TypedQuery<DataSetDataField> q = entityManager.createNamedQuery("DataSetDataField.GetAll", DataSetDataField.class);
         return q.getResultList();
@@ -53,5 +52,10 @@ public class DataSetFieldFacade {
     public void deleteById(long id) {
         DataSetDataField entityToDelete = findById(id);
         entityManager.remove(entityToDelete);
+    }
+
+    public List<DataSetDataField> getActiveDataSetRows() {
+        TypedQuery<DataSetDataField> q = entityManager.createNamedQuery("DataSetDataField.findActive", DataSetDataField.class);
+        return q.getResultList();
     }
 }

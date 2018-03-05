@@ -3,6 +3,7 @@ package at.htl.web;
 import at.htl.exceptions.NoConnectionException;
 import at.htl.facades.DataSetFieldFacade;
 import at.htl.model.DataSetDataField;
+import at.htl.utils.LayoutChangerUtil;
 import at.htl.xiboClient.DataSetApi;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +26,9 @@ public class DataSetController implements Serializable {
     @Inject
     DataSetApi dataSetApi;
 
+    @Inject
+    LayoutChangerUtil layoutChangerUtil;
+
     private static List<DataSetDataField> dataSetData;
 
     private DataSetDataField dataSetToAdd;
@@ -37,6 +41,7 @@ public class DataSetController implements Serializable {
     public void init() {
         this.updateList();
         dataSetToAdd = new DataSetDataField();
+        //layoutChangerUtil.campaignLogic();
     }
 
     public void removeDataSet(DataSetDataField dataSet) {
@@ -60,6 +65,7 @@ public class DataSetController implements Serializable {
         } catch (NoConnectionException ex) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
         }
+        layoutChangerUtil.campaignLogic();
     }
 
     public void addDataSet() {
@@ -87,6 +93,7 @@ public class DataSetController implements Serializable {
                 dataFieldToAdd.setDataRowId(id);
                 dataSetFieldFacade.save(dataFieldToAdd);
                 this.updateList();
+                layoutChangerUtil.campaignLogic();
 
                 //clear add variable
                 dataSetToAdd = new DataSetDataField();

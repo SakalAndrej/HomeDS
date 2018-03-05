@@ -82,7 +82,7 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_structure_plan, container, false);
-        String url = "";
+
         RecyclerView rvStructurePlan = v.findViewById(R.id.rvStructurePlan);
 
 

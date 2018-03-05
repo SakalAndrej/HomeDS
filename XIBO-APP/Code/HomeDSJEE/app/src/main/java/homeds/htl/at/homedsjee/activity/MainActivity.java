@@ -1,17 +1,12 @@
 package homeds.htl.at.homedsjee.activity;
 
-import android.app.Dialog;
 import android.net.Uri;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
-import homeds.htl.at.homedsjee.fragment.DatePickerFragment;
 import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
 import homeds.htl.at.homedsjee.fragment.MediaOverviewFragment;
 import homeds.htl.at.homedsjee.fragment.NewsEditFragment;
@@ -77,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
     public void openMediaOverviewFragment(){
         MediaOverviewFragment mediaOverviewFragment = new MediaOverviewFragment();
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.container_main,mediaOverviewFragment,null).commit();
+        fm.beginTransaction().replace(R.id.container_main,mediaOverviewFragment,null).addToBackStack(null).commit();
     }
 
     public void openStructureDetailFragment(Bundle bundle){
@@ -85,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
      structureDetailFragmen.setArguments(bundle);
 
      FragmentManager fm = getSupportFragmentManager();
-     fm.beginTransaction().replace(R.id.container_main,structureDetailFragmen,null).commit();
+     fm.beginTransaction().replace(R.id.container_main,structureDetailFragmen,null).addToBackStack(null).commit();
 
     }
 

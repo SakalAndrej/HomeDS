@@ -26,7 +26,7 @@ public class NewsViewholder extends RecyclerView.ViewHolder {
 
 
         t1.setText(String.valueOf(news.getTitle()));
-        //t2.setText(String.valueOf(news.getFromDate() +" - "+ news.getToDate()));
+        t2.setText(String.valueOf(news.getFromDate() +" - "+ news.getToDate()));
 
 
 

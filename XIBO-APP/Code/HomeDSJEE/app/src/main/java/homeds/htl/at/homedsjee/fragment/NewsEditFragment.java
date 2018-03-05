@@ -109,14 +109,19 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         ImageButton ibSaveNews = v.findViewById(R.id.ibSaveNews);
         title = v.findViewById(R.id.etTitle);
         description = v.findViewById(R.id.etDescription);
-        if(bundle.getSerializable("pickedDate") != null){
-            tvTimeFrom.setText(bundle.getSerializable("pickedDate").toString());
-        }
+
         title.setText(news.getTitle());
         description.setText(news.getValue());
 
         tvTimeFrom = v.findViewById(R.id.tvTimeFrom);
         tvTimeTo = v.findViewById(R.id.tvTimeTo);
+
+        if (news.getToDate() != null && news.getFromDate() != null)
+        {
+            tvTimeFrom.setText(news.getFromDate().toString());
+            tvTimeTo.setText(news.getToDate().toString());
+
+        }
 
         tvTimeFrom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,12 +173,14 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
             DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
                 RequestHelper rh = new RequestHelper();
                 HashMap<String,String> params = new HashMap<>();
-                String url = "http://10.0.2.2:8080/homeds/rs/datasetdatafield";
+                String url = "http://10.0.2.2:8080/homeds/rs/datasetdatafield/save";
 
                 //LocalDate date = LocalDate.now();
-                params.put("id",news.getId().toString());
-                params.put("dataSetId",news.getDataSetId().toString());
-                params.put("dataRowId",news.getDataRowId().toString());
+                if (news.getId() != null && news.getDataSetId() != null && news.getDataRowId() != null) {
+                    params.put("id", news.getId().toString());
+                    params.put("dataSetId", news.getDataSetId().toString());
+                    params.put("dataRowId", news.getDataRowId().toString());
+                }
                 params.put("value",description.getText().toString());
                 params.put("title",title.getText().toString());
                 params.put("fromDate",dateFrom.toString());

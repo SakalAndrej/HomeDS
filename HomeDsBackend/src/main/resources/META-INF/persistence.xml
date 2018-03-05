@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
     <persistence-unit name="myPU" transaction-type="JTA">
-        <jta-data-source>java:/mysql</jta-data-source>
+        <jta-data-source>java:jboss/datasources/mysql</jta-data-source>
         <properties>
 
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
@@ -13,6 +13,7 @@
 <property name="javax.persistence.schema-generation.scripts.drop-target" value="sampleDrop.ddl"/>
 <property name="javax.persistence.sql-load-script-source" value="insert.sql"/>
 -->
+
 
         </properties>
     </persistence-unit>

@@ -31,12 +31,6 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        LocalDate date  =LocalDate.of(year,month,day);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("pickedDate",date);
-        NewsEditFragment f = (NewsEditFragment)getActivity().getSupportFragmentManager().findFragmentByTag("actEdit");
-        f.setArguments(bundle);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container_main,f).commit();
-        //MainActivity.getInstance().onDatePIcked();
+
     }
 }

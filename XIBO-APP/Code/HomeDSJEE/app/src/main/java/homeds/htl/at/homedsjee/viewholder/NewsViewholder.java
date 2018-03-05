@@ -16,7 +16,7 @@ public class NewsViewholder extends RecyclerView.ViewHolder {
     TextView t1,t2;
     public NewsViewholder(View itemView) {
         super(itemView);
-        t1 =  itemView.findViewById(android.R.id.text1);
+        t1 = itemView.findViewById(android.R.id.text1);
         t2 = itemView.findViewById(android.R.id.text2);
 
 
@@ -24,8 +24,10 @@ public class NewsViewholder extends RecyclerView.ViewHolder {
 
     public void updateUI(final DataSetDataField news){
 
+
         t1.setText(String.valueOf(news.getTitle()));
-        t2.setText(String.valueOf(news.getFromDate() +" - "+ news.getToDate()));
+        //t2.setText(String.valueOf(news.getFromDate() +" - "+ news.getToDate()));
+
 
 
         this.itemView.setOnClickListener(new View.OnClickListener() {

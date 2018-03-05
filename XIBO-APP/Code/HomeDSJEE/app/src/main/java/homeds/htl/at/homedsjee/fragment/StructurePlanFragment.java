@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+
 import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.R;
@@ -81,8 +82,9 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_structure_plan, container, false);
-
+        String url = "";
         RecyclerView rvStructurePlan = v.findViewById(R.id.rvStructurePlan);
+
 
         HashMap<String,String> params = new HashMap<>();
         params.put("layoutId","-1");
@@ -108,9 +110,6 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
-
 
         StructurePlanAdapter structurePlanAdapter = new StructurePlanAdapter(structureparts);
         rvStructurePlan.setAdapter(structurePlanAdapter);
@@ -145,7 +144,8 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
     }
 
     /**
-     * This interface must be implemented by activities that contain this
+     * This interface must be implemented
+     * by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
@@ -159,11 +159,13 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+
     public String getResponseWithWait() throws InterruptedException {
 
         while(rh.getResponseBody() == null){
             Thread.sleep(100);
         }
         return rh.getResponseBody();
+
     }
 }

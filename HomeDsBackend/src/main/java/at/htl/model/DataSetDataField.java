@@ -33,7 +33,7 @@ public class DataSetDataField {
     private String value;
 
     // Title of the News
-    private String Title;
+        private String Title;
 
     // Expiration Properties
     private LocalDate fromDate;
@@ -41,6 +41,16 @@ public class DataSetDataField {
 
     // if from date is before date.now
     private boolean isActive;
+
+
+    public DataSetDataField(Long dataSetId, Long dataRowId, String value, String title, LocalDate fromDate, LocalDate toDate) {
+        this.dataSetId = dataSetId;
+        this.dataRowId = dataRowId;
+        this.value = value;
+        Title = title;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
 
     public DataSetDataField() {
     }

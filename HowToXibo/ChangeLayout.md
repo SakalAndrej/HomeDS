@@ -52,7 +52,7 @@ Der Vorgang des Zuweisens einer Kampagne unterscheidet sich kaum davon, wie es b
 
 Erstellen einer Kampagne erfolgt über einen POST Request der den Namen als einzigen Parameter benötigt. Als Response erhält man die erstellte Kampagne mit der ID die vergeben wurde.
 
-![03_KampagneName](.\images\LayoutChange\03_KampagneName.PNG)
+![03_KampagneName](./images/LayoutChange/03_KampagneName.PNG)
 
 
 

@@ -139,7 +139,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                         , new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        tvTimeFrom.setText(year +"-"+ month +"-"+ day);
+                        tvTimeFrom.setText(year +"-"+ (month+1) +"-"+ day);
                         dateFrom = LocalDate.of(year,month,day);
                     }
                 },year,month,day);
@@ -160,7 +160,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                         , new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        tvTimeTo.setText(year +"-"+ month +"-"+ day);
+                        tvTimeTo.setText(year +"-"+ (month+1) +"-"+ day);
                         dateTo = LocalDate.of(year,month,day);
                     }
                 },year,month,day);
@@ -191,6 +191,8 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                 params.put("toDate", String.valueOf(Date.from(dateTo.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
 
                 if (news.getId() == null){
+                    Long n = -1L;
+                    params.put("dataRowId",n.toString());
                     rh.executeRequest(RequestTypeEnum.POST,params,url+"save/");
                     Log.d("POSTFORDATASET",params.toString());
                 }else{

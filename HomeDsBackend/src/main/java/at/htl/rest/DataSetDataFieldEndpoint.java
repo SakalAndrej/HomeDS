@@ -53,6 +53,8 @@ public class DataSetDataFieldEndpoint {
         DataSetDataField dataField = new DataSetDataField();
         dataField.setValue( json.getString("value"));
         dataField.setTitle(json.getString("title"));
+        dataField.setDataRowId(json.getLong("dataRowId"));
+
         if (!json.isNull("fromDate") && !json.isNull("toDate")) {
             dataField.setFromDate((new Date(json.getLong("fromDate")).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
             dataField.setToDate((new Date(json.getLong("toDate")).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
@@ -60,7 +62,6 @@ public class DataSetDataFieldEndpoint {
         if (!json.isNull("id")&& !json.isNull("dataRowId")){
             dataField.setId(json.getLong("id"));
             dataField.setDataSetId(json.getLong("dataSetId"));
-            dataField.setDataRowId(json.getLong("dataRowId"));
         }
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);

@@ -1,12 +1,12 @@
 package at.htl.model;
 
+import at.htl.enums.XiboEnum;
 import javax.persistence.*;
 
-@NamedQueries(
-        {
+@NamedQueries({
                 @NamedQuery(name = "Campaign.GetAll",
                         query = "select d from Campaign d")
-        })
+})
 
 @Table
 @Entity
@@ -18,6 +18,8 @@ public class Campaign {
 
     private long campaignId;
 
+    private XiboEnum xiboEnum;
+
     public Campaign(long campaignId) {
         this.campaignId = campaignId;
     }
@@ -25,6 +27,14 @@ public class Campaign {
     public Campaign() { }
 
     //region Getter & Setter
+
+    public XiboEnum getXiboEnum() {
+        return xiboEnum;
+    }
+
+    public void setXiboEnum(XiboEnum xiboEnum) {
+        this.xiboEnum = xiboEnum;
+    }
 
     public long getCampaignId() {
         return campaignId;

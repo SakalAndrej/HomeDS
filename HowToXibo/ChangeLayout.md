@@ -23,7 +23,7 @@ Wenn wir das Event anklicken öffnet sich ein Dialog-Fenster mit den Einstellung
 
 ### Zuweisen eines Layouts über die API 
 
-Der schnellste Weg ein Layout sofort oder in gewünschten Zeitabständen anzeigen zu können ist es, das Layout einer Kampagne zuzuweisen. 
+Der schnellste Weg ein Layout sofort oder in gewünschten Zeitabständen anzuzeigen ist das Layout einer Kampagne zuzuweisen. 
 
 Um dies zu tun muss ein POST Request durchgeführt werden, der als URL Parameter die Kampagnen ID benötigt und im Body die ID des Layouts enthält. 
 
@@ -42,9 +42,8 @@ Um dies zu tun muss ein POST Request durchgeführt werden, der als URL Parameter
 ###Zuweisen von Kampagnen über die Website des Servers 
 
 <hr>
-Fehlt das die kampagne dann auch gescheduled werden muss es reicht nicht nur einer kampagne zuzuweisen
 
-Der Vorgang des Zuweisens einer Kampagne unterscheidet sich kaum davon, wie es bei Nr.: 1 gemacht wurde; Der einzige wesentliche Unterschied ist, dass wir kein einzelnes Layout zuweisen sondern eine zuvor erstellte Kampagne. 
+Der Vorgang des Zuweisens einer Kampagne unterscheidet sich kaum davon, wie es bei Nr.: 1 gemacht wurde. Der einzige wesentliche Unterschied ist, dass wir kein einzelnes Layout zuweisen sondern eine zuvor erstellte Kampagne.
 
 
 

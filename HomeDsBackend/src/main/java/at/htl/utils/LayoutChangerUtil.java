@@ -27,8 +27,19 @@ public class LayoutChangerUtil {
     CampaignFacade campaignFacade;
 
     public void changeLayout(long campaignLayoutId, LocalDateTime toDate) throws NoConnectionException {
-        displayApi.scheduleLayout(campaignLayoutId, LocalDateTime.now(), toDate);
-        dataSetApi.collectNowAll();
+        if (campaignFacade.getAll().size()>0) {
+            // cancel campaign
+        }
+        else {
+            Campaign c = new Campaign();
+            long id;
+            if((id=displayApi.scheduleLayout(campaignLayoutId, LocalDateTime.now(), toDate)) > -1) {
+                c.setCampaignId(id);
+                campaignFacade.save(c);
+            }
+            dataSetApi.collectNowAll();
+        }
+
     }
 
     /*

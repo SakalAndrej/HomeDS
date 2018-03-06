@@ -182,8 +182,6 @@ public class DataSetApi {
 
     public long editDataSetField(long dataSetId, long dataSetDataId, long dataSetColumnId, String dataSetFieldValue) throws NoConnectionException {
 
-
-
         try {
 
             //Get all Datasets
@@ -232,7 +230,7 @@ public class DataSetApi {
 
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
-                            "dataSetColumnId_"+8+"="+dataField.getTitle()+"&dataSetColumnId_"+9+"="+dataField.getValue(),
+                            "dataSetColumnId_"+8+"="+ replaceCodings(dataField.getTitle())+"&dataSetColumnId_"+9+"="+replaceCodings(dataField.getValue()),
                             new RequestHelper().BASE_URL + "api/dataset/data/" + 5,
                             AuthentificationHandler.getTOKEN());
 

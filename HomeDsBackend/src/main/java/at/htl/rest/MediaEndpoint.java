@@ -12,8 +12,7 @@ import javax.ws.rs.core.Response;
 
 @Path("media")
 @Api("Media - API")
-public class
-MediaEndpoint {
+public class MediaEndpoint {
 
     @Inject
     MediaApi mediaApi;

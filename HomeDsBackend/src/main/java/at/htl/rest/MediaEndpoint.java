@@ -1,6 +1,7 @@
 package at.htl.rest;
 
 import at.htl.exceptions.NoConnectionException;
+import at.htl.utils.LayoutChangerUtil;
 import at.htl.xiboClient.MediaApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.time.LocalDateTime;
 
 @Path("media")
 @Api("Media - API")
@@ -17,6 +19,9 @@ MediaEndpoint {
 
     @Inject
     MediaApi mediaApi;
+
+    @Inject
+    LayoutChangerUtil layoutChangerUtil;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -47,6 +52,8 @@ MediaEndpoint {
             if (widgetId > 0) {
                 if (mediaApi.deleteWidget(widgetId) == 200) {
                     if (mediaApi.editWidget(mediaId) == 200) {
+                        layoutChangerUtil.changeLayout(44, LocalDateTime.now().plusMinutes(2));
+
                         Response.ok().build();
                     }
                     return Response.status(Response.Status.OK).build();

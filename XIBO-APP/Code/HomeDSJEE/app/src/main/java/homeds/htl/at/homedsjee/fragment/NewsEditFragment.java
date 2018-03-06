@@ -187,13 +187,16 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                 }
                 params.put("value",description.getText().toString());
                 params.put("title",title.getText().toString());
-                params.put("fromDate", Date.from(dateFrom.atStartOfDay(ZoneId.systemDefault()).toInstant()).toString());
-                params.put("toDate",Date.from(dateTo.atStartOfDay(ZoneId.systemDefault()).toInstant()).toString());
+                params.put("fromDate", String.valueOf(Date.from(dateFrom.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
+                params.put("toDate", String.valueOf(Date.from(dateTo.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
 
                 if (news.getId() == null){
-                    rh.executeRequest(RequestTypeEnum.POST,params,url+"save");
+                    rh.executeRequest(RequestTypeEnum.POST,params,url+"save/");
+                    Log.d("POSTFORDATASET",params.toString());
                 }else{
-                    rh.executeRequest(RequestTypeEnum.PUT,params,url+"edit");
+                    rh.executeRequest(RequestTypeEnum.PUT,params,url+"edit/");
+                    Log.d("PUTFORDATASET",params.toString());
+
                 }
             }
         });

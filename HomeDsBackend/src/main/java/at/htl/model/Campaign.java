@@ -8,9 +8,9 @@ import javax.persistence.*;
         @NamedQuery(name = "Campaign.GetAll",
                 query = "select d from Campaign d"),
         @NamedQuery(name = "Campaign.GetAllDataSet",
-                query = "select d from Campaign d where d.xiboEnum = 'DATASET'"),
+                query = "select d from Campaign d where d.xiboEnum = 1"),
         @NamedQuery(name = "Campaign.GetAllMedia",
-                query = "select d from Campaign d where d.xiboEnum = 'MEDIA'")
+                query = "select d from Campaign d where d.xiboEnum = 0")
 })
 
 @Table

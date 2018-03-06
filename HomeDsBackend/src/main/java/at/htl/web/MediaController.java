@@ -1,5 +1,6 @@
 package at.htl.web;
 
+import at.htl.enums.XiboEnum;
 import at.htl.exceptions.NoConnectionException;
 import at.htl.model.Media;
 import at.htl.utils.LayoutChangerUtil;
@@ -87,13 +88,13 @@ public class MediaController implements Serializable {
             if (widgetId > 0) {
                 if (mediaApi.deleteWidget(widgetId) == 200) {
                     if (mediaApi.editWidget(mediaId) == 200) {
-                        layoutChangerUtil.changeLayout(44,LocalDateTime.now().plusMinutes(2));
-                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully set media to playlist"));
+                        layoutChangerUtil.changeLayout(44,LocalDateTime.now().plusYears(2), XiboEnum.MEDIA);
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully played media"));
                     } else {
-                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while playing medi"));
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while playing media"));
                     }
                 } else {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while removing media from playlist"));
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while aborting media"));
                 }
             }
         } catch (NoConnectionException e) {

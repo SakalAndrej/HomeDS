@@ -41,7 +41,6 @@ public class DataSetController implements Serializable {
     public void init() {
         this.updateList();
         dataSetToAdd = new DataSetDataField();
-        //layoutChangerUtil.campaignLogic();
     }
 
     public void removeDataSet(DataSetDataField dataSet) {
@@ -65,7 +64,7 @@ public class DataSetController implements Serializable {
         } catch (NoConnectionException ex) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Error while establishing a connection"));
         }
-        layoutChangerUtil.campaignLogic();
+        layoutChangerUtil.campaignLogicDataSet();
     }
 
     public void addDataSet() {
@@ -93,7 +92,7 @@ public class DataSetController implements Serializable {
                 dataFieldToAdd.setDataRowId(id);
                 dataSetFieldFacade.save(dataFieldToAdd);
                 this.updateList();
-                layoutChangerUtil.campaignLogic();
+                layoutChangerUtil.campaignLogicDataSet();
 
                 //clear add variable
                 dataSetToAdd = new DataSetDataField();

@@ -100,7 +100,7 @@ public class DisplayApi {
                     response.append(output);
                 }
                 JSONObject jsonObject = new JSONObject(response.toString());
-                return jsonObject.getLong("campaignId");
+                return jsonObject.getLong("eventId");
             }
             else {
                 return -1;

@@ -2,13 +2,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:head>
-        <title>News Verwaltung</title>
-    </h:head>
+<h:head>
+    <title>News Verwaltung</title>
+</h:head>
 
 <h:body style="padding-top: 60px; margin-left: 1%;margin-right: 1%">
     <b:container id="all">
@@ -20,19 +19,9 @@
                  animation-exit="animated slideOutRight"
                  allowDismiss="true"
         />
-        <b:navBar brand="HomeDS Systems" tooltip="#{msg['byMessage']}" brandHref="/homeds/index.xhtml" inverse="true" fixed="top" fluid="true" id="navbar">
-            <b:navbarLinks pull="right">
-                <b:navLink value="Dashboard" href="/homeds/index.xhtml"></b:navLink>
-                <b:navLink value="#{msg['changeDataSet']}" href="/homeds/dataSet.xhtml"></b:navLink>
-                <b:navLink value="#{msg['playMedia']}" href="/homeds/media.xhtml"></b:navLink>
-                <b:navLink value="Crawler" href="/homeds/crawl.xhtml"></b:navLink>
-                <b:navLink value="#{msg['changeLanguage']}" href="#" update="all addDataSet dataSetEditor"
-                           onclick="ajax:languageController.countryLocaleCodeChanged()"></b:navLink>
-            </b:navbarLinks>
-        </b:navBar>
+        <ui:include src="/header.xhtml"/>
 
         <b:container fluid="true" id="addDataSet">
-            <!-- <h2><span class="glyphicon glyphicon-edit"></span> #{msg['changeDataset']}</h2> -->
 
             <!-- DATA SET SELECTION -->
             <b:row>
@@ -40,9 +29,11 @@
                     <h1>
                         #{msg['changeDataSet']}
                         <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
-                                       name="fa-close" style="color: red;" tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
+                                       name="fa-close" style="color: red;"
+                                       tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
                         <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
-                                       name="fa-check" style="color: green;" tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
+                                       name="fa-check" style="color: green;"
+                                       tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
                     </h1>
                 </b:panel>
                 <b:panel ajax="true" title="#{msg['editNewsTitle']} (#{dataSetController.dataSetData.size()})"
@@ -160,7 +151,6 @@
                                                               showWeek="true"
                                                               firstDay="1"
                                                               value="#{dataSetController.dataSetToAdd.dateToDate}"
-
                                                               tooltip="An diesem Tag bleibt die Info noch da ab den nächsten Tag ist wird die Info gelöscht"/>
                                             </b:column>
                                         </b:row>

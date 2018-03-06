@@ -12,7 +12,7 @@ import java.net.URL;
 // Singleton Pattern
 public class RequestHelper {
 
-    public String BASE_URL = "http://172.18.199.120/";
+    public String BASE_URL = "http://localhost:9090/";
 
     public HttpURLConnection executeRequest(RequestTypeEnum executeType, String paramsBody, String url, String TOKEN) {
 

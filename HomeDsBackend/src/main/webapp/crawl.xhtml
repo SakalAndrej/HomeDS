@@ -19,17 +19,8 @@
                  animation-exit="animated slideOutRight"
                  allowDismiss="true"
         />
-        <b:navBar brand="HomeDS Systems" tooltip="#{msg['byMessage']}" brandHref="/homeds/index.xhtml" inverse="true" fixed="top" fluid="true"
-                  id="navbar">
-            <b:navbarLinks pull="right">
-                <b:navLink value="Dashboard" href="/homeds/index.xhtml"></b:navLink>
-                <b:navLink value="#{msg['changeDataSet']}" href="/homeds/dataSet.xhtml"></b:navLink>
-                <b:navLink value="#{msg['playMedia']}" href="/homeds/media.xhtml"></b:navLink>
-                <b:navLink value="Crawler" href="/homeds/crawl.xhtml"></b:navLink>
-                <b:navLink value="#{msg['changeLanguage']}" href="#" update="all"
-                           onclick="ajax:languageController.countryLocaleCodeChanged()"></b:navLink>
-            </b:navbarLinks>
-        </b:navBar>
+
+        <ui:include src="/header.xhtml"/>
 
         <b:panel look="primary">
             <h1>

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+
+<html xmlns:h="http://java.sun.com/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Play Media Now</title>
@@ -21,17 +20,8 @@
                  animation-exit="animated slideOutRight"
                  allowDismiss="true"
         />
-        <b:navBar brand="HomeDS Systems" tooltip="#{msg['byMessage']}" brandHref="/homeds/index.xhtml" inverse="true" fixed="top" fluid="true"
-                  id="navbar">
-            <b:navbarLinks pull="right">
-                <b:navLink value="Dashboard" href="/homeds/index.xhtml"></b:navLink>
-                <b:navLink value="#{msg['changeDataSet']}" href="/homeds/dataSet.xhtml"></b:navLink>
-                <b:navLink value="#{msg['playMediaNow']}" href="/homeds/media.xhtml"></b:navLink>
-                <b:navLink value="Crawler" href="/homeds/crawl.xhtml"></b:navLink>
-                <b:navLink value="#{msg['changeLanguage']}" href="#" update="medias all"
-                           onclick="ajax:languageController.countryLocaleCodeChanged()"></b:navLink>
-            </b:navbarLinks>
-        </b:navBar>
+        <ui:include src="/header.xhtml"/>
+
         <h:form id="medias">
             <b:growl id="growl"
                      globalOnly="true"
@@ -44,14 +34,16 @@
                 <h1>
                     #{msg['playMediaNow']}
                     <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
-                                   name="fa-close" style="color: red;" tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
+                                   name="fa-close" style="color: red;"
+                                   tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
                     <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
-                                   name="fa-check" style="color: green;" tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
+                                   name="fa-check" style="color: green;"
+                                   tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
                 </h1>
             </b:panel>
             <b:panel>
                 <p:tagCloud id="tagcloud" model="#{mediaController.model}" style="width: 100%">
-                    <p:ajax event="select" update="mediaTable" listener="#{mediaController.onSelect}" />
+                    <p:ajax event="select" update="mediaTable" listener="#{mediaController.onSelect}"/>
                 </p:tagCloud>
             </b:panel>
             <b:dataTable value="#{mediaController.medias}"
@@ -73,8 +65,8 @@
     </b:container>
     <style type="text/css">
         li.ui-tagcloud-strength-5 {
-        font-weight: bold;
-        text-decoration: underline;
+            font-weight: bold;
+            text-decoration: underline;
         }
     </style>
 </h:body>

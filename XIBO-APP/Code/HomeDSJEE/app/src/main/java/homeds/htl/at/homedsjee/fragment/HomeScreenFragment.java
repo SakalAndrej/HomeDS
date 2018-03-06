@@ -33,7 +33,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    RequestHelper rh  = new RequestHelper();
+    RequestHelper rh = new RequestHelper();
     private OnFragmentInteractionListener mListener;
 
     public HomeScreenFragment() {
@@ -71,52 +71,62 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-      View v = inflater.inflate(R.layout.fragment_home_screen, container, false);
+        View v = inflater.inflate(R.layout.fragment_home_screen, container, false);
 
-      String url  = "http://10.0.2.2:8080/homeds/rs/status/";
-      rh.executeRequest(RequestTypeEnum.GET,null,url);
+        String url = "http://10.0.2.2:8080/homeds/rs/status/";
 
 
         ImageView ivUp = v.findViewById(R.id.ivServerUp);
         ivUp.setVisibility(View.INVISIBLE);
         ImageView ivDown = v.findViewById(R.id.ivServerDown);
         ivDown.setVisibility(View.INVISIBLE);
-      ImageButton ibNewsView = v.findViewById(R.id.ibNewsView);
-      ImageButton ibStructurePlan = v.findViewById(R.id.ibStructurePlan);
-      ImageButton ibMediaOverview = v.findViewById(R.id.ibMediaOverview);
+        ImageButton ibNewsView = v.findViewById(R.id.ibNewsView);
+        ImageButton ibStructurePlan = v.findViewById(R.id.ibStructurePlan);
+        ImageButton ibMediaOverview = v.findViewById(R.id.ibMediaOverview);
 
-        try {
-            String hallo = getResponseWithWait();
+        //mittel callback wird die sichtbarkeit des sever status gesetzt sobald ein response erhalten wurde
+
+        rh.executeRequest(RequestTypeEnum.GET, null, url, () -> {
+            //gui änderungen müssen im thread der main activity(einzige actiyity also auch "MainThread") durchgeführt werden.
+            //die methode runOnUiThread weist in diesem fall auf den thread der main activity
+            MainActivity.getInstance().runOnUiThread(()->{
+                if (rh.getResponseCode() == 200) {
+                    ivUp.setVisibility(View.VISIBLE);
+
+                } else {
+                    ivDown.setVisibility(View.VISIBLE);
+                }
+            });
+        });
+
+       /* try {
+            getResponseWithWait();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-        if (rh.getResponseCode() == 200 ){
-            ivUp.setVisibility(View.VISIBLE);
-        }else{
-            ivDown.setVisibility(View.VISIBLE);
-        }
+        }*/
+        /*
+*/
+        ibNewsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.getInstance().openNewsOverview();
+            }
+        });
 
-      ibNewsView.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              MainActivity.getInstance().openNewsOverview();
-          }
-      });
+        ibStructurePlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.getInstance().openStructurePlanFragment();
+            }
+        });
 
-      ibStructurePlan.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              MainActivity.getInstance().openStructurePlanFragment();
-          }
-      });
-
-      ibMediaOverview.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              MainActivity.getInstance().openMediaOverviewFragment();
-          }
-      });
-      return v;
+        ibMediaOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.getInstance().openMediaOverviewFragment();
+            }
+        });
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -158,11 +168,11 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public String getResponseWithWait() throws InterruptedException {
-
-        while(rh.getResponseBody() == null){
-            Thread.sleep(100);
-        }
-        return rh.getResponseBody();
-    }
+//    public String getResponseWithWait() throws InterruptedException {
+//
+//        while (rh.getResponseBody() == null) {
+//            Thread.sleep(100);
+//        }
+//        return rh.getResponseBody();
+//    }
 }

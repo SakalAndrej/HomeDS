@@ -13,6 +13,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Path("datasetdatafield")
@@ -46,7 +48,21 @@ public class DataSetDataFieldEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/save")
     @ApiOperation("Save DataSetRow")
-    public Response addDataSetDataField(DataSetDataField dataField) {
+    public Response addDataSetDataField(String request) {
+        JSONObject json = new JSONObject(request);
+        DataSetDataField dataField = new DataSetDataField();
+        dataField.setValue( json.getString("value"));
+        dataField.setTitle(json.getString("title"));
+        dataField.setDataRowId(json.getLong("dataRowId"));
+
+        if (!json.isNull("fromDate") && !json.isNull("toDate")) {
+            dataField.setFromDate((new Date(json.getLong("fromDate")).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+            dataField.setToDate((new Date(json.getLong("toDate")).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+        }
+        if (!json.isNull("id")&& !json.isNull("dataRowId")){
+            dataField.setId(json.getLong("id"));
+            dataField.setDataSetId(json.getLong("dataSetId"));
+        }
         if (dataField != null) {
             dataSetFieldFacade.save(dataField);
             try {
@@ -64,11 +80,24 @@ public class DataSetDataFieldEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/edit")
     @ApiOperation("Edit DataSetRow")
-    public Response editDataSetDataField(JSONObject json) {
+    public Response editDataSetDataField(String request) {
+        JSONObject json = new JSONObject(request);
+        DataSetDataField dataField = new DataSetDataField();
+        dataField.setValue( json.getString("value"));
+        dataField.setTitle(json.getString("title"));
+        if (!json.isNull("fromDate") && !json.isNull("toDate")) {
+            dataField.setFromDate((new Date(json.getLong("fromDate")).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+            dataField.setToDate((new Date(json.getLong("toDate")).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()));
+        }
+        if (!json.isNull("id")&& !json.isNull("dataRowId")){
+            dataField.setId(json.getLong("id"));
+            dataField.setDataSetId(json.getLong("dataSetId"));
+            dataField.setDataRowId(json.getLong("dataRowId"));
+        }
 
-        DataSetDataField dataField = new DataSetDataField(json.getLong("dataSetId"), json.getLong("dataRowId"), json.getString("value"), json.getString("title"), LocalDate.parse(json.getString("fromDate")), LocalDate.parse(json.getString("toDate")));
+        //DataSetDataField dataField = new DataSetDataField(json.getLong("dataSetId"), json.getLong("dataRowId"), json.getString("value"), json.getString("title"), LocalDate.parse(json.getString("fromDate")), LocalDate.parse(json.getString("toDate")));
         if (dataField != null) {
-            dataSetFieldFacade.save(dataField);
+            dataSetFieldFacade.merge(dataField);
             try {
                 dataSetApi.editDataSetField(dataField.getDataSetId(), dataField.getDataRowId(),8, dataField.getTitle());
                 dataSetApi.editDataSetField(dataField.getDataSetId(), dataField.getDataRowId(),9, dataField.getValue());

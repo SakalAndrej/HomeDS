@@ -34,4 +34,15 @@ public class CampaignFacade {
     public void delete(long id) {
         entityManager.remove(findById(id));
     }
+
+    public List<Campaign> getAllDataSet() {
+        TypedQuery<Campaign> query = entityManager.createNamedQuery("Campaign.GetAllDataSet",Campaign.class);
+        return query.getResultList();
+    }
+
+    public List<Campaign> getAllMedia() {
+        TypedQuery<Campaign> query = entityManager.createNamedQuery("Campaign.GetAllMedia",Campaign.class);
+        return query.getResultList();
+    }
+
 }

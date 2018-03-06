@@ -1,19 +1,27 @@
 package homeds.htl.at.homedsjee.fragment;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import homeds.htl.at.homedsjee.R;
+import homeds.htl.at.homedsjee.activity.MainActivity;
 import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
 import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
@@ -38,6 +46,17 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private android.support.v4.app.Fragment mFrag;
+
+    EditText title;
+    EditText description;
+    TextView tvTimeTo;
+    TextView tvTimeFrom;
+    int year;
+    int month;
+    int day;
+    LocalDate dateFrom;
+    LocalDate dateTo;
     public NewsEditFragment() {
         // Required empty public constructor
     }
@@ -63,10 +82,19 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState != null)
+            mFrag = getFragmentManager().getFragment(savedInstanceState, "saveFragment");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Log.d("NEWSEDIT", "onCreate");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getFragmentManager().putFragment(outState, "saveFragment",mFrag);
     }
 
     @Override
@@ -76,44 +104,127 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_news_edit, container, false);
 
         Bundle bundle = getArguments();
+        Log.d("BUNDLDATA", String.valueOf(bundle));
+        if(bundle != null)
+            this.setArguments(bundle);
         DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
         ImageButton ibSaveNews = v.findViewById(R.id.ibSaveNews);
+        title = v.findViewById(R.id.etTitle);
+        description = v.findViewById(R.id.etDescription);
 
-        ibSaveNews.setOnClickListener(new View.OnClickListener() {
+        title.setText(news.getTitle());
+        description.setText(news.getValue());
+
+        tvTimeFrom = v.findViewById(R.id.tvTimeFrom);
+        tvTimeTo = v.findViewById(R.id.tvTimeTo);
+
+        if (news.getToDate() != null && news.getFromDate() != null)
+        {
+            tvTimeFrom.setText(news.getFromDate().toString());
+            tvTimeTo.setText(news.getToDate().toString());
+            dateTo = news.getToDate();
+            dateFrom = news.getFromDate();
+
+        }
+
+        tvTimeFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            final Calendar c = Calendar.getInstance();
+            year = c.get(Calendar.YEAR);
+            month = c.get(Calendar.MONTH);
+            day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.getInstance()
+                        , new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        tvTimeFrom.setText(year +"-"+ month +"-"+ day);
+                        dateFrom = LocalDate.of(year,month,day);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
 
             }
         });
+        //https://stackoverflow.com/questions/39916178/how-to-show-datepickerdialog-on-button-click
+        tvTimeTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH);
+                day = c.get(Calendar.DAY_OF_MONTH);
 
-        RequestHelper rh = new RequestHelper();
-        HashMap<String,String> params = new HashMap<>();
-        String url = "";
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.getInstance()
+                        , new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        tvTimeTo.setText(year +"-"+ month +"-"+ day);
+                        dateTo = LocalDate.of(year,month,day);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
 
-        EditText title = v.findViewById(R.id.etTitle);
-        EditText description = v.findViewById(R.id.etDescription);
 
-        if (news == null){
+            }
+        });
+        //https://stackoverflow.com/questions/39916178/how-to-show-datepickerdialog-on-button-click
+        ibSaveNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            Bundle bundle = getArguments();
+            DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
+                RequestHelper rh = new RequestHelper();
+                HashMap<String,String> params = new HashMap<>();
+                String url = "http://10.0.2.2:8080/homeds/rs/datasetdatafield/";
 
-            params.put("dataSetColumnId","");
-            params.put("dataId","5");
-            params.put("value","");
-            rh.executeRequest(RequestTypeEnum.POST,params,url);
+                //LocalDate date = LocalDate.now();
+                if (news.getId() != null && news.getDataSetId() != null && news.getDataRowId() != null) {
+                    params.put("id", news.getId().toString());
+                    params.put("dataSetId", news.getDataSetId().toString());
+                    params.put("dataRowId", news.getDataRowId().toString());
+                }
+                params.put("value",description.getText().toString());
+                params.put("title",title.getText().toString());
+                params.put("fromDate", Date.from(dateFrom.atStartOfDay(ZoneId.systemDefault()).toInstant()).toString());
+                params.put("toDate",Date.from(dateTo.atStartOfDay(ZoneId.systemDefault()).toInstant()).toString());
 
-        }
+                if (news.getId() == null){
+                    rh.executeRequest(RequestTypeEnum.POST,params,url+"save");
+                }else{
+                    rh.executeRequest(RequestTypeEnum.PUT,params,url+"edit");
+                }
+            }
+        });
         return v;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("NEWSEDIT", "OnResume");
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("NEWSEDIT", "onPause");
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
-
+    @Override
+    public void onAttachFragment(android.support.v4.app.Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+        Log.d("NEWSEDIT", "Attach");
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.d("NEWSEDIT", "Attach1");
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -121,13 +232,22 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
     @Override
     public void onDetach() {
         super.onDetach();
+        Log.d("NEWSEDIT", "onDetach");
         mListener = null;
     }
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("NEWSEDIT", "onStop");
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("NEWSEDIT", "onDestroy");
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -142,6 +262,5 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
     public void request(){}
 }

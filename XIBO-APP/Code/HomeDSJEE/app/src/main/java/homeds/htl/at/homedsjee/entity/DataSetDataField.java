@@ -2,45 +2,56 @@ package homeds.htl.at.homedsjee.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Created by Felix on 07.02.2018.
  */
 
 public class DataSetDataField implements Serializable {
-    private long dataSetColumnId;
-    private long dataId;
+    private Long id;
+    private Long dataSetId;
+    private Long dataRowId;
     //private String colName;
     private String value;
     private LocalDate fromDate;
     private LocalDate toDate;
-    private String Title;
+    private String title;
 
-    public DataSetDataField(long dataSetColumnId, long dataId, String value, LocalDate fromDate, LocalDate toDate, String title) {
-        this.dataSetColumnId = dataSetColumnId;
-        this.dataId = dataId;
-        //this.colName = colName;
+    public DataSetDataField(Long id, Long dataSetId, Long dataRowId, String value, LocalDate fromDate, LocalDate toDate, String title) {
+        this.id = id;
+        this.dataSetId = dataSetId;
+        this.dataRowId = dataRowId;
         this.value = value;
         this.fromDate = fromDate;
         this.toDate = toDate;
-        Title = title;
+        this.title = title;
     }
 
     public DataSetDataField() { }
 
-    //region Getter & Setter
-    public long getDataSetColumnId() {
-        return dataSetColumnId;
+    public Long getId() {
+        return id;
     }
 
-    public void setDataSetColumnId(long dataSetColumnId) {
-        this.dataSetColumnId = dataSetColumnId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
+    public Long getDataSetId() {
+        return dataSetId;
+    }
 
+    public void setDataSetId(Long dataSetId) {
+        this.dataSetId = dataSetId;
+    }
 
+    public Long getDataRowId() {
+        return dataRowId;
+    }
 
+    public void setDataRowId(Long dataRowId) {
+        this.dataRowId = dataRowId;
+    }
 
     public String getValue() {
         return value;
@@ -48,15 +59,6 @@ public class DataSetDataField implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-
-    public long getDataId() {
-        return dataId;
-    }
-
-    public void setDataId(long dataId) {
-        this.dataId = dataId;
     }
 
     public LocalDate getFromDate() {
@@ -76,10 +78,11 @@ public class DataSetDataField implements Serializable {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 }
+

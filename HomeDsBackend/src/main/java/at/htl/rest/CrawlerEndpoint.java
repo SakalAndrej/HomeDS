@@ -1,5 +1,6 @@
 package at.htl.rest;
 
+import at.htl.exceptions.NoConnectionException;
 import at.htl.xiboClient.CrawlerApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,10 @@ public class CrawlerEndpoint {
     @ApiOperation("Get all Crawled things")
     public Response getCrawler(@QueryParam("layoutId") long id,
                                @QueryParam("layout") String name) {
-        return Response.ok(crawler.getLayoutsWithAllSubEntities(id,name)).build();
+        try {
+            return Response.ok(crawler.getLayoutsWithAllSubEntities(id,name)).build();
+        } catch (NoConnectionException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

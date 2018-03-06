@@ -34,7 +34,12 @@ public class StructurePlanViewHolder extends RecyclerView.ViewHolder {
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    String struct = structure.toString();
+                    String struct = null;
+                    try {
+                        struct = structure.toString(2);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     bundle.putSerializable("actStructure",struct);
                     MainActivity.getInstance().openStructureDetailFragment(bundle);
                 }

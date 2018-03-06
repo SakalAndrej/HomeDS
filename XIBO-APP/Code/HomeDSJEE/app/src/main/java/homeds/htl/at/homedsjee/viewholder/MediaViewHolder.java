@@ -26,7 +26,6 @@ public class MediaViewHolder extends RecyclerView.ViewHolder{
 
     public MediaViewHolder(View itemView) {
         super(itemView);
-
         title = itemView.findViewById(R.id.tvMediaName);
         play = itemView.findViewById(R.id.ibPlay);
         mediaType = itemView.findViewById(R.id.tvMediaType);
@@ -45,7 +44,5 @@ public class MediaViewHolder extends RecyclerView.ViewHolder{
                 rh.executeRequest(RequestTypeEnum.GET,params,url);
             }
         });
-
-
     }
 }

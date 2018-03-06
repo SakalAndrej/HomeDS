@@ -1,7 +1,6 @@
 package at.htl.facades;
 
 import at.htl.model.Campaign;
-import at.htl.model.DataSetDataField;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

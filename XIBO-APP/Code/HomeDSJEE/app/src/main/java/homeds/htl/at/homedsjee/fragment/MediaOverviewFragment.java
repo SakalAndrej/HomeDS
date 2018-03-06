@@ -88,6 +88,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         HashMap<String,String> params = new HashMap<>();
         params.put("start","1");
         params.put("length","10");
+        params.put("tags","");
         rh.executeRequest(RequestTypeEnum.GET,params,"http://10.0.2.2:8080/homeds/rs/media/");
 
 

@@ -1,5 +1,6 @@
 package at.htl.web;
 
+import at.htl.exceptions.NoConnectionException;
 import at.htl.xiboClient.CrawlerApi;
 import org.json.JSONArray;
 
@@ -51,7 +52,11 @@ public class CrawlController implements Serializable {
             name = "";
 
         formatterUrl = "\'http://localhost:8080/homeds/rs/crawler" + query + "\'";
-        crawl = crawler.getLayoutsWithAllSubEntities(actLayoutId, name);
+        try {
+            crawl = crawler.getLayoutsWithAllSubEntities(actLayoutId, name);
+        } catch (NoConnectionException e) {
+            // throw growl
+        }
 
         if (!crawl.isEmpty() && crawl.length() > 2) {
             crawl = new JSONArray(crawl).toString();

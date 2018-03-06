@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
     public void openNewsOverview(){
         FragmentManager fm = getSupportFragmentManager();
         NewsOverviewFragment nov = new NewsOverviewFragment();
-        fm.beginTransaction().replace(R.id.container_main, nov ,null).commit();
+        fm.beginTransaction().replace(R.id.container_main, nov ,null).addToBackStack(null).commit();
     }
 
     public void openEditNewsFragment(DataSetDataField news){
@@ -58,19 +58,21 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
         newsEditFragment.setArguments(bundle);
 
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.container_main, newsEditFragment,null).commit();
+        fm.beginTransaction().replace(R.id.container_main, newsEditFragment,"actEdit").addToBackStack("actEdit").commit();
+
     }
 
     public void openStructurePlanFragment(){
         StructurePlanFragment structurePlanFragment = new StructurePlanFragment();
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.container_main, structurePlanFragment,null).commit();
+        fm.beginTransaction().replace(R.id.container_main, structurePlanFragment,null).addToBackStack(null).commit();
     }
+
 
     public void openMediaOverviewFragment(){
         MediaOverviewFragment mediaOverviewFragment = new MediaOverviewFragment();
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.container_main,mediaOverviewFragment,null).commit();
+        fm.beginTransaction().replace(R.id.container_main,mediaOverviewFragment,null).addToBackStack(null).commit();
     }
 
     public void openStructureDetailFragment(Bundle bundle){
@@ -78,8 +80,9 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
      structureDetailFragmen.setArguments(bundle);
 
      FragmentManager fm = getSupportFragmentManager();
-     fm.beginTransaction().replace(R.id.container_main,structureDetailFragmen,null).commit();
+     fm.beginTransaction().replace(R.id.container_main,structureDetailFragmen,null).addToBackStack(null).commit();
 
     }
+
 
 }

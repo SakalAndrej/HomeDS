@@ -76,23 +76,27 @@ public class RequestHelper {
             //urlBuilder.addQueryParameter("access token", TOKEN);
 
         } else {
-            String stringbody = "";
+            String stringbody = "{";
 
             if (params != null && params.size() > 0) {
                 Iterator it = params.entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry p = (Map.Entry) it.next();
-                    stringbody += "&" + p.getKey().toString() + "=" + p.getValue().toString();
+                    stringbody += "\"" +p.getKey().toString()+ "\"" + ":" + "\"" +p.getValue().toString()+ "\"" + ",";
+
                 }
             }
+           stringbody = stringbody.substring(0,stringbody.length() -1);
+            stringbody += "}";
+           body = RequestBody.create(MediaType.parse("application/json"), stringbody);
+            Log.i(LOGTAG, "sent Body" + stringbody);
 
-            body = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), stringbody);
+
 
         }
 
         URL finalUrl = urlBuilder.build().url();
         Log.i(LOGTAG, "FinalUrl: " + finalUrl.toString());
-
         Request.Builder rb = new Request.Builder();
         switch (executeType) {
             case GET:

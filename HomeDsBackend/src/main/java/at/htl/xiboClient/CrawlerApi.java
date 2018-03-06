@@ -1,6 +1,7 @@
 package at.htl.xiboClient;
 
 import at.htl.enums.RequestTypeEnum;
+import at.htl.exceptions.NoConnectionException;
 import at.htl.utils.AuthentificationHandler;
 import at.htl.utils.RequestHelper;
 
@@ -15,7 +16,7 @@ public class CrawlerApi {
 
     private static RequestHelper requestHelper = new RequestHelper();
 
-    public String getLayoutsWithAllSubEntities(long layoutId, String layoutName) {
+    public String getLayoutsWithAllSubEntities(long layoutId, String layoutName) throws NoConnectionException {
         String resp = "";
         String query = "";
 
@@ -43,7 +44,7 @@ public class CrawlerApi {
             }
             resp = response.toString();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new NoConnectionException("Keine Verbindung zum Server möglich!");
         }
         return resp;
     }

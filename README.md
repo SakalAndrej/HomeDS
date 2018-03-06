@@ -7,7 +7,7 @@ Through our Android App and Website the user can play media's simple, remote and
 This is our personal and customizable Digital Signage System. Our Project should help to easily and with a minimal effort create really beautiful Desktop Diashows.
 With that systems in combination displaying personal data like Wheater, Youtube Feeds, News Feed or whole Web Pages gets very easy and adaptive.
 
-# Team
+# Dev-Team
 
 ### Andrej Sakal(Team Leader)
 Developer for Android, Java and Odroid programming
@@ -32,4 +32,4 @@ Developer for Android, Java and Odroid programming
 - linux server / ubuntu
 
 
-
+### Special thanks to Prof. Stütz who always pushed and support us!

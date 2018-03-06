@@ -17,7 +17,7 @@ public class AuthentificationHandler {
     //handles the authentification process with OAuth2 later on the client id/secret will be provided by params
     private static final String CLIENT_ID = "vwmpjcZ6wrYmNShhOXVQsW54N8PJulK6AEhfRVeF";
     private static final String CLIENT_SECRET = "Z93XJGgZli3yMA0gYdtJjt5qYPEi2zdMMeddzsYbMMWj5AetOuMIfNAn4kAcNtY1GoYSt9dKjfSVIGRGFHnYbf9GEcrgVibliZRNVCPZyvH1cgDJT8vJywAhoWKGQG2wSjOnViXGIqwuOQTi4ojPgX1ZHK4m6sgpbx1micAkY6e7L7xLly7h2gKEHScXOEIhfF9jAmMFxvK1fqQv9o6vsTJCNsEbfRiEKQYYSzkCqfIya9YFWmTAfykGgGsrj0";
-    private static final String AUTHORIZE_URL = "http://localhost:9090/api/authorize/access_token";
+    private static final String AUTHORIZE_URL = "api/authorize/access_token";
 
     private static String TOKEN = "";
 
@@ -31,7 +31,7 @@ public class AuthentificationHandler {
         try {
 
             // Building Connection
-            obj = new URL(AUTHORIZE_URL);
+            obj = new URL(new RequestHelper().BASE_URL + AUTHORIZE_URL);
             con = (HttpURLConnection) obj.openConnection();
 
             con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

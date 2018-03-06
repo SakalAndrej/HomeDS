@@ -1,4 +1,4 @@
-# HomeDS - Home DigitalSignage
+# HomeDS - Home DigitalSignage [![Build Status](http://vm59.htl-leonding.ac.at:9090/job/HomeDsSystems_Backend/badge/icon)](http://vm59.htl-leonding.ac.at:9090/job/HomeDsSystems_Backend/)
 
 This is our personal and customizable Digital Signage System. Our Project should help to easily and with a minimal effort create really beautiful Desktop Diashows.
 

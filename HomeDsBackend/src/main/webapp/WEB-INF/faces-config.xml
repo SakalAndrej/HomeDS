@@ -5,7 +5,7 @@
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <application>
         <locale-config>
-            <default-locale>en</default-locale>
+            <default-locale>de_DE</default-locale>
         </locale-config>
         <resource-bundle>
             <base-name>ApplicationMessages</base-name>

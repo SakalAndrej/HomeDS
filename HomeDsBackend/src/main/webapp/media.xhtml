@@ -47,7 +47,9 @@
                 </p:tagCloud>
             </b:panel>
             <b:panel>
-                <b:commandButton value="Stop" action="#{mediaController.clearMedia}" update="growl"></b:commandButton>
+                <b:commandButton value="Stop" style="width:100%" look="danger" action="#{mediaController.clearMedia}" update="growl">
+                    <b:iconAwesome size="2x" name="fa-minus-circle"></b:iconAwesome>
+                </b:commandButton>
             </b:panel>
             <b:dataTable value="#{mediaController.medias}"
                          var="media" id="mediaTable" responsive="true">
@@ -58,7 +60,7 @@
                     <center>
                         <b:commandButton update="medias @form"
                                          action="#{mediaController.playMedia(media.mediaId)}"
-                                         id="btnDelete" look="danger" style="width:100%">
+                                         id="btnPlay" look="primary" style="width:100%">
                             <b:iconAwesome size="1.5x" name="fa-play"></b:iconAwesome>
                         </b:commandButton>
                     </center>

@@ -23,7 +23,8 @@ import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
  */
 
 public class RequestHelper {
-    public RequestHelper() {}
+    public RequestHelper() {
+    }
 
     private static final String LOGTAG = RequestHelper.class.getSimpleName();
 
@@ -50,14 +51,18 @@ public class RequestHelper {
         this.responseBody = responseBody;
     }
 
-    /**
-     *
-     * @param executeType there is a enum with the options GET POST PUT DELETE
-     * @param params hash map with the key value pairs of the parameters for the body or the header depending on request type
-     * @param url the final request url !!! the url parameters have to be inserted !!! example http://10.0.2.2:9090/api/displaygroup/7/action/changeLayout
 
-     */
     public void executeRequest(RequestTypeEnum executeType, HashMap<String, String> params, String url) {
+        executeRequest(executeType, params, url, null);
+    }
+
+    /**
+     * @param executeType there is a enum with the options GET POST PUT DELETE
+     * @param params      hash map with the key value pairs of the parameters for the body or the header depending on request type
+     * @param url         the final request url !!! the url parameters have to be inserted !!! example http://10.0.2.2:9090/api/displaygroup/7/action/changeLayout
+     * @param callback     callback method to call when the request is finished. In this cases mostly lambda expressions that set UI elements
+     */
+    public void executeRequest(RequestTypeEnum executeType, HashMap<String, String> params, String url, Runnable callback) {
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
 
@@ -82,15 +87,14 @@ public class RequestHelper {
                 Iterator it = params.entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry p = (Map.Entry) it.next();
-                    stringbody += "\"" +p.getKey().toString()+ "\"" + ":" + "\"" +p.getValue().toString()+ "\"" + ",";
+                    stringbody += "\"" + p.getKey().toString() + "\"" + ":" + "\"" + p.getValue().toString() + "\"" + ",";
 
                 }
             }
-           stringbody = stringbody.substring(0,stringbody.length() -1);
+            stringbody = stringbody.substring(0, stringbody.length() - 1);
             stringbody += "}";
-           body = RequestBody.create(MediaType.parse("application/json"), stringbody);
+            body = RequestBody.create(MediaType.parse("application/json"), stringbody);
             Log.i(LOGTAG, "sent Body" + stringbody);
-
 
 
         }
@@ -122,6 +126,7 @@ public class RequestHelper {
             }
 
             @Override
+            //wird aufgerufen wenn ein response erhalten wurde
             public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
                     Log.i(LOGTAG, response.message());
@@ -132,9 +137,15 @@ public class RequestHelper {
                     responseBody = resp;
                     Log.i(LOGTAG, "code: " + response.code());
                     responseCode = response.code();
+
+                    if (callback != null) {
+                        //führt das übergebene callback aus
+                        callback.run();
+                    }
                 }
             }
         };
+        //führt request aus     wenn respons erhalten was ausgeführt wird
         client.newCall(request).enqueue(result);
 
     }

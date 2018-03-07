@@ -5,7 +5,12 @@
          version="3.1">
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
+        <param-value>Production</param-value>
+    </context-param>
+    <!-- Activates the waitcursor and the double-click protection -->
+    <context-param>
+        <param-name>net.bootsfaces.blockUI</param-name>
+        <param-value>true</param-value>
     </context-param>
 
     <servlet>

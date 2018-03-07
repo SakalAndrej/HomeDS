@@ -32,7 +32,7 @@ public class StatusApi {
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } catch (NullPointerException ex) {
-                throw new NoConnectionException("Es ist kein Response vorhanden", ex);
+                return false;
             }
 
             String output;

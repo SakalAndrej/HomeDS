@@ -46,6 +46,9 @@
                     <p:ajax event="select" update="mediaTable" listener="#{mediaController.onSelect}"/>
                 </p:tagCloud>
             </b:panel>
+            <b:panel>
+                <b:commandButton value="Stop" action="#{mediaController.clearMedia}" update="growl"></b:commandButton>
+            </b:panel>
             <b:dataTable value="#{mediaController.medias}"
                          var="media" id="mediaTable" responsive="true">
                 <b:dataTableColumn value="#{media.mediaId}" label="Media ID"/>

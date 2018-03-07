@@ -2,8 +2,12 @@ package at.htl.web;
 
 import at.htl.enums.XiboEnum;
 import at.htl.exceptions.NoConnectionException;
+import at.htl.facades.CampaignFacade;
+import at.htl.model.Campaign;
+import at.htl.model.Display;
 import at.htl.model.Media;
 import at.htl.utils.LayoutChangerUtil;
+import at.htl.xiboClient.DisplayApi;
 import at.htl.xiboClient.MediaApi;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.tagcloud.DefaultTagCloudItem;
@@ -19,6 +23,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 @Model
@@ -29,7 +34,13 @@ public class MediaController implements Serializable {
     MediaApi mediaApi;
 
     @Inject
+    DisplayApi displayApi;
+
+    @Inject
     LayoutChangerUtil layoutChangerUtil;
+
+    @Inject
+    CampaignFacade campaignFacade;
 
     private TagCloudModel model;
 
@@ -104,17 +115,36 @@ public class MediaController implements Serializable {
 
     public void onSelect(SelectEvent event) {
         TagCloudItem item = (TagCloudItem) event.getObject();
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", item.getLabel());
+        FacesContext context = FacesContext.getCurrentInstance();
 
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
         try {
             if (!tags.equals(item.getLabel())) {
                 tags = item.getLabel();
                 this.updateList(tags);
             }
         } catch (NoConnectionException e) {
-            e.printStackTrace();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Could not establish connection"));
+
+        }
+    }
+
+    public void clearMedia() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        List<Campaign> campaigns = campaignFacade.getAllMedia();
+        if (campaigns != null && campaigns.size() > 0) {
+            for (int i = 0; i < campaigns.size(); i++) {
+                try {
+                    if (displayApi.deleteEvent(campaigns.get(i).getCampaignId())) {
+                        campaignFacade.delete(campaigns.get(i).getId());
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully stopped media!"));
+                    }
+                } catch (NoConnectionException e) {
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Could not establish connection"));
+                }
+            }
+        }
+        else {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Nothing to stop!"));
         }
     }
 

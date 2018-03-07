@@ -2,7 +2,7 @@
 
 Im Menüpunkt Session unter Hostname, Port und Connection type Daten wie folgt eintragen. Danach unter  Saved Session noch einen Namen zum speichern eintragen. Close Window on exit noch auf Never stellen.
 
-![01_putty](./images\HowToXibo/01_putty.PNG)
+![01_putty](./images/HowToXibo/01_putty.PNG)
 
 
 

@@ -1,4 +1,4 @@
-# HomeDS - Home Digital Signage [![Build Status](http://vm59.htl-leonding.ac.at:9090/job/HomeDsSystems_Backend/badge/icon)](http://vm59.htl-leonding.ac.at:9090/job/HomeDsSystems_Backend) [logo](./Documents/HomesLogoTrans.png)
+# HomeDS - Home Digital Signage [![Build Status](http://vm59.htl-leonding.ac.at:9090/job/HomeDsSystems_Backend/badge/icon)](http://vm59.htl-leonding.ac.at:9090/job/HomeDsSystems_Backend) ![](Documents/HomesLogoTrans.png)
 
 
 

@@ -46,7 +46,7 @@ public class DataSetController implements Serializable {
         dataSetToAdd = new DataSetDataField();
     }
 
-    private void removeDataSet(DataSetDataField dataSet) {
+    public void removeDataSet(DataSetDataField dataSet) {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             if (dataSet != null && dataSet.isActive() && (dataSet.getDataSetId() != -1 || dataSet.getDataSetId() != 0)) {
@@ -84,7 +84,7 @@ public class DataSetController implements Serializable {
         }
     }
 
-    private void addDataSetToXibo(DataSetDataField dataFieldToAdd) {
+    public void addDataSetToXibo(DataSetDataField dataFieldToAdd) {
         FacesContext context = FacesContext.getCurrentInstance();
 
         try {
@@ -188,7 +188,7 @@ public class DataSetController implements Serializable {
         }
     }
 
-    private void updateList() {
+    public void updateList() {
         dataSetData = dataSetFieldFacade.getAll();
     }
 

@@ -38,7 +38,7 @@ public class CrawlController implements Serializable {
         this.startCrawl();
     }
 
-    private void startCrawl() {
+    public void startCrawl() {
         String name;
         long id;
         String query = "";

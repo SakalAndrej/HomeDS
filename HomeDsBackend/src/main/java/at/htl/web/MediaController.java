@@ -77,7 +77,7 @@ public class MediaController implements Serializable {
         model.addTag(new DefaultTagCloudItem("Projektvideos", "#", 2));
     }
 
-    private void updateList(String cloudTags) throws NoConnectionException {
+    public void updateList(String cloudTags) throws NoConnectionException {
         medias = mediaApi.getAllMedia(0, 50, cloudTags);
         if (medias.size() > 10)
             shortMedias = medias.subList(0, 5);

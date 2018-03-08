@@ -16,7 +16,7 @@ import java.util.LinkedList;
 @Stateless
 public class StatusApi {
 
-    public boolean getIsOnline() {
+    public boolean getIsOnline() throws NoConnectionException {
         BufferedReader in;
 
         try {
@@ -50,7 +50,7 @@ public class StatusApi {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new NoConnectionException("No Server connection could be established");
         }
-        return false;
     }
 }

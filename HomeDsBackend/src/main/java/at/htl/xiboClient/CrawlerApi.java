@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 @Stateless
 public class CrawlerApi {
 
-    private static RequestHelper requestHelper = new RequestHelper();
+    // --Commented out by Inspection (08.03.18, 23:43):private static RequestHelper requestHelper = new RequestHelper();
 
     public String getLayoutsWithAllSubEntities(long layoutId, String layoutName) throws NoConnectionException {
         String resp = "";
@@ -38,7 +38,7 @@ public class CrawlerApi {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }

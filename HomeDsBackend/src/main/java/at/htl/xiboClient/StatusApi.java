@@ -16,10 +16,8 @@ import java.util.LinkedList;
 @Stateless
 public class StatusApi {
 
-    public boolean getIsOnline() throws NoConnectionException {
+    public boolean getIsOnline() {
         BufferedReader in;
-        LinkedList<DataSet> dataSets = new LinkedList<>();
-        DataSet act = new DataSet();
 
         try {
             //Get all Datasets
@@ -36,11 +34,11 @@ public class StatusApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
-            if (con.getResponseCode() == 200 && response.toString().isEmpty() == false) {
+            if (con.getResponseCode() == 200 && !response.toString().isEmpty()) {
                 in.close();
                 con.disconnect();
                 return true;

@@ -72,31 +72,31 @@
                                                   firstDay="1" value="#{actDataSet.dateToDate}"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn medium-screen="1" label="#{msg['active']}" orderable="false">
-                                    <center>
+                                    <div style="text-align: center;">
                                         <b:iconAwesome size="2x" rendered="#{actDataSet.active == false}"
                                                        name="fa-close" style="color: red;"></b:iconAwesome>
                                         <b:iconAwesome size="2x" rendered="#{actDataSet.active == true}"
                                                        name="fa-check" style="color: green;"></b:iconAwesome>
-                                    </center>
+                                    </div>
                                 </b:dataTableColumn>
 
                                 <b:dataTableColumn medium-screen="1" label="#{msg['delete']}">
-                                    <center>
+                                    <div style="text-align: center;">
                                         <b:commandButton update="dataSetEditor growl"
                                                          action="#{dataSetController.removeDataSet(actDataSet)}"
                                                          id="btnDelete" look="danger">
                                             <b:iconAwesome size="1.5x" name="fa-trash"></b:iconAwesome>
                                         </b:commandButton>
-                                    </center>
+                                    </div>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn label="#{msg['edit']}">
-                                    <center>
+                                    <div style="text-align: center;">
                                         <b:commandButton
                                                 action="#{dataSetController.editDataSet(actDataSet)}"
                                                 id="btnSave" look="primary" update="growl dataSetEditor">
                                             <b:iconAwesome size="1.5x" name="far fa-save"></b:iconAwesome>
                                         </b:commandButton>
-                                    </center>
+                                    </div>
                                 </b:dataTableColumn>
                             </b:dataTable>
                         </b:form>

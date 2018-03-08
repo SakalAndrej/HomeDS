@@ -17,6 +17,7 @@ import java.io.Serializable;
 public class CrawlController implements Serializable {
 
     @Inject
+    private
     CrawlerApi crawler;
 
     private String crawl;
@@ -37,7 +38,7 @@ public class CrawlController implements Serializable {
         this.startCrawl();
     }
 
-    public void startCrawl() {
+    private void startCrawl() {
         String name;
         long id;
         String query = "";

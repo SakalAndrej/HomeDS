@@ -18,9 +18,11 @@ import java.time.LocalDateTime;
 public class MediaEndpoint {
 
     @Inject
+    private
     MediaApi mediaApi;
 
     @Inject
+    private
     LayoutChangerUtil layoutChangerUtil;
 
     @GET

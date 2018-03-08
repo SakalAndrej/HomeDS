@@ -17,12 +17,14 @@ import java.util.List;
 
 @Singleton
 @Startup
-public class TimeService {
+class TimeService {
 
     @EJB
+    private
     DataSetFieldFacade dataSetFieldFacade;
 
     @EJB
+    private
     DataSetApi dataSetApi;
 
     @EJB
@@ -32,6 +34,7 @@ public class TimeService {
     CampaignFacade campaignFacade;
 
     @EJB
+    private
     LayoutChangerUtil layoutChangerUtil;
 
     @Schedule(minute = "*", hour = "23")
@@ -42,43 +45,41 @@ public class TimeService {
         if (datafields != null && datafields.size() > 0) {
 
             //another null checks
-            for (int i = 0; i < datafields.size(); i++) {
-                if (datafields.get(i) != null && datafields.get(i).getFromDate() != null) {
+            for (DataSetDataField datafield : datafields) {
+                if (datafield != null && datafield.getFromDate() != null) {
 
                     // check if fromdate is before or today
-                    if (datafields.get(i).isActive() == false && (datafields.get(i).getFromDate().isEqual(LocalDate.now()) || datafields.get(i).getFromDate().isBefore(LocalDate.now()))) {
+                    if (!datafield.isActive() && (datafield.getFromDate().isEqual(LocalDate.now()) || datafield.getFromDate().isBefore(LocalDate.now()))) {
                         long id;
                         try {
                             // if suc added then set active true and add id
-                            if ((id = dataSetApi.addDataSetField(datafields.get(i))) > 0) {
-                                datafields.get(i).setDataRowId(id);
-                                datafields.get(i).setActive(true);
-                                dataSetFieldFacade.save(datafields.get(i));
-                                System.out.println(String.format("FROMDATE: Entity: %s, is now active, the fromDate is before or today", datafields.get(i).getDataRowId()));
-                            }
-                            else {
-                                System.out.println(String.format("FROMDATE: Entity: %s, should be active, but error while adding", datafields.get(i).getDataRowId()));
+                            if ((id = dataSetApi.addDataSetField(datafield)) > 0) {
+                                datafield.setDataRowId(id);
+                                datafield.setActive(true);
+                                dataSetFieldFacade.save(datafield);
+                                System.out.println(String.format("FROMDATE: Entity: %s, is now active, the fromDate is before or today", datafield.getDataRowId()));
+                            } else {
+                                System.out.println(String.format("FROMDATE: Entity: %s, should be active, but error while adding", datafield.getDataRowId()));
                             }
                         } catch (NoConnectionException e) {
                             System.out.println(String.format("FROMDATE: No connection could be established"));
                         }
-                    }
-                    else {
-                        System.out.println(String.format("FROMDATE: Entity: %s, are not ready yet, the fromDate is after or today", datafields.get(i).getDataRowId()));
+                    } else {
+                        System.out.println(String.format("FROMDATE: Entity: %s, are not ready yet, the fromDate is after or today", datafield.getDataRowId()));
                     }
                 }
 
 
                 // Null checks of to date
-                if (datafields.get(i) != null && datafields.get(i).getToDate() != null ) {
+                if (datafield != null && datafield.getToDate() != null) {
                     // check if todate is after today
-                    if (datafields.get(i).getToDate().isAfter(LocalDate.now()) || datafields.get(i).getToDate().equals(LocalDate.now()))
-                        System.out.println(String.format("TODATE: Entity: %s, Everything okay, the toDate is after today", datafields.get(i).getDataRowId()));
+                    if (datafield.getToDate().isAfter(LocalDate.now()) || datafield.getToDate().equals(LocalDate.now()))
+                        System.out.println(String.format("TODATE: Entity: %s, Everything okay, the toDate is after today", datafield.getDataRowId()));
                     else {
                         try {
-                            if (204 == dataSetApi.removeRow(datafields.get(i).getDataRowId(), datafields.get(i).getDataSetId())) {
-                                dataSetFieldFacade.deleteByRowId(datafields.get(i).getDataRowId());
-                                System.out.println(String.format("TODATE: Entity: %s, the toDate is expired!", datafields.get(i).getDataRowId()));
+                            if (204 == dataSetApi.removeRow(datafield.getDataRowId(), datafield.getDataSetId())) {
+                                dataSetFieldFacade.deleteByRowId(datafield.getDataRowId());
+                                System.out.println(String.format("TODATE: Entity: %s, the toDate is expired!", datafield.getDataRowId()));
                             }
 
                         } catch (NoConnectionException e) {
@@ -86,7 +87,7 @@ public class TimeService {
                         }
                     }
                 } else {
-                    System.out.println(String.format("TODATE: Entity: %s, toDate is unavailable or entity is null", datafields.get(i).getDataRowId()));
+                    System.out.println(String.format("TODATE: Entity: %s, toDate is unavailable or entity is null", datafield.getDataRowId()));
                 }
             }
             System.out.println("Every min scheduler succesfully did his job :)!");

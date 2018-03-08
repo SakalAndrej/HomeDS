@@ -4,7 +4,6 @@ import at.htl.enums.XiboEnum;
 import at.htl.exceptions.NoConnectionException;
 import at.htl.facades.CampaignFacade;
 import at.htl.model.Campaign;
-import at.htl.model.Display;
 import at.htl.model.Media;
 import at.htl.utils.LayoutChangerUtil;
 import at.htl.xiboClient.DisplayApi;
@@ -23,7 +22,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 
 @Model
@@ -31,15 +29,19 @@ import java.util.List;
 public class MediaController implements Serializable {
 
     @Inject
+    private
     MediaApi mediaApi;
 
     @Inject
+    private
     DisplayApi displayApi;
 
     @Inject
+    private
     LayoutChangerUtil layoutChangerUtil;
 
     @Inject
+    private
     CampaignFacade campaignFacade;
 
     private TagCloudModel model;
@@ -75,7 +77,7 @@ public class MediaController implements Serializable {
     }
 
     private void updateList(String cloudTags) throws NoConnectionException {
-        this.medias = mediaApi.getAllMedia(0, 50, cloudTags);
+        medias = mediaApi.getAllMedia(0, 50, cloudTags);
         if (medias.size() > 10)
             shortMedias = medias.subList(0, 5);
         else {
@@ -132,10 +134,10 @@ public class MediaController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         List<Campaign> campaigns = campaignFacade.getAllMedia();
         if (campaigns != null && campaigns.size() > 0) {
-            for (int i = 0; i < campaigns.size(); i++) {
+            for (Campaign campaign : campaigns) {
                 try {
-                    if (displayApi.deleteEvent(campaigns.get(i).getCampaignId())) {
-                        campaignFacade.delete(campaigns.get(i).getId());
+                    if (displayApi.deleteEvent(campaign.getCampaignId())) {
+                        campaignFacade.delete(campaign.getId());
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully stopped media!"));
                     }
                 } catch (NoConnectionException e) {
@@ -154,7 +156,7 @@ public class MediaController implements Serializable {
     }
 
     public void setMedias(List<Media> medias) {
-        this.medias = medias;
+        MediaController.medias = medias;
     }
 
     public List<Media> getShortMedias() {
@@ -162,7 +164,7 @@ public class MediaController implements Serializable {
     }
 
     public void setShortMedias(List<Media> shortMedias) {
-        this.shortMedias = shortMedias;
+        MediaController.shortMedias = shortMedias;
     }
 
     public TagCloudModel getModel() {

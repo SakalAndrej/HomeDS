@@ -13,14 +13,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 @Stateless
 public class MediaApi {
 
-    public final String editPlaylistId = "157";
+    private final String editPlaylistId = "157";
 
     public LinkedList<Media> getAllMedia(int start, int length, String tags) throws NoConnectionException {
 
@@ -40,7 +38,7 @@ public class MediaApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -80,7 +78,7 @@ public class MediaApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -107,7 +105,7 @@ public class MediaApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -136,7 +134,7 @@ public class MediaApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }

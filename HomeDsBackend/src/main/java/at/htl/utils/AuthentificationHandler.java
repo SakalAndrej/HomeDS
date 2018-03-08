@@ -54,7 +54,7 @@ public class AuthentificationHandler {
             //Read response
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }

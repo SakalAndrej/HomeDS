@@ -17,15 +17,19 @@ import java.util.List;
 public class LayoutChangerUtil {
 
     @Inject
+    private
     DisplayApi displayApi;
 
     @Inject
+    private
     DataSetApi dataSetApi;
 
     @Inject
+    private
     DataSetFieldFacade dataSetFieldFacade;
 
     @Inject
+    private
     CampaignFacade campaignFacade;
 
     public void changeLayout(long campaignLayoutId, LocalDateTime toDate, XiboEnum xiboEnum) throws NoConnectionException {

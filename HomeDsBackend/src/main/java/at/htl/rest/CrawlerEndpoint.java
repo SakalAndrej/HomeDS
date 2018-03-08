@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 public class CrawlerEndpoint {
 
     @Inject
+    private
     CrawlerApi crawler;
 
     @GET

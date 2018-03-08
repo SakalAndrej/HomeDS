@@ -57,22 +57,18 @@
                 <b:dataTableColumn value="#{media.name}" label="#{msg['mediaName']}" order="asc"/>
                 <b:dataTableColumn value="#{media.mediaType}" label="#{msg['mediaType']}"/>
                 <b:dataTableColumn label="#{msg['playMe']}">
-                    <center>
+                    <div style="text-align: center;">
                         <b:commandButton update="medias @form"
                                          action="#{mediaController.playMedia(media.mediaId)}"
                                          id="btnPlay" look="primary" style="width:100%">
                             <b:iconAwesome size="1.5x" name="fa-play"></b:iconAwesome>
                         </b:commandButton>
-                    </center>
+                    </div>
                 </b:dataTableColumn>
             </b:dataTable>
         </h:form>
     </b:container>
     <style type="text/css">
-        li.ui-tagcloud-strength-5 {
-            font-weight: bold;
-            text-decoration: underline;
-        }
     </style>
 </h:body>
 

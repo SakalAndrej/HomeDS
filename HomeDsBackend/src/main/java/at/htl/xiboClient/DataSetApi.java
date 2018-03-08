@@ -44,7 +44,7 @@ public class DataSetApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -96,7 +96,7 @@ public class DataSetApi {
             in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -159,7 +159,7 @@ public class DataSetApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -201,7 +201,7 @@ public class DataSetApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -214,7 +214,7 @@ public class DataSetApi {
     }
 
     private String replaceCodings(String dataSetFieldValue) {
-        String finalValue = dataSetFieldValue.replaceAll("Ä","&Auml;")
+        return dataSetFieldValue.replaceAll("Ä","&Auml;")
                 .replaceAll("ä","&auml;")
                 .replaceAll("Ö","&Ouml;")
                 .replaceAll("ö","&ouml;")
@@ -222,7 +222,6 @@ public class DataSetApi {
                 .replaceAll("ü","&uuml;")
                 .replaceAll("ß","&szlig")
                 .replaceAll("&","%26");
-        return finalValue;
     }
 
     public long addDataSetField(DataSetDataField dataField) throws NoConnectionException {
@@ -244,7 +243,7 @@ public class DataSetApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -275,7 +274,7 @@ public class DataSetApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -293,13 +292,6 @@ public class DataSetApi {
                     .executeRequest(RequestTypeEnum.POST, "",
                             new RequestHelper().BASE_URL + "api/displaygroup/17/action/collectNow",
                             AuthentificationHandler.getTOKEN());
-
-
-            try {
-            }
-            catch (NullPointerException ex) {
-                throw new NoConnectionException("Es ist kein Response vorhanden", ex);
-            }
     }
 
 

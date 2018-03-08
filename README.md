@@ -1,4 +1,6 @@
-# HomeDS - Home Digital Signage [![Build Status](http://vm59.htl-leonding.ac.at:9090/job/HomeDsSystems_Backend/badge/icon)](http://vm59.htl-leonding.ac.at:9090/job/HomeDsSystems_Backend)
+# HomeDS - Home Digital Signage [![Build Status](http://vm59.htl-leonding.ac.at:9090/job/HomeDsSystems_Backend/badge/icon)](http://vm59.htl-leonding.ac.at:9090/job/HomeDsSystems_Backend) [logo](./Documents/HomesLogoTrans.png)
+
+
 
 ## Intro
 This is a Project made as a Diploma Thesis. This project manages the presentation devices of the HTL Leonding based in Upper Austria. Wit this Digital Signage System you can designe your own layouts with various out of the box widgets. Like playing project related prasentation videos, showing informative text, showing digital or analog clock and the wheather based on the GPS data of the display and much more. This system can do anything if you want it!

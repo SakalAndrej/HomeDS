@@ -40,7 +40,7 @@ public class DisplayApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -95,7 +95,7 @@ public class DisplayApi {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
                 String output;
-                StringBuffer response = new StringBuffer();
+                StringBuilder response = new StringBuilder();
                 while ((output = in.readLine()) != null) {
                     response.append(output);
                 }
@@ -118,12 +118,7 @@ public class DisplayApi {
                     .executeRequest(RequestTypeEnum.DELETE, null,
                             new RequestHelper().BASE_URL + "api/schedule/" + campaignId,
                             AuthentificationHandler.getTOKEN());
-            if (con.getResponseCode()==204) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return con.getResponseCode() == 204;
         } catch (NullPointerException ex) {
             throw new NoConnectionException("Es ist kein Response vorhanden", ex);
         } catch (IOException e) {

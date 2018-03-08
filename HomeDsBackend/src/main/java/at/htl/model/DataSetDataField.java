@@ -25,7 +25,7 @@ public class DataSetDataField {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private Long dataSetId = Long.valueOf(5);
+    private Long dataSetId = 5L;
 
     private Long dataRowId;
 

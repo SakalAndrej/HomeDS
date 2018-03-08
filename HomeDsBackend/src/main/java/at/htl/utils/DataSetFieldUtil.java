@@ -9,33 +9,33 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-public class DataSetFieldUtil {
+class DataSetFieldUtil {
 
     @Inject
+    private
     DataSetFieldFacade dataSetFieldFacade;
 
     @Inject
+    private
     DataSetApi dataSetApi;
 
     public Response.Status editDataSetField(DataSetDataField dataSetFieldToEdit) {
         if (dataSetFieldToEdit.getFromDate() != null && dataSetFieldToEdit.getToDate() != null) {
 
             // editing from date so that it should be active
-            if (dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1)) && dataSetFieldToEdit.isActive() == false) {
+            if (dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1)) && !dataSetFieldToEdit.isActive()) {
 
                 //copy entity
-                DataSetDataField temp = dataSetFieldToEdit;
                 dataSetFieldFacade.deleteById(dataSetFieldToEdit.getId());
-                temp.setId(0);
-                this.addDataSetToXibo(temp);
+                dataSetFieldToEdit.setId(0);
+                this.addDataSetToXibo(dataSetFieldToEdit);
 
                 return Response.Status.OK;
             }
             // just edit unactive dataset
-            else if ((dataSetFieldToEdit.getDataRowId() < 0 || dataSetFieldToEdit.isActive() == false)) {
+            else if ((dataSetFieldToEdit.getDataRowId() < 0 || !dataSetFieldToEdit.isActive())) {
                 dataSetFieldFacade.merge(dataSetFieldToEdit);
                 return Response.Status.OK;
 
@@ -67,28 +67,23 @@ public class DataSetFieldUtil {
         return Response.Status.INTERNAL_SERVER_ERROR;
     }
 
-    public Response.Status removeDataSet(DataSetDataField dataSet) {
+    private void removeDataSet(DataSetDataField dataSet) {
         try {
             if (dataSet != null && dataSet.isActive() && (dataSet.getDataSetId() != -1 || dataSet.getDataSetId() != 0)) {
                 if (dataSetApi.removeRow(dataSet.getDataRowId(), dataSet.getDataSetId()) == 204) {
                     dataSetFieldFacade.deleteByRowId(dataSet.getDataRowId());
-                    return Response.Status.OK;
                 } else {
-                    return Response.Status.INTERNAL_SERVER_ERROR;
                 }
-            } else if (dataSet.isActive() == false) {
+            } else if (!dataSet.isActive()) {
                 dataSetFieldFacade.deleteById(dataSet.getId());
-                return Response.Status.OK;
             } else {
-                return Response.Status.NO_CONTENT;
             }
         } catch (NoConnectionException ex) {
-            return Response.Status.INTERNAL_SERVER_ERROR;
         }
     }
 
     public Response.Status addDataSet(DataSetDataField dataSetToAdd) {
-        if ((dataSetToAdd.getFromDate() != null) && (dataSetToAdd.getFromDate().isAfter(LocalDate.now()) == false || dataSetToAdd.getFromDate().isEqual(LocalDate.now()) == true)) {
+        if ((dataSetToAdd.getFromDate() != null) && (!dataSetToAdd.getFromDate().isAfter(LocalDate.now()) || dataSetToAdd.getFromDate().isEqual(LocalDate.now()))) {
             this.addDataSetToXibo(dataSetToAdd);
             return Response.Status.OK;
         } else if ((dataSetToAdd.getFromDate() == null)) {
@@ -98,12 +93,11 @@ public class DataSetFieldUtil {
             dataSetToAdd.setDataRowId(-1);
             dataSetToAdd.setActive(false);
             dataSetFieldFacade.save(dataSetToAdd);
-            dataSetToAdd = new DataSetDataField();
             return Response.Status.OK;
         }
     }
 
-    public Response.Status addDataSetToXibo(DataSetDataField dataFieldToAdd) {
+    private void addDataSetToXibo(DataSetDataField dataFieldToAdd) {
         try {
             long id = this.dataSetApi.addDataSetField(dataFieldToAdd);
 
@@ -113,21 +107,18 @@ public class DataSetFieldUtil {
                 dataSetFieldFacade.save(dataFieldToAdd);
 
                 //clear add variable
-                return Response.Status.OK;
             } else {
-                return Response.Status.INTERNAL_SERVER_ERROR;
             }
         } catch (NoConnectionException ex) {
-            return Response.Status.INTERNAL_SERVER_ERROR;
         }
     }
 
     public void checkIfAnyDataSetFieldIsAvailAbleAndActive() {
         boolean change = false;
-        List<DataSetDataField> dataFields = new ArrayList<>();
+        List<DataSetDataField> dataFields;
         if ((dataFields = dataSetFieldFacade.getAll()) != null && dataFields.size() > 0) {
-            for (int i = 0; i < dataFields.size(); i++) {
-                if (dataFields.get(i).isActive()) {
+            for (DataSetDataField dataField : dataFields) {
+                if (dataField.isActive()) {
                     change = true;
                 }
             }

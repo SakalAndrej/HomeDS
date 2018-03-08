@@ -30,10 +30,10 @@
                         #{msg['changeDataSet']}
                         <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
                                        name="fa-close" style="color: red;"
-                                       tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
+                                       tooltip="#{msg['offlineMessage']}"/>
                         <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
                                        name="fa-check" style="color: green;"
-                                       tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
+                                       tooltip="#{msg['onlineMessage']}"/>
                     </h1>
                 </b:panel>
                 <b:panel ajax="true" title="#{msg['editNewsTitle']} (#{dataSetController.dataSetData.size()})"
@@ -72,31 +72,31 @@
                                                   firstDay="1" value="#{actDataSet.dateToDate}"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn medium-screen="1" label="#{msg['active']}" orderable="false">
-                                    <center>
+                                    <div style="text-align: center;">
                                         <b:iconAwesome size="2x" rendered="#{actDataSet.active == false}"
-                                                       name="fa-close" style="color: red;"></b:iconAwesome>
+                                                       name="fa-close" style="color: red;"/>
                                         <b:iconAwesome size="2x" rendered="#{actDataSet.active == true}"
-                                                       name="fa-check" style="color: green;"></b:iconAwesome>
-                                    </center>
+                                                       name="fa-check" style="color: green;"/>
+                                    </div>
                                 </b:dataTableColumn>
 
                                 <b:dataTableColumn medium-screen="1" label="#{msg['delete']}">
-                                    <center>
+                                    <div style="text-align: center;">
                                         <b:commandButton update="dataSetEditor growl"
                                                          action="#{dataSetController.removeDataSet(actDataSet)}"
                                                          id="btnDelete" look="danger">
-                                            <b:iconAwesome size="1.5x" name="fa-trash"></b:iconAwesome>
+                                            <b:iconAwesome size="1.5x" name="fa-trash"/>
                                         </b:commandButton>
-                                    </center>
+                                    </div>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn label="#{msg['edit']}">
-                                    <center>
+                                    <div style="text-align: center;">
                                         <b:commandButton
                                                 action="#{dataSetController.editDataSet(actDataSet)}"
                                                 id="btnSave" look="primary" update="growl dataSetEditor">
-                                            <b:iconAwesome size="1.5x" name="far fa-save"></b:iconAwesome>
+                                            <b:iconAwesome size="1.5x" name="far fa-save"/>
                                         </b:commandButton>
-                                    </center>
+                                    </div>
                                 </b:dataTableColumn>
                             </b:dataTable>
                         </b:form>
@@ -160,7 +160,7 @@
                                                                  update="dataSetEditor @form growl"
                                                                  look="primary"
                                                                  action="#{dataSetController.addDataSet}">
-                                                    <b:iconAwesome size="2x" name="fa-plus-square-o"></b:iconAwesome>
+                                                    <b:iconAwesome size="2x" name="fa-plus-square-o"/>
                                                 </b:commandButton>
                                             </b:column>
                                         </b:row>

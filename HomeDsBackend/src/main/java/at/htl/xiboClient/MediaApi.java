@@ -13,19 +13,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 @Stateless
 public class MediaApi {
 
-    public final String editPlaylistId = "157";
+    private final String editPlaylistId = "157";
 
     public LinkedList<Media> getAllMedia(int start, int length, String tags) throws NoConnectionException {
 
         BufferedReader in;
-        LinkedList<Media> medias = new LinkedList<Media>();
+        LinkedList<Media> medias = new LinkedList<>();
         Media actual = new Media();
 
         try {
@@ -40,7 +38,7 @@ public class MediaApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -80,7 +78,7 @@ public class MediaApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -97,7 +95,7 @@ public class MediaApi {
                     .executeRequest(RequestTypeEnum.DELETE, null,
                             new RequestHelper().BASE_URL + "api/playlist/widget/" + widgetId,
                             AuthentificationHandler.getTOKEN());
-            BufferedReader in = null;
+            BufferedReader in;
 
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -107,7 +105,7 @@ public class MediaApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -126,7 +124,7 @@ public class MediaApi {
                     .executeRequest(RequestTypeEnum.GET, null,
                             new RequestHelper().BASE_URL + "api/playlist/widget?playlistId="+editPlaylistId,
                             AuthentificationHandler.getTOKEN());
-            BufferedReader in = null;
+            BufferedReader in;
 
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -136,7 +134,7 @@ public class MediaApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -144,7 +142,7 @@ public class MediaApi {
                 JSONArray array = new JSONArray(response.toString());
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject object = array.getJSONObject(i);
-                    if ((mediaId = (long) object.getLong("widgetId")) != 0) {
+                    if ((mediaId = object.getLong("widgetId")) != 0) {
                         return mediaId;
                     }
                 }

@@ -12,6 +12,7 @@ import java.util.List;
 public class CampaignFacade {
 
     @PersistenceContext
+    private
     EntityManager entityManager;
 
     public void save(Campaign campaign) {
@@ -22,7 +23,7 @@ public class CampaignFacade {
         entityManager.merge(campaign);
     }
 
-    public Campaign findById(long id) {
+    private Campaign findById(long id) {
         return entityManager.find(Campaign.class,id);
     }
 

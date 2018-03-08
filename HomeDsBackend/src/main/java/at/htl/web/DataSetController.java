@@ -21,12 +21,15 @@ import java.util.List;
 public class DataSetController implements Serializable {
 
     @Inject
+    private
     DataSetFieldFacade dataSetFieldFacade;
 
     @Inject
+    private
     DataSetApi dataSetApi;
 
     @Inject
+    private
     LayoutChangerUtil layoutChangerUtil;
 
     private static List<DataSetDataField> dataSetData;
@@ -55,7 +58,7 @@ public class DataSetController implements Serializable {
                 } else {
                     context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while deleting DataSetRow: " + dataSet.getDataRowId()));
                 }
-            } else if (dataSet.isActive() == false) {
+            } else if (!dataSet.isActive()) {
                 dataSetFieldFacade.deleteById(dataSet.getId());
                 this.updateList();
             } else {
@@ -68,7 +71,7 @@ public class DataSetController implements Serializable {
     }
 
     public void addDataSet() {
-        if ((dataSetToAdd.getFromDate() != null) && (dataSetToAdd.getFromDate().isAfter(LocalDate.now()) == false || dataSetToAdd.getFromDate().isEqual(LocalDate.now()) == true)) {
+        if ((dataSetToAdd.getFromDate() != null) && (!dataSetToAdd.getFromDate().isAfter(LocalDate.now()) || dataSetToAdd.getFromDate().isEqual(LocalDate.now()))) {
             this.addDataSetToXibo(dataSetToAdd);
         } else if ((dataSetToAdd.getFromDate() == null)) {
             this.addDataSetToXibo(dataSetToAdd);
@@ -109,7 +112,7 @@ public class DataSetController implements Serializable {
 
     public void editDataSet(DataSetDataField dataSetFieldToEdit) {
         FacesContext context = FacesContext.getCurrentInstance();
-        if (dataSetFieldToEdit != null && dataSetFieldToEdit.getValue().isEmpty() == false && dataSetFieldToEdit.getTitle().isEmpty() == false) {
+        if (dataSetFieldToEdit != null && !dataSetFieldToEdit.getValue().isEmpty() && !dataSetFieldToEdit.getTitle().isEmpty()) {
 
             // when the fromdate is null then...
             if  (dataSetFieldToEdit.getFromDate()==null) {
@@ -122,7 +125,7 @@ public class DataSetController implements Serializable {
                             this.updateList();
 
                             dataSetApi.collectNowAll();
-                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
+                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
                         } else {
                             this.updateList();
                             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while editing DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
@@ -133,28 +136,26 @@ public class DataSetController implements Serializable {
                 }
                 else {
                     // when its not active make it active
-                    DataSetDataField temp = dataSetFieldToEdit;
                     dataSetFieldFacade.deleteById(dataSetFieldToEdit.getId());
-                    temp.setId(0);
-                    this.addDataSetToXibo(temp);
+                    dataSetFieldToEdit.setId(0);
+                    this.addDataSetToXibo(dataSetFieldToEdit);
                 }
             }
             else {
                 // editing from date so that it should be active
-                if (dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1)) && dataSetFieldToEdit.isActive() == false) {
+                if (dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1)) && !dataSetFieldToEdit.isActive()) {
 
                     //copy entity
-                    DataSetDataField temp = dataSetFieldToEdit;
                     dataSetFieldFacade.deleteById(dataSetFieldToEdit.getId());
-                    temp.setId(0);
-                    this.addDataSetToXibo(temp);
+                    dataSetFieldToEdit.setId(0);
+                    this.addDataSetToXibo(dataSetFieldToEdit);
                 }
                 // just edit unactive dataset
-                else if ((dataSetFieldToEdit.getDataRowId() < 0 || dataSetFieldToEdit.isActive() == false)) {
+                else if ((dataSetFieldToEdit.getDataRowId() < 0 || !dataSetFieldToEdit.isActive())) {
                     dataSetFieldFacade.merge(dataSetFieldToEdit);
                     this.updateList();
 
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
                 }
                 // edit active event
                 else if (dataSetFieldToEdit.isActive() && dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1))) {
@@ -164,7 +165,7 @@ public class DataSetController implements Serializable {
                             this.updateList();
 
                             dataSetApi.collectNowAll();
-                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
+                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
                         } else {
                             this.updateList();
                             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while editing DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
@@ -188,7 +189,7 @@ public class DataSetController implements Serializable {
     }
 
     public void updateList() {
-        this.dataSetData = dataSetFieldFacade.getAll();
+        dataSetData = dataSetFieldFacade.getAll();
     }
 
     //region Getter
@@ -198,7 +199,7 @@ public class DataSetController implements Serializable {
     }
 
     public void setDataSetData(List<DataSetDataField> DataSetDataField) {
-        this.dataSetData = dataSetData;
+        dataSetData = dataSetData;
     }
 
     public DataSetFieldFacade getDataSetFieldFacade() {

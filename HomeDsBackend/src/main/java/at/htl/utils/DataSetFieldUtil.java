@@ -93,7 +93,6 @@ class DataSetFieldUtil {
             dataSetToAdd.setDataRowId(-1);
             dataSetToAdd.setActive(false);
             dataSetFieldFacade.save(dataSetToAdd);
-            dataSetToAdd = new DataSetDataField();
             return Response.Status.OK;
         }
     }
@@ -116,7 +115,7 @@ class DataSetFieldUtil {
 
     public void checkIfAnyDataSetFieldIsAvailAbleAndActive() {
         boolean change = false;
-        List<DataSetDataField> dataFields = new ArrayList<>();
+        List<DataSetDataField> dataFields;
         if ((dataFields = dataSetFieldFacade.getAll()) != null && dataFields.size() > 0) {
             for (DataSetDataField dataField : dataFields) {
                 if (dataField.isActive()) {

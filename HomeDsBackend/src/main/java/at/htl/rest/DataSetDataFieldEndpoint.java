@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @Path("datasetdatafield")
-@Api("DatasetDataField - API")
+@Api("DataSetDataField - API")
 public class DataSetDataFieldEndpoint {
 
 

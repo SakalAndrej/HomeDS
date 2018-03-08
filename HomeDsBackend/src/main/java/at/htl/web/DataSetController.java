@@ -125,7 +125,7 @@ public class DataSetController implements Serializable {
                             this.updateList();
 
                             dataSetApi.collectNowAll();
-                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
+                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
                         } else {
                             this.updateList();
                             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while editing DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
@@ -155,7 +155,7 @@ public class DataSetController implements Serializable {
                     dataSetFieldFacade.merge(dataSetFieldToEdit);
                     this.updateList();
 
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
                 }
                 // edit active event
                 else if (dataSetFieldToEdit.isActive() && dataSetFieldToEdit.getFromDate().isBefore(LocalDate.now().plusDays(1))) {
@@ -165,7 +165,7 @@ public class DataSetController implements Serializable {
                             this.updateList();
 
                             dataSetApi.collectNowAll();
-                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", String.format("Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId())));
+                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully edited DataSetRow: " + dataSetFieldToEdit.getDataRowId()));
                         } else {
                             this.updateList();
                             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while editing DataSetRow: " + dataSetFieldToEdit.getDataRowId()));

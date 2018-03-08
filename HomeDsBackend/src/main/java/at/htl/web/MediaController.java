@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@SuppressWarnings("StatementWithEmptyBody")
 @Model
 @Named
 public class MediaController implements Serializable {

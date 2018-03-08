@@ -17,7 +17,7 @@ public class CrawlerApi {
     // --Commented out by Inspection (08.03.18, 23:43):private static RequestHelper requestHelper = new RequestHelper();
 
     public String getLayoutsWithAllSubEntities(long layoutId, String layoutName) throws NoConnectionException {
-        String resp = "";
+        String resp;
         String query = "";
 
         if (layoutId != -1)

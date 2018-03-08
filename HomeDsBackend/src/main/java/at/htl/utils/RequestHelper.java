@@ -18,7 +18,7 @@ public class RequestHelper {
 
     public HttpURLConnection executeRequest(RequestTypeEnum executeType, String paramsBody, String url, String TOKEN) {
 
-        URL obj = null;
+        URL obj;
         HttpURLConnection con;
 
         try {
@@ -62,9 +62,7 @@ public class RequestHelper {
             System.out.println("Response Code : " + con.getResponseCode());
 
             return con;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
+        } catch (MalformedURLException | ProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

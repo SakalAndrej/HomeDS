@@ -35,10 +35,10 @@
                     #{msg['playMediaNow']}
                     <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
                                    name="fa-close" style="color: red;"
-                                   tooltip="#{msg['offlineMessage']}"></b:iconAwesome>
+                                   tooltip="#{msg['offlineMessage']}"/>
                     <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
                                    name="fa-check" style="color: green;"
-                                   tooltip="#{msg['onlineMessage']}"></b:iconAwesome>
+                                   tooltip="#{msg['onlineMessage']}"/>
                 </h1>
             </b:panel>
             <b:panel>
@@ -48,7 +48,7 @@
             </b:panel>
             <b:panel>
                 <b:commandButton value="Stop" style="width:100%" look="danger" action="#{mediaController.clearMedia}" update="growl">
-                    <b:iconAwesome size="1.5x" name="fa-minus-circle"></b:iconAwesome>
+                    <b:iconAwesome size="1.5x" name="fa-minus-circle"/>
                 </b:commandButton>
             </b:panel>
             <b:dataTable value="#{mediaController.medias}"
@@ -61,7 +61,7 @@
                         <b:commandButton update="medias @form"
                                          action="#{mediaController.playMedia(media.mediaId)}"
                                          id="btnPlay" look="primary" style="width:100%">
-                            <b:iconAwesome size="1.5x" name="fa-play"></b:iconAwesome>
+                            <b:iconAwesome size="1.5x" name="fa-play"/>
                         </b:commandButton>
                     </div>
                 </b:dataTableColumn>

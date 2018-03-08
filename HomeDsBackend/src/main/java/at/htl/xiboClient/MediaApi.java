@@ -23,7 +23,7 @@ public class MediaApi {
     public LinkedList<Media> getAllMedia(int start, int length, String tags) throws NoConnectionException {
 
         BufferedReader in;
-        LinkedList<Media> medias = new LinkedList<Media>();
+        LinkedList<Media> medias = new LinkedList<>();
         Media actual = new Media();
 
         try {
@@ -95,7 +95,7 @@ public class MediaApi {
                     .executeRequest(RequestTypeEnum.DELETE, null,
                             new RequestHelper().BASE_URL + "api/playlist/widget/" + widgetId,
                             AuthentificationHandler.getTOKEN());
-            BufferedReader in = null;
+            BufferedReader in;
 
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -124,7 +124,7 @@ public class MediaApi {
                     .executeRequest(RequestTypeEnum.GET, null,
                             new RequestHelper().BASE_URL + "api/playlist/widget?playlistId="+editPlaylistId,
                             AuthentificationHandler.getTOKEN());
-            BufferedReader in = null;
+            BufferedReader in;
 
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -142,7 +142,7 @@ public class MediaApi {
                 JSONArray array = new JSONArray(response.toString());
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject object = array.getJSONObject(i);
-                    if ((mediaId = (long) object.getLong("widgetId")) != 0) {
+                    if ((mediaId = object.getLong("widgetId")) != 0) {
                         return mediaId;
                     }
                 }

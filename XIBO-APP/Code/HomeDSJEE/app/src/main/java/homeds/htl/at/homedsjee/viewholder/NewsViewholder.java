@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import homeds.htl.at.homedsjee.activity.MainActivity;
+import homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
 
 /**
@@ -34,9 +35,7 @@ public class NewsViewholder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
 
-                MainActivity mainActivity = MainActivity.getInstance();
-
-                mainActivity.openEditNewsFragment(news);
+                MainActivityBottomNavigation.getInstance().openEditNewsFragment(news);
 
             }
         });

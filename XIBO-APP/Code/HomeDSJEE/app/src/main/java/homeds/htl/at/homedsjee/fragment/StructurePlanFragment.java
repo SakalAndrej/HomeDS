@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.R;
+import homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation;
 import homeds.htl.at.homedsjee.adapter.NewsAdapter;
 import homeds.htl.at.homedsjee.adapter.StructurePlanAdapter;
 import homeds.htl.at.homedsjee.apiClient.RequestHelper;
@@ -89,33 +90,35 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
         HashMap<String,String> params = new HashMap<>();
         params.put("layoutId","-1");
     String url ="http://10.0.2.2:8080/homeds/rs/crawler/";
-        rh.executeRequest(RequestTypeEnum.GET,params,url);
+        rh.executeRequest(RequestTypeEnum.GET,params,url, ()->{
+            MainActivityBottomNavigation.getInstance().runOnUiThread(()->{
+                LinkedList<JSONObject> structureparts = new LinkedList<>();
+                JSONArray jsonArray = null;
+
+                try {
+                    String response = rh.getResponseBody();
+                    jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        structureparts.add(jsonObject);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                StructurePlanAdapter structurePlanAdapter = new StructurePlanAdapter(structureparts);
+                rvStructurePlan.setAdapter(structurePlanAdapter);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                rvStructurePlan.setLayoutManager(linearLayoutManager);
+            });
+        });
 
 
-        LinkedList<JSONObject> structureparts = new LinkedList<>();
-        JSONArray jsonArray = null;
 
-        try {
-            String response = getResponseWithWait();
-            jsonArray = new JSONArray(response);
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                structureparts.add(jsonObject);
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        StructurePlanAdapter structurePlanAdapter = new StructurePlanAdapter(structureparts);
-        rvStructurePlan.setAdapter(structurePlanAdapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rvStructurePlan.setLayoutManager(linearLayoutManager);
         return v;
     }
 
@@ -160,12 +163,12 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
     }
 
 
-    public String getResponseWithWait() throws InterruptedException {
+    /*public String getResponseWithWait() throws InterruptedException {
 
         while(rh.getResponseBody() == null){
             Thread.sleep(100);
         }
         return rh.getResponseBody();
 
-    }
+    }*/
 }

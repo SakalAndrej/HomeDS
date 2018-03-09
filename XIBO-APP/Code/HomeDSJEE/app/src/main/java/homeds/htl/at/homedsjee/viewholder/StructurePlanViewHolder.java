@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import homeds.htl.at.homedsjee.activity.MainActivity;
+import homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation;
 import homeds.htl.at.homedsjee.entity.Structure;
 
 /**
@@ -41,7 +42,7 @@ public class StructurePlanViewHolder extends RecyclerView.ViewHolder {
                         e.printStackTrace();
                     }
                     bundle.putSerializable("actStructure",struct);
-                    MainActivity.getInstance().openStructureDetailFragment(bundle);
+                    MainActivityBottomNavigation.getInstance().openStructureDetailFragment(bundle);
                 }
             });
         }

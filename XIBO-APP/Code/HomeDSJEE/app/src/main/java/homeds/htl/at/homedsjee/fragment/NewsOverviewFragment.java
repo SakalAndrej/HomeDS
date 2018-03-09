@@ -21,6 +21,7 @@ import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.activity.MainActivity;
+import homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation;
 import homeds.htl.at.homedsjee.adapter.NewsAdapter;
 import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
@@ -89,50 +90,54 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
         fabAddNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).openEditNewsFragment( new DataSetDataField());
+                MainActivityBottomNavigation.getInstance().openEditNewsFragment( new DataSetDataField());
 
             }
         });
 
-        rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:8080/homeds/rs/datasetdatafield");
+        rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:8080/homeds/rs/datasetdatafield",()->{
+
+            MainActivityBottomNavigation.getInstance().runOnUiThread(()->{
+                LinkedList<DataSetDataField> news = new LinkedList<DataSetDataField>();
+
+                JSONArray jsonArray = null;
+
+                try {
+                    String response = rh.getResponseBody();
+                    jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        JSONObject toDate = jsonObject.getJSONObject("toDate");
+                        JSONObject fromDate = jsonObject.getJSONObject("fromDate");
+                        news.add(new DataSetDataField(jsonObject.getLong("id"),
+                                jsonObject.getLong("dataSetId"),
+                                jsonObject.getLong("dataRowId"),
+                                //jsonObject.getString("colName"),
+                                jsonObject.getString("value"),
+                                LocalDate.ofYearDay(fromDate.getInt("year"),fromDate.getInt("dayOfYear")),
+                                LocalDate.ofYearDay(toDate.getInt("year"),toDate.getInt("dayOfYear")),
+
+                                jsonObject.getString("title")));
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                NewsAdapter newsAdapter = new NewsAdapter(news);
+                rv.setAdapter(newsAdapter);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                rv.setLayoutManager(linearLayoutManager);
+
+            });
+        });
 
 
 
 
-        LinkedList<DataSetDataField> news = new LinkedList<DataSetDataField>();
 
-        JSONArray jsonArray = null;
-
-        try {
-            String response = getResponseWithWait();
-            jsonArray = new JSONArray(response);
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                JSONObject toDate = jsonObject.getJSONObject("toDate");
-                JSONObject fromDate = jsonObject.getJSONObject("fromDate");
-                news.add(new DataSetDataField(jsonObject.getLong("id"),
-                        jsonObject.getLong("dataSetId"),
-                        jsonObject.getLong("dataRowId"),
-                        //jsonObject.getString("colName"),
-                        jsonObject.getString("value"),
-                        LocalDate.ofYearDay(fromDate.getInt("year"),fromDate.getInt("dayOfYear")),
-                        LocalDate.ofYearDay(toDate.getInt("year"),toDate.getInt("dayOfYear")),
-
-                        jsonObject.getString("title")));
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        NewsAdapter newsAdapter = new NewsAdapter(news);
-        rv.setAdapter(newsAdapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rv.setLayoutManager(linearLayoutManager);
 
 
         return v;
@@ -177,11 +182,11 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public String getResponseWithWait() throws InterruptedException {
+   /* public String getResponseWithWait() throws InterruptedException {
 
         while(rh.getResponseBody() == null){
             Thread.sleep(100);
         }
         return rh.getResponseBody();
-    }
+    }*/
 }

@@ -28,16 +28,10 @@ class TimeService {
     DataSetApi dataSetApi;
 
     @EJB
-    DisplayApi displayApi;
-
-    @EJB
-    CampaignFacade campaignFacade;
-
-    @EJB
     private
     LayoutChangerUtil layoutChangerUtil;
 
-    @Schedule(minute = "*", hour = "23")
+    @Schedule(minute = "30", hour = "23")
     public void doWork() {
         List<DataSetDataField> datafields = dataSetFieldFacade.getAll();
 
@@ -98,6 +92,11 @@ class TimeService {
 
         layoutChangerUtil.campaignLogicDataSet();
 
+    }
+
+    @Schedule(minute = "15", hour = "*")
+    public void reAuthenticate() {
+        AuthentificationHandler.Authenticate();
     }
 
     @PostConstruct

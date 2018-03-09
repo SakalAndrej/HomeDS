@@ -1,7 +1,5 @@
 package at.htl.model;
 
-import javax.persistence.*;
-
 public class DataSet {
 
     private long dataSetId;

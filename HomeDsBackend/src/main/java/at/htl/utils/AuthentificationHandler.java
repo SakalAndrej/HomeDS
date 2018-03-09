@@ -25,7 +25,7 @@ public class AuthentificationHandler {
     public static String Authenticate() {
 
         // Declaration
-        URL obj = null;
+        URL obj;
         HttpURLConnection con = null;
 
         try {
@@ -39,9 +39,9 @@ public class AuthentificationHandler {
             con.setRequestMethod("POST");
 
             DataOutputStream write = new DataOutputStream(con.getOutputStream());
-            String body = String.format("client_id=" + CLIENT_ID
+            String body = "client_id=" + CLIENT_ID
                     + "&client_secret=" + CLIENT_SECRET
-                    + "&grant_type=client_credentials");
+                    + "&grant_type=client_credentials";
 
             write.writeBytes(body);
             write.flush();
@@ -54,7 +54,7 @@ public class AuthentificationHandler {
             //Read response
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -67,8 +67,6 @@ public class AuthentificationHandler {
 
             return new JSONObject(response.toString()).getString("access_token");
         } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

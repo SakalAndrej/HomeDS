@@ -1,6 +1,7 @@
 package at.htl.xiboClient;
 
 import at.htl.enums.RequestTypeEnum;
+import at.htl.enums.XiboEnum;
 import at.htl.exceptions.NoConnectionException;
 import at.htl.model.Display;
 import at.htl.utils.AuthentificationHandler;
@@ -39,7 +40,7 @@ public class DisplayApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -70,9 +71,15 @@ public class DisplayApi {
         return displays;
     }
 
-    public long scheduleLayout(long campaingLayoutId, LocalDateTime fromDate, LocalDateTime toDate) throws NoConnectionException {
+    public long scheduleLayout(long campaingLayoutId, LocalDateTime fromDate, LocalDateTime toDate, XiboEnum xiboEnum) throws NoConnectionException {
 
+        int priority = 10;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        if (xiboEnum!= null) {
+            if (xiboEnum.equals(XiboEnum.MEDIA))
+                priority=20;
+        }
 
         BufferedReader in;
         try {
@@ -80,7 +87,7 @@ public class DisplayApi {
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
                             "eventTypeId=1&campaignId=" + campaingLayoutId +
-                                    "&displayOrder=0&isPriority=11&displayGroupIds[]="+14+"&fromDt="+fromDate.format(formatter)+"&toDt="+toDate.format(formatter)+"&syncTimezone=1",
+                                    "&displayOrder=0&isPriority="+ priority +"&displayGroupIds[]="+14+"&fromDt="+fromDate.format(formatter)+"&toDt="+toDate.format(formatter)+"&syncTimezone=1",
                             new RequestHelper().BASE_URL + "api/schedule",
                             AuthentificationHandler.getTOKEN());
 
@@ -88,12 +95,12 @@ public class DisplayApi {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
                 String output;
-                StringBuffer response = new StringBuffer();
+                StringBuilder response = new StringBuilder();
                 while ((output = in.readLine()) != null) {
                     response.append(output);
                 }
                 JSONObject jsonObject = new JSONObject(response.toString());
-                return jsonObject.getLong("campaignId");
+                return jsonObject.getLong("eventId");
             }
             else {
                 return -1;
@@ -111,12 +118,7 @@ public class DisplayApi {
                     .executeRequest(RequestTypeEnum.DELETE, null,
                             new RequestHelper().BASE_URL + "api/schedule/" + campaignId,
                             AuthentificationHandler.getTOKEN());
-            if (con.getResponseCode()==204) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return con.getResponseCode() == 204;
         } catch (NullPointerException ex) {
             throw new NoConnectionException("Es ist kein Response vorhanden", ex);
         } catch (IOException e) {

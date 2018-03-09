@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class IndexController {
 
     @Inject
+    private
     StatusApi statusApi;
 
     private static boolean on;

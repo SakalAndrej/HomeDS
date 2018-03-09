@@ -1,7 +1,6 @@
 package at.htl.rest;
 
 import at.htl.exceptions.NoConnectionException;
-import at.htl.xiboClient.CrawlerApi;
 import at.htl.xiboClient.StatusApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,7 +9,6 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -19,6 +17,7 @@ import javax.ws.rs.core.Response;
 public class StatusEndpoint {
 
     @Inject
+    private
     StatusApi statusApi;
 
     @GET

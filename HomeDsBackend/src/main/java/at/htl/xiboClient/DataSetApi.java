@@ -29,7 +29,7 @@ public class DataSetApi {
         DataSet act = new DataSet();
 
         try {
-            //Get all Datasets
+            //Get all DataSets
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.GET,
                             null,
@@ -44,7 +44,7 @@ public class DataSetApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -91,12 +91,12 @@ public class DataSetApi {
                             new RequestHelper().BASE_URL + "api/dataset/data/" + dataSetId,
                             AuthentificationHandler.getTOKEN());
 
-            BufferedReader in = null;
+            BufferedReader in;
 
             in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -105,7 +105,6 @@ public class DataSetApi {
             System.out.println(response.toString());
 
             for (int i = 0; i < jsonarray.length(); i++) {
-                LinkedList<DataSetDataField> rows = new LinkedList<>();
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                 Iterator keys = jsonobject.keys();
 
@@ -125,11 +124,8 @@ public class DataSetApi {
                         }
                         row.setFromDate(null);
                         row.setToDate(null);
-                        rows.add(row);
-                        row = new DataSetDataField();
                     }
                 }
-                //act.setFields(rows);
                 dataSetDatas.add(act);
                 act = new DataSetData();
             }
@@ -149,7 +145,7 @@ public class DataSetApi {
                             new RequestHelper().BASE_URL + "api/dataset/" + dataSetId + "/column",
                             AuthentificationHandler.getTOKEN());
 
-            BufferedReader in = null;
+            BufferedReader in;
 
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -159,7 +155,7 @@ public class DataSetApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -191,7 +187,7 @@ public class DataSetApi {
                             new RequestHelper().BASE_URL + "api/dataset/data/" + dataSetId+"/"+dataSetDataId,
                             AuthentificationHandler.getTOKEN());
 
-            BufferedReader in = null;
+            BufferedReader in;
 
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -201,7 +197,7 @@ public class DataSetApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -214,7 +210,7 @@ public class DataSetApi {
     }
 
     private String replaceCodings(String dataSetFieldValue) {
-        String finalValue = dataSetFieldValue.replaceAll("Ä","&Auml;")
+        return dataSetFieldValue.replaceAll("Ä","&Auml;")
                 .replaceAll("ä","&auml;")
                 .replaceAll("Ö","&Ouml;")
                 .replaceAll("ö","&ouml;")
@@ -222,7 +218,6 @@ public class DataSetApi {
                 .replaceAll("ü","&uuml;")
                 .replaceAll("ß","&szlig")
                 .replaceAll("&","%26");
-        return finalValue;
     }
 
     public long addDataSetField(DataSetDataField dataField) throws NoConnectionException {
@@ -234,7 +229,7 @@ public class DataSetApi {
                             new RequestHelper().BASE_URL + "api/dataset/data/" + 5,
                             AuthentificationHandler.getTOKEN());
 
-            BufferedReader in = null;
+            BufferedReader in;
 
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -244,7 +239,7 @@ public class DataSetApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -265,7 +260,7 @@ public class DataSetApi {
                             new RequestHelper().BASE_URL + "api/dataset/data/" + dataid +"/"+dataSetRowId,
                             AuthentificationHandler.getTOKEN());
 
-            BufferedReader in = null;
+            BufferedReader in;
 
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -275,7 +270,7 @@ public class DataSetApi {
             }
 
             String output;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((output = in.readLine()) != null) {
                 response.append(output);
             }
@@ -293,13 +288,6 @@ public class DataSetApi {
                     .executeRequest(RequestTypeEnum.POST, "",
                             new RequestHelper().BASE_URL + "api/displaygroup/17/action/collectNow",
                             AuthentificationHandler.getTOKEN());
-
-
-            try {
-            }
-            catch (NullPointerException ex) {
-                throw new NoConnectionException("Es ist kein Response vorhanden", ex);
-            }
     }
 
 

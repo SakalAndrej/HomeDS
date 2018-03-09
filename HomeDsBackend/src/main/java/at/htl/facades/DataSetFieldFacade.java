@@ -12,6 +12,7 @@ import java.util.List;
 public class DataSetFieldFacade {
 
     @PersistenceContext
+    private
     EntityManager entityManager;
 
     public void save(DataSetDataField dataField) {
@@ -28,12 +29,12 @@ public class DataSetFieldFacade {
         dataToUpdate.setValue(dataField.getValue());
     }
 
-    public DataSetDataField findByRowId(long rowId) {
+    private DataSetDataField findByRowId(long rowId) {
         TypedQuery<DataSetDataField> q = entityManager.createNamedQuery("DataSetDataField.findByRowId", DataSetDataField.class).setParameter("id", rowId);
         return q.getSingleResult();
     }
 
-    public DataSetDataField findById(long id) {
+    private DataSetDataField findById(long id) {
         return entityManager.find(DataSetDataField.class, id);
     }
 

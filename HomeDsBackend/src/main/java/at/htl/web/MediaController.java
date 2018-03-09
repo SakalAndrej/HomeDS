@@ -1,8 +1,12 @@
 package at.htl.web;
 
+import at.htl.enums.XiboEnum;
 import at.htl.exceptions.NoConnectionException;
+import at.htl.facades.CampaignFacade;
+import at.htl.model.Campaign;
 import at.htl.model.Media;
 import at.htl.utils.LayoutChangerUtil;
+import at.htl.xiboClient.DisplayApi;
 import at.htl.xiboClient.MediaApi;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.tagcloud.DefaultTagCloudItem;
@@ -20,15 +24,26 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@SuppressWarnings("StatementWithEmptyBody")
 @Model
 @Named
 public class MediaController implements Serializable {
 
     @Inject
+    private
     MediaApi mediaApi;
 
     @Inject
+    private
+    DisplayApi displayApi;
+
+    @Inject
+    private
     LayoutChangerUtil layoutChangerUtil;
+
+    @Inject
+    private
+    CampaignFacade campaignFacade;
 
     private TagCloudModel model;
 
@@ -62,8 +77,8 @@ public class MediaController implements Serializable {
         model.addTag(new DefaultTagCloudItem("Projektvideos", "#", 2));
     }
 
-    private void updateList(String cloudTags) throws NoConnectionException {
-        this.medias = mediaApi.getAllMedia(0, 50, cloudTags);
+    public void updateList(String cloudTags) throws NoConnectionException {
+        medias = mediaApi.getAllMedia(0, 50, cloudTags);
         if (medias.size() > 10)
             shortMedias = medias.subList(0, 5);
         else {
@@ -87,13 +102,13 @@ public class MediaController implements Serializable {
             if (widgetId > 0) {
                 if (mediaApi.deleteWidget(widgetId) == 200) {
                     if (mediaApi.editWidget(mediaId) == 200) {
-                        layoutChangerUtil.changeLayout(44,LocalDateTime.now().plusMinutes(2));
-                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully set media to playlist"));
+                        layoutChangerUtil.changeLayout(44,LocalDateTime.now().plusYears(2), XiboEnum.MEDIA);
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully played media"));
                     } else {
-                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while playing medi"));
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while playing media"));
                     }
                 } else {
-                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while removing media from playlist"));
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error while aborting media"));
                 }
             }
         } catch (NoConnectionException e) {
@@ -103,17 +118,36 @@ public class MediaController implements Serializable {
 
     public void onSelect(SelectEvent event) {
         TagCloudItem item = (TagCloudItem) event.getObject();
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", item.getLabel());
+        FacesContext context = FacesContext.getCurrentInstance();
 
-
-        FacesContext.getCurrentInstance().addMessage(null, msg);
         try {
             if (!tags.equals(item.getLabel())) {
                 tags = item.getLabel();
                 this.updateList(tags);
             }
         } catch (NoConnectionException e) {
-            e.printStackTrace();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Could not establish connection"));
+
+        }
+    }
+
+    public void clearMedia() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        List<Campaign> campaigns = campaignFacade.getAllMedia();
+        if (campaigns != null && campaigns.size() > 0) {
+            for (Campaign campaign : campaigns) {
+                try {
+                    if (displayApi.deleteEvent(campaign.getCampaignId())) {
+                        campaignFacade.delete(campaign.getId());
+                        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully stopped media!"));
+                    }
+                } catch (NoConnectionException e) {
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "", "Could not establish connection"));
+                }
+            }
+        }
+        else {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Nothing to stop!"));
         }
     }
 
@@ -123,7 +157,7 @@ public class MediaController implements Serializable {
     }
 
     public void setMedias(List<Media> medias) {
-        this.medias = medias;
+        MediaController.medias = medias;
     }
 
     public List<Media> getShortMedias() {
@@ -131,7 +165,7 @@ public class MediaController implements Serializable {
     }
 
     public void setShortMedias(List<Media> shortMedias) {
-        this.shortMedias = shortMedias;
+        MediaController.shortMedias = shortMedias;
     }
 
     public TagCloudModel getModel() {

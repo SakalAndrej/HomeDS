@@ -12,22 +12,23 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
 @Path("datasetdatafield")
-@Api("DatasetDataField - API")
+@Api("DataSetDataField - API")
 public class DataSetDataFieldEndpoint {
 
 
     //swagger url http://localhost:8080/homeds/swagger/swagger.html
 
     @Inject
+    private
     DataSetFieldFacade dataSetFieldFacade;
 
     @Inject
+    private
     DataSetApi dataSetApi;
 
     @GET

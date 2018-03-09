@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-</resources>
+    <color name="serverDown">#FF3931</color>
+    <color name="serverUp">#96FF55</color>
+    </resources>

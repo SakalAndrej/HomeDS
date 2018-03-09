@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,9 +83,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
         ivUp.setVisibility(View.INVISIBLE);
         ImageView ivDown = v.findViewById(R.id.ivServerDown);
         ivDown.setVisibility(View.INVISIBLE);
-        ImageButton ibNewsView = v.findViewById(R.id.ibNewsView);
-        ImageButton ibStructurePlan = v.findViewById(R.id.ibStructurePlan);
-        ImageButton ibMediaOverview = v.findViewById(R.id.ibMediaOverview);
+        ConstraintLayout clServerStatus = v.findViewById(R.id.cl_serverStatus);
 
         //mittel callback wird die sichtbarkeit des sever status gesetzt sobald ein response erhalten wurde
 
@@ -93,9 +93,10 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
             MainActivityBottomNavigation.getInstance().runOnUiThread(()->{
                 if (rh.getResponseCode() == 200) {
                     ivUp.setVisibility(View.VISIBLE);
-
+                    clServerStatus.setBackgroundColor(ContextCompat.getColor(this.getContext(),R.color.serverUp));
                 } else {
                     ivDown.setVisibility(View.VISIBLE);
+                    clServerStatus.setBackgroundColor(ContextCompat.getColor(this.getContext(),R.color.serverDown));
                 }
             });
         });
@@ -107,26 +108,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
         }*/
         /*
 */
-        ibNewsView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.getInstance().openNewsOverview();
-            }
-        });
 
-        ibStructurePlan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.getInstance().openStructurePlanFragment();
-            }
-        });
-
-        ibMediaOverview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.getInstance().openMediaOverviewFragment();
-            }
-        });
         return v;
     }
 

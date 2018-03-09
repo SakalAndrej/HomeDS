@@ -26,14 +26,14 @@ public class IndexController {
         if (cnt == 0 || (lastOnline.plusSeconds(30).isBefore(LocalDateTime.now()))) {
             try {
                 cnt++;
-                on = true;
                 lastOnline = LocalDateTime.now();
-                return statusApi.getIsOnline();
+                on = statusApi.getIsOnline();
+                return on;
             } catch (NoConnectionException e) {
                 cnt++;
-                on = false;
                 lastOnline = LocalDateTime.now();
-                return false;
+                on = false;
+                return on;
             }
         } else {
             return on;

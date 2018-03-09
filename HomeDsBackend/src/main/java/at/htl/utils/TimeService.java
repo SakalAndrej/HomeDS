@@ -1,11 +1,10 @@
 package at.htl.utils;
 
 import at.htl.exceptions.NoConnectionException;
-import at.htl.facades.CampaignFacade;
 import at.htl.facades.DataSetFieldFacade;
 import at.htl.model.DataSetDataField;
 import at.htl.xiboClient.DataSetApi;
-import at.htl.xiboClient.DisplayApi;
+import at.htl.xiboClient.MediaApi;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -17,7 +16,7 @@ import java.util.List;
 
 @Singleton
 @Startup
-class TimeService {
+public class TimeService {
 
     @EJB
     private
@@ -28,10 +27,13 @@ class TimeService {
     DataSetApi dataSetApi;
 
     @EJB
+    private MediaApi mediaApi;
+
+    @EJB
     private
     LayoutChangerUtil layoutChangerUtil;
 
-    @Schedule(minute = "30", hour = "23")
+    @Schedule(minute = "3", hour = "11")
     public void doWork() {
         List<DataSetDataField> datafields = dataSetFieldFacade.getAll();
 
@@ -99,9 +101,16 @@ class TimeService {
         AuthentificationHandler.Authenticate();
     }
 
+    public TimeService() { }
+
     @PostConstruct
     public void init() {
         AuthentificationHandler.Authenticate();
+        try {
+            mediaApi.uploadMedia();
+        } catch (NoConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
 

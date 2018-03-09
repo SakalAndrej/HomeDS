@@ -8,13 +8,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_serverStatus"
         android:layout_width="0dp"
@@ -31,25 +24,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Server Status:"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+            />
 
         <ImageView
             android:id="@+id/ivServerDown"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_width="44dp"
+            android:layout_height="45dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:src="@android:drawable/ic_delete"
+            android:src="@drawable/ic_clear_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+             />
 
         <ImageView
             android:id="@+id/ivServerUp"
@@ -57,9 +51,23 @@
             android:layout_height="45dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="16dp"
-            android:src="@android:drawable/sym_def_app_icon"
+            android:src="@drawable/ic_check_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+             />
     </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Button"
+        android:elevation="10dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_serverStatus" />
 </android.support.constraint.ConstraintLayout>

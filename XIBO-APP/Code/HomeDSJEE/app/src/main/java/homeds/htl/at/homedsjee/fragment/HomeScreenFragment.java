@@ -82,9 +82,10 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
         ImageView ivUp = v.findViewById(R.id.ivServerUp);
         ivUp.setVisibility(View.INVISIBLE);
         ImageView ivDown = v.findViewById(R.id.ivServerDown);
-        ivDown.setVisibility(View.INVISIBLE);
-        ConstraintLayout clServerStatus = v.findViewById(R.id.cl_serverStatus);
+        ivDown.setVisibility(View.VISIBLE);
 
+        ConstraintLayout clServerStatus = v.findViewById(R.id.cl_serverStatus);
+clServerStatus.setBackgroundColor(ContextCompat.getColor(this.getContext(),R.color.serverDown));
         //mittel callback wird die sichtbarkeit des sever status gesetzt sobald ein response erhalten wurde
 
         rh.executeRequest(RequestTypeEnum.GET, null, url, () -> {

@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+
+
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
 import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
@@ -20,10 +22,13 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
         StructureDetailFragment.OnFragmentInteractionListener {
 
     public static MainActivity instance;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         HomeScreenFragment hsf = new HomeScreenFragment();
         fragmentManager.beginTransaction().add(R.id.container_main, hsf, null).commit();

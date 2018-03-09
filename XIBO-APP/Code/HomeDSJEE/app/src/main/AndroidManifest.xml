@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
+
+        </activity>
+        <activity
+            android:name=".activity.MainActivityBottomNavigation"
+            android:label="@string/title_activity_main_bottom_navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

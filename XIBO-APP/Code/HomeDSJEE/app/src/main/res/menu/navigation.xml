@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeScreenNavBar"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home"
+        />
+
+    <item
+        android:id="@+id/editDatasetNavBar"
+        android:icon="@drawable/ic_storage_black_24dp"
+        android:title="@string/title_edit_dataset"/>
+
+    <item
+        android:id="@+id/playMediaNavBar"
+        android:icon="@drawable/ic_airplay_black_24dp"
+        android:title="@string/title_play_Media"/>
+    <item
+        android:id="@+id/structurePlanNavBar"
+        android:icon="@drawable/ic_folder_black_24dp"
+        android:title="@string/title_structure_plan"/>
+
+</menu>

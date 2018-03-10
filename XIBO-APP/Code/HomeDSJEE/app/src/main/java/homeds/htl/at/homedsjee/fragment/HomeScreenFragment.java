@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.activity.MainActivity;
+import homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation;
 import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
 import okhttp3.Response;
@@ -89,7 +90,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
         rh.executeRequest(RequestTypeEnum.GET, null, url, () -> {
             //gui änderungen müssen im thread der main activity(einzige actiyity also auch "MainThread") durchgeführt werden.
             //die methode runOnUiThread weist in diesem fall auf den thread der main activity
-            MainActivity.getInstance().runOnUiThread(()->{
+            MainActivityBottomNavigation.getInstance().runOnUiThread(()->{
                 if (rh.getResponseCode() == 200) {
                     ivUp.setVisibility(View.VISIBLE);
 

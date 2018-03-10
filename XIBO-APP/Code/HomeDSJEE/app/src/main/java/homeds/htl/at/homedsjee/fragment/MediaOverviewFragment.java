@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.R;
+import homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation;
 import homeds.htl.at.homedsjee.adapter.MediaAdapter;
 import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
@@ -89,38 +90,40 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         params.put("start","1");
         params.put("length","10");
         params.put("tags","");
-        rh.executeRequest(RequestTypeEnum.GET,params,"http://10.0.2.2:8080/homeds/rs/media/");
+        rh.executeRequest(RequestTypeEnum.GET,params,"http://10.0.2.2:8080/homeds/rs/media/",()->{
+            MainActivityBottomNavigation.getInstance().runOnUiThread(()->{
+                LinkedList<Media> medias = new LinkedList<Media>();
+
+                JSONArray jsonArray = null;
+
+                try {
+                    String response = rh.getResponseBody();
+                    jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        medias.add(new Media(jsonObject.getLong("mediaId")
+                                ,jsonObject.getLong("ownerId")
+                                ,jsonObject.getString("name")
+                                ,jsonObject.getString("mediaType")));
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                MediaAdapter mediaAdapter = new MediaAdapter(medias);
+                rvMedia.setAdapter(mediaAdapter);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                rvMedia.setLayoutManager(linearLayoutManager);
+            });
+        });
 
 
 
-        LinkedList<Media> medias = new LinkedList<Media>();
 
-        JSONArray jsonArray = null;
-
-        try {
-            String response = getResponseWithWait();
-            jsonArray = new JSONArray(response);
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                medias.add(new Media(jsonObject.getLong("mediaId")
-                        ,jsonObject.getLong("ownerId")
-                        ,jsonObject.getString("name")
-                        ,jsonObject.getString("mediaType")));
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        MediaAdapter mediaAdapter = new MediaAdapter(medias);
-        rvMedia.setAdapter(mediaAdapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rvMedia.setLayoutManager(linearLayoutManager);
 
        return v;
 
@@ -165,11 +168,11 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public String getResponseWithWait() throws InterruptedException {
+    /*public String getResponseWithWait() throws InterruptedException {
 
         while(rh.getResponseBody() == null){
             Thread.sleep(100);
         }
         return rh.getResponseBody();
-    }
+    }*/
 }

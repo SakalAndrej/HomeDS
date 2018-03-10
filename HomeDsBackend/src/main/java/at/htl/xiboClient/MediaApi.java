@@ -140,6 +140,7 @@ public class MediaApi {
             con.setUseCaches(false);
 
             OutputStream os = con.getOutputStream();
+            os.write(Byte.valueOf("files="));
             entity.writeTo(con.getOutputStream());
 
             if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {

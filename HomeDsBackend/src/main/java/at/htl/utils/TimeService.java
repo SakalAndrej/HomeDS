@@ -106,11 +106,7 @@ public class TimeService {
     @PostConstruct
     public void init() {
         AuthentificationHandler.Authenticate();
-        try {
-            mediaApi.uploadMedia();
-        } catch (NoConnectionException e) {
-            e.printStackTrace();
-        }
+        //mediaApi.uploadMedia();
     }
 
 

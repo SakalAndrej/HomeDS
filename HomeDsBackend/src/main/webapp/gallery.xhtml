@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Gallery</title>
+</head>
+<h:body>
+    <h:form>
+        <p:galleria value="#{galleryController.images}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
+            <p:graphicImage alt="hi" value="#{image}"/>
+        </p:galleria>
+    </h:form>
+</h:body>
+</html>

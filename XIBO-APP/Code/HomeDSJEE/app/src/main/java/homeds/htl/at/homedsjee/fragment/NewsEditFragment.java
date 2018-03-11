@@ -195,23 +195,37 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                 if (news.getId() == null) {
                     Long n = -1L;
                     params.put("dataRowId", n.toString());
-                    rh.executeRequest(RequestTypeEnum.POST, params, MainActivityBottomNavigation.getInstance().url + "/save/");
-                    Log.d("POSTFORDATASET", params.toString());
-                    if (rh.getResponseCode() == 200){
-                    Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(),"DataSet erfolgreich hinzugefügt!",Toast.LENGTH_SHORT);
-                    MainActivityBottomNavigation.getInstance().onBackPressed();
-                    }else {
-                        Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(),"DataSet konnte nicht hinzugefügtwerden, Verbindung Überprüfen!",Toast.LENGTH_LONG);
-                    }
+                    rh.executeRequest(RequestTypeEnum.POST, params, MainActivityBottomNavigation.getInstance().url + "/datasetdatafield/save/", () -> {
+                        Log.d("POSTFORDATASET", params.toString());
+                        if (rh.getResponseCode() == 200) {
+                            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                                MainActivityBottomNavigation.getInstance().onBackPressed();
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet erfolgreich hinzugefügt!", Toast.LENGTH_SHORT);
+                            });
+
+                        } else {
+                            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet konnte nicht hinzugefügtwerden, Verbindung Überprüfen!", Toast.LENGTH_LONG);
+                            });
+                        }
+                    });
+
                 } else {
-                    rh.executeRequest(RequestTypeEnum.PUT, params, MainActivityBottomNavigation.getInstance().url + "/edit/");
-                    Log.d("PUTFORDATASET", params.toString());
-                    if (rh.getResponseCode() == 200){
-                        Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(),"DataSet erfolgreich verändert!",Toast.LENGTH_SHORT);
-                        MainActivityBottomNavigation.getInstance().onBackPressed();
-                    }else {
-                        Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(),"DataSet konnte nicht verändert, Verbindung Überprüfen!",Toast.LENGTH_LONG);
-                    }
+                    rh.executeRequest(RequestTypeEnum.PUT, params, MainActivityBottomNavigation.getInstance().url + "/datasetdatafield/edit/", () -> {
+                        Log.d("PUTFORDATASET", params.toString());
+                        if (rh.getResponseCode() == 200) {
+                            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                                MainActivityBottomNavigation.getInstance().onBackPressed();
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet erfolgreich verändert!", Toast.LENGTH_SHORT);
+
+                            });
+                        } else {
+                            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet konnte nicht verändert, Verbindung Überprüfen!", Toast.LENGTH_LONG);
+                            });
+                        }
+                    });
+
                 }
             }
         });

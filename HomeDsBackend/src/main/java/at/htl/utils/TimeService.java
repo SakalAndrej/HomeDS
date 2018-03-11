@@ -99,7 +99,7 @@ public class TimeService {
 
     @Schedule(minute = "15", hour = "*")
     public void reAuthenticate() {
-        AuthentificationHandler.Authenticate();
+        AuthentificationHandler.setTOKEN(AuthentificationHandler.Authenticate());
     }
 
     public TimeService() { }

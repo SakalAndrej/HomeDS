@@ -53,7 +53,6 @@
             </b:panel>
             <b:dataTable value="#{mediaController.medias}"
                          var="media" id="mediaTable" responsive="true">
-                <b:dataTableColumn value="#{media.mediaId}" label="Media ID"/>
                 <b:dataTableColumn value="#{media.name}" label="#{msg['mediaName']}" order="asc"/>
                 <b:dataTableColumn value="#{media.mediaType}" label="#{msg['mediaType']}"/>
                 <b:dataTableColumn label="#{msg['playMe']}">

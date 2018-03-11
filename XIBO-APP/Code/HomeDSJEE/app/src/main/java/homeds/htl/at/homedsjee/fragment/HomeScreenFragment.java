@@ -113,7 +113,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
         btPlayMedia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivityBottomNavigation.getInstance().openMediaOverviewFragment();
+               // MainActivityBottomNavigation.getInstance().openMediaOverviewFragment();
                 MainActivityBottomNavigation.getInstance().navbar.setSelectedItemId(R.id.playMediaNavBar);
             }
         });
@@ -121,7 +121,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
         btShowNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivityBottomNavigation.getInstance().openNewsOverview();
+               // MainActivityBottomNavigation.getInstance().openNewsOverview();
                 MainActivityBottomNavigation.getInstance().navbar.setSelectedItemId(R.id.editDatasetNavBar);
             }
         });

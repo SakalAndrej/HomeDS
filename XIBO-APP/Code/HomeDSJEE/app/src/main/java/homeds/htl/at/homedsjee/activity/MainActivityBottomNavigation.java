@@ -107,7 +107,7 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
     public void openHomeScreenFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         HomeScreenFragment hsf = new HomeScreenFragment();
-        fragmentManager.beginTransaction().add(R.id.container_display, hsf, null).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.container_display, hsf, null).addToBackStack(null).commit();
     }
 
 

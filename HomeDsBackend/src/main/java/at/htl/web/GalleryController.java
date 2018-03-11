@@ -23,7 +23,7 @@ public class GalleryController implements Serializable {
     @PostConstruct
     public void init() {
         images = new ArrayList<String>();
-        images.add("HomeDsLogoTrans.png");
+        images.add("HomesLogoTrans.png");
     }
 
     public List<String> getImages() {

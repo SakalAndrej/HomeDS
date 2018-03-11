@@ -7,6 +7,7 @@ import at.htl.xiboClient.DataSetApi;
 import at.htl.xiboClient.MediaApi;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
@@ -105,7 +106,7 @@ public class TimeService {
 
     @PostConstruct
     public void init() {
-        AuthentificationHandler.Authenticate();
+        AuthentificationHandler.setTOKEN(AuthentificationHandler.Authenticate());
         //mediaApi.uploadMedia();
     }
 

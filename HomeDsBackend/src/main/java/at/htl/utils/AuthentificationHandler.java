@@ -83,5 +83,9 @@ public class AuthentificationHandler {
             TOKEN = Authenticate();
         return TOKEN;
     }
+
+    public static void setTOKEN(String TOKEN) {
+        AuthentificationHandler.TOKEN = TOKEN;
+    }
 }
 

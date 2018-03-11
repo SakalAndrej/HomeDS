@@ -21,8 +21,6 @@ public class GalleryController implements Serializable {
 
     private List<String> images;
 
-    private int slideShowDuration = 15000;
-
     @PostConstruct
     public void init(){
         updateImages();
@@ -63,13 +61,5 @@ public class GalleryController implements Serializable {
 
     public void setImages(List<String> images) {
         this.images = images;
-    }
-
-    public int getSlideShowDuration() {
-        return slideShowDuration;
-    }
-
-    public void setSlideShowDuration(int slideShowDuration) {
-        this.slideShowDuration = slideShowDuration;
     }
 }

@@ -59,7 +59,7 @@
                                 <span class="text-muted">Our Crawler</span>
                             </b:column>
                         </b:row>
-                        <h1>Sekretariats DataSet's</h1>
+                        <h1>Nachrichten</h1>
                         <hr/>
                         <b:row styleClass="table-responsive">
                             <h:dataTable styleClass="table table-striped" value="#{dataSetController.dataSetData}"
@@ -78,7 +78,7 @@
                                 </h:column>
                             </h:dataTable>
                         </b:row>
-                        <h1>Project #{msg['media']}'s</h1>
+                        <h1>#{msg['media']}</h1>
                         <hr/>
                         <b:row styleClass="table-responsive">
                             <h:dataTable styleClass="table table-striped" value="#{mediaController.shortMedias}"
@@ -96,6 +96,16 @@
                                     <h:outputText value="#{media.mediaType}"/>
                                 </h:column>
                             </h:dataTable>
+                        </b:row>
+                        <b:row>
+                            <h1>
+                                Slideshow Information
+                            </h1><br/>
+                            <h:outputText value="Die Fotos die in der Slideshow angezeigt werden sollen bitte auf der vm59 unter /home/vwall/images hochladen!
+">
+                            </h:outputText>
+                            <!--<b:slider2 min="0" max="100" span="7" step="5" value="#{IndexController.slideShowDuration}"
+                                       label=""/>-->
                         </b:row>
                     </b:column>
                 </b:row>

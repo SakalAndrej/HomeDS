@@ -38,8 +38,10 @@ public class GalleryController implements Serializable {
 
         for (int i = 0; i < imgs.getLength(); i++) {
             String src = "";
-            if (!(src = imgs.item(i).getAttributes().getNamedItem("href").getNodeValue()).equals("/"))
+            if (!(src = imgs.item(i).getAttributes().getNamedItem("href").getNodeValue()).equals("/homeds")) {
+                src = src.replace("/homeds","");
                 images.add(src);
+            }
         }
 
         for (String src: srcs) {

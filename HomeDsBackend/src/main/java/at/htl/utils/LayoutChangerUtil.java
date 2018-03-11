@@ -32,7 +32,7 @@ public class LayoutChangerUtil {
     private
     CampaignFacade campaignFacade;
 
-    public void changeLayout(long campaignLayoutId, LocalDateTime toDate, XiboEnum xiboEnum) throws NoConnectionException {
+    public void changeLayout(long campaignLayoutId, LocalDateTime toDate, XiboEnum xiboEnum,long displayGroupId) throws NoConnectionException {
 
         if (xiboEnum != null) {
             if (xiboEnum.name().equals(XiboEnum.DATASET.name())) {
@@ -42,7 +42,7 @@ public class LayoutChangerUtil {
                     Campaign c = new Campaign();
                     c.setXiboEnum(xiboEnum);
                     long id;
-                    if ((id = displayApi.scheduleLayout(campaignLayoutId, LocalDateTime.now(), toDate, xiboEnum)) > -1) {
+                    if ((id = displayApi.scheduleLayout(campaignLayoutId, LocalDateTime.now(), toDate, xiboEnum,displayGroupId)) > -1) {
                         c.setCampaignId(id);
                         campaignFacade.save(c);
                     }
@@ -62,7 +62,7 @@ public class LayoutChangerUtil {
                 Campaign c = new Campaign();
                 c.setXiboEnum(xiboEnum);
                 long id;
-                if ((id = displayApi.scheduleLayout(campaignLayoutId, LocalDateTime.now(), toDate, xiboEnum)) > -1) {
+                if ((id = displayApi.scheduleLayout(campaignLayoutId, LocalDateTime.now(), toDate, xiboEnum,displayGroupId)) > -1) {
                     c.setCampaignId(id);
                     campaignFacade.save(c);
                 }
@@ -80,7 +80,7 @@ public class LayoutChangerUtil {
         if (dataSetFieldFacade.getActiveDataSetRows().size() > 0) {
             try {
                 long id = -1;
-                if (campaignFacade.getAll().size() <= 0 && (id = displayApi.scheduleLayout(43, LocalDateTime.now(), LocalDateTime.now().plusYears(2), XiboEnum.DATASET)) > 0) {
+                if (campaignFacade.getAll().size() <= 0 && (id = displayApi.scheduleLayout(43, LocalDateTime.now(), LocalDateTime.now().plusYears(2), XiboEnum.DATASET,14)) > 0) {
                     campaignFacade.save(new Campaign(id,XiboEnum.DATASET));
                 }
             } catch (NoConnectionException e) {

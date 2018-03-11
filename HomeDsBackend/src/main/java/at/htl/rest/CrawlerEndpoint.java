@@ -24,7 +24,7 @@ public class CrawlerEndpoint {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
-    @ApiOperation(value = "Get all Crawled things", code = 200, response = String.class)
+    @ApiOperation(value = "Get all Crawled things", code = 200, response = String.class )
     public Response getCrawler(@QueryParam("layoutId") long id,
                                @QueryParam("layout") String name) {
         try {

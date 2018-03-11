@@ -4,6 +4,7 @@ import at.htl.enums.XiboEnum;
 import at.htl.exceptions.NoConnectionException;
 import at.htl.facades.CampaignFacade;
 import at.htl.model.Campaign;
+import at.htl.model.Display;
 import at.htl.model.Media;
 import at.htl.utils.LayoutChangerUtil;
 import at.htl.xiboClient.DisplayApi;
@@ -45,6 +46,10 @@ public class MediaController implements Serializable {
     private
     CampaignFacade campaignFacade;
 
+    private Display actDisplay;
+
+    private List<Display> displays;
+
     private TagCloudModel model;
 
     private String tags;
@@ -59,6 +64,7 @@ public class MediaController implements Serializable {
     public void init() {
         tags = "";
         try {
+            displays = displayApi.getAllDisplays();
             if (medias != null && lastOnline.isAfter(LocalDateTime.now())) {
                 //no need for update
             } else {
@@ -102,7 +108,7 @@ public class MediaController implements Serializable {
             if (widgetId > 0) {
                 if (mediaApi.deleteWidget(widgetId) == 200) {
                     if (mediaApi.editWidget(mediaId) == 200) {
-                        layoutChangerUtil.changeLayout(44,LocalDateTime.now().plusYears(2), XiboEnum.MEDIA);
+                        layoutChangerUtil.changeLayout(44,LocalDateTime.now().plusYears(2), XiboEnum.MEDIA,actDisplay.getDisplayGroupId());
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Succesfully played media"));
                     } else {
                         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Error while playing media"));
@@ -182,6 +188,22 @@ public class MediaController implements Serializable {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public Display getActDisplay() {
+        return actDisplay;
+    }
+
+    public void setActDisplay(Display actDisplay) {
+        this.actDisplay = actDisplay;
+    }
+
+    public List<Display> getDisplays() {
+        return displays;
+    }
+
+    public void setDisplays(List<Display> displays) {
+        this.displays = displays;
     }
 
     //endregion

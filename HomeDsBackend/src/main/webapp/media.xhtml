@@ -5,7 +5,7 @@
 <html xmlns:h="http://java.sun.com/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
     <title>Play Media Now</title>
@@ -46,21 +46,46 @@
                     <p:ajax event="select" update="mediaTable selected" listener="#{mediaController.onSelect}"/>
                 </p:tagCloud>
                 <br/>
-                <b:commandButton action="#{mediaController.clearCloud}" look="info" value="#{msg['clearSelection']}" style="float:right;width:200px"></b:commandButton>
+                <b:commandButton action="#{mediaController.clearCloud}" look="info" value="#{msg['clearSelection']}"
+                                 style="float:right;width:200px"></b:commandButton>
                 <h:outputText id="selected" value="#{msg['selected']}: #{mediaController.tags}"></h:outputText>
             </b:panel>
-            <b:panel>
-                <b:commandButton value="Stop" style="width:100%" look="danger" action="#{mediaController.clearMedia}" update="growl">
+
+            <b:panel title="#{msg['selectDisplay']}">
+
+                <b:row>
+                    <b:column colMd="6">
+                        <h:outputText value="#{msg['selectDisplay']}"></h:outputText>
+                    </b:column>
+                    <b:column colMd="6">
+                        <b:selectOneMenu value="#{mediaController.actDisplay}" required="true">
+                            <f:selectItems id="displays" value="#{mediaController.displays}" var="c" itemValue="#{c}"
+                                           itemLabel="#{c.display}"/>
+                        </b:selectOneMenu>
+                    </b:column>
+                </b:row>
+
+
+
+                <br/>
+
+                <b:commandButton value="Stop" style="width:100%" look="danger" action="#{mediaController.clearMedia}"
+                                 update="growl">
                     <b:iconAwesome size="1.5x" name="fa-minus-circle"/>
                 </b:commandButton>
+
+                <br/>
             </b:panel>
+
+            <br/>
+
             <b:dataTable value="#{mediaController.medias}"
                          var="media" id="mediaTable" responsive="true">
                 <b:dataTableColumn value="#{media.name}" label="#{msg['mediaName']}" order="asc"/>
                 <b:dataTableColumn value="#{media.mediaType}" label="#{msg['mediaType']}"/>
                 <b:dataTableColumn label="#{msg['playMe']}">
                     <div style="text-align: center;">
-                        <b:commandButton update="medias @form"
+                        <b:commandButton update="medias @form" type="submit"
                                          action="#{mediaController.playMedia(media.mediaId)}"
                                          id="btnPlay" look="primary" style="width:100%">
                             <b:iconAwesome size="1.5x" name="fa-play"/>

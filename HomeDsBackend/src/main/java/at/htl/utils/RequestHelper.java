@@ -13,8 +13,8 @@ import java.net.URL;
 public class RequestHelper {
 
 
-    //public final String BASE_URL = "http://localhost:9090/";
-    public String BASE_URL = "http://172.18.199.120/";
+    public final String BASE_URL = "http://localhost:9090/";
+    //public String BASE_URL = "http://172.18.199.120/";
 
     public HttpURLConnection executeRequest(RequestTypeEnum executeType, String paramsBody, String url, String TOKEN) {
 

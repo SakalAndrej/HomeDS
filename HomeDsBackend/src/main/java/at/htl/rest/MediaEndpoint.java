@@ -48,13 +48,13 @@ public class MediaEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("play")
     @ApiOperation("Play Media")
-    public Response playMedia(@QueryParam("mediaId") int mediaId) {
+    public Response playMedia(@QueryParam("mediaId") int mediaId, @QueryParam("displayId") int displayId) {
         try {
             long widgetId = mediaApi.findWidgetByPlaylist();
             if (widgetId > 0) {
                 if (mediaApi.deleteWidget(widgetId) == 200) {
                     if (mediaApi.editWidget(mediaId) == 200) {
-                        layoutChangerUtil.changeLayout(44, LocalDateTime.now().plusYears(2), XiboEnum.MEDIA);
+                        layoutChangerUtil.changeLayout(44, LocalDateTime.now().plusYears(2), XiboEnum.MEDIA,displayId);
 
                         Response.ok().build();
                     }

@@ -71,7 +71,7 @@ public class DisplayApi {
         return displays;
     }
 
-    public long scheduleLayout(long campaingLayoutId, LocalDateTime fromDate, LocalDateTime toDate, XiboEnum xiboEnum) throws NoConnectionException {
+    public long scheduleLayout(long campaingLayoutId, LocalDateTime fromDate, LocalDateTime toDate, XiboEnum xiboEnum, long displayGroupId) throws NoConnectionException {
 
         int priority = 10;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -87,7 +87,7 @@ public class DisplayApi {
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.POST,
                             "eventTypeId=1&campaignId=" + campaingLayoutId +
-                                    "&displayOrder=0&isPriority="+ priority +"&displayGroupIds[]="+14+"&fromDt="+fromDate.format(formatter)+"&toDt="+toDate.format(formatter)+"&syncTimezone=1",
+                                    "&displayOrder=0&isPriority="+ priority +"&displayGroupIds[]="+displayGroupId+"&fromDt="+fromDate.format(formatter)+"&toDt="+toDate.format(formatter)+"&syncTimezone=1",
                             new RequestHelper().BASE_URL + "api/schedule",
                             AuthentificationHandler.getTOKEN());
 

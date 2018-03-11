@@ -89,8 +89,8 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
 
         HashMap<String,String> params = new HashMap<>();
         params.put("layoutId","-1");
-    String url ="http://10.0.2.2:8080/homeds/rs/crawler/";
-        rh.executeRequest(RequestTypeEnum.GET,params,url, ()->{
+    //String url ="http://10.0.2.2:8080/homeds/rs/crawler/";
+        rh.executeRequest(RequestTypeEnum.GET,params,MainActivityBottomNavigation.getInstance().url + "/crawler/", ()->{
             MainActivityBottomNavigation.getInstance().runOnUiThread(()->{
                 LinkedList<JSONObject> structureparts = new LinkedList<>();
                 JSONArray jsonArray = null;

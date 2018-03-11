@@ -6,7 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation">
-
+<!--
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/actionToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        -->
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation_bar"

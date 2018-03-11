@@ -90,14 +90,14 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
         fabAddNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivityBottomNavigation.getInstance().openEditNewsFragment( new DataSetDataField());
+                MainActivityBottomNavigation.getInstance().openEditNewsFragment(new DataSetDataField());
 
             }
         });
 
-        rh.executeRequest(RequestTypeEnum.GET,null,"http://10.0.2.2:8080/homeds/rs/datasetdatafield",()->{
+        rh.executeRequest(RequestTypeEnum.GET, null, MainActivityBottomNavigation.getInstance().url + "/datasetdatafield/", () -> {
 
-            MainActivityBottomNavigation.getInstance().runOnUiThread(()->{
+            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
                 LinkedList<DataSetDataField> news = new LinkedList<DataSetDataField>();
 
                 JSONArray jsonArray = null;
@@ -115,8 +115,8 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
                                 jsonObject.getLong("dataRowId"),
                                 //jsonObject.getString("colName"),
                                 jsonObject.getString("value"),
-                                LocalDate.ofYearDay(fromDate.getInt("year"),fromDate.getInt("dayOfYear")),
-                                LocalDate.ofYearDay(toDate.getInt("year"),toDate.getInt("dayOfYear")),
+                                LocalDate.ofYearDay(fromDate.getInt("year"), fromDate.getInt("dayOfYear")),
+                                LocalDate.ofYearDay(toDate.getInt("year"), toDate.getInt("dayOfYear")),
 
                                 jsonObject.getString("title")));
 
@@ -133,11 +133,6 @@ public class NewsOverviewFragment extends android.support.v4.app.Fragment {
 
             });
         });
-
-
-
-
-
 
 
         return v;

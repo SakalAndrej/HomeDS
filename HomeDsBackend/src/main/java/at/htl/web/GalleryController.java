@@ -31,7 +31,7 @@ public class GalleryController implements Serializable {
     @PostConstruct
     public void init() throws IOException {
         images = new LinkedList<>();
-        InputStream input = new URL("http://vm59.htl-leonding.ac.at:8080/img/").openStream();
+        InputStream input = new URL("http://vm59.htl-leonding.ac.at:8080/homeds/img/").openStream();
         Document document = new Tidy().parseDOM(input, null);
         NodeList imgs = document.getElementsByTagName("a");
         List<String> srcs = new ArrayList<String>();

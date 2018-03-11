@@ -35,71 +35,79 @@
                     </b:column>
 
                     <b:column col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
-                        <h1>
-                            Dashboard
-                            <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
-                                           name="fa-close" style="color: red;"
-                                           tooltip="#{msg['offlineMessage']}"/>
-                            <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
-                                           name="fa-check" style="color: green;"
-                                           tooltip="#{msg['onlineMessage']}"/>
-                        </h1>
-                        <hr/>
-                        <br></br>
+                    <h1>
+                        Dashboard
+                        <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == false}"
+                                       name="fa-close" style="color: red;"
+                                       tooltip="#{msg['offlineMessage']}"/>
+                        <b:iconAwesome size="1.5x" rendered="#{indexController.serverOnline == true}"
+                                       name="fa-check" style="color: green;"
+                                       tooltip="#{msg['onlineMessage']}"/>
+                    </h1>
+                    <hr/>
+                    <br></br>
 
-                        <h1>Nachrichten</h1>
-                        <hr/>
-                        <b:row styleClass="table-responsive">
-                            <h:dataTable styleClass="table table-striped" value="#{dataSetController.dataSetData}"
-                                         var="dataSet" id="datasets">
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#"/></f:facet>
-                                    <h:outputText value="#{dataSet.dataRowId}"/>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#{msg['title']}"/></f:facet>
-                                    <h:outputText value="#{dataSet.title}"/>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#{msg['description']}"/></f:facet>
-                                    <h:outputText value="#{dataSet.value}"/>
-                                </h:column>
-                            </h:dataTable>
-                        </b:row>
-                        <h1>#{msg['media']}</h1>
-                        <hr/>
-                        <b:row styleClass="table-responsive">
-                            <h:dataTable styleClass="table table-striped" value="#{mediaController.shortMedias}"
-                                         var="media" id="medias">
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#"/></f:facet>
-                                    <h:outputText value="#{media.mediaId}"/>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#{msg['mediaName']}"/></f:facet>
-                                    <h:outputText value="#{media.name}"/>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#{msg['mediaType']}"/></f:facet>
-                                    <h:outputText value="#{media.mediaType}"/>
-                                </h:column>
-                            </h:dataTable>
-                        </b:row>
-                        <b:row>
-                            <h1>
-                                Slideshow Information
-                            </h1><br/>
-                            <h:outputText value="Die Fotos die in der Slideshow angezeigt werden sollen bitte auf der vm59 unter /home/vwall/images hochladen!
+                    <h1>Nachrichten</h1>
+                    <hr/>
+                    <b:row styleClass="table-responsive">
+                        <h:dataTable styleClass="table table-striped" value="#{dataSetController.dataSetData}"
+                                     var="dataSet" id="datasets">
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#"/></f:facet>
+                                <h:outputText value="#{dataSet.dataRowId}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#{msg['title']}"/></f:facet>
+                                <h:outputText value="#{dataSet.title}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#{msg['description']}"/></f:facet>
+                                <h:outputText value="#{dataSet.value}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </b:row>
+                    <h1>#{msg['media']}</h1>
+                    <hr/>
+                    <b:row styleClass="table-responsive">
+                        <h:dataTable styleClass="table table-striped" value="#{mediaController.shortMedias}"
+                                     var="media" id="medias">
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#"/></f:facet>
+                                <h:outputText value="#{media.mediaId}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#{msg['mediaName']}"/></f:facet>
+                                <h:outputText value="#{media.name}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#{msg['mediaType']}"/></f:facet>
+                                <h:outputText value="#{media.mediaType}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </b:row>
+                    <h1>
+                        Slideshow
+                    </h1>
+                    <hr/>
+                    <br/>
+                    <b:row styleClass="table-responsive">
+                        <h:dataTable styleClass="table table-striped" value="#{galleryController.images}"
+                                     var="images" id="images">
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="Media Name"/></f:facet>
+                                <h:outputText value="#{images}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </b:row>
+                    <!--<h:outputText value="Die Fotos die in der Slideshow angezeigt werden sollen bitte auf der vm59 unter /home/vwall/images hochladen!
 ">
-                            </h:outputText>
-                            <!--<b:slider2 min="0" max="100" span="7" step="5" value="#{IndexController.slideShowDuration}"
-                                       label=""/>-->
-                        </b:row>
+                    </h:outputText>
+                    <b:slider2 min="0" max="100" span="7" step="5" value="#{IndexController.slideShowDuration}"
+                               label=""/>-->
                     </b:column>
                 </b:row>
             </h:form>
         </b:container>
     </b:container>
-
 </h:body>
 </html>

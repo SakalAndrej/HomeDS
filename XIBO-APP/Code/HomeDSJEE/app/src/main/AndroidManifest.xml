@@ -18,12 +18,15 @@
         <activity
             android:name=".activity.MainActivityBottomNavigation"
             android:label="@string/title_activity_main_bottom_navigation">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <!-- android:theme="@style/ActionBarTheme" -->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
+
+         <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+             <category android:name="android.intent.category.LAUNCHER" />
+         </intent-filter>
+     </activity>
+ </application>
 
 </manifest>

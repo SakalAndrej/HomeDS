@@ -46,6 +46,7 @@
                     <p:ajax event="select" update="mediaTable selected" listener="#{mediaController.onSelect}"/>
                 </p:tagCloud>
                 <br/>
+                <b:commandButton action="#{mediaController.clearCloud}" look="info" value="#{msg['clearSelection']}" style="float:right;width:200px"></b:commandButton>
                 <h:outputText id="selected" value="#{msg['selected']}: #{mediaController.tags}"></h:outputText>
             </b:panel>
             <b:panel>

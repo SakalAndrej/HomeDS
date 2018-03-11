@@ -89,7 +89,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         HashMap<String, String> params = new HashMap<>();
         params.put("start", "1");
         params.put("length", "10");
-        params.put("tags", "");
+        params.put("tags", "informatik");
         rh.executeRequest(RequestTypeEnum.GET, params, MainActivityBottomNavigation.getInstance().url + "/media/", () -> {
             MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
                 LinkedList<Media> medias = new LinkedList<Media>();

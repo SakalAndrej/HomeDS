@@ -30,7 +30,7 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
     private TextView mTextMessage;
     public BottomNavigationView navbar;
     public static MainActivityBottomNavigation mainActivityBottomNavigation;
-    public String url = "http://10.0.2.2:8080/homeds/rs";
+    public String url = "http://vm59.htl-leonding.ac.at:8080/homeds/rs";
 
 
     @Override

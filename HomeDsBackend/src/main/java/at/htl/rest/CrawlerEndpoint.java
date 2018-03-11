@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("crawler")
-@Api("Crawler - API")
+@Api(value = "Crawler - API", description = "Crawler Operation")
 public class CrawlerEndpoint {
 
     @Inject
@@ -24,7 +24,7 @@ public class CrawlerEndpoint {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
-    @ApiOperation("Get all Crawled things")
+    @ApiOperation(value = "Get all Crawled things", code = 200, response = String.class)
     public Response getCrawler(@QueryParam("layoutId") long id,
                                @QueryParam("layout") String name) {
         try {

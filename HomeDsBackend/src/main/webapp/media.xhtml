@@ -43,8 +43,10 @@
             </b:panel>
             <b:panel>
                 <p:tagCloud id="tagcloud" model="#{mediaController.model}" style="width: 100%">
-                    <p:ajax event="select" update="mediaTable" listener="#{mediaController.onSelect}"/>
+                    <p:ajax event="select" update="mediaTable selected" listener="#{mediaController.onSelect}"/>
                 </p:tagCloud>
+                <br/>
+                <h:outputText id="selected" value="#{msg['selected']}: #{mediaController.tags}"></h:outputText>
             </b:panel>
             <b:panel>
                 <b:commandButton value="Stop" style="width:100%" look="danger" action="#{mediaController.clearMedia}" update="growl">

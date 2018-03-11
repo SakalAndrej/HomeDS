@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-    <title>Dashboard HomeDs</title>
+    <title>HomeDS - Dashboard</title>
 </h:head>
 
 <h:body style="padding-top: 60px; margin-left: 1%;margin-right: 1%">
@@ -47,7 +47,7 @@
                     <hr/>
                     <br></br>
 
-                    <h1>Nachrichten</h1>
+                    <h1>#{msg['news']}</h1>
                     <hr/>
                     <b:row styleClass="table-responsive">
                         <h:dataTable styleClass="table table-striped" value="#{dataSetController.dataSetData}"
@@ -72,10 +72,6 @@
                         <h:dataTable styleClass="table table-striped" value="#{mediaController.shortMedias}"
                                      var="media" id="medias">
                             <h:column>
-                                <f:facet name="header"><h:outputText value="#"/></f:facet>
-                                <h:outputText value="#{media.mediaId}"/>
-                            </h:column>
-                            <h:column>
                                 <f:facet name="header"><h:outputText value="#{msg['mediaName']}"/></f:facet>
                                 <h:outputText value="#{media.name}"/>
                             </h:column>
@@ -94,7 +90,7 @@
                         <h:dataTable styleClass="table table-striped" value="#{galleryController.images}"
                                      var="images" id="images">
                             <h:column>
-                                <f:facet name="header"><h:outputText value="Media Name"/></f:facet>
+                                <f:facet name="header"><h:outputText value="#{msg['mediaName']}"/></f:facet>
                                 <h:outputText value="#{images}"/>
                             </h:column>
                         </h:dataTable>

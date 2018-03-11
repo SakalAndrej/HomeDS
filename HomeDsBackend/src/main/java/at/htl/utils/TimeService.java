@@ -107,7 +107,6 @@ public class TimeService {
     @PostConstruct
     public void init() {
         AuthentificationHandler.setTOKEN(AuthentificationHandler.Authenticate());
-        //mediaApi.uploadMedia();
     }
 
 

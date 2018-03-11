@@ -6,16 +6,8 @@ import at.htl.model.Media;
 import at.htl.utils.AuthentificationHandler;
 import at.htl.utils.RequestHelper;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.InputStreamBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -34,6 +26,13 @@ public class MediaApi {
 
     public LinkedList<Media> getAllMedia(int start, int length, String tags) throws NoConnectionException {
 
+        LinkedList<Media> all = getAllMediaByType(start, length, tags, "image");
+        all.addAll(getAllMediaByType(start, length, tags, "video"));
+        return all;
+    }
+
+    public LinkedList<Media> getAllMediaByType(int start, int length, String tags, String type) throws NoConnectionException {
+
         BufferedReader in;
         LinkedList<Media> medias = new LinkedList<>();
         Media actual = new Media();
@@ -41,7 +40,7 @@ public class MediaApi {
         try {
             HttpURLConnection con = new RequestHelper()
                     .executeRequest(RequestTypeEnum.GET, null,
-                            new RequestHelper().BASE_URL + "api/library?start=" + start + "&length=" + length + "&tags=" + tags,
+                            new RequestHelper().BASE_URL + "api/library?type=" + type + "&start=" + start + "&length=" + length + "&tags=" + tags,
                             AuthentificationHandler.getTOKEN());
             try {
                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));

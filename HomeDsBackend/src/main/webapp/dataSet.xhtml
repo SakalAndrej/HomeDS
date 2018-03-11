@@ -40,11 +40,13 @@
                          look="primary">
                     <b:column col-sm="12" col-md="12">
                         <b:form id="dataSetEditor" inline="true">
+
                             <b:dataTable
                                     id="dataSetParent"
                                     value="#{dataSetController.dataSetData}"
                                     var="actDataSet"
                                     update="growl"
+                                    select=""
                                     responsive="true"
                                     ajax="true"
                                     searching="true"

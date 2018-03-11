@@ -13,7 +13,7 @@ public class RestConfig extends Application {
 
     public RestConfig() {
         BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setVersion("1.1.0");
+        beanConfig.setVersion("1.2.0");
         beanConfig.setTitle("HomeDSBackend");
         beanConfig.setSchemes(new String[]{"http"});
         beanConfig.setHost("vm59.htl-leonding.ac.at:8080");

@@ -4,25 +4,45 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Gallery</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    <style>
+        .mySlides {
+            display: none;
+        }
+    </style>
 </head>
 <h:body>
-    <h:form prependId="false">
-        <p:imageSwitch effect="fade" id="fadeEffect">
-            <ui:repeat value="#{galleryController.images}" var="image" id="fadeEffectImages">
-                <p:graphicImage value="#{image}" id="image" styleClass="content" style="    width: 100%;
-    vertical-align: center;
-    vertical-align: middle;
-    align-content: center;
-    align-items: center;
-    align-self: center;
+    <div class="w3-content w3-section" style="max-width:500px">
+        <ui:repeat value="#{galleryController.images}" var="image" id="fadeEffectImages">
+            <img class="mySlides" src="http://vm59.htl-leonding.ac.at:8080/homeds#{image}" style="width:100%;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;"/>
-            </ui:repeat>
-        </p:imageSwitch>
-    </h:form>
+        </ui:repeat>
+    </div>
+
+
+    <script>
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i &lt; x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) {
+                myIndex = 1
+            }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, '#{galleryController.slideShowDuration}'); // Change image every 15 seconds
+        }
+    </script>
 </h:body>
+
 </html>

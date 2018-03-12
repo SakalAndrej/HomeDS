@@ -86,12 +86,12 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_media_overview, container, false);
         RecyclerView rvMedia = v.findViewById(R.id.rvMedia);
 
-        HashMap<String,String> params = new HashMap<>();
-        params.put("start","1");
-        params.put("length","10");
-        params.put("tags","");
-        rh.executeRequest(RequestTypeEnum.GET,params,"http://10.0.2.2:8080/homeds/rs/media/",()->{
-            MainActivityBottomNavigation.getInstance().runOnUiThread(()->{
+        HashMap<String, String> params = new HashMap<>();
+        params.put("start", "1");
+        params.put("length", "10");
+        params.put("tags", "informatik");
+        rh.executeRequest(RequestTypeEnum.GET, params, MainActivityBottomNavigation.getInstance().url + "/media/", () -> {
+            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
                 LinkedList<Media> medias = new LinkedList<Media>();
 
                 JSONArray jsonArray = null;
@@ -104,9 +104,9 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         medias.add(new Media(jsonObject.getLong("mediaId")
-                                ,jsonObject.getLong("ownerId")
-                                ,jsonObject.getString("name")
-                                ,jsonObject.getString("mediaType")));
+                                , jsonObject.getLong("ownerId")
+                                , jsonObject.getString("name")
+                                , jsonObject.getString("mediaType")));
 
                     }
                 } catch (JSONException e) {
@@ -122,10 +122,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         });
 
 
-
-
-
-       return v;
+        return v;
 
     }
 

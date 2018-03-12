@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.activity.MainActivity;
+import homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation;
 import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
 import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
@@ -57,6 +59,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     int day;
     LocalDate dateFrom;
     LocalDate dateTo;
+
     public NewsEditFragment() {
         // Required empty public constructor
     }
@@ -82,7 +85,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState != null)
+        if (savedInstanceState != null)
             mFrag = getFragmentManager().getFragment(savedInstanceState, "saveFragment");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -94,7 +97,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        getFragmentManager().putFragment(outState, "saveFragment",mFrag);
+        getFragmentManager().putFragment(outState, "saveFragment", mFrag);
     }
 
     @Override
@@ -105,7 +108,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
 
         Bundle bundle = getArguments();
         Log.d("BUNDLDATA", String.valueOf(bundle));
-        if(bundle != null)
+        if (bundle != null)
             this.setArguments(bundle);
         DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
         ImageButton ibSaveNews = v.findViewById(R.id.ibSaveNews);
@@ -118,8 +121,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         tvTimeFrom = v.findViewById(R.id.tvTimeFrom);
         tvTimeTo = v.findViewById(R.id.tvTimeTo);
 
-        if (news.getToDate() != null && news.getFromDate() != null)
-        {
+        if (news.getToDate() != null && news.getFromDate() != null) {
             tvTimeFrom.setText(news.getFromDate().toString());
             tvTimeTo.setText(news.getToDate().toString());
             dateTo = news.getToDate();
@@ -130,19 +132,19 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         tvTimeFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            final Calendar c = Calendar.getInstance();
-            year = c.get(Calendar.YEAR);
-            month = c.get(Calendar.MONTH);
-            day = c.get(Calendar.DAY_OF_MONTH);
+                final Calendar c = Calendar.getInstance();
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH);
+                day = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.getInstance()
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivityBottomNavigation.getInstance()
                         , new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        tvTimeFrom.setText(year +"-"+ (month+1) +"-"+ day);
-                        dateFrom = LocalDate.of(year,month,day);
+                        tvTimeFrom.setText(year + "-" + (month + 1) + "-" + day);
+                        dateFrom = LocalDate.of(year, month, day);
                     }
-                },year,month,day);
+                }, year, month, day);
                 datePickerDialog.show();
 
             }
@@ -156,14 +158,14 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                 month = c.get(Calendar.MONTH);
                 day = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.getInstance()
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivityBottomNavigation.getInstance()
                         , new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        tvTimeTo.setText(year +"-"+ (month+1) +"-"+ day);
-                        dateTo = LocalDate.of(year,month,day);
+                        tvTimeTo.setText(year + "-" + (month + 1) + "-" + day);
+                        dateTo = LocalDate.of(year, month, day);
                     }
-                },year,month,day);
+                }, year, month, day);
                 datePickerDialog.show();
 
 
@@ -173,11 +175,11 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         ibSaveNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Bundle bundle = getArguments();
-            DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
+                Bundle bundle = getArguments();
+                DataSetDataField news = (DataSetDataField) bundle.getSerializable("data");
                 RequestHelper rh = new RequestHelper();
-                HashMap<String,String> params = new HashMap<>();
-                String url = "http://10.0.2.2:8080/homeds/rs/datasetdatafield/";
+                HashMap<String, String> params = new HashMap<>();
+                //String url = "http://10.0.2.2:8080/homeds/rs/datasetdatafield/";
 
                 //LocalDate date = LocalDate.now();
                 if (news.getId() != null && news.getDataSetId() != null && news.getDataRowId() != null) {
@@ -185,46 +187,76 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                     params.put("dataSetId", news.getDataSetId().toString());
                     params.put("dataRowId", news.getDataRowId().toString());
                 }
-                params.put("value",description.getText().toString());
-                params.put("title",title.getText().toString());
+                params.put("value", description.getText().toString());
+                params.put("title", title.getText().toString());
                 params.put("fromDate", String.valueOf(Date.from(dateFrom.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
                 params.put("toDate", String.valueOf(Date.from(dateTo.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()));
 
-                if (news.getId() == null){
+                if (news.getId() == null) {
                     Long n = -1L;
-                    params.put("dataRowId",n.toString());
-                    rh.executeRequest(RequestTypeEnum.POST,params,url+"save/");
-                    Log.d("POSTFORDATASET",params.toString());
-                }else{
-                    rh.executeRequest(RequestTypeEnum.PUT,params,url+"edit/");
-                    Log.d("PUTFORDATASET",params.toString());
+                    params.put("dataRowId", n.toString());
+                    rh.executeRequest(RequestTypeEnum.POST, params, MainActivityBottomNavigation.getInstance().url + "/datasetdatafield/save/", () -> {
+                        Log.d("POSTFORDATASET", params.toString());
+                        if (rh.getResponseCode() == 200) {
+                            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                                MainActivityBottomNavigation.getInstance().onBackPressed();
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet erfolgreich hinzugefügt!", Toast.LENGTH_SHORT);
+                            });
+
+                        } else {
+                            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet konnte nicht hinzugefügtwerden, Verbindung Überprüfen!", Toast.LENGTH_LONG);
+                            });
+                        }
+                    });
+
+                } else {
+                    rh.executeRequest(RequestTypeEnum.PUT, params, MainActivityBottomNavigation.getInstance().url + "/datasetdatafield/edit/", () -> {
+                        Log.d("PUTFORDATASET", params.toString());
+                        if (rh.getResponseCode() == 200) {
+                            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                                MainActivityBottomNavigation.getInstance().onBackPressed();
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet erfolgreich verändert!", Toast.LENGTH_SHORT);
+
+                            });
+                        } else {
+                            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet konnte nicht verändert, Verbindung Überprüfen!", Toast.LENGTH_LONG);
+                            });
+                        }
+                    });
 
                 }
             }
         });
         return v;
     }
+
     @Override
     public void onResume() {
         super.onResume();
         Log.d("NEWSEDIT", "OnResume");
     }
+
     @Override
     public void onPause() {
         super.onPause();
         Log.d("NEWSEDIT", "onPause");
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
+
     @Override
     public void onAttachFragment(android.support.v4.app.Fragment childFragment) {
         super.onAttachFragment(childFragment);
         Log.d("NEWSEDIT", "Attach");
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -237,22 +269,26 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
     @Override
     public void onDetach() {
         super.onDetach();
         Log.d("NEWSEDIT", "onDetach");
         mListener = null;
     }
+
     @Override
     public void onStop() {
         super.onStop();
         Log.d("NEWSEDIT", "onStop");
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d("NEWSEDIT", "onDestroy");
     }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -267,5 +303,7 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    public void request(){}
+
+    public void request() {
+    }
 }

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -74,30 +77,53 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_screen, container, false);
 
-        String url = "http://10.0.2.2:8080/homeds/rs/status/";
 
+        Button btPlayMedia = v.findViewById(R.id.btPlayMedia);
+        Button btShowNews = v.findViewById(R.id.btShowNews);
 
+        btPlayMedia.setEnabled(false);
+        btShowNews.setEnabled(false);
         ImageView ivUp = v.findViewById(R.id.ivServerUp);
         ivUp.setVisibility(View.INVISIBLE);
         ImageView ivDown = v.findViewById(R.id.ivServerDown);
-        ivDown.setVisibility(View.INVISIBLE);
-        ImageButton ibNewsView = v.findViewById(R.id.ibNewsView);
-        ImageButton ibStructurePlan = v.findViewById(R.id.ibStructurePlan);
-        ImageButton ibMediaOverview = v.findViewById(R.id.ibMediaOverview);
+        ivDown.setVisibility(View.VISIBLE);
 
+        ConstraintLayout clServerStatus = v.findViewById(R.id.cl_serverStatus);
+        clServerStatus.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.serverDown));
         //mittel callback wird die sichtbarkeit des sever status gesetzt sobald ein response erhalten wurde
 
-        rh.executeRequest(RequestTypeEnum.GET, null, url, () -> {
+        rh.executeRequest(RequestTypeEnum.GET, null, MainActivityBottomNavigation.getInstance().url + "/status/", () -> {
             //gui änderungen müssen im thread der main activity(einzige actiyity also auch "MainThread") durchgeführt werden.
             //die methode runOnUiThread weist in diesem fall auf den thread der main activity
-            MainActivityBottomNavigation.getInstance().runOnUiThread(()->{
+            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
                 if (rh.getResponseCode() == 200) {
                     ivUp.setVisibility(View.VISIBLE);
-
+                    ivDown.setVisibility(View.INVISIBLE);
+                    clServerStatus.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.serverUp));
+                    btPlayMedia.setEnabled(true);
+                    btShowNews.setEnabled(true);
                 } else {
                     ivDown.setVisibility(View.VISIBLE);
+                    clServerStatus.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.serverDown));
                 }
             });
+        });
+
+
+        btPlayMedia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // MainActivityBottomNavigation.getInstance().openMediaOverviewFragment();
+                MainActivityBottomNavigation.getInstance().navbar.setSelectedItemId(R.id.playMediaNavBar);
+            }
+        });
+
+        btShowNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // MainActivityBottomNavigation.getInstance().openNewsOverview();
+                MainActivityBottomNavigation.getInstance().navbar.setSelectedItemId(R.id.editDatasetNavBar);
+            }
         });
 
        /* try {
@@ -107,26 +133,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment {
         }*/
         /*
 */
-        ibNewsView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.getInstance().openNewsOverview();
-            }
-        });
 
-        ibStructurePlan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.getInstance().openStructurePlanFragment();
-            }
-        });
-
-        ibMediaOverview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.getInstance().openMediaOverviewFragment();
-            }
-        });
         return v;
     }
 

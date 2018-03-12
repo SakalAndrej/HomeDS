@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +47,8 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
     private String mParam1;
     private String mParam2;
 
+    private String mediaTag;
+    RecyclerView rvMedia;
     private OnFragmentInteractionListener mListener;
     private RequestHelper rh = new RequestHelper();
 
@@ -84,42 +89,34 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_media_overview, container, false);
-        RecyclerView rvMedia = v.findViewById(R.id.rvMedia);
+        rvMedia = v.findViewById(R.id.rvMedia);
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("start", "1");
-        params.put("length", "10");
-        params.put("tags", "informatik");
-        rh.executeRequest(RequestTypeEnum.GET, params, MainActivityBottomNavigation.getInstance().url + "/media/", () -> {
-            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
-                LinkedList<Media> medias = new LinkedList<Media>();
+        //https://developer.android.com/guide/topics/ui/controls/spinner.html
+        Spinner spTagChoise = v.findViewById(R.id.spTagChoise);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                MainActivityBottomNavigation.getInstance().getApplicationContext(),R.array.tag_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spTagChoise.setAdapter(adapter);
+        spTagChoise.setSelection(0);
+        mediaTag = spTagChoise.getItemAtPosition(0).toString();
 
-                JSONArray jsonArray = null;
+        spTagChoise.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mediaTag = adapterView.getItemAtPosition(i).toString();
+                setRecyclerView(mediaTag);
+            }
 
-                try {
-                    String response = rh.getResponseBody();
-                    jsonArray = new JSONArray(response);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                        medias.add(new Media(jsonObject.getLong("mediaId")
-                                , jsonObject.getLong("ownerId")
-                                , jsonObject.getString("name")
-                                , jsonObject.getString("mediaType")));
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                MediaAdapter mediaAdapter = new MediaAdapter(medias);
-                rvMedia.setAdapter(mediaAdapter);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                rvMedia.setLayoutManager(linearLayoutManager);
-            });
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spTagChoise.setSelection(0);
+                mediaTag = adapterView.getItemAtPosition(0).toString();
+                setRecyclerView(mediaTag);
+            }
         });
+
+        setRecyclerView(mediaTag);
+
 
 
         return v;
@@ -172,4 +169,41 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         }
         return rh.getResponseBody();
     }*/
+
+    public void setRecyclerView(String mediaTag){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("start", "1");
+        params.put("length", "10");
+        params.put("tags",mediaTag);
+        rh.executeRequest(RequestTypeEnum.GET, params, MainActivityBottomNavigation.getInstance().url + "/media/", () -> {
+            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                LinkedList<Media> medias = new LinkedList<Media>();
+
+                JSONArray jsonArray = null;
+
+                try {
+                    String response = rh.getResponseBody();
+                    jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        medias.add(new Media(jsonObject.getLong("mediaId")
+                                , jsonObject.getLong("ownerId")
+                                , jsonObject.getString("name")
+                                , jsonObject.getString("mediaType")));
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                MediaAdapter mediaAdapter = new MediaAdapter(medias);
+                rvMedia.setAdapter(mediaAdapter);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                rvMedia.setLayoutManager(linearLayoutManager);
+            });
+        });
+    }
 }

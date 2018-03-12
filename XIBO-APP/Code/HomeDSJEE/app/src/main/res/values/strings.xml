@@ -8,4 +8,14 @@
     <string name="title_edit_dataset">DataSet</string>
     <string name="title_structure_plan">Structure Plan</string>
     <string name="title_play_Media">Play Media</string>
+
+
+    <string-array name="tag_array">
+        <item>Projekte</item>
+        <item>Informatik</item>
+        <item>Biomedizin</item>
+        <item>Elektronik</item>
+        <item>Projektvideos</item>
+        <item>Medientechnik</item>
+    </string-array>
 </resources>

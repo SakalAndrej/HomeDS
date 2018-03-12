@@ -17,8 +17,7 @@ import javax.ws.rs.core.Response;
 public class DisplayEndpoint {
 
     @Inject
-    private
-    DisplayApi displayApi;
+    private DisplayApi displayApi;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

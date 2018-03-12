@@ -33,6 +33,7 @@ public class RestConfig extends Application {
         set.add(CrawlerEndpoint.class);
         set.add(MediaEndpoint.class);
         set.add(StatusEndpoint.class);
+        set.add(DisplayEndpoint.class);
 
         set.add(io.swagger.jaxrs.listing.ApiListingResource.class);
         set.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);

@@ -31,7 +31,7 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
     public BottomNavigationView navbar;
     public static MainActivityBottomNavigation mainActivityBottomNavigation;
     public String url = "http://vm59.htl-leonding.ac.at:8080/homeds/rs";
-
+    public Long displayId = 11L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

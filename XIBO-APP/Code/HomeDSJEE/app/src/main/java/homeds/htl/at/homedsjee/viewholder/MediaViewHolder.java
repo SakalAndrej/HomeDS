@@ -41,6 +41,7 @@ public class MediaViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 HashMap<String, String> params = new HashMap<>();
                 params.put("mediaId", media.getMediaId().toString());
+                params.put("displayId", MainActivityBottomNavigation.getInstance().displayId.toString());
                 RequestHelper rh = new RequestHelper();
                 //String url = "http://10.0.2.2:8080/homeds/rs";
                 rh.executeRequest(RequestTypeEnum.GET, params, MainActivityBottomNavigation.getInstance().url + "/media/play");

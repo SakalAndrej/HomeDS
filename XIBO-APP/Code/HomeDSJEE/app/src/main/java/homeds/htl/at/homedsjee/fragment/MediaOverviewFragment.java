@@ -102,7 +102,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         spTagChoise.setAdapter(tagAdapter);
         spTagChoise.setSelection(0);
         mediaTag = spTagChoise.getItemAtPosition(0).toString();
-
+        displays = new LinkedList<>();
         spTagChoise.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -159,7 +159,26 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
                 }
             });
         });
-        setRecyclerView(mediaTag);
+
+        spDisplayToPlay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String displayName = adapterView.getItemAtPosition(i).toString();
+
+                for (Display display: displays){
+                    if (display.getDisplay().equals(displayName)){
+                        MainActivityBottomNavigation.getInstance().displayId = display.getDisplayId();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                MainActivityBottomNavigation.getInstance().displayId = 11L;
+            }
+        });
+
+        //setRecyclerView(mediaTag);
 
         return v;
     }

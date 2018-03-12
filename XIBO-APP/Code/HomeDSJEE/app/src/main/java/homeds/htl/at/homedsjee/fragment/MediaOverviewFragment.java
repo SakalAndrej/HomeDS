@@ -26,6 +26,7 @@ import homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation;
 import homeds.htl.at.homedsjee.adapter.MediaAdapter;
 import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
+import homeds.htl.at.homedsjee.entity.Display;
 import homeds.htl.at.homedsjee.entity.Media;
 import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
 
@@ -51,6 +52,8 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
     RecyclerView rvMedia;
     private OnFragmentInteractionListener mListener;
     private RequestHelper rh = new RequestHelper();
+    LinkedList<Media> medias;
+    LinkedList<Display> displays;
 
     public MediaOverviewFragment() {
         // Required empty public constructor
@@ -93,10 +96,10 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
 
         //https://developer.android.com/guide/topics/ui/controls/spinner.html
         Spinner spTagChoise = v.findViewById(R.id.spTagChoise);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                MainActivityBottomNavigation.getInstance().getApplicationContext(),R.array.tag_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spTagChoise.setAdapter(adapter);
+        ArrayAdapter<CharSequence> tagAdapter = ArrayAdapter.createFromResource(
+                MainActivityBottomNavigation.getInstance().getApplicationContext(), R.array.tag_array, android.R.layout.simple_spinner_item);
+        tagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spTagChoise.setAdapter(tagAdapter);
         spTagChoise.setSelection(0);
         mediaTag = spTagChoise.getItemAtPosition(0).toString();
 
@@ -115,15 +118,54 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
             }
         });
 
+        Spinner spDisplayToPlay = v.findViewById(R.id.spDisplayToPlay);
+
+        rh.executeRequest(RequestTypeEnum.GET, null, MainActivityBottomNavigation.getInstance().url + "/display/", () -> {
+            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                JSONArray jsonArray = null;
+                try {
+                    String response = rh.getResponseBody();
+                    jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        displays.add(new Display(
+                                jsonObject.getLong("displayId"),
+                                jsonObject.getString("display"),
+                                jsonObject.getString("description"),
+                                jsonObject.getLong("defaultLayoutId"),
+                                jsonObject.getLong("displayGroupId"),
+                                jsonObject.getString("deviceName"),
+                                jsonObject.getLong("currentLayoutId")
+                        ));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String[] displaysArray = new String[displays.size()];
+                int vWall = 0;
+                int i = 0;
+                for (Display display : displays) {
+                    if (display.getDisplayId() == 11) {
+                        {
+                            vWall = i;
+                        }
+                        displaysArray[i] = display.getDisplay();
+                        i++;
+                    }
+                    //https://stackoverflow.com/questions/17311335/how-to-populate-a-spinner-from-string-array
+                    ArrayAdapter<String> displayAdapter = new ArrayAdapter<String>(MainActivityBottomNavigation.getInstance(), android.R.layout.simple_spinner_item, displaysArray);
+                    spDisplayToPlay.setAdapter(displayAdapter);
+                    spDisplayToPlay.setSelection(vWall);
+                }
+            });
+        });
         setRecyclerView(mediaTag);
 
-
-
         return v;
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -147,20 +189,21 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+/**
+ * This interface must be implemented by activities that contain this
+ * fragment to allow an interaction in this fragment to be communicated
+ * to the activity and potentially other fragments contained in that
+ * activity.
+ * <p>
+ * See the Android Training lesson <a href=
+ * "http://developer.android.com/training/basics/fragments/communicating.html"
+ * >Communicating with Other Fragments</a> for more information.
+ */
+public interface OnFragmentInteractionListener {
+    // TODO: Update argument type and name
+    void onFragmentInteraction(Uri uri);
+
+}
 
     /*public String getResponseWithWait() throws InterruptedException {
 
@@ -170,14 +213,14 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         return rh.getResponseBody();
     }*/
 
-    public void setRecyclerView(String mediaTag){
+    public void setRecyclerView(String mediaTag) {
         HashMap<String, String> params = new HashMap<>();
         params.put("start", "1");
         params.put("length", "10");
-        params.put("tags",mediaTag);
+        params.put("tags", mediaTag);
         rh.executeRequest(RequestTypeEnum.GET, params, MainActivityBottomNavigation.getInstance().url + "/media/", () -> {
             MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
-                LinkedList<Media> medias = new LinkedList<Media>();
+                medias = new LinkedList<Media>();
 
                 JSONArray jsonArray = null;
 

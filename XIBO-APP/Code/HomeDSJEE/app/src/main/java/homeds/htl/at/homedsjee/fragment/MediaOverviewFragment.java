@@ -121,29 +121,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
             }
         });
 
-        spDisplayToPlay = v.findViewById(R.id.spDisplayToPlay);
 
-
-
-        spDisplayToPlay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String displayName = adapterView.getItemAtPosition(i).toString();
-
-                for (Display display: displays){
-                    if (display.getDisplay().equals(displayName)){
-                        MainActivityBottomNavigation.getInstance().displayId = display.getDisplayId();
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                MainActivityBottomNavigation.getInstance().displayId = 11L;
-            }
-        });
-
-        //setRecyclerView(mediaTag);
 
         return v;
     }
@@ -225,7 +203,7 @@ public interface OnFragmentInteractionListener {
                     e.printStackTrace();
                 }
 
-                MediaAdapter mediaAdapter = new MediaAdapter(medias,recyclerView);
+                MediaAdapter mediaAdapter = new MediaAdapter(medias);
                 rvMedia.setAdapter(mediaAdapter);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -235,46 +213,5 @@ public interface OnFragmentInteractionListener {
     }
 
 
-    public void getDisplays(){
-        rh.executeRequest(RequestTypeEnum.GET, null, MainActivityBottomNavigation.getInstance().url + "/display/", () -> {
-            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
-                JSONArray jsonArray = null;
-                try {
-                    String response = rh.getResponseBody();
-                    jsonArray = new JSONArray(response);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        displays.add(new Display(
-                                jsonObject.getLong("displayId"),
-                                jsonObject.getString("display"),
-                                jsonObject.getString("description"),
-                                jsonObject.getLong("defaultLayoutId"),
-                                jsonObject.getLong("displayGroupId"),
-                                jsonObject.getString("deviceName"),
-                                jsonObject.getLong("currentLayoutId")
-                        ));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String[] displaysArray = new String[displays.size()];
-                int vWall = 0;
-                int i = 0;
-                for (Display display : displays) {
-                    if (display.getDisplayId() == 11) {
-                        {
-                            vWall = i;
-                        }
-                        displaysArray[i] = display.getDisplay();
-                        i++;
-                    }
-                    //https://stackoverflow.com/questions/17311335/how-to-populate-a-spinner-from-string-array
-                    ArrayAdapter<String> displayAdapter = new ArrayAdapter<String>(MainActivityBottomNavigation.getInstance(), android.R.layout.simple_spinner_item, displaysArray);
-                    spDisplayToPlay.setAdapter(displayAdapter);
-                    spDisplayToPlay.setSelection(vWall);
-                }
-            });
 
-        });
-    }
 }

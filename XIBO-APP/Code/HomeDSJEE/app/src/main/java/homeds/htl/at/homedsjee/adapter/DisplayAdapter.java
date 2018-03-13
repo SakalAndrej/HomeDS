@@ -3,6 +3,9 @@ package homeds.htl.at.homedsjee.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import java.util.LinkedList;
+
+import homeds.htl.at.homedsjee.entity.Display;
 import homeds.htl.at.homedsjee.viewholder.DisplayViewHolder;
 
 /**
@@ -10,6 +13,10 @@ import homeds.htl.at.homedsjee.viewholder.DisplayViewHolder;
  */
 
 public class DisplayAdapter extends RecyclerView.Adapter<DisplayViewHolder> {
+    LinkedList<Display> displays = new LinkedList<>();
+
+    public DisplayAdapter(LinkedList<Display> displays){this.displays = displays;}
+
     @Override
     public DisplayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return null;

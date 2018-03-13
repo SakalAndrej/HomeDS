@@ -30,7 +30,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaViewHolder> {
     LinkedList<Media> medias = new LinkedList<>();
 
 
-    public MediaAdapter(LinkedList<Media> medias,RecyclerView recyclerView){this.medias = medias;}
+    public MediaAdapter(LinkedList<Media> medias){this.medias = medias;}
     @Override
     public MediaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.media_list_item,parent,false);

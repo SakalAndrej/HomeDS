@@ -4,12 +4,25 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.R;
+import homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation;
+import homeds.htl.at.homedsjee.adapter.DisplayAdapter;
+import homeds.htl.at.homedsjee.apiClient.RequestHelper;
+import homeds.htl.at.homedsjee.entity.Display;
+import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +41,10 @@ public class ChooseDisplayFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RequestHelper rh;
+    LinkedList<Display> displays;
+    RecyclerView rvDisplay;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,10 +83,11 @@ public class ChooseDisplayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_choose_display, container, false);
-
-        RecyclerView rvDisplay = v.findViewById(R.id.rvDisplays);
-
+        View v = inflater.inflate(R.layout.fragment_choose_display, container, false);
+        rh = new RequestHelper();
+        displays = new LinkedList<>();
+        rvDisplay = v.findViewById(R.id.rvDisplays);
+        getDisplays();
         return v;
 
     }
@@ -111,5 +129,41 @@ public class ChooseDisplayFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    public void getDisplays() {
+        rh.executeRequest(RequestTypeEnum.GET, null, MainActivityBottomNavigation.getInstance().url + "/display/", () -> {
+            MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
+                JSONArray jsonArray = null;
+                try {
+                    String response = rh.getResponseBody();
+                    jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        displays.add(new Display(
+                                jsonObject.getLong("displayId"),
+                                jsonObject.getString("display"),
+                                jsonObject.getString("description"),
+                                jsonObject.getLong("defaultLayoutId"),
+                                jsonObject.getLong("displayGroupId"),
+                                jsonObject.getString("deviceName"),
+                                jsonObject.getLong("currentLayoutId")
+                        ));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                DisplayAdapter displayAdapter = new DisplayAdapter(displays);
+                rvDisplay.setAdapter(displayAdapter);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                rvDisplay.setLayoutManager(linearLayoutManager);
+
+            });
+
+        });
     }
 }

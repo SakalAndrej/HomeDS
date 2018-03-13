@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import homeds.htl.at.homedsjee.R;
@@ -45,6 +47,7 @@ public class ChooseDisplayFragment extends Fragment {
     RequestHelper rh;
     LinkedList<Display> displays;
     RecyclerView rvDisplay;
+    TextView tvDisplayToPlay;
 
     private OnFragmentInteractionListener mListener;
 
@@ -84,9 +87,12 @@ public class ChooseDisplayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_choose_display, container, false);
+
         rh = new RequestHelper();
         displays = new LinkedList<>();
         rvDisplay = v.findViewById(R.id.rvDisplays);
+        Bundle bundle = this.getArguments();
+        tvDisplayToPlay = (TextView) bundle.getSerializable("display");
         getDisplays();
         return v;
 

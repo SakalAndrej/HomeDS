@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -136,6 +137,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         btCooseDisplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 MainActivityBottomNavigation.getInstance().openChooseDisplayFragment();
                 tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().display.getDisplay());
             }

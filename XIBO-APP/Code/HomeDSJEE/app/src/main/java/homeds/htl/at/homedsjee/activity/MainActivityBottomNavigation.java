@@ -58,7 +58,11 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
                         openNewsOverview();
                         break;
                     case R.id.playMediaNavBar:
+                        if (display.getDisplay() == null){
+                         openChooseDisplayFragment();
+                        }else {
                         openMediaOverviewFragment();
+                        }
                         break;
                     case R.id.homeScreenNavBar:
                         openHomeScreenFragment();
@@ -95,6 +99,7 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
 
     public void openMediaOverviewFragment() {
         MediaOverviewFragment mediaOverviewFragment = new MediaOverviewFragment();
+
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.container_display, mediaOverviewFragment, null).addToBackStack(null).commit();
     }

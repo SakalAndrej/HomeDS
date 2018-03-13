@@ -30,7 +30,8 @@ public class DisplayViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 MainActivityBottomNavigation.getInstance().display = display;
-                MainActivityBottomNavigation.getInstance().onBackPressed();
+                MainActivityBottomNavigation.getInstance().openMediaOverviewFragment();
+
             }
         });
 

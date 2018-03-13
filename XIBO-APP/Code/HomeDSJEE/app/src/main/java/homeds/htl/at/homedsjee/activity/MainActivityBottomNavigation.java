@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
+import homeds.htl.at.homedsjee.entity.Display;
 import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
 import homeds.htl.at.homedsjee.fragment.MediaOverviewFragment;
 import homeds.htl.at.homedsjee.fragment.NewsEditFragment;
@@ -31,14 +32,14 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
     public BottomNavigationView navbar;
     public static MainActivityBottomNavigation mainActivityBottomNavigation;
     public String url = "http://vm59.htl-leonding.ac.at:8080/homeds/rs";
-    public Long displayId = 11L;
+    public Display display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_bottom_navigation);
         mainActivityBottomNavigation = this;
-
+        display = new Display();
         //https://developer.android.com/training/appbar/setting-up.html
        // Toolbar appToolbar = findViewById(R.id.actionToolbar);
         //setSupportActionBar(appToolbar);

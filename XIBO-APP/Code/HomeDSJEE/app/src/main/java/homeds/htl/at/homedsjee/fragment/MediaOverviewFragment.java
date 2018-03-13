@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +56,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
     LinkedList<Media> medias;
     LinkedList<Display> displays;
     Spinner spTagChoise;
-    Spinner spDisplayToPlay;
+    TextView tvDisplayToPlay;
 
     public MediaOverviewFragment() {
         // Required empty public constructor
@@ -95,7 +96,8 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_media_overview, container, false);
         rvMedia = v.findViewById(R.id.rvMedia);
-        medias = new LinkedList<Media>();
+        medias = new LinkedList<>();
+        tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().display.getDisplay());
         //medias.add(new Media(-1L,-1L,"test","test"));
         //https://developer.android.com/guide/topics/ui/controls/spinner.html
         spTagChoise = v.findViewById(R.id.spTagChoise);

@@ -33,6 +33,6 @@ public class DisplayAdapter extends RecyclerView.Adapter<DisplayViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return displays.size();
     }
 }

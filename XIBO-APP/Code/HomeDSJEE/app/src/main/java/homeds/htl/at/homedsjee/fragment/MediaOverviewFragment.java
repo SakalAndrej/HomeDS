@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -57,6 +58,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
     LinkedList<Display> displays;
     Spinner spTagChoise;
     TextView tvDisplayToPlay;
+    Button btCooseDisplay;
 
     public MediaOverviewFragment() {
         // Required empty public constructor
@@ -97,17 +99,22 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_media_overview, container, false);
         rvMedia = v.findViewById(R.id.rvMedia);
         medias = new LinkedList<>();
-        tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().display.getDisplay());
+        spTagChoise = v.findViewById(R.id.spTagChoise);
+        displays = new LinkedList<>();
+        btCooseDisplay = v.findViewById(R.id.btChooseDisplay);
+
+        if (MainActivityBottomNavigation.getInstance().display.getDisplay() != null) {
+            tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().display.getDisplay());
+        }
+
         //medias.add(new Media(-1L,-1L,"test","test"));
         //https://developer.android.com/guide/topics/ui/controls/spinner.html
-        spTagChoise = v.findViewById(R.id.spTagChoise);
         ArrayAdapter<CharSequence> tagAdapter = ArrayAdapter.createFromResource(
                 MainActivityBottomNavigation.getInstance().getApplicationContext(), R.array.tag_array, android.R.layout.simple_spinner_item);
         tagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTagChoise.setAdapter(tagAdapter);
-        spTagChoise.setSelection(0);
-        mediaTag = spTagChoise.getItemAtPosition(0).toString();
-        displays = new LinkedList<>();
+
+
         spTagChoise.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -123,7 +130,16 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
             }
         });
 
+        spTagChoise.setSelection(0);
+        mediaTag = spTagChoise.getItemAtPosition(0).toString();
 
+        btCooseDisplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivityBottomNavigation.getInstance().openChooseDisplayFragment();
+                tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().display.getDisplay());
+            }
+        });
 
         return v;
     }

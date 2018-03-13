@@ -15,6 +15,7 @@ import android.widget.TextView;
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
 import homeds.htl.at.homedsjee.entity.Display;
+import homeds.htl.at.homedsjee.fragment.ChooseDisplayFragment;
 import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
 import homeds.htl.at.homedsjee.fragment.MediaOverviewFragment;
 import homeds.htl.at.homedsjee.fragment.NewsEditFragment;
@@ -142,6 +143,12 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
         fm.beginTransaction().replace(R.id.container_display,settingsFragment,null).addToBackStack(null).commit();
     }
 
+    public void openChooseDisplayFragment(){
+
+        FragmentManager fm = getSupportFragmentManager();
+        ChooseDisplayFragment chooseDisplayFragment = new ChooseDisplayFragment();
+        fm.beginTransaction().replace(R.id.container_display,chooseDisplayFragment,null).addToBackStack(null).commit();
+    }
     @Override
     public void onFragmentInteraction(Uri uri) {
 

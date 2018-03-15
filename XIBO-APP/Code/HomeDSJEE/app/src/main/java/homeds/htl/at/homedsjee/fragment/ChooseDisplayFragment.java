@@ -47,7 +47,7 @@ public class ChooseDisplayFragment extends Fragment {
     RequestHelper rh;
     LinkedList<Display> displays;
     RecyclerView rvDisplay;
-    TextView tvDisplayToPlay;
+    //<TextView tvDisplayToPlay;
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,7 +92,7 @@ public class ChooseDisplayFragment extends Fragment {
         displays = new LinkedList<>();
         rvDisplay = v.findViewById(R.id.rvDisplays);
         Bundle bundle = this.getArguments();
-        tvDisplayToPlay = (TextView) bundle.getSerializable("display");
+        //tvDisplayToPlay = (TextView) bundle.getSerializable("display");
         getDisplays();
         return v;
 

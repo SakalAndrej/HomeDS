@@ -27,13 +27,22 @@ import homeds.htl.at.homedsjee.fragment.StructurePlanFragment;
 public class MainActivityBottomNavigation extends AppCompatActivity implements HomeScreenFragment.OnFragmentInteractionListener,
         NewsEditFragment.OnFragmentInteractionListener, NewsOverviewFragment.OnFragmentInteractionListener,
         StructurePlanFragment.OnFragmentInteractionListener, MediaOverviewFragment.OnFragmentInteractionListener,
-        StructureDetailFragment.OnFragmentInteractionListener {
+        StructureDetailFragment.OnFragmentInteractionListener, ChooseDisplayFragment.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
     public BottomNavigationView navbar;
     public static MainActivityBottomNavigation mainActivityBottomNavigation;
     public String url = "http://vm59.htl-leonding.ac.at:8080/homeds/rs";
-    public Display display;
+    private Display display;
+
+    public Display getDisplay(){
+        return this.display;
+    }
+
+    public void setDisplay(Display display){
+        this.display = display;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

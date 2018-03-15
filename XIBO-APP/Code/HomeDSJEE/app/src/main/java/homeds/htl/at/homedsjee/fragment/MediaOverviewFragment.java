@@ -103,10 +103,9 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         spTagChoise = v.findViewById(R.id.spTagChoise);
         displays = new LinkedList<>();
         btCooseDisplay = v.findViewById(R.id.btChooseDisplay);
+        tvDisplayToPlay = v.findViewById(R.id.tvDisplayToPlay);
 
-        if (MainActivityBottomNavigation.getInstance().display.getDisplay() != null) {
-            tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().display.getDisplay());
-        }
+        tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().getDisplay().getDisplay());
 
         //medias.add(new Media(-1L,-1L,"test","test"));
         //https://developer.android.com/guide/topics/ui/controls/spinner.html
@@ -139,7 +138,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
             public void onClick(View view) {
 
                 MainActivityBottomNavigation.getInstance().openChooseDisplayFragment();
-                tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().display.getDisplay());
+                tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().getDisplay().getDisplay());
             }
         });
 

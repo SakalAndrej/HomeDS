@@ -29,7 +29,7 @@ public class DisplayViewHolder extends RecyclerView.ViewHolder {
         btCooseDisplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivityBottomNavigation.getInstance().display = display;
+                MainActivityBottomNavigation.getInstance().setDisplay(display);
                 MainActivityBottomNavigation.getInstance().openMediaOverviewFragment();
 
             }

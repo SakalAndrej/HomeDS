@@ -9,11 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -23,6 +29,7 @@ import homeds.htl.at.homedsjee.activity.MainActivityBottomNavigation;
 import homeds.htl.at.homedsjee.adapter.MediaAdapter;
 import homeds.htl.at.homedsjee.apiClient.RequestHelper;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
+import homeds.htl.at.homedsjee.entity.Display;
 import homeds.htl.at.homedsjee.entity.Media;
 import homeds.htl.at.homedsjee.enumeration.RequestTypeEnum;
 
@@ -44,8 +51,15 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
     private String mParam1;
     private String mParam2;
 
+    private String mediaTag;
+    RecyclerView rvMedia;
     private OnFragmentInteractionListener mListener;
     private RequestHelper rh = new RequestHelper();
+    LinkedList<Media> medias;
+    LinkedList<Display> displays;
+    Spinner spTagChoise;
+    TextView tvDisplayToPlay;
+    Button btCooseDisplay;
 
     public MediaOverviewFragment() {
         // Required empty public constructor
@@ -84,15 +98,110 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_media_overview, container, false);
-        RecyclerView rvMedia = v.findViewById(R.id.rvMedia);
+        rvMedia = v.findViewById(R.id.rvMedia);
+        medias = new LinkedList<>();
+        spTagChoise = v.findViewById(R.id.spTagChoise);
+        displays = new LinkedList<>();
+        btCooseDisplay = v.findViewById(R.id.btChooseDisplay);
+        tvDisplayToPlay = v.findViewById(R.id.tvDisplayToPlay);
 
+        tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().getDisplay().getDisplay());
+
+        //medias.add(new Media(-1L,-1L,"test","test"));
+        //https://developer.android.com/guide/topics/ui/controls/spinner.html
+        ArrayAdapter<CharSequence> tagAdapter = ArrayAdapter.createFromResource(
+                MainActivityBottomNavigation.getInstance().getApplicationContext(), R.array.tag_array, android.R.layout.simple_spinner_item);
+        tagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spTagChoise.setAdapter(tagAdapter);
+
+
+        spTagChoise.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mediaTag = adapterView.getItemAtPosition(i).toString();
+                setRecyclerView(mediaTag,rvMedia);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spTagChoise.setSelection(0);
+                mediaTag = adapterView.getItemAtPosition(0).toString();
+                setRecyclerView(mediaTag,rvMedia);
+            }
+        });
+
+        spTagChoise.setSelection(0);
+        mediaTag = spTagChoise.getItemAtPosition(0).toString();
+
+        btCooseDisplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                MainActivityBottomNavigation.getInstance().openChooseDisplayFragment();
+                tvDisplayToPlay.setText(MainActivityBottomNavigation.getInstance().getDisplay().getDisplay());
+            }
+        });
+
+        return v;
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+/**
+ * This interface must be implemented by activities that contain this
+ * fragment to allow an interaction in this fragment to be communicated
+ * to the activity and potentially other fragments contained in that
+ * activity.
+ * <p>
+ * See the Android Training lesson <a href=
+ * "http://developer.android.com/training/basics/fragments/communicating.html"
+ * >Communicating with Other Fragments</a> for more information.
+ */
+public interface OnFragmentInteractionListener {
+    // TODO: Update argument type and name
+    void onFragmentInteraction(Uri uri);
+
+}
+
+    /*public String getResponseWithWait() throws InterruptedException {
+
+        while(rh.getResponseBody() == null){
+            Thread.sleep(100);
+        }
+        return rh.getResponseBody();
+    }*/
+
+    public void setRecyclerView(String mediaTag,RecyclerView recyclerView) {
         HashMap<String, String> params = new HashMap<>();
         params.put("start", "1");
         params.put("length", "10");
-        params.put("tags", "informatik");
+        params.put("tags", mediaTag);
         rh.executeRequest(RequestTypeEnum.GET, params, MainActivityBottomNavigation.getInstance().url + "/media/", () -> {
             MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
-                LinkedList<Media> medias = new LinkedList<Media>();
+                medias = new LinkedList<Media>();
 
                 JSONArray jsonArray = null;
 
@@ -120,56 +229,8 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
                 rvMedia.setLayoutManager(linearLayoutManager);
             });
         });
-
-
-        return v;
-
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
-    /*public String getResponseWithWait() throws InterruptedException {
-
-        while(rh.getResponseBody() == null){
-            Thread.sleep(100);
-        }
-        return rh.getResponseBody();
-    }*/
 }

@@ -200,12 +200,12 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                         if (rh.getResponseCode() == 200) {
                             MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
                                 MainActivityBottomNavigation.getInstance().onBackPressed();
-                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet erfolgreich hinzugefügt!", Toast.LENGTH_SHORT);
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet erfolgreich hinzugefügt!", Toast.LENGTH_SHORT).show();
                             });
 
                         } else {
                             MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
-                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet konnte nicht hinzugefügtwerden, Verbindung Überprüfen!", Toast.LENGTH_LONG);
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet konnte nicht hinzugefügtwerden, Verbindung Überprüfen!", Toast.LENGTH_LONG).show();
                             });
                         }
                     });
@@ -216,12 +216,12 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
                         if (rh.getResponseCode() == 200) {
                             MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
                                 MainActivityBottomNavigation.getInstance().onBackPressed();
-                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet erfolgreich verändert!", Toast.LENGTH_SHORT);
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet erfolgreich verändert!", Toast.LENGTH_SHORT).show();
 
                             });
                         } else {
                             MainActivityBottomNavigation.getInstance().runOnUiThread(() -> {
-                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet konnte nicht verändert, Verbindung Überprüfen!", Toast.LENGTH_LONG);
+                                Toast.makeText(MainActivityBottomNavigation.getInstance().getApplicationContext(), "DataSet konnte nicht verändert, Verbindung Überprüfen!", Toast.LENGTH_LONG).show();
                             });
                         }
                     });

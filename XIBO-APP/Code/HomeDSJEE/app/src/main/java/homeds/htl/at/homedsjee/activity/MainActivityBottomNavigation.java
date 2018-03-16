@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import homeds.htl.at.homedsjee.R;
 import homeds.htl.at.homedsjee.entity.DataSetDataField;
+import homeds.htl.at.homedsjee.entity.Display;
+import homeds.htl.at.homedsjee.fragment.ChooseDisplayFragment;
 import homeds.htl.at.homedsjee.fragment.HomeScreenFragment;
 import homeds.htl.at.homedsjee.fragment.MediaOverviewFragment;
 import homeds.htl.at.homedsjee.fragment.NewsEditFragment;
@@ -25,12 +27,21 @@ import homeds.htl.at.homedsjee.fragment.StructurePlanFragment;
 public class MainActivityBottomNavigation extends AppCompatActivity implements HomeScreenFragment.OnFragmentInteractionListener,
         NewsEditFragment.OnFragmentInteractionListener, NewsOverviewFragment.OnFragmentInteractionListener,
         StructurePlanFragment.OnFragmentInteractionListener, MediaOverviewFragment.OnFragmentInteractionListener,
-        StructureDetailFragment.OnFragmentInteractionListener {
+        StructureDetailFragment.OnFragmentInteractionListener, ChooseDisplayFragment.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
     public BottomNavigationView navbar;
     public static MainActivityBottomNavigation mainActivityBottomNavigation;
     public String url = "http://vm59.htl-leonding.ac.at:8080/homeds/rs";
+    private Display display;
+
+    public Display getDisplay(){
+        return this.display;
+    }
+
+    public void setDisplay(Display display){
+        this.display = display;
+    }
 
 
     @Override
@@ -38,7 +49,7 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_bottom_navigation);
         mainActivityBottomNavigation = this;
-
+        display = new Display();
         //https://developer.android.com/training/appbar/setting-up.html
        // Toolbar appToolbar = findViewById(R.id.actionToolbar);
         //setSupportActionBar(appToolbar);
@@ -56,7 +67,11 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
                         openNewsOverview();
                         break;
                     case R.id.playMediaNavBar:
+                        if (display.getDisplay() == null){
+                         openChooseDisplayFragment();
+                        }else {
                         openMediaOverviewFragment();
+                        }
                         break;
                     case R.id.homeScreenNavBar:
                         openHomeScreenFragment();
@@ -93,6 +108,7 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
 
     public void openMediaOverviewFragment() {
         MediaOverviewFragment mediaOverviewFragment = new MediaOverviewFragment();
+
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.container_display, mediaOverviewFragment, null).addToBackStack(null).commit();
     }
@@ -141,6 +157,12 @@ public class MainActivityBottomNavigation extends AppCompatActivity implements H
         fm.beginTransaction().replace(R.id.container_display,settingsFragment,null).addToBackStack(null).commit();
     }
 
+    public void openChooseDisplayFragment(){
+
+        FragmentManager fm = getSupportFragmentManager();
+        ChooseDisplayFragment chooseDisplayFragment = new ChooseDisplayFragment();
+        fm.beginTransaction().replace(R.id.container_display,chooseDisplayFragment,null).addToBackStack(null).commit();
+    }
     @Override
     public void onFragmentInteraction(Uri uri) {
 

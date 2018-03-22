@@ -8,11 +8,23 @@ Die API-Schnittstelle des XIBO-Servers ist mittels Swagger dokumentiert. Diese D
 \cite{postman}
 \cite{Okhttp3}
 \section{Authentifizierung}
-Es stellte sich heraus, dass die Authentifizierung mittels OAuth2 sehr speziell war, was zu Beginn zu einigen Schwierigkeiten führte. Es benötigte einige Anläufe  um herauszufinden, wie und in welcher Reihenfolge die Parameter übergeben werden müssen. Dazu wurde eine Java-Klasse entwickelt, welche die Authentifizierung automatisch übernimmt.
+Bevor ein Client(im Zuge der Diplomarbeit handelt es sich um den Java-EE-Server) Anweisungen an den XIBO-Server in Form von Rest-Reqests übermitteln kann muss sich dieser mittels OAuth2 authentifizieren. Dazu benötigt der eine vom Server generierte Client\_ID.
 \cite{oAuth2}
 
-Der Server benötigt zur Authentifizierung mit einem Client eine Client\_ID. Diese wird vom Server für jeden Client eindeutig erzeugt. Man bekommt sie direkt von der Website des Servers. 
-Weiteres wird ein Client\_Secret benötigt, das ebenso wie die Client\_ID vom Server für jede Anwendung ,eindeutig erzeugt wird und auch auf der Website erhältlich ist. Zudem ist ein Parameter in der Form ''&grant\_type=client\_credentials'' mitzugeben.
+Die Parameter: 
+\begin{itemize}
+	\item {\em Client\_ID:} XIBO-Server Anwendungen neue Anwendung
+	\item {\em Client\_Secret:}  XIBO-Server Anwendungen neue Anwendung
+	\item{\em grant\_type:} Muss in der Form ''&grant\_type=client\_credentials''
+\end{itemize}
+müssen dem Server übermittelt werden um die Authentifizierung mit dem XIBO-Server durchzuführen. Dies geschieht unter der URL ''api\/authorize\/access\_token''.
+
+
+
+
+
+
+HomeDS\HomeDsBackend\src\main\java\at\htl\utils\AuthentificationHandler.java
 
 Zuerst wird ein Request-Body erstellt. Dieser hat folgende Parameter in der Form: 
  ''client\_id=<CLIENT\_ID>\&client\_secret=<CLIENT\_SECRET>\&grant\_type=

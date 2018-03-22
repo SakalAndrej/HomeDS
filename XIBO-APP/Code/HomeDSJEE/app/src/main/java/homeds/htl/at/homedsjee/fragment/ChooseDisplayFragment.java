@@ -91,7 +91,7 @@ public class ChooseDisplayFragment extends Fragment {
         rh = new RequestHelper();
         displays = new LinkedList<>();
         rvDisplay = v.findViewById(R.id.rvDisplays);
-        Bundle bundle = this.getArguments();
+        //Bundle bundle = this.getArguments();
         //tvDisplayToPlay = (TextView) bundle.getSerializable("display");
         getDisplays();
         return v;

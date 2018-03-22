@@ -71,10 +71,10 @@ public class StructureDetailFragment extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_structure_detail, container, false);
         Bundle bundle = this.getArguments();
         TextView tvStructureDetailStiring = v.findViewById(R.id.tvStructureDetailString);
-        tvStructureDetailStiring.setMovementMethod(new ScrollingMovementMethod());
         String detail = bundle.getString("actStructure");
-
         tvStructureDetailStiring.setText(detail.toString());
+        tvStructureDetailStiring.setMovementMethod(new ScrollingMovementMethod());
+
         return v;
     }
 

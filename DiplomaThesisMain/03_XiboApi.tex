@@ -2,18 +2,14 @@
 \section{Beschreibung}
 Als zentrale Steuereinheit wird ein XIBO-Server verwendet. Um diesen verwenden zu können, war es notwendig sich in die Dokumentation einzulesen und die API-Schnittstelle auszuprobieren. Die Website des Servers diente vorerst als Übungsumgebung. Dadurch wurde es leicht auch die einzelnen Funktionen, inklusive der Vorgangsweise, des Servers zu verstehen.
 \cite{xibo-server}
-
 \section{API-Schnittstelle}
 Die API-Schnittstelle des XIBO-Servers ist mittels Swagger dokumentiert. Diese Dokumentation deckt die Grundfunktionalitäten und die Form der Anfragen ab. Da die Schnittstelle des Servers später als wesentliches Verbindungsstück zwischen der eigens entwickelten Steuerungssoftware und dem Server dient, war es nötig, diese gründlich zu testen und auch zu verstehen. Anfangs wurde dafür mit Postman gearbeitet. Um mit Postman die Requests testen zu können musste festgestellt werden, welche Codierung für den Request verwendet wird. Im Falle des XIBO-Servers wird ''application/x-www-form-urlencoded'' als Codierung verwendet. Die Anfragen an den Server wurden im Java Code durch die ''libary'' OkHttp3 übernommen.
 \cite{swagger}
 \cite{postman}
 \cite{Okhttp3}
-
-
 \section{Authentifizierung}
 Es stellte sich heraus, dass die Authentifizierung mittels OAuth2 sehr speziell war, was zu Beginn zu einigen Schwierigkeiten führte. Es benötigte einige Anläufe  um herauszufinden, wie und in welcher Reihenfolge die Parameter übergeben werden müssen. Dazu wurde eine Java-Klasse entwickelt, welche die Authentifizierung automatisch übernimmt.
 \cite{oAuth2}
-
 
 Der Server benötigt zur Authentifizierung mit einem Client eine Client\_ID. Diese wird vom Server für jeden Client eindeutig erzeugt. Man bekommt sie direkt von der Website des Servers. 
 Weiteres wird ein Client\_Secret benötigt, das ebenso wie die Client\_ID vom Server für jede Anwendung ,eindeutig erzeugt wird und auch auf der Website erhältlich ist. Zudem ist ein Parameter in der Form ''&grant\_type=client\_credentials'' mitzugeben.
@@ -23,42 +19,6 @@ Zuerst wird ein Request-Body erstellt. Dieser hat folgende Parameter in der Form
  client\_credentials''
 , die im Body mitgegeben werden und als Format 'application/x-www-form-urlencoded'  haben. Anschließend werden dem Header noch der "content-type'' mit dem Wert ''application/x-www-form-urlencoded'' und der Parameter ''cache-control'' mit dem Wert ''no-cache'' hinzugefügt. Als Ergebniss der Anfrage bekommt der Client einen '' access\_token '', dieser ist nun bei jeder Anfrage notwendig um sich beim Server zu authentifizieren und es dem Client zu ermöglichen Daten abzurufen beziehungsweise weiterzugeben.
 
-\section{Request-Helper}
-Um in weiterer Folge die Anfragen an den Digital Signage Server einfach und einheitlich durchzuführen gibt es die Klasse ''RequestHelper''. In dieser Klasse gibt es neben den beiden Parametern ''responseBody'' und ''responseCode'', welche zur Fehlerausgabe und zum Erhalt der Daten aus der Anfrage vorhanden sind, auch noch die Methode "executeRequest". Diese übernimmt die Hauptaufgabe der Klasse und fährt die Anfragen an das Signage System durch.
-
-Die Parameter dieser Methode lauten wie folgt:
-
-\begin{itemize}
-	\item {\em RequestTypeEnum:} Der Parameter vom Typ Enum wird genutzt um Herauszufinden welche Http Anfrage vorliegt. Mögliche Werte sind hierbei GET, POST, PUT und DELETE.
-	
-	\item {\em Params:} Hier liegt eine HashMap vor, die als Key-Value Paare alle benötigten Parameter für den RequestBody beinhaltet. Beispielsweise: ''LayoutID'':''78'', hierbei ist ''LayoutID'' der Key und ''78'' das Value.
-		
-	\item {\em Url:} Beinhaltet die URL unter der die Anfrage erreichbar ist. 
-	
-	\item {\em Token:} Ist jener Parameter '' access\_token '',der benötigt wird um sich beim Server zu authentifizieren. Der Erhalt dieses Parameters, funktioniert wie bereits im vorigen Unterpunkt Authentifizierung beschrieben.
-	
-\end{itemize}
-
-Zu Beginn der Methode wird anhand des Parameters RequestTypeEnum unterschieden, um welche Http Anfrage es sich handelt. Wird GET oder DELETE geliefert wird durch die HashMap iteriert und die einzelnen Key-Value Paare als QeryParameter in der URL einfügt.
-
-Beispielsweise:''<URL>/layout?layoutID=78&token=ajdlfjkakawkflkd6545''.
-Handelt es sich um eine POST oder PUT Anfrage so werden die Key-Value Paare im Body mitgegeben und im Format "application/x-www-form-urlencoded" codiert. Anschließend wird noch die URL mittels HttpUrl.Builder erstellt und ausgegeben. 
-Anschließend wird per Switch-Case dem Request die richtige Art der Anfrage zugewiesen und danach wird auch noch die URL übergeben. 
-
-Um die Anfragen noch fertig zu stellen, wird noch das Interface Callback implementiert. Mit den beiden Methoden onFailure und onResponse wird dem Interface zugewiesen was passiert, wenn der Request fehlschlägt oder funktioniert. 
-
-Sollte der Request fehlschlagen, wird im Log-Fenster der Responsecode und die Fehlermeldung/Exception ausgegeben. 
-Wird der Request ohne Fehler durchgeführt so wird im Log-Fenster ebenfalls der Responsecode und der Responsebody ausgegeben.
-
-Der letzte Schritt ist es dem OkHttpClient mitzuteilen, dass er einen neuen Call ausführen soll. Als Parameter wird der Zusammengestellte Request mitgegeben. Über .enqueue wird dem Client gesagt er soll auf einen Response warten. Parameter für diese Methode ist das erstellte Interface Callback.
-\cite{OkHttp3}
-
-
-
-
-
-Als Ergebnis der Anfrage, mit den Parametern, in der Form
-----------STütz fragen ob bsp für request usw einbauen
 
 
 

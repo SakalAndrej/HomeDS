@@ -40,10 +40,11 @@ Falls keine Nachrichten Pakete aktiv oder im System sind werden aus dem RSS-Feed
 Eine weitere Funktion des Servers ist das abspielen von Medien auf einen bestimmten Bildschirm. Dabei muss im XIBO ein definiertes Layout erstellt werden mit einer absoluten Id. In diesem Layout wird eine Region über die volle Auflösung erstellt die ein Bibliothek Widget enthält. Diesem Widget wird dann per REST das vom Nutzer ausgewählt Medium eingefügt. Sobald diese Operationen erfolgreich ausgeführt wurden wird per REST das definierte Layout auf den vom Nutzer ausgewähltem Bildschirm eingeplant.
 
 \subsection{Jave Enterprise Edition mit Android über REST}\label{sec:javaeeandroidrest}
-Ein weiterer essentieller Teil des Server auf Java Enterprise Edition Basis ist die Kommunikation mittels REST. Alle Funktionen des Servers werden mit REST für die Android Applikation zur Verfügung gestellt. 
+Ein weiterer Teil des Server auf Java Enterprise Edition Basis ist die Kommunikation mittels REST. Alle Funktionen des Servers werden per REST zur Verfügung gestellt.
 
-\section{Swagger}\label{sec:javaeeandroidrestswagger}
-Swagger wird verwendet um Funktionalität und Möglichkeit einer API übersichtlich zu gestalten. Um die REST Schnittstellen zu dokumentieren und übersichtlich zu visualisieren wird Swagger verwendet. Dabei gibt es zwei verschiedene Arten eine REST-Dokumentation zu erstellen. 
+\subsection{Swagger}\label{sec:javaeeandroidrestswagger}
+Swagger wird verwendet um Funktionalität und Möglichkeit einer API übersichtlich zu gestalten. Dabei gibt es zwei verschiedene Arten eine REST-Dokumentation zu erstellen.
+Dabei dokumentiert Swagger welche Response Code's man erwarten kann wie bei einem POST oder PUT der Body aussehen muss oder welche Pathparams mitgegeben werden müssen und welche nur optional sind.  
 
 Die erste Möglichkeit wäre, mit dem Swagger Editor die Dokumentation in der JSON-Ausdruckssprache mit der Hand zu schreiben und immer wieder zu aktualisieren. Natürlich ist dies bei vielen verschiedenen GETs, POSTs, PUTs und DELETEs sehr aufwendig und mühsam.
 
@@ -53,28 +54,62 @@ Bei der zweiten Methode, die auch bei der Diplomarbeit zum Einsatz kommt, werden
 Verweis: https://swagger.io/
 
 \section{Java Server Faces mit JavaEE}\label{sec:javaeejsf}
-Um den Benutzern die Möglichkeit zu geben die Funktionen unseres Servers zu nutzen wurde im Rahmen der Diplomarbeit auch eine Webapplikation erstellt. Und da JSF also Java Server Faces mit einem Java EE Server harmoniert haben wir  uns entschieden eine Webapplikation zu erstellen. Dies hat viele Vorteile wie z. Bsp. die Platformunabhängigkeit und auch die schnellere Entwicklung im Vergleich zu anderen Clients. 
+Um den Benutzern die Möglichkeit zu geben die Funktionen unseres Servers zu nutzen wurde im Rahmen der Diplomarbeit auch eine Webapplikation erstellt. Und da JSF also Java Server Faces mit einem Java EE Server harmoniert haben wir uns entschieden solch eine Webapplikation zu erstellen. Dies hat viele Vorteile wie z. Bsp. die Platformunabhängigkeit und auch die schnelle Entwicklung im Vergleich zu anderen Clients. 
 
-Mit JSF wird nämlich über eine Managed Bean direkt im XHTML auf die Funktionen des Servers zugegriffen somit sind keine REST Zugriffe nötig. 
+Mit JSF wird nämlich über eine Managed Bean direkt im XHTML auf die Funktionen des Servers zugegriffen somit sind keine REST Zugriffe nötig.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{images/08_HomeDsWeb/DashboardHomeDsWeb.png}
+\caption{Startseite - HomeDsWeb}
+\label{img:Startseite}
+\end{figure}
 
 Unsere Weboberfläche ist Responsive gestaltet und mithilfe von Java Server Faces mit BootsFaces realisiert worden. Das Bootsfaces Framework stellt fertige Komponenten zur Verfügung wie Buttons, Listen, Forms etc. Dabei wurde Bootstrap als Vorbild hergenommen.
 
-BILD VON OBERFLÄCHE
+Uns war es wichtig die Oberfläche so zu gestalten das diese übersichtlich und leicht zu bedienen ist. Das Designen wurde mit enger Zusammenarbeit mit dem zukünftigen Benutzern der Software ausgearbeitet. Als Vorbild fungierte mehr oder weniger ein Cockpit eines Flugzeuges wo vielen Funktionen direkt bei der Hand liegen müssen und trotzdem alles seine Ordnung hat. In der Abbildung \ref{img:Startseite} ist das Dashboard abgebildet. 
+Hier erkennt man nun das es sich um die Kommandozentrale der Applikation handelt von dieser Seite aus kann man über eine Top-Navigationsleiste oder Left Sidebar Navigation zu allen Funktionen des Server gelangen. 
 
-Die Aufgabe der DataSet Webapplikation ist DataSet zu ändern, hinzufügen oder zu löschen. Die Applikation besteht grob gesagt aus 2 Teilen. 
+Um den Nutzer immer ein Feedback über den aktuellen Status der Verbindung vom XIBO zu JavaEE Server zu geben wird bei Erfolgreicher Verbindung ein grünes Häkchen visualisiert versehen mit eine Tooltip. Oder bei keiner Verbindung zum Server ein rotes x dargestellt wie in Abbildung  \ref{img:NoConnection}.
 
-Teil 1 kümmert sich um das Anzeigen aller DataSets in einer Responisve Komponente die "DataTable" gennant wird in der Bibliothek vom Bootsfaces Framework. Im DataTable ist es möglich die Anzahl der angezeigten Elemente pro Seite zu begrenzen oder erweitern,  die einzelnen Spalten sortieren dabei ***ascending*** oder ***descending*** und durch die verschiedenen Spalten einer Zeile eine Suche durchzuführen. 
+\begin{figure}[h]
+\includegraphics[width=1\textwidth]{images/08_HomeDsWeb/DashboardNoConnection.png}
+\caption{Keine Verbindung zum XIBO - HomeDsWeb}
+\label{img:NoConnection}
+\end{figure}
 
-Es ist auch durch die editierbaren Textfelder und DatePicker möglich die DataSets zu ändern. Durch klicken auf den Speichern Button wird die Änderung des einzelnen DataSets bestätigt. Durch klicken auf den Löschen Button
+\section{Nachrichten Pakete ändern - HomeDS Web}\label{sec:homedswebdataset}
+Die Datensatz ändern Funktion auch genannt Nachrichten Pakete ändern, DataSet bearbeiten oder Nachrichten Pakete bearbeiten kann über das Dashboard erreicht werden.
+Die Aufgabe der DataSet Webapplikation ist ein DataSet zu ändern, hinzufügen oder zu löschen. Die Applikation besteht grob gesagt aus 2 Teilen. Diese 2 Teile können bei Bedarf auf- und zugeklappt werden.
+
+Teil 1 kümmert sich um das Anzeigen aller DataSets in einer Responisve Komponente die "DataTable" gennant wird in der Bibliothek vom Bootsfaces Framework. Im DataTable ist es möglich die Anzahl der angezeigten Elemente pro Seite zu begrenzen oder erweitern,  die einzelnen Spalten sortieren dabei kann man zwischen ab- oder aufsteigend wählen und durch die verschiedenen Spalten einer Zeile eine Suche durchzuführen. 
+
+Es ist auch durch die editierbaren Textfelder und DatePicker möglich die DataSets zu ändern. Durch klicken auf den Speichern Button wird die Änderung des einzelnen DataSets bestätigt. Durch klicken auf den roten Löschen Button wird das Nachrichtenpaket gelöscht falls es aktiv war wird es auch aus dem XIBO System entfernt. Die Logik ist im \pageref{sec:datasetexpiredate} nochmals genauer erklärt. 
+
+Der zweite Teil der Datensatz ändern Seite ist das Hinzufügen von Nachrichtenpaketen. Dabei ist der Titel und der Inhalt der Nachricht natürlich erforderlich. Bei nicht eingeben von Start Datum des Nachrichtenpakets wird davon ausgegangen das es sofort in den XIBO gespeichert werden soll und somit auf aktiv gesetzt wird. Andersrum wenn kein Ablaufdatum eingegeben wird, wird das DataSet solange angezeigt bis entweder ein Ablaufdatum im Nachhinein hinzugefügt wird oder es manuell einfach wieder gelöscht wird.
+
+Nach jeder Aktion wird die Webseite mit einer Loading Animation versehen und der Nutzer bekommt dann ein Feedback ob die jeweilige Operation erfolgreich oder fehlgeschlagen ist. 
+
 Verweis auf JSF Section,
 
 
 \section{Medien abspielen}\label{sec:playmedia}
-Eine weitere wichtige Funktion ist das Abspielen der Medien die im XIBO hinterlegt sind. Es soll dem Nutzer eine einfache und übersichtliche Oberfläche zur Verfügung gestellt werden die Medien abspielen soll. Der Nutzer kann jedoch vorher den Bildschirm auswählen auf den diese Medien abgespielt werden sollen. Um jedoch zu verhindern das der Nutzer zwischen hunderten von Medien sein Video suchen muss gibt es eine Schlagwort Wolke.
+Eine weitere Funktion ist das Abspielen der Medien die im XIBO hinterlegt sind. Es soll dem Nutzer eine einfache und übersichtliche Oberfläche zur Verfügung gestellt werden die Medien abspielen soll. Der Nutzer kann jedoch vorher den Bildschirm auswählen auf den diese Medien abgespielt werden sollen. Des weiteren soll verhindert werden das der Nutzer stundenlang sein gewolltes Video aus der XIBO Bibliothek heraussuchen muss. Diese Herausforderung wurde mithilfe von Schlagworten und einer Schlagwort-Wolke gelöst. Auch werden nur Formate wie Foto und Video aus der XIBO Bibliothek geladen.
 
-Die Medien im XIBO sind mit einem Schlagwort versehen. Diese Schlagwörter können sein die jeweilige Abteilung also Informatik, Medientechnik oder Elektronik. Oder aber auch ob es sich um ein Projekt oder sonstiges. 
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{images/08_HomeDsWeb/PlayMediaOverview.png}
+\caption{Medien abspielen- HomeDsWeb}
+\label{img:playmedia}
+\end{figure}
+
+Die Medien im XIBO müssen mit einem Schlagwort versehen. Diese Schlagwörter können sein die jeweilige Abteilung also Informatik, Medientechnik oder Elektronik. Oder aber auch ob es sich um ein Projekt oder sonstiges. Siehe Abbildung \ref{img:playmedia}
 
 Mithilfe dieser Tags wollen wir dem Nutzer die Suche nach dem richtigen Video erleichtern. Der Nutzer bekommt die Möglichkeit einer dieser Tags auf der HomeDs Weboberfläche auszuwählen daraufhin werden nur die Videos mit dem entsprechendem Tag angezeigt.
+
+So nachdem der Nutzer sein Schlagwort und den gewünschten Bildschirm ausgewählt hat und auch schon das Video oder Foto gefunden hat welches er anzeigen möchte muss er nur den Play-Button drücken. Nach der Meldung das dieses Element erfolgreich abgespielt wurde erscheint es innerhalb weniger Sekunden auf dem gewünschten Bildschirm. Das Video wird bis zum Ende abgespielt und dann wieder das vorige Layout hergestellt. Wenn ein weiteres Element abgespielt während dem Element 1 wird das Video 1 abgebrochen und das Element 2 wird abgespielt.
+
+Neben dem Abspielen gibt es auch die Stop Funktion diese soll sofort wieder das Layout vor dem Abspielen des Videos anzeigen.
 
 
 \section{HomeDS Server Projekt-Struktur}\label{sec:javaeestruktur}

@@ -96,8 +96,8 @@ public class StructurePlanFragment extends android.support.v4.app.Fragment {
                 JSONArray jsonArray = null;
 
                 try {
-                    String response = rh.getResponseBody();
-                    jsonArray = new JSONArray(response);
+
+                    jsonArray = new JSONArray(rh.getResponseBody());
                     for (int i = 0; i < jsonArray.length(); i++) {
 
                         JSONObject jsonObject = jsonArray.getJSONObject(i);

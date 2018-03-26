@@ -52,7 +52,7 @@ public class CrawlController implements Serializable {
         } else
             name = "";
 
-        formatterUrl = "\'http://localhost:8080/homeds/rs/crawler" + query + "\'";
+        formatterUrl = "\'http://vm59.htl-leonding.ac.at:8080/homeds/rs/crawler" + query + "\'";
         try {
             crawl = crawler.getLayoutsWithAllSubEntities(actLayoutId, name);
         } catch (NoConnectionException e) {

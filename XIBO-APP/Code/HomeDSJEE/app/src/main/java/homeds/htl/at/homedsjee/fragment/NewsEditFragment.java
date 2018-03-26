@@ -97,7 +97,8 @@ public class NewsEditFragment extends android.support.v4.app.Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        getFragmentManager().putFragment(outState, "saveFragment", mFrag);
+        getFragmentManager().putFragment(outState, "saveFra" +
+                "gment", mFrag);
     }
 
     @Override

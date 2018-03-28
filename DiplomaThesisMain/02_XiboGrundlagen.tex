@@ -1,11 +1,11 @@
 \chapter{Digital Signage & XIBO}
 \section{Was ist Digital Signage?}\label{sec:digitalsignage}
-Digital Signage, in Deutsch Digitales Schild, hat grundsätzlich die Aufgabe Inhalte die meist auf Plakaten oder Schildern angezeigt werden auf Bildschirmen anzuzeigen. Mithilfe von Digital Signage Systemen soll das zeit- oder interaktionsgesteuerte Ändern von Inhalten auf den Bildschirmen einfach und übersichtlich gehalten werden siehe \ref{img:digitalsignagehtlleonding}. Weiteres bietet Digital Signage ein breites Spektrum an Anwendungsbereichen. Digital Signage ist vor allem im Marketing Bereich ein sehr beliebtes Mittel um ein neues Produkt oder eine Neuheit zu präsentieren. 
+Digital Signage, in Deutsch Digitales Schild, hat grundsätzlich die Aufgabe Inhalte die meist auf Plakaten oder Schildern angezeigt werden auf Bildschirmen anzuzeigen. Mithilfe von Digital Signage Systemen, soll das zeit- oder interaktionsgesteuerte Ändern von Inhalten auf den Bildschirmen einfach und übersichtlich gehalten werden siehe Abbildung \ref{img:digitalsignagehtlleonding}. Weiteres bietet Digital Signage ein breites Spektrum an Anwendungsbereichen. Digital Signage ist vor allem im Marketing Bereich ein sehr beliebtes Mittel, um ein neues Produkt oder eine Neuheit zu präsentieren. 
 
 https://de.wikipedia.org/wiki/Digital_Signage#Anwendungsbeispiele:_2017.
 
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{images/02_XiboGrundlagen/Videowall.JPG}
 \caption{Digital Signage in der HTL Leonding}
@@ -13,7 +13,7 @@ https://de.wikipedia.org/wiki/Digital_Signage#Anwendungsbeispiele:_2017.
 \end{figure}
 
 \section{Digital Signage Anwendungen}\label{sec:anwendungedigitalsignage}
-Digital Signage hat keine grenzen und kann vielfältig eingesetzt werden. Viele Konzerne nutzen Digital Signage für Marketing Zwecke, Produkte zu präsentieren oder oft auch nur als Lockmittel.
+Digital Signage hat keine Grenzen und kann vielfältig eingesetzt werden. Viele Konzerne nutzen Digital Signage für Marketing Zwecke, Produkte zu präsentieren oder oft auch nur als Lockmittel.
 
 \section{Was ist XIBO?}\label{sec:xibo}
 Das XIBO ist ein Open Source Digital Signage System entwickelt von der Spring Signage LTD. Das XIBO-System besteht aus vielen verschiedenen Komponenten. Das XIBO Paket besteht aus einem klassischen Server-Client Konstrukt. Der Server besteht aus drei Komponenten: das Content Managment System welches mithilfe von ZeroMq bei Änderung der Inhalte diese aktualisieren soll, einer Datenbank und einer Weboberfläche, die es dem Benutzer ermöglichen soll das System zu bedienen.
@@ -32,20 +32,20 @@ Das Steuerungszentrum des ganzen Signage System ist die Weboberfläche, die ganz
 \end{calendar}	
 	
 	\item {\em Layouts:} 
-	Die Layout-Funktion ist einer der wichtigsten Komponenten des Signage Systems. Es beschäftigt sich mit dem Designen der Inhalte. Auf diese Funktion kommen wir noch einmal zurück
+	Die Layout-Funktion ist einer der wichtigsten Komponenten des Signage Systems. Es beschäftigt sich mit dem Designen der Inhalte. Auf diese Funktion kommen wir noch einmal zurück.
 	
 	\item {\em Bibliothek:} 
 	Die Bibliothek-Funktion ist zuständig für das Verwalten der Medien. Hier können Sie verschiedene Dateien hochladen.  Diese Medien können dann in Layouts eingebunden und angezeigt werden.
 	
 	\item {\em Benutzer:} 
-	Im Menüpunkt Benutzer können neue Benutzer angelegt werden und bereits bestehende bearbeitet oder gelöscht werden. Dabei gibt es auch ein Rechte-System. Es können auch Datenmengenbegrenzungen pro Benutzer eingestellt werden.
+	Im Menüpunkt Benutzer können neue Benutzer angelegt und bereits bestehende bearbeitet oder gelöscht werden. Dabei gibt es auch ein Rechte-System. Es können auch Datenmengenbegrenzungen pro Benutzer eingestellt werden.
 	
 	\item {\em Einstellungen:} 
-	Der Menüpunkt Einstellungen gibt dem Nutzer die Möglichkeit, verschiedene Optionen zu wählen. So sind zum Beispiel die richtige Zeitzone, E-Mail Benachrichtigungen, wichtige Einstellungen, die für ein einwandfreies Funktionieren des Xibo-Servers zuständig zuständig sind. Aus den Einstellungen ist auch der CMS geheimer Schlüssel zu finden der für die Authentifizierung der API Zugriffe zuständig ist herauszulesen.
+	Der Menüpunkt Einstellungen gibt dem Nutzer die Möglichkeit, verschiedene Optionen zu wählen. So sind zum Beispiel die richtige Zeitzone, E-Mail Benachrichtigungen, wichtige Einstellungen, die für ein einwandfreies Funktionieren des Xibo-Servers zuständig sind. Aus den Einstellungen ist auch der CMS geheimer Schlüssel zu finden, der für die Authentifizierung der API Zugriffe zuständig ist herauszulesen.
 \end{enumerate}
 
 \section{Designen mit XIBO}\label{sec:designexibo}
-Beim Designen von einem neuen Layout im XIBO muss zuerst die Bildschirmauflösung ausgewählt und dem Layout ein passender Name zugewiesen werden, sowie optional auch eine Beschreibung. 
+Beim Designen von einem neuen Layout im XIBO, muss zuerst die Bildschirmauflösung ausgewählt und dem Layout ein passender Name zugewiesen werden, sowie optional auch eine Beschreibung. 
 
 \textbf{Layout Maske}
 
@@ -65,12 +65,37 @@ Dem Layout kann nun eine Region oder auch mehrere  hinzugefügt werden. Eine Reg
 	Dieser Widgettyp bindet eine Uhr in die Region ein. Es kann entweder eine Uhr im Analogen Stil oder Digitalen Stil ausgewählt werden.
 	
 	\item {\em DataSet:} 
-	Das DataSet Widget ist sehr wichtig und zeigt grob gesagt nach einander Daten an aus einem Array mit Key, Value Paaren an. Es kann aber auch RSS-Feeds anzeigen.
+	Das DataSet Widget ist sehr wichtig und zeigt grob gesagt nacheinander Daten aus einem Array mit Key, Value Paaren an.
 	
 	\item {\em Wheather:} 
-	Das Wheather Widget in Deutsch Wetter zeigt uns das aktuelle Wetter an. Es kann eingestellt werden ob es anhand von den GPS-Daten des Bildschirmes,dass das Layout anzeigt das Wetter anzeigt oder von vordefinierten GPS Koordinaten.
+	Das Wheather Widget, in Deutsch Wetter, zeigt das aktuelle Wetter an. Es kann eingestellt werden ob es anhand von den GPS-Daten des Bildschirmes die Wetterdaten anzeigen soll oder ein vorher definierter Ort für die Daten verwendet werden soll.
 	
-	ALLE WIDGETS
+	\item {\em Flash:} 
+	Mit dem Flash Widget können Flash Inhalte abgespielt werden.
+	
+	\item {\em HLS:} 
+	Mit dem HLS Widget können HLS Video Streams angezeigt werden.
+	
+	\item {\em Image:} 
+	Mit dem Image Widget können Bilder entweder aus der XIBO Bibliothek angezeigt oder neue hochgeladen werden.
+	
+	\item {\em Local Video:} 
+	Mit dem Local Video Widget können Videos oder Streams angezeigt werden.
+	
+	\item {\em PDF:} 
+	Mit dem PDF Widget können PDFs entweder aus der XIBO Bibliothek angezeigt oder neue hochgeladen werden.
+	
+	\item {\em PowerPoint:} 
+	Mit dem PowerPoint Widget können PowerPoint Präsentationen entweder aus der XIBO Bibliothek angezeigt oder neue hochgeladen werden.
+
+	\item {\em Text:} 
+	Mit dem Text Widget können Texte angezeigt werden.
+	
+	\item {\em Ticker:} 
+	Mit dem Ticker Widget können Texte animiert angezeigt werden. Dabei können diese Texte aus einem DataSet oder einem RSS Feed stammen.
+	
+	\item {\em Webpage:} 
+	Mit dem Webpage Widget können Webseiten angezeigt werden.
 \end{widgettypes}
 
 Nachdem eines der Widgets erstellt wurde kann das Ergebnis des Layouts mit einer Layout Vorschau kurz überprüft werden.

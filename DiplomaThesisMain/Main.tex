@@ -3,7 +3,6 @@
 \usepackage[T1]{fontenc}
 \usepackage{german}
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
-\usepackage{float}
 \geometry{a4paper}                   % ... or a4paper or a5paper or ... 
 \usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{xifthen}
@@ -37,36 +36,6 @@
   basicstyle=\ttfamily,
   moredelim=[il][\textcolor{pgrey}]{\$\$},
   moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
-}
-
-\lstdefinelanguage{JavaScript}{
-  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-  keywordstyle=\color{blue}\bfseries,
-  ndkeywords={class, export, boolean, throw, implements, import, this},
-  ndkeywordstyle=\color{darkgray}\bfseries,
-  identifierstyle=\color{black},
-  sensitive=false,
-  comment=[l]{//},
-  morecomment=[s]{/*}{*/},
-  commentstyle=\color{purple}\ttfamily,
-  stringstyle=\color{red}\ttfamily,
-  morestring=[b]',
-  morestring=[b]"
-}
-
-\lstset{
-   language=JavaScript,
-   extendedchars=true,
-   basicstyle=\footnotesize\ttfamily,
-   showstringspaces=false,
-   showspaces=false,
-   numbers=left,
-   numberstyle=\footnotesize,
-   numbersep=9pt,
-   tabsize=2,
-   breaklines=true,
-   showtabs=false,
-   captionpos=b
 }
 
 

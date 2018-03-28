@@ -56,7 +56,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
     private OnFragmentInteractionListener mListener;
     private RequestHelper rh = new RequestHelper();
     LinkedList<Media> medias;
-    LinkedList<Display> displays;
+   // LinkedList<Display> displays;
     Spinner spTagChoise;
     TextView tvDisplayToPlay;
     Button btCooseDisplay;
@@ -101,7 +101,7 @@ public class MediaOverviewFragment extends android.support.v4.app.Fragment {
         rvMedia = v.findViewById(R.id.rvMedia);
         medias = new LinkedList<>();
         spTagChoise = v.findViewById(R.id.spTagChoise);
-        displays = new LinkedList<>();
+
         btCooseDisplay = v.findViewById(R.id.btChooseDisplay);
         tvDisplayToPlay = v.findViewById(R.id.tvDisplayToPlay);
 

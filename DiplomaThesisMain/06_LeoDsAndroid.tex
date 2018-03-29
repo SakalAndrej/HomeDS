@@ -7,8 +7,8 @@
 \caption{Die Android Applikation dient zur mobilen Benutzung}
 \end{figure}
 \\
-Um eine höchst mögliche Reichweite an Endgeräten zu erzielen, wurde eine Android Applikation entwickelt, mit der die wichtigsten Funktionen abgedeckt werden. Zum Beispiel das Wechseln der DataSets des XIBO-Servers. Wichtig war es die Applikation möglichst einfach und leicht bedienbar zu gestalten, um auch Erstbenutzern die Bedienung zu erleichtern. 
-Prototyp für die aktuelle Applikation war eine Anwendung für Android, die direkt mit dem Digital Signage Server kommuniziert. Es stellte sich heraus, dass das Steuern des Servers direkt über eine Applikation auf Android Basis viel zu umständlich ist, wurde eine Browser Applikation entwickelt, welche über das ''HomeDsBackend''(Java-EE-Server) kommuniziert, um das Funktionsspektrum zu erweitern und die Applikation möglichst kompakt zu gestalten. Beispielsweise ist es durch diese Aufteilung nicht mehr nötig eine Datenbank in der Applikation zu haben. Somit erleichtert es auch Applikationen für andere Betriebssysteme zu implementieren. 
+Um eine höchstmögliche Reichweite an Endgeräten zu erzielen, wurde eine Android Applikation entwickelt, mit der die wichtigsten Funktionen abgedeckt werden. Zum Beispiel das Wechseln der DataSets des XIBO-Servers. Wichtig ist es die Applikation möglichst einfach und leicht bedienbar zu gestalten, um auch Erstbenutzern die Bedienung zu erleichtern. 
+Prototyp für die aktuelle Applikation ist eine Anwendung für Android, die direkt mit dem Digital Signage Server kommuniziert. Es stellte sich heraus, dass das Steuern des Servers direkt über eine Applikation auf Android Basis viel zu umständlich ist. Darum wurde eine Browser Applikation entwickelt, welche über das ''HomeDsBackend''(Java-EE-Server) kommuniziert, um das Funktionsspektrum zu erweitern und die Applikation möglichst kompakt zu gestalten. Beispielsweise ist es durch diese Aufteilung nicht mehr nötig eine Datenbank in der Applikation zu haben. Somit erleichtert es auch Applikationen für andere Betriebssysteme zu implementieren. 
 \section{Anforderungen}
 \\
 \begin{figure}[H]
@@ -40,11 +40,11 @@ Die Anforderungen an die Android Applikation weichen von den Anforderungen an da
 	
 	\item {\em fragment:} Alle Fragments die für das User Interface benötigt werden. Beispiel hierfür ist das Fragment ''NewsOverviewFragment'', welches alle DataSets die am Server sind anzeigt.
 	
-	\item {\em viewholder:} Beinhaltet alle ''ViewHolder'' die für die Verschiedenen ''RecyclerViews'' benötigt werden. 		
+	\item {\em viewholder:} Beinhaltet alle ''ViewHolder'' die für die verschiedenen ''RecyclerViews'' benötigt werden. 		
 \end{itemize}
 \section{Benutzerhandbuch}
 \subsection{Startseite}
-Auf der Einstiegsseite der Applikation ist ein Feld mit dem Serverstatus zu sehen sollte dieses Rot eingefärbt sein gibt es Verbindungsprobleme zum Server(die Applikation kann keine Daten vom Server erhalten oder Daten an den Server senden) andernfalls kann mit der Benutzung fortgefahren werden, des Status wird grün Angezeigt. Die Funktion der Beiden Buttons wird im weiteren velauf des Benutzerhandbuchs erklärt.(Siehe Abbildung \ref{img:onlineOffline})
+Auf der Einstiegsseite der Applikation ist ein Feld mit dem Serverstatus zu sehen. Sollte dieses Rot eingefärbt sein gibt es Verbindungsprobleme zum Server(die Applikation kann keine Daten vom Server erhalten oder Daten an den Server senden). Andernfalls kann mit der Benutzung fortgefahren werden, der Status wird grün angezeigt. Die Funktion der beiden Buttons wird im weiteren Verlauf des Benutzerhandbuchs erklärt.(Siehe Abbildung \ref{img:onlineOffline})
 \\
 \begin{figure}[H]
     \centering
@@ -56,7 +56,7 @@ Auf der Einstiegsseite der Applikation ist ein Feld mit dem Serverstatus zu sehe
 \end{figure}
 \\
 \subsection{Abspielen von Medien auf gewünschten Bildschirmen}
-Das Abspielen von Medien wird im Navigationstab ''Play Media'' abgewickelt, des weiteren befindet sich auf der Startseite ein Button über den direkt zu dieser Sektion navigiert werden kann.(Siehe Abbildung \ref{fig:mediaNav})
+Das Abspielen von Medien wird im Navigationstab ''Play Media'' abgewickelt. Zusätzlich befindet sich auf der Startseite ein Button über den direkt zu dieser Sektion navigiert werden kann.(Siehe Abbildung \ref{fig:mediaNav})
 \\
 \begin{figure}[H]
 \centering
@@ -65,7 +65,7 @@ Das Abspielen von Medien wird im Navigationstab ''Play Media'' abgewickelt, des 
 \label{fig:mediaNav}
 \end{figure}
 \\
-Wurde noch kein Display gewählt, auf dem das Medium abgespielt werden soll, erscheint zu beginn eine Auswahlmaske für die Bildschirme die verfügbar sind. Nach Auswahl einer Anzeige navigiert die Applikation automatisch zur Medienübersicht. (Siehe Abbildung \ref{fig:dispNav})
+Wurde noch kein Display gewählt, auf dem das Medium abgespielt werden soll, erscheint zu Beginn eine Auswahlmaske für die Bildschirme die verfügbar sind. Nach Auswahl einer Anzeige navigiert die Applikation automatisch zur Medienübersicht. (Siehe Abbildung \ref{fig:dispNav})
 \\
 \begin{figure}[H]
 \centering
@@ -74,7 +74,7 @@ Wurde noch kein Display gewählt, auf dem das Medium abgespielt werden soll, ers
 \label{fig:dispNav}
 \end{figure}
 
-Ist bereits ein Bildschirm ausgewählt wird direkt eine Übersicht der abspielbaren Medien angezeigt. Im rechten oberen Teil der Ansicht ist der Gewählte Bildschirm zu sehen und über einen Button wird die Bildschirmauswahl angezeigt.(Siehe Abbildung \ref{fig:mediaOv})
+Ist bereits ein Bildschirm ausgewählt wird direkt eine Übersicht der abspielbaren Medien angezeigt. Im rechten oberen Teil der Ansicht ist der gewählte Bildschirm zu sehen und über einen Button wird die Bildschirmauswahl angezeigt.(Siehe Abbildung \ref{fig:mediaOv})
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_displayTextAndButton}
@@ -82,7 +82,7 @@ Ist bereits ein Bildschirm ausgewählt wird direkt eine Übersicht der abspielba
 \label{fig:mediaOv}
 \end{figure}
 \\
-Sortieren der angezeigten Medien ist über einen Spinner im linken oberen Teil der Medien Übersicht möglich durch Berührung der Anzeigefläche erscheint die Auswahl der Sortiervorschläge.(Siehe Abbildung \ref{fig:spinner})
+Sortieren der angezeigten Medien ist über einen Spinner im linken oberen Teil der Medienübersicht möglich. Durch Berührung der Anzeigefläche erscheint die Auswahl der Sortiervorschläge.(Siehe Abbildung \ref{fig:spinner})
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_TagChoice}
@@ -90,7 +90,7 @@ Sortieren der angezeigten Medien ist über einen Spinner im linken oberen Teil d
 \label{fig:spinner}
 \end{figure}
 \\
-Um ein in der Liste angezeigtes Medium abzuspielen muss der Play-Button im rechten teil des Listenelements gedrückt werden. Wurde der Button betätigt wird das Medium auf der gewählten Anzeige abgespielt.(Siehe Abbildung \ref{fig:playBut})
+Um ein in der Liste angezeigtes Medium abzuspielen, muss der Play-Button im rechten Teil des Listenelements gedrückt werden. Wird der Button betätigt spielt die gewählte Anzeige das Medium ab .(Siehe Abbildung \ref{fig:playBut})
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_playMedia}
@@ -99,7 +99,7 @@ Um ein in der Liste angezeigtes Medium abzuspielen muss der Play-Button im recht
 \end{figure}
 \\
 \subsection{Meldungen Anzeigen}
-Um eine Meldung anzuzeigen muss zum ''DataSet'' Tab gewechselt werden dies ist auch über eine Schaltfläche auf der Startseite von statten gehen. (Siehe Abbildung \ref{fig:06_dataSetNavigation})
+Um eine Meldung anzuzeigen, muss zum ''DataSet'' Tab gewechselt werden. Dies ist auch über eine Schaltfläche auf der Startseite möglich. (Siehe Abbildung \ref{fig:06_dataSetNavigation})
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_dataSetNavigation}
@@ -107,7 +107,7 @@ Um eine Meldung anzuzeigen muss zum ''DataSet'' Tab gewechselt werden dies ist a
 \label{fig:06_dataSetNavigation}
 \end{figure}
 \\
-Die in der Ansicht zu sehende Liste enthält alle aktiven und  inaktiven Meldungen die auf den Anzeigen wiedergegeben werden beziehungsweise werden können.
+Die in der Ansicht zu sehende Liste enthält alle aktiven und  inaktiven Meldungen, die auf den Anzeigen wiedergegeben werden beziehungsweise werden können.
 (Siehe Abbildung \ref{fig:06_DataSetsToSHow}) 
 \\
 \begin{figure}[H]
@@ -118,7 +118,7 @@ Die in der Ansicht zu sehende Liste enthält alle aktiven und  inaktiven Meldung
 \end{figure}
 
 \\
-Durch auswählen eines der Listenelemente öffnet sich einer Detailansicht über die die Informationen der Meldung verändert werden können zum Beispiel der Titel oder der Anzeigezeitraum. Wird der FloatingActionButton im unteren rechten teil der Ansicht gedrückt so öffnet sich ein Detailfenster welches noch keine Daten eingetragen hat um eine neue Meldung zu erstellen. (Siehe Abbildung \ref{fig:06_NewNewsEdit})
+Durch auswählen eines der Listenelemente öffnet sich eine Detailansicht über die die Informationen der Meldung verändert werden können zum Beispiel der Titel oder der Anzeigezeitraum. Wird der FloatingActionButton im unteren rechten Teil der Ansicht gedrückt, so öffnet sich ein Detailfenster welches noch keine Daten eingetragen hat um eine neue Meldung zu erstellen. (Siehe Abbildung \ref{fig:06_NewNewsEdit})
 \\
 \begin{figure}[H]
     \centering
@@ -129,17 +129,17 @@ Durch auswählen eines der Listenelemente öffnet sich einer Detailansicht über
     \label{fig:06_NewNewsEdit}
 \end{figure}
 \\
-Vorgenommene Änderungen oder neu erstellte Meldungen können mittels Save Button übernommen werden. Dieser befindet sich im unteren teil der Detailansicht. Nach speichern einer Meldung navigiert die Applikation wieder auf die Übersicht der Meldungen.(Siehe Abbildung \ref{fig:06_EditNewsSaveButton})
+Vorgenommene Änderungen oder neu erstellte Meldungen können mittels Save Button übernommen werden. Dieser befindet sich im unteren Teil der Detailansicht. Nach dem Speichern einer Meldung navigiert die Applikation wieder auf die Übersicht der Meldungen.(Siehe Abbildung \ref{fig:06_EditNewsSaveButton})
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_EditNewsSaveButton}
-\caption{Markierter speichern Button}
+\caption{Markierter Speichern Button}
 \label{fig:06_EditNewsSaveButton}
 \end{figure}
 
 \subsection{Strukturübersich}
-Ist es von Nöten eine detailierte Übersicht über die am Server liegenden Layouts zu bekommen kann dies über den Navigationstab ''Structure Plan'' getan werden.(Siehe Abbildung \ref{fig:06_EditNewsSaveButton}) 
+Ist es nötig eine detaillierte Übersicht über die am Server liegenden Layouts zu bekommen, kann dies über den Navigationstab ''Structure Plan'' getan werden.(Siehe Abbildung \ref{fig:06_EditNewsSaveButton}) 
 \\
 \begin{figure}[H]
 \centering
@@ -148,7 +148,7 @@ Ist es von Nöten eine detailierte Übersicht über die am Server liegenden Layo
 \label{fig:06_EditNewsSaveButton}
 \end{figure}
 \\
-Die Liste zeigt alle am Server befindlichen Layouts durch klicken einer der Listenelemente navigiert die Applikation zu einer Detailansicht des Layouts.(Siehe Abbildung \ref{fig:06_StructureNavigationToDetail})
+Die Liste zeigt alle am Server befindlichen Layouts. Durch Klicken einer der Listenelemente navigiert die Applikation zu einer Detailansicht des Layouts.(Siehe Abbildung \ref{fig:06_StructureNavigationToDetail})
 \\
 \begin{figure}[H]
 \centering
@@ -157,7 +157,7 @@ Die Liste zeigt alle am Server befindlichen Layouts durch klicken einer der List
 \label{fig:06_StructureNavigationToDetail}
 \end{figure}
 \\
-Die Detailansicht eines Layouts zeigt die Grunddaten eines Layouts wie zum Beispiel die ID oder die Besitzer ID. Des weiteren werden alle unterelemente beispielsweise Widget's angezeigt. Dargestellt wird der JSON-String des Layouts.
+Die Detailansicht eines Layouts zeigt die Grunddaten eines Layouts wie zum Beispiel die ID oder die Besitzer ID. Des Weiteren werden alle Unterelemente beispielsweise Widget's angezeigt. Dargestellt wird der JSON-String des Layouts.
 (Siehe Abbildung \ref{fig:06_StructureDetail})
 \\
 \begin{figure}[H]
@@ -177,9 +177,9 @@ Die Detailansicht eines Layouts zeigt die Grunddaten eines Layouts wie zum Beisp
 \label{fig:mediaNav}
 \end{figure}
 \\
-Die ''MainBottomNavigationActivity'' ist die Einzige ''Activity'' die in der Android Applikation benötigt wird. Hauptaufgabe der ''MainBottomNavigationActivity'' ist es, zwischen den einzelnen ''Fragments'' zu navigieren. Enthalten sind dazu jene Methoden, welche mit dem ''SupportFragmentManager'' die einzelnen Fragments im ''container\_main'' austauschen. Der ''container\_main'' ist ein ''ConstraintLayout'' welches in der zur ''MainActivity'' gehörenden Layout Ressource ''activity\_main.xml'' mit der Identifikationsnummer ''container\_main'' und  belegt wurde. Zudem wird die Klasse durch das Interface ''AppCompatActivity'' erweitert und implementiert die ''OnFragmentInteractionListener'' der Fragmente die in der Applikation verwendet werden. 
+Die ''MainBottomNavigationActivity'' ist die einzige ''Activity'' die in der Android Applikation benötigt wird. Hauptaufgabe der ''MainBottomNavigationActivity'' ist es, zwischen den einzelnen ''Fragments'' zu navigieren. Enthalten sind dazu jene Methoden, welche mit dem ''SupportFragmentManager'' die einzelnen Fragments im ''container\_main'' austauschen. Der ''container\_main'' ist ein ''ConstraintLayout'' welches in der zur ''MainActivity'' gehörenden Layout Ressource ''activity\_main.xml'' mit der Identifikationsnummer ''container\_main''  belegt wurde. Zudem wird die Klasse durch das Interface ''AppCompatActivity'' erweitert und implementiert, die ''OnFragmentInteractionListener'' der Fragmente die in der Applikation verwendet werden. 
 \
-Im unteren Teil der ''Activity'' befindet sich eine Navigationsleiste. Diese ist zuständig für das wechseln zwischen den einzelnen Fragmenten mit folgenden Navigationspunkten: 
+Im unteren Teil der ''Activity'' befindet sich eine Navigationsleiste. Diese ist zuständig für das Wechseln zwischen den einzelnen Fragmenten mit folgenden Navigationspunkten: 
 
 \begin{itemize}
 	\item {\em Home:} Jener Menüpunkt der die Startseite der Applikation beinhaltet.
@@ -188,7 +188,7 @@ Im unteren Teil der ''Activity'' befindet sich eine Navigationsleiste. Diese ist
 	\item {\em Strukturplan:} Bietet eine Übersicht über die Struktur der am Server liegenden Layouts.
 \end{itemize}
 \subsubsection{onCreate}
-Hier wird die ''MainBottomNavigationActivity'' als ''ContentView'' gesetzt, zudem wird mittels ''SupportFragmentManager'' das ''HomeScreenFragment'' dem ''container\_main'' zugewiesen und angezeigt. Das Feld Display wird neu instantiiert. Die statische Variable ''instance'', vom Datentyp ''MainBottomNavigationActivity'', wird auf die aktuelle Instanz der Klasse zugewiesen. Die ''BottomNavigationBar wird mit werten belegt und ein ''OnNavigationItemSelectedListener'' gesetzt um durch die Applikation navigieren zu können.
+Hier wird die ''MainBottomNavigationActivity'' als ''ContentView'' gesetzt, zudem wird mittels ''SupportFragmentManager'' das ''HomeScreenFragment'' dem ''container\_main'' zugewiesen und angezeigt. Das Feld Display wird neu instantiiert. Die statische Variable ''instance'', vom Datentyp ''MainBottomNavigationActivity'', wird auf die aktuelle Instanz der Klasse zugewiesen. Die ''BottomNavigationBar wird mit Werten belegt und ein ''OnNavigationItemSelectedListener'' gesetzt, um durch die Applikation navigieren zu können.
 \begin{lstlisting}[language=Java,caption={Zuweisung von Variablen und Navigationbar}]
 setContentView(R.layout.
 	activity_main_bottom_navigation);
@@ -235,7 +235,7 @@ public static MainActivityBottomNavigation
 }
 \end{lstlisting}
 \subsubsection{Fragment-Austausch-Methoden}
- Sind jene Methoden die für das Austauschen der einzelnen ''Fragments'' im ''container\_main'' zuständig sind. Dies geschieht mittels ''SupportFragmentManager'' welcher immer die ''Fragments'' im ''container\_main'' anzeigt und dem ''BackStack'', welcher für die Rückwerts Navigation (mittels retour Knopf des Mobilen Endgerätes) in der Applikation zuständig ist,  hinzufügt. Manche Methoden übergeben zudem noch ein ''Bundle'' an das erstellte ''Fragment'', welches Objekte enthält die in nächsten ''Fragment'' benötigt werden. Erkennungsmerkmal dieser Methoden ist das englische Verb ''open'' am beginn des Methodennamens. Als Namensbeispiel hierfür wird die Methode ''openNewsEditFragment'' herangezogen.
+ Sind jene Methoden, die für das Austauschen der einzelnen ''Fragments'' im ''container\_main'' zuständig sind. Dies geschieht mittels ''SupportFragmentManager'', welcher immer die ''Fragments'' im ''container\_main'' anzeigt und dem ''BackStack'', welcher für die Rückwerts Navigation (mittels retour Knopf des Mobilen Endgerätes) in der Applikation zuständig ist,  hinzufügt. Manche Methoden übergeben zudem noch ein ''Bundle'' an das erstellte ''Fragment'', welches Objekte enthält die im nächsten ''Fragment'' benötigt werden. Erkennungsmerkmal dieser Methoden ist das englische Verb ''open'' am Beginn des Methodennamens. Als Namensbeispiel hierfür wird die Methode ''openNewsEditFragment'' herangezogen.
 \begin{lstlisting}[language=Java,caption={Beispiel für Fragment-Austausch-Methode}]
 public void openEditNewsFragment(DataSetDataField news) {
 Bundle bundle = new Bundle();
@@ -259,7 +259,7 @@ fm.beginTransaction().replace(
 \label{fig:mediaNav}
 \end{figure}
 \\
-Der Einstiegspunkt der Applikation ist das ''HomeScreenFragment''. Es zeigt den Serverstatus an, dieser wird über einen ''REST-Request'' vom Java-EE-Server abgefragt. Den Hauptanteil des Fragments bilden die beiden Navigations-Buttons ''Median abspielen'' und ''Eilmeldungen anzeigen''. Durch klicken dieser Buttons öffnen sich die dazugehörigen Fragmente ''NewsOverviewFragment'' und ''MediaOverviewFragment''.
+Der Einstiegspunkt der Applikation ist das ''HomeScreenFragment''. Es zeigt den Serverstatus an. Dieser wird über einen ''REST-Request'' vom Java-EE-Server abgefragt. Den Hauptanteil des Fragments bilden die beiden Navigations-Buttons ''Median abspielen'' und ''Eilmeldungen anzeigen''. Durch Klicken dieser Buttons öffnen sich die dazugehörigen Fragmente ''NewsOverviewFragment'' und ''MediaOverviewFragment''.
 \\
 Die Layout Ressource des ''HomeScreenFragment'' enthält zwei Buttons und ein ''ConstaintLayout''. Dieses ''ConstraintLayout'' beinhaltet wiederum eine ''TextView'' und zwei ''ImageViews''. In der ''onCreate'' Methode des Fragments werden als erstes die Anzeigeelemente neu deklarierten Variablen zugewiesen und im ''ConstraintLayout'' wird der Serverstatus auf View standardmäßig als Offline angezeigt und die Buttons deaktiviert.
 \begin{lstlisting}[language=Java,caption={Initialisieren der Variablen im HomeScreenFragment }]
@@ -282,7 +282,7 @@ clServerStatus.setBackgroundColor(
     this.getContext(), R.color.serverDown));
 }
 \end{lstlisting}
-Im folgenden Schritt wird über einen ''GET-Request'' die Uhrzeit des XIBO-Servers über den Java-EE-Server abgefragt. Wird eine Uhrzeit vom erhalten, so wird im ''ConstraintLayout'' des Server Status auf online gesetzt und das dazugehörige Bild angezeigt und die Buttons werden freigegeben. Erhält man keine Antwort bleibt die Anzeige unverändert.
+Im folgenden Schritt wird über einen ''GET-Request'' die Uhrzeit des XIBO-Servers über den Java-EE-Server abgefragt. Wird die Uhrzeit erhalten, so wird im ''ConstraintLayout'' der Server Status auf online gesetzt und das dazugehörige Bild angezeigt und die Buttons werden freigegeben. Erhält man keine Antwort bleibt die Anzeige unverändert.
 
 \begin{lstlisting}[language=Java,caption={Status Request im HomeScreenFragment}]
 rh.executeRequest(RequestTypeEnum.GET, null,
@@ -312,7 +312,7 @@ rh.executeRequest(RequestTypeEnum.GET, null,
     });
 });
 \end{lstlisting}
-Um die Navigation über die erstellten Buttons zu ermöglichen wird ein ''OnClickListener'' Implementiert.
+Um die Navigation über die erstellten Buttons zu ermöglichen wird, ein ''OnClickListener'' Implementiert.
 \begin{lstlisting}[language=Java,caption={OnClickListener für die direkte Navigation über Buttons im HomeScreenFragment}]
 btPlayMedia.setOnClickListener(
 	new View.OnClickListener() {
@@ -334,9 +334,9 @@ btPlayMedia.setOnClickListener(
 \label{fig:mediaNav}
 \end{figure}
 \\
-Die beiden Fragmente  ''NewsOverviewFragment'' und ''NewsEditFragment'' sind für die Verwaltung der ''DataSets'' zuständig. Im Fragment ''NewsOverviewFragment'' wird eine Übersicht über alle vorhandenen ''DataSets'' gegeben. Das ''NewsEditFragment'' Fragment wird verwendet um vorhandene ''DataSets'' zu bearbeiten oder neue ''DataSets'' zu erstellen. 
+Die beiden Fragmente  ''NewsOverviewFragment'' und ''NewsEditFragment'' sind für die Verwaltung der ''DataSets'' zuständig. Im Fragment ''NewsOverviewFragment'' wird eine Übersicht über alle vorhandenen ''DataSets'' gegeben. Das ''NewsEditFragment'' Fragment wird verwendet, um vorhandene ''DataSets'' zu bearbeiten oder neue ''DataSets'' zu erstellen. 
 \subsubsection{NewsOverviewFragment}
-Dieses Fragment zeigt alle aktiven ''DataSets'' an, diese werden vom Server bereitgestellt und per ''REST-Request'' abgefragt. Über einen ''FloatingActionButton'' kann ein neues ''DataSet'' erstellt werden. Durch klicken auf eines der Listen Elemente, öffnet sich eine Detailansicht in der das Bearbeiten, eines des ''DataSets'' möglich ist.
+Dieses Fragment zeigt alle aktiven ''DataSets'' an. Diese werden vom Server bereitgestellt und per ''REST-Request'' abgefragt. Über einen ''FloatingActionButton'' kann ein neues ''DataSet'' erstellt werden. Durch Klicken auf eines der Listen Elemente, öffnet sich eine Detailansicht in der das Bearbeiten, eines des ''DataSets'' möglich ist.
 \\
 \begin{figure}[H]
 \centering
@@ -345,7 +345,7 @@ Dieses Fragment zeigt alle aktiven ''DataSets'' an, diese werden vom Server bere
 \label{fig:mediaNav}
 \end{figure}
 \\
-Die Layout Ressource des Fragments, ''fragment\_news\_overview.xml'' enthält eine ''RecyclerView'' und einen ''FloatingActionButton''. Die Logik der Anzeige ist in der Java Klasse ''NewsOverviewFragment'' implementiert. Die meisten Methoden dieser Klasse werden generisch beim Erstellen eines Fragments erzeugt. Die einzige Methode die überschrieben wurde ist die Methode ''onCreateView''. Beim Ausführen dieser Methode wird zuerst eine ''View'' erstellt welche das ''fragment\_news\_overview'' Layout zugewiesen bekommt. Anschließend wird eine ''RecyclerView'' und ein ''FlaootingActionButton'' erstellt und den zugehörigen Anzeige Elementen zugewiesen.
+Die Layout Ressource des Fragments, ''fragment\_news\_overview.xml'' enthält eine ''RecyclerView'' und einen ''FloatingActionButton''. Die Logik der Anzeige ist in der Java Klasse ''NewsOverviewFragment'' implementiert. Die meisten Methoden dieser Klasse werden generisch beim Erstellen eines Fragments erzeugt. Die einzige Methode die überschrieben wurde, ist die Methode ''onCreateView''. Beim Ausführen dieser Methode wird zuerst eine ''View'' erstellt welche das ''fragment\_news\_overview'' Layout zugewiesen bekommt. Anschließend wird eine ''RecyclerView'' und ein ''FlaootingActionButton'' erstellt und den zugehörigen Anzeige Elementen zugewiesen.
 \begin{lstlisting}[language=Java,caption={Zuweisungen von Variablen und FloatingActionButton-OnClickListener des NewsOverviewFragment }]
 View v = inflater.inflate(
 	R.layout.fragment_news_overview, container, false);
@@ -390,14 +390,14 @@ rh.executeRequest(RequestTypeEnum.GET, null,
 \label{fig:mediaNav}
 \end{figure}
 \\
-Das Fragment zeigt alle Details eines ''DataSets'' an und bietet die Möglichkeit die Detailinformationen bearbeiten zu können. Ebenso wird dieses Fragment dazu verwendet, ein neues ''DataSet'' zu erstellen, dazu wird das Fragment mit Hinweisen auf die Eingabeoptionen erstellt. Über einen Button können die eingegeben Felder an den ''Java-EE-Server'' übermittelt werden. Eingabe Felder:
+Das Fragment zeigt alle Details eines ''DataSets'' an und bietet die Möglichkeit die Detailinformationen bearbeiten zu können. Ebenso wird dieses Fragment dazu verwendet, ein neues ''DataSet'' zu erstellen. Dazu wird das Fragment mit Hinweisen auf die Eingabeoptionen erstellt. Über einen Button können die eingegeben Felder an den ''Java-EE-Server'' übermittelt werden. Eingabe Felder:
 \begin{itemize}
 	\item {\em Titel:} Das Feld ''Titel'' beinhaltet die Überschrift der anzuzeigenden Information.
 	\item {\em Beschreibung:} Hier wird der eigentliche Informationstext eingefügt.
-	\item{\em Datum-Von-Bis:} Diese Felder werden über ein ''DatePickerDialog'' befüllt, welcher einen Kalender öffnet und zeigen an in welchen Zeitraum das ''DataSet'' angezeigt wird. 
-	\item {\em Uhrzeit-Von-Bis:} Die anzeige Elemente geben Auskunft über die Zeitspanne in der das ''DataSet'' an den einzelnen Tagen angezeigt wird. Das Feld kann mittels ''TimePickerDialog'' befüllt werden.		
+	\item{\em Datum-Von-Bis:} Diese Felder werden über ein ''DatePickerDialog'' befüllt, welcher einen Kalender öffnet und zeigen an in welchem Zeitraum das ''DataSet'' angezeigt wird. 
+	\item {\em Uhrzeit-Von-Bis:} Die Anzeige Elemente geben Auskunft über die Zeitspanne in der das ''DataSet'' an den einzelnen Tagen angezeigt wird. Das Feld kann mittels ''TimePickerDialog'' befüllt werden.		
 \end{itemize}
-Anzeige Ressourcen für dieses Fragment werden in der Datei ''fragment\_news\_edit.xml'' bereitgestellt. Diese enthält die benötigten Tags, um die im oberen Teil beschrieben Eingabefelder zur Verfügung zu stellen. Die Verwendung und Belegung dieser Felder wird in der Klasse ''NewsEditFragment'' implementiert. Auch in dieser Klasse wurde nur die Methode ''onCreateView'' mit Quellcode versehen. Zu Beginn wird der deklarierten ''View'' die ''fragment\_news\_edit.xml'' als Ressource zugewiesen. Um Daten aus dem ''NewsOverviewFragment'' zu empfangen wird ein ''Bundle'' befüllt. Wenn das befüllte ''Bundle'' Informationen beinhaltet, dann wird die Funktion ''setArguments'' der Basisklasse Fragment(android.support.v4.app.Fragment) mit dem Parameter ''bundle'' aufgerufen, um das Feld ''mArguments'' der Basisklasse Fragment mit Daten zu versehen(Vererbung). Die zuvor deklarierten Variablen (benötigte ''Views'') werden jetzt initialisiert.
+Anzeige Ressourcen für dieses Fragment werden in der Datei ''fragment\_news\_edit.xml'' bereitgestellt. Diese enthält die benötigten Tags, um die im oberen Teil beschrieben Eingabefelder zur Verfügung zu stellen. Die Verwendung und Belegung dieser Felder wird in der Klasse ''NewsEditFragment'' implementiert. Auch in dieser Klasse wird  nur die Methode ''onCreateView'' mit Quellcode versehen. Zu Beginn wird der deklarierten ''View'' die ''fragment\_news\_edit.xml'' als Ressource zugewiesen. Um Daten aus dem ''NewsOverviewFragment'' zu empfangen, wird ein ''Bundle'' befüllt. Wenn das befüllte ''Bundle'' Informationen beinhaltet, dann wird die Funktion ''setArguments'' der Basisklasse Fragment(android.support.v4.app.Fragment) mit dem Parameter ''bundle'' aufgerufen, um das Feld ''mArguments'' der Basisklasse Fragment mit Daten zu versehen(Vererbung). Die zuvor deklarierten Variablen (benötigte ''Views'') werden jetzt initialisiert.
 \begin{lstlisting}[language=Java,caption={Übernahme der übergebenen Werte und initialisieren der Variablen im NewsEditFragment }]
 Bundle bundle = getArguments();
 Log.d("BUNDLDATA", String.valueOf(bundle));
@@ -420,7 +420,7 @@ tvTimeFrom = v.findViewById(R.id.tvTimeFrom);
 tvTimeTo = v.findViewById(R.id.tvTimeTo);
 \end{lstlisting}
 
-Das Fragment hat zwei verschiedene Vorgehensweisen. Zum einen werden, sollte ein ''DataSet'' in Form eines ''Bundels'' übergeben werden, die Anzeigeelemente mit den übergebenen Werten befüllt. Andernfalls werden die Felder mit keinen Werten versehen, es werdend Hinweise auf die Eingabeoptionen im aktuellen Fragment angezeigt.
+Das Fragment hat zwei verschiedene Vorgehensweisen. Zum einen werden, sollte ein ''DataSet'' in Form eines ''Bundels'' übergeben werden, die Anzeigeelemente mit den übergebenen Werten befüllt. Andernfalls werden die Felder mit keinen Werten versehen, es werden Hinweise auf die Eingabeoptionen im aktuellen Fragment angezeigt.
 
 \begin{lstlisting}[language=Java,caption={Bedingung für Fragment-Recycling im NewsEditFragment}]
 if (news.getToDate() != null 
@@ -432,8 +432,8 @@ if (news.getToDate() != null
 }   
 \end{lstlisting}
 
-Die benötigten ''onClickListener'' für die Datums und Uhrzeit eingaben werden im Anschluss implementiert und mittels ''DatePickerDialog'' beziehungsweise ''TimePickerDialog'' mit Daten versehen. 
-\begin{lstlisting}[language=Java,caption={OnClickListener für Datums Auswahl im NewsEditFragment}]
+Die benötigten ''onClickListener'' für die Datum- und Uhrzeiteingaben werden im Anschluss implementiert und mittels ''DatePickerDialog'' beziehungsweise ''TimePickerDialog'' mit Daten versehen. 
+\begin{lstlisting}[language=Java,caption={OnClickListener für Datum-Auswahl im NewsEditFragment}]
 tvTimeTo.setOnClickListener(new View.OnClickListener() {
 	@Override
     public void onClick(View view) {
@@ -499,18 +499,18 @@ if (news.getId() == null) {
 \label{fig:mediaNav}
 \end{figure}
 \\
-Um auf einer gewünschten Anzeige ein, sich auf dem Server befindliches, Medium abzuspielen wurden die beiden Fragments ''MediaOverViewFragment'' und ''ChooseDisplayFragment'' implementiert. Das gewünschte Medium wird auf dem ausgewählten Display sofort Abgespielt. Ist noch kein Display ausgewählt wird man zuerst auf das ''ChooseDisplayFragment''gelitet um einen anzeige Display zu wählen.
+Um auf einer gewünschten Anzeige ein, sich auf dem Server befindliches, Medium abzuspielen, werden die beiden Fragments ''MediaOverViewFragment'' und ''ChooseDisplayFragment'' implementiert. Das gewünschte Medium wird auf dem ausgewählten Display sofort abgespielt. Ist noch kein Display ausgewählt, wird man zuerst auf das ''ChooseDisplayFragment'' geleitet, um einen Bildschirm zu wählen.
 \subsubsection{MediaOverviewFragment}
-Im diesem Fragment werden alle Medien angezeigt, die sich am XIBO-Server in der Bibliothek befinden und mit dem Richtigen Tag markiert sind. Eine Sortierung der Liste ist über ein ''Spinner'' Element möglich. Des weiteren wird im rechten oberen teil des Fragments der Display angezeigt auf dem das gewählte Medium abgespielt werden soll. Eine Auswahl des Displays ist über Navigation zum ''ChooseDisplayFragment'' möglich, dieses wird über den Button ''Auswählen'' geöffnet. Hat der Benutzer noch keinen keinen Display ausgewählt wird er zuerst auf das ''ChooseDisplayFragment'' weitergeleitet.
+Im diesem Fragment werden alle Medien angezeigt, die sich am XIBO-Server in der Bibliothek befinden und mit dem richtigen Tag markiert sind. Eine Sortierung der Liste ist über ein ''Spinner'' Element möglich. Des Weiteren wird im rechten oberen Teil des Fragments der Display angezeigt, auf dem das gewählte Medium abgespielt werden soll. Eine Auswahl des Displays ist über Navigation zum ''ChooseDisplayFragment'' möglich, dieses wird über den Button ''Auswählen'' geöffnet. Hat der Benutzer noch keinen Display ausgewählt wird er zuerst auf das ''ChooseDisplayFragment'' weitergeleitet.
 \\
-\begin{mediaNav}
+\begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{images/06_AndroidApp/06_MediaOverViewStellung}
 \caption{Stellung des MediaOverViewFragment in der Android Applikation}
 \label{fig:mediaNav}
-\end{mediaNav}
+\end{figure}
 \\
-Durch die Ressource Datei ''fragment\_media\_overview.xml'' können die Elemente in der View angezeigt werden. Dieses Layout beinhaltet neben einer ''RecyclerView'' zur Darstellung der abzuspielenden Medien, zwei Buttons eine TextView und einen Spinner zur Sortierung der angezeigten Liste. Einstiegspunkt der Methode ''onCreateView'' ist die zuweisung der Layout Ressource. Weiters werden die in der Klasse deklarierten Variablem mit den Anzeigeelementen verknüpft. Die TextView wird im Anschluss mit dem Namen des, für die Wiedergabe gewählten, Displays belegt.
+Durch die Ressource Datei ''fragment\_media\_overview.xml'' können die Elemente in der View angezeigt werden. Dieses Layout beinhaltet neben einer ''RecyclerView'' zur Darstellung der abzuspielenden Medien zwei Buttons, eine TextView und einen Spinner zur Sortierung der angezeigten Liste. Einstiegspunkt der Methode ''onCreateView'' ist die Zuweisung der Layout Ressource. Zusätzlich werden die in der Klasse deklarierten Variablen mit den Anzeigeelementen verknüpft. Die TextView wird im Anschluss mit dem Namen des, für die Wiedergabe gewählten Displays, belegt.
 \begin{lstlisting}[language=Java,caption={Instantiieren der benötigten Variablen im MediaOverviewFragment}]
 View v = inflater.inflate(
 	R.layout.fragment_media_overview, container, false);
@@ -523,7 +523,7 @@ tvDisplayToPlay.setText(
 	MainActivityBottomNavigation.getInstance()
 	.getDisplay().getDisplay()); 
 \end{lstlisting}
-Um die Liste der Medien zu sortieren wird ein ArrayAdapter initialisiert. Diesem werden die Ressourcen ''tag\_array'', beinhaltet eine Liste mit Sortiermöglichkeiten für die angezeigten Medien, und ''simple\_spinner\_item'' um das Design für die angezeigten ''Spinner'' Elemente, übergeben. Es erfolgt eine Zuweisung des Adapters an das Spinner Element. Um die Sortierung der Medien Liste zu realisieren wird ein ''OnItemSelectedListener'' implementiert der die Medien gefiltert nach ausgewähltem Tag anzeigt. Um zu beginn alle Inhalte anzuzeigen wird dem Spinner das erste Element des ''tag\_array'' als Standardsortierung zugewiesen.
+Um die Liste der Medien zu sortieren, wird ein ArrayAdapter initialisiert. Diesem werden die Ressourcen ''tag\_array'', beinhaltet eine Liste mit Sortiermöglichkeiten für die angezeigten Medien, und ''simple\_spinner\_item'' um das Design für die angezeigten ''Spinner'' Elemente, übergeben. Es erfolgt eine Zuweisung des Adapters an das Spinner Element. Um die Sortierung der Medien Liste zu realisieren, wird ein ''OnItemSelectedListener'' implementiert der die Medien gefiltert nach ausgewähltem Tag anzeigt. Um zu Beginn alle Inhalte anzuzeigen, wird dem Spinner das erste Element des ''tag\_array'' als Standardsortierung zugewiesen.
 \begin{lstlisting}[language=Java,caption={Erstellen des Spinner und der dazugehörigen Event-Listener MediaOverviewFragment}]
 ArrayAdapter<CharSequence> tagAdapter =
 	ArrayAdapter.createFromResource(
@@ -555,7 +555,7 @@ spTagChoise.setSelection(0);
 
 mediaTag = spTagChoise.getItemAtPosition(0).toString();
 \end{lstlisting}
-Um zwischen den Einzelnen Displays zu wählen wird dem ''Auswählen'' Button ein ''onClickListener'' zugewiesen welcher die Navigation zum ''ChooseDisplayFragment'' einleitet.
+Um zwischen den einzelnen Displays zu wählen, wird dem ''Auswählen'' Button ein ''onClickListener'' zugewiesen welcher die Navigation zum ''ChooseDisplayFragment'' einleitet.
 
 \begin{lstlisting}[language=Java,caption={OnClickListener für Displayauswahl im MediaOverviewFragment}]
 btCooseDisplay.setOnClickListener(new View.OnClickListener() {
@@ -571,7 +571,7 @@ btCooseDisplay.setOnClickListener(new View.OnClickListener() {
     });
 \end{lstlisting}
 
-Des weiteren wurde die Methode ''setRecyclerView'' erstellt um die Daten nach Tag sortiert vom Server mittels ''GET-Request'' zu erhalten und diese auf der View anzeigen zu können.
+Des Weiteren wird die Methode ''setRecyclerView'' erstellt, um die Daten nach Tag sortiert, vom Server mittels ''GET-Request'' zu erhalten und diese auf der View anzeigen zu können.
 
 
 \begin{lstlisting}[language=Java,caption={Anfordern und anzeigen der Daten vom Server im MediaOverviewFragment}]
@@ -588,7 +588,7 @@ rh.executeRequest(RequestTypeEnum.GET, params, 										MainActivityBottomNavig
 		});
 \end{lstlisting}
 \subsubsection{ChooseDisplayFragment}
-Die Auswahl des Bildschirmes auf dem das Medium angezeigt werden soll erfolgt über dieses Fragment. Dazu werden die verfügbaren Displays vom Java-EE-Server abgefragt und in einer Liste angezeigt. Durch klicken auf den ''Aüswählen'' Button in einem der in der Liste angezeigten Display Elementen, wird dieser Display ausgewählt und Medien werden dann auf diesem Abgespielt. 
+Die Auswahl des Bildschirmes auf dem das Medium angezeigt werden soll erfolgt über dieses Fragment. Dazu werden die verfügbaren Displays vom Java-EE-Server abgefragt und in einer Liste angezeigt. Durch Klicken auf den ''Auswählen'' Button in einem der in der Liste angezeigten Display Elementen, wird dieser Display ausgewählt und Medien werden dann auf diesem abgespielt. 
 \\
 \begin{figure}[H]
 \centering
@@ -597,7 +597,7 @@ Die Auswahl des Bildschirmes auf dem das Medium angezeigt werden soll erfolgt ü
 \label{fig:mediaNav}
 \end{figure}
 \\
-Die RecyclerView Ressource um die zu wählenden Displays anzuzeigen ist in der Datei ''fragment\_choose\_display.xml'' angelegt. Zuweisen der Layout ressource auf die aktuelle View, initialisieren der Klassen Attribute und aufrufen der Methode ''getDisplays'' sind die einzigen Schritte der ''onCreateView'' Funktion.''getDisplays'' ist jene Methode die alle Displays die mit dem XIBO-Server verbunden sind per ''GET-Request'' abfragt beziehungsweise aufbereitet und der RecyclerView übergibt um diese auf der View anzuzeigen. 
+Die RecyclerView Ressource, um die zu wählenden Displays anzuzeigen ist in der Datei ''fragment\_choose\_display.xml'' angelegt. Zuweisen der Layout Ressource auf die aktuelle View, initialisieren der Klassen Attribute und aufrufen der Methode ''getDisplays'' sind die einzigen Schritte der ''onCreateView'' Funktion.''getDisplays'' ist jene Methode die alle Displays, die mit dem XIBO-Server verbunden sind, per ''GET-Request'' abfragt beziehungsweise aufbereitet und der RecyclerView übergibt, um diese auf der View anzuzeigen. 
 \begin{lstlisting}[language=Java,caption={Abfragen und anzeigen der Displays im ChooseDisplayFragment}]
 rh.executeRequest(RequestTypeEnum.GET, null,					MainActivityBottomNavigation.getInstance().
 	url + "/display/", () -> {
@@ -613,9 +613,9 @@ rh.executeRequest(RequestTypeEnum.GET, null,					MainActivityBottomNavigation.ge
 \label{fig:mediaNav}
 \end{figure}
 \\	
-Die am XIBO-Server liegenden Layouts werden in der Andoid Applikation formatiert als ''JSON-Sting'' angezeigt. Damit ist gewährleistet, dass der App-Benutzer eine Übersicht über die Struktur der einzelnen Layouts und deren Unterelemente zur Verfügung hat.
+Die am XIBO-Server liegenden Layouts werden in der Andoid Applikation formatiert als ''JSON-Sting'' angezeigt. Damit ist gewährleistet, dass der App-Benutzer eine Übersicht über die Struktur der einzelnen Layouts und deren Unterelementen zur Verfügung hat.
 \subsubsection{StructurePlanFragment}
-Dieses Fragment zeigt eine Übersicht der einzelnen Layouts in Form einer Liste an. Durch klicken der einzelnen Listen Elemente navigiert die Applikation zu einer Detailansicht über das gewählte Layout.
+Dieses Fragment zeigt eine Übersicht der einzelnen Layouts in Form einer Liste an. Durch Klicken der einzelnen Listen Elemente navigiert die Applikation zu einer Detailansicht über das gewählte Layout.
 \\
 \begin{figure}[H]
 \centering
@@ -624,7 +624,7 @@ Dieses Fragment zeigt eine Übersicht der einzelnen Layouts in Form einer Liste 
 \label{fig:mediaNav}
 \end{figure}
 \\	
-Die Ressource zur gestaltung der Anzeige beinhaltet eine ''RecyclerView'' und heißt ''fragment\_structure\_plan.xml''. Zu beginn der ''onCreateView'' Methode wird zuerst eine ''View'' erstellt welche das ''fragment\_structure\_plan.xml'' Layout zugewiesen bekommt. Die ''RecyclerView'' wird anschließend initialisiert und über einen ''GET-Request'', dessen Response die einzelnen Layouts und deren Unterstrukturen,des Xibo-Servers in form eines JSON-Strings übermittelt, befüllt. Somit ist auf der Anzeige eine Liste mit auswählbaren Layouts vorhanden über die zu einer Detailansicht navigiert werden kann. 
+Die Ressource zur Gestaltung der Anzeige beinhaltet eine ''RecyclerView'' und heißt ''fragment\_structure\_plan.xml''. Zu Beginn der ''onCreateView'' Methode wird zuerst eine ''View'' erstellt welche das ''fragment\_structure\_plan.xml'' Layout zugewiesen bekommt. Die ''RecyclerView'' wird anschließend initialisiert und über einen ''GET-Request'', dessen Response die einzelnen Layouts und deren Unterstrukturen,des Xibo-Servers in Form eines JSON-Strings übermittelt, befüllt. Somit ist auf der Anzeige eine Liste mit auswählbaren Layouts vorhanden über die zu einer Detailansicht navigiert werden kann. 
 \begin{lstlisting}[language=Java,caption={Abfrage und anzeigen der Daten im StructurePlanFragment}]
 RecyclerView rvStructurePlan = v.findViewById(R.id.rvStructurePlan);
 HashMap<String,String> params = new HashMap<>();
@@ -638,7 +638,7 @@ rh.executeRequest(RequestTypeEnum.GET,params
 \end{lstlisting}
 
 \subsubsection{StructureDetailFragment}
-Ein Layout wird in diesem Fragment in Form eines ''JSON-Strings'' mit allen dazugehörigen Unterelementen angezeigt. Wichtig hierbei ist es den Angezeigten ''JSON-String'' richtig zu formatieren um die Übersichtlichkeit bei zu behalten.
+Ein Layout wird in diesem Fragment in Form eines ''JSON-Strings'' mit allen dazugehörigen Unterelementen angezeigt. Wichtig hierbei ist es den angezeigten ''JSON-String'' richtig zu formatieren, um die Übersichtlichkeit bei zu behalten.
 \\
 \begin{figure}[H]
 \centering
@@ -647,7 +647,7 @@ Ein Layout wird in diesem Fragment in Form eines ''JSON-Strings'' mit allen dazu
 \label{fig:mediaNav}
 \end{figure}
 \\
-In der Ressource Datei ''fragment\_structure\_detail.xml'' befindet sich eine ''TextView'' als einziges Element. Die ''onCreateView'' Methode der Klasse ''StructureDetailFragment'', wird nach zuweisen der Layout Ressource der Struktur beschreibende ''JSON-String'' aus dem ''Bundle'' gelesen, dies geschieht über die Methode ''setArguemnts'' der Basisklasse Fragment und deren Feld ''mArguments'', und dem Anzeigefeld zugewiesen. Anschließend wird dem Fragment noch die fähigkeit gegeben sich Scrollen zu lassen und die View wird zurückgegeben. 
+In der Ressource Datei ''fragment\_structure\_detail.xml'' befindet sich eine ''TextView'' als einziges Element. Die ''onCreateView'' Methode der Klasse ''StructureDetailFragment'', wird nach Zuweisen der Layout Ressource, der Struktur beschreibende ''JSON-String'' aus dem ''Bundle'' gelesen. Dies geschieht über die Methode ''setArguments'' der Basisklasse Fragment und deren Feld ''mArguments'', und dem Anzeigefeld. Anschließend wird dem Fragment noch die Fähigkeit gegeben sich Scrollen zu lassen und die View wird zurückgegeben. 
 \begin{lstlisting}[language=Java,caption={Übernahme und anzeigen der Daten im StructureDetailFragment}]
 View v = inflater.inflate(
 	R.layout.fragment_structure_detail, container, false);
@@ -660,12 +660,12 @@ tvStructureDetailString.setText(detail.toString());    tvStructureDetailString.s
     new ScrollingMovementMethod());
 \end{lstlisting}
 \section{Request-Helper}
-Um in weiterer Folge die Anfragen an den Java-EE-Server einfach und einheitlich durchzuführen gibt es die Klasse ''RequestHelper'' . In dieser Klasse gibt es neben den beiden Parametern ''responseBody'' und ''responseCode'', welche zur Fehlerausgabe und zum Erhalt der Daten aus der Anfrage vorhanden sind, die Methode ''executeRequest''. Diese übernimmt die Hauptaufgabe der Klasse und führt die Anfragen an das Signage System durch. Werden Daten als Antwort der anfrage erwartet so kann die Methode mit ''Callback'' Parameter aufgerufen werden, ist dies nicht der Fall so gibt es die Möglichkeit diese Methode ohne ''Callback'' aufzurufen, dabei wird dieser Parameter mit dem Wert null überschrieben.
+Um in weiterer Folge die Anfragen an den Java-EE-Server einfach und einheitlich durchzuführen, gibt es die Klasse ''RequestHelper'' . In dieser Klasse gibt es neben den beiden Parametern ''responseBody'' und ''responseCode'', welche zur Fehlerausgabe und zum Erhalt der Daten aus der Anfrage vorhanden sind, die Methode ''executeRequest''. Diese übernimmt die Hauptaufgabe der Klasse und führt die Anfragen an das Signage System durch. Werden Daten als Antwort der Anfrage erwartet so kann die Methode mit ''Callback'' Parameter aufgerufen werden. Ist dies nicht der Fall, so gibt es die Möglichkeit diese Methode ohne ''Callback'' aufzurufen. Dabei wird dieser Parameter mit dem Wert null überschrieben.
 \\
 Die Parameter dieser Methode lauten wie folgt:
 \\
 \begin{itemize}
-	\item {\em RequestTypeEnum:} Der Parameter vom Typ Enum wird genutzt um Herauszufinden welche Http Anfrage vorliegt. Mögliche Werte sind hierbei GET, POST, PUT und DELETE.
+	\item {\em RequestTypeEnum:} Der Parameter vom Typ Enum wird genutzt um herauszufinden welche Http Anfrage vorliegt. Mögliche Werte sind hierbei GET, POST, PUT und DELETE.
 	
 	\item {\em Params:} Hier liegt eine HashMap vor, die als Key-Value Paare alle benötigten Parameter für den RequestBody beinhaltet. Beispielsweise: ''LayoutID'':''78'', hierbei ist ''LayoutID'' der Key und ''78'' das Value.
 		
@@ -673,7 +673,7 @@ Die Parameter dieser Methode lauten wie folgt:
 	
 	\item {\em Callback:} Dieser Parameter wird benötigt, um auf eine Antwort des ausgeführten ''REST-Request'' zu warten. Wird ein ''Response'' erhalten und die Daten werden in dem angezeigten Fragment benötigt, können diese über eine ''Lamda-Expression'' in die gewünschten Anzeigeelemente eingefügt werden. 
 \end{itemize}
-Zu Beginn der Methode wird anhand des Parameters RequestTypeEnum unterschieden, um welche Http Anfrage es sich handelt. Wird GET oder DELETE geliefert wird durch die HashMap iteriert und die einzelnen Key-Value Paare als QeryParameter in der URL einfügt.
+Zu Beginn der Methode wird anhand des Parameters RequestTypeEnum unterschieden, um welche Http Anfrage es sich handelt. Wird GET oder DELETE geliefert, wird durch die HashMap iteriert und die einzelnen Key-Value Paare als QeryParameter in der URL einfügt.
 Beispielsweise:''<URL>/layout?layoutID=78'' .
 \begin{lstlisting}[language=Java,caption={GET oder DELETE Request}]
 if (params != null && params.size() > 0) {
@@ -685,7 +685,7 @@ if (params != null && params.size() > 0) {
         }
     }
 \end{lstlisting}
-Handelt es sich um eine POST oder PUT Anfrage so werden die Key-Value Paare im Body mitgegeben und im Format "application/x-www-form-urlencoded" codiert.
+Handelt es sich um eine POST oder PUT Anfrage, so werden die Key-Value Paare im Body mitgegeben und im Format "application/x-www-form-urlencoded" codiert.
 \begin{lstlisting}[language=Java,caption={POST oder PUT Request}]
 String stringbody = "{";
 if (params != null && params.size() > 0) {
@@ -729,15 +729,19 @@ URL finalUrl = urlBuilder.build().url();
 \end{lstlisting}
 Um die REST-Anfragen fertig zu stellen, wird das Interface Callback implementiert. Mit den beiden Methoden onFailure und onResponse wird dem Interface zugewiesen was passiert, wenn der Request fehlschlägt oder funktioniert. 
 \\
+\\
 \textbf{onFailure:}
 Sollte der Request fehlschlagen, wird im Log-Fenster der Responsecode und die Fehlermeldung/Exception ausgegeben. 
-\textbf{onResponse:}
-Wird der Request ohne Fehler durchgeführt so wird im Log-Fenster ebenfalls der Responsecode und der Responsebody ausgegeben. Letzter schritt beim Erhalt des gewünschten ''Response'' ist es dem im Methoden Kopf übergebenen ''Callback'' Parameter auszuführen, dieser enthält zum Beispiel siehe Abbildung.
 \\
-Der letzte Schritt ist es dem OkHttpClient mitzuteilen, dass er einen neuen Call ausführen soll. Als Parameter wird der Zusammengestellte Request mitgegeben. Über .enqueue wird dem Client gesagt er soll auf einen Response warten. Parameter für diese Methode ist das erstellte Objekt vom Typ Callback.
+\\
+\textbf{onResponse:}
+Wird der Request ohne Fehler durchgeführt so wird im Log-Fenster ebenfalls der Responsecode und der Responsebody ausgegeben. Letzter Schritt beim Erhalt des gewünschten ''Response'' ist es dem im Methoden Kopf übergebenen ''Callback'' Parameter auszuführen.
+\\ 
+\\
+Der letzte Schritt ist dem OkHttpClient mitzuteilen, dass er einen neuen Call ausführen soll. Als Parameter wird der zusammengestellte Request mitgegeben. Über ''enqueue'' wird dem Client gesagt er soll auf einen Response warten. Parameter für diese Methode ist das erstellte Objekt vom Typ Callback.
 \cite{OkHttp3}
 \\
-Um Daten aus den Requests zu erhalten beziehungsweise Fehlerausgaben anzeigen zu können gibt es Getter zu den Feldern ''responseBody'' und ''responseCode''. Verläuft der Request fehlerfrei so werden die geforderten Werte in die variablen übertragen und können im weiteren verlauf durch die Methoden ''getResponseCode'' beziehungsweise ''getResponseBody'' (Getter) ausgelesen werden. Im Fehlerfall wird lediglich der ''responseCode'' mit dem Fehlercode belegt und kann ausgelesen werden. 
+Um Daten aus den Requests zu erhalten beziehungsweise Fehlerausgaben anzeigen zu können gibt es Getter zu den Feldern ''responseBody'' und ''responseCode''. Verläuft der Request fehlerfrei so werden die geforderten Werte in die Variablen übertragen und können im weiteren Verlauf durch die Methoden ''getResponseCode'' beziehungsweise ''getResponseBody'' (Getter) ausgelesen werden. Im Fehlerfall wird lediglich der ''responseCode'' mit dem Fehlercode belegt und kann ausgelesen werden. 
 \begin{lstlisting}[language=Java,caption={Getter und Setter für erhaltene Daten}]
 public int getResponseCode() {
     return responseCode;
@@ -756,15 +760,15 @@ public void setResponseBody(String responseBody) {
 }
 \end{lstlisting}
 \\
-Antworten des Servers werden in Form von JSON-Strings erhalten. Das Aufbereiten dieser Daten wird den Einzelnen Fragmenten, welche die Anfragen in Auftrag geben, überlassen, da die Erhaltenen Informationen von Fragment zu Fragment verschiedene Inhalte aufweisen. 
+Antworten des Servers werden in Form von JSON-Strings erhalten. Das Aufbereiten dieser Daten wird den einzelnen Fragmenten, welche die Anfragen in Auftrag geben, überlassen, da die erhaltenen Informationen von Fragment zu Fragment verschiedene Inhalte aufweisen. 
 \\
-Um klarzustellen wie das Aufbereiten der Daten von statten geht wird anhand des Beispiels ''StructurePlanFragment'' gezeigt was passiert sollte die Anfrage eine positive Antwort erhalten. Zu beachten ist, dass die Zuweisung der erhaltenen Daten in einer Lamda-Expression durchgeführt wird. Als erstes werden eine Liste von JSON-Objekten und ein JSONArray deklariert, um das Anzeigen und Durchlaufen der Informationen zu ermöglichen.
+Um klarzustellen wie das Aufbereiten der Daten funktioniert wird anhand des Beispiels ''StructurePlanFragment'' gezeigt was passiert, sollte die Anfrage eine positive Antwort erhalten. Zu beachten ist, dass die Zuweisung der erhaltenen Daten in einer Lamda-Expression durchgeführt wird. Als erstes werden eine Liste von JSON-Objekten und ein JSONArray deklariert, um das Anzeigen und Durchlaufen der Informationen zu ermöglichen.
 \begin{lstlisting}[language=Java,caption={Erstellen der benötigten Variablen}]
 MainActivityBottomNavigation.getInstance().runOnUiThread(()->{
 	LinkedList<JSONObject> structureparts = new LinkedList<>();
     JSONArray jsonArray = null;
 \end{lstlisting}
-Das Array wird hierbei zum Durchlaufen benötigt. Die LinkedList bildet die Quelle für die Anzeigedaten des Fragments. Da JSON-Strings im Folgenden Abschnitt geparst werden ist ein try-catch block nötig in dem Mögliche Fehlerfälle behandeln und ausgegeben zu können. Die übermittelten Daten werden über den ''responseBody'' Getter ausgelesen und in das JSONArray übernommen. Über Iteration durch das JSONArray werden die einzelnen JSONObjekte ausgelesen und der LinkedList angehängt.
+Das Array wird hierbei zum Durchlaufen benötigt. Die LinkedList bildet die Quelle für die Anzeigedaten des Fragments. Da JSON-Strings im folgenden Abschnitt konvertiert werden ist ein try-catch block nötig, in dem mögliche Fehlerfälle behandeln und ausgegeben werden können. Die übermittelten Daten werden über den ''responseBody'' Getter ausgelesen und in das JSONArray übernommen. Über Iteration durch das JSONArray werden die einzelnen JSONObjekte ausgelesen und der LinkedList angehängt.
 \begin{lstlisting}[language=Java, caption={Durchlauf des erhaltenen JSONStrings}
 jsonArray = new JSONArray(rh.getResponseBody());
 for (int i = 0; i < jsonArray.length(); i++) {

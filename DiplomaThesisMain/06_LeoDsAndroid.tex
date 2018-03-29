@@ -44,7 +44,7 @@ Die Anforderungen an die Android Applikation weichen von den Anforderungen an da
 \end{itemize}
 \section{Benutzerhandbuch}
 \subsection{Startseite}
-Auf der Einstiegsseite der Applikation ist ein Feld mit dem Serverstatus zu sehen sollte dieses Rot eingefärbt sein gibt es Verbindungsprobleme zum Server(die Applikation kann keine Daten vom Server erhalten oder Daten an den Server senden) andernfalls kann mit der Benutzung fortgefahren werden, des Status wird grün Angezeigt. Die Funktion der Beiden Buttons wird im weiteren velauf des Benutzerhandbuchs erklärt.
+Auf der Einstiegsseite der Applikation ist ein Feld mit dem Serverstatus zu sehen sollte dieses Rot eingefärbt sein gibt es Verbindungsprobleme zum Server(die Applikation kann keine Daten vom Server erhalten oder Daten an den Server senden) andernfalls kann mit der Benutzung fortgefahren werden, des Status wird grün Angezeigt. Die Funktion der Beiden Buttons wird im weiteren velauf des Benutzerhandbuchs erklärt.(Siehe Abbildung \ref{img:onlineOffline})
 \\
 \begin{figure}[H]
     \centering
@@ -52,11 +52,11 @@ Auf der Einstiegsseite der Applikation ist ein Feld mit dem Serverstatus zu sehe
     \qquad
     \subfloat{{\includegraphics[width=6cm]{images/06_AndroidApp/06_StatusOffline}}}%
     \caption{Startseite mit Status Element Online/Offline}
-    \label{img:flags}
+    \label{img:onlineOffline}
 \end{figure}
 \\
 \subsection{Abspielen von Medien auf gewünschten Bildschirmen}
-Das Abspielen von Medien wird im Navigationstab ''Play Media'' abgewickelt, des weiteren befindet sich auf der Startseite ein Button über den direkt zu dieser Sektion navigiert werden kann.
+Das Abspielen von Medien wird im Navigationstab ''Play Media'' abgewickelt, des weiteren befindet sich auf der Startseite ein Button über den direkt zu dieser Sektion navigiert werden kann.(Siehe Abbildung \ref{fig:mediaNav})
 \\
 \begin{figure}[H]
 \centering
@@ -65,101 +65,106 @@ Das Abspielen von Medien wird im Navigationstab ''Play Media'' abgewickelt, des 
 \label{fig:mediaNav}
 \end{figure}
 \\
-Wurde noch kein Display gewählt, auf dem das Medium abgespielt werden soll, erscheint zu beginn eine Auswahlmaske für die Bildschirme die verfügbar sind. Nach Auswahl einer Anzeige navigiert die Applikation automatisch zur Medienübersicht. 
+Wurde noch kein Display gewählt, auf dem das Medium abgespielt werden soll, erscheint zu beginn eine Auswahlmaske für die Bildschirme die verfügbar sind. Nach Auswahl einer Anzeige navigiert die Applikation automatisch zur Medienübersicht. (Siehe Abbildung \ref{fig:dispNav})
 \\
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_displayChoice}
 \caption{Liste mit verfügbaren Displays}
-\label{fig:mediaNav}
+\label{fig:dispNav}
 \end{figure}
 
-Ist bereits ein Bildschirm ausgewählt wird direkt eine Übersicht der abspielbaren Medien angezeigt. Im rechten oberen Teil der Ansicht ist der Gewählte Bildschirm zu sehen und über einen Button wird die Bildschirmauswahl angezeigt.
+Ist bereits ein Bildschirm ausgewählt wird direkt eine Übersicht der abspielbaren Medien angezeigt. Im rechten oberen Teil der Ansicht ist der Gewählte Bildschirm zu sehen und über einen Button wird die Bildschirmauswahl angezeigt.(Siehe Abbildung \ref{fig:mediaOv})
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_displayTextAndButton}
 \caption{Ausgewählter Bildschirm und Button für die Auswahl}
-\label{fig:mediaNav}
+\label{fig:mediaOv}
 \end{figure}
 \\
-Sortieren der angezeigten Medien ist über einen Spinner im linken oberen Teil der Medien Übersicht möglich durch Berührung der Anzeigefläche erscheint die Auswahl der Sortiervorschläge.
+Sortieren der angezeigten Medien ist über einen Spinner im linken oberen Teil der Medien Übersicht möglich durch Berührung der Anzeigefläche erscheint die Auswahl der Sortiervorschläge.(Siehe Abbildung \ref{fig:spinner})
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_TagChoice}
 \caption{Spinner mit Tags zur Sortierung}
-\label{fig:mediaNav}
+\label{fig:spinner}
 \end{figure}
 \\
-Um ein in der Liste angezeigtes Medium abzuspielen muss der Play-Button im rechten teil des Listenelements gedrückt werden. Wurde der Button betätigt wird das Medium auf der gewählten Anzeige abgespielt.
+Um ein in der Liste angezeigtes Medium abzuspielen muss der Play-Button im rechten teil des Listenelements gedrückt werden. Wurde der Button betätigt wird das Medium auf der gewählten Anzeige abgespielt.(Siehe Abbildung \ref{fig:playBut})
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_playMedia}
 \caption{Play Button um Medium abzuspielen}
-\label{fig:mediaNav}
+\label{fig:playBut}
 \end{figure}
 \\
 \subsection{Meldungen Anzeigen}
-Um eine Meldung anzuzeigen muss zum ''DataSet'' Tab gewechselt werden dies ist auch über eine Schaltfläche auf der Startseite von statten gehen.
+Um eine Meldung anzuzeigen muss zum ''DataSet'' Tab gewechselt werden dies ist auch über eine Schaltfläche auf der Startseite von statten gehen. (Siehe Abbildung \ref{fig:06_dataSetNavigation})
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_dataSetNavigation}
 \caption{Startseite mit Navigationselementen}
-\label{fig:mediaNav}
+\label{fig:06_dataSetNavigation}
 \end{figure}
 \\
-Die im der Ansicht zu sehende Liste enthält alle aktiven und  inaktiven Meldungen die auf den Anzeigen wiedergegeben werden beziehungsweise werden können. 
-\\
-Bild 
-\\
-Durch auswählen eines der Listenelemente öffnet sich einer Detailansicht über die die Informationen der Meldung verändert werden können zum Beispiel der Titel oder der Anzeigezeitraum. Wird der FloatingActionButton im unteren rechten teil der Ansicht gedrückt so öffnet sich ein Detailfenster welches noch keine Daten eingetragen hat um eine neue Meldung zu erstellen.
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.35]{images/06_AndroidApp/06_NewNewsEdit}
-\caption{Anzeige bei Erstellung einer anzuzeigenden Nachricht}
-\label{fig:mediaNav}
-\end{figure}
+Die in der Ansicht zu sehende Liste enthält alle aktiven und  inaktiven Meldungen die auf den Anzeigen wiedergegeben werden beziehungsweise werden können.
+(Siehe Abbildung \ref{fig:06_DataSetsToSHow}) 
 \\
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.35]{images/06_AndroidApp/06_EditNews}
-\caption{Anzeige bei Veränderung einer anzuzeigenden Nachricht}
-\label{fig:mediaNav}
+\includegraphics[scale=0.1]{images/06_AndroidApp/06_DataSetsToSHow}
+\caption{Am HomeDsBackend vorhandene DataSets}
+\label{fig:06_DataSetsToSHow}
 \end{figure}
-Vorgenommene Änderungen oder neu erstellte Meldungen können mittels Save Button übernommen werden. Dieser befindet sich im unteren teil der Detailansicht. Nach speichern einer Meldung navigiert die Applikation wieder auf die Übersicht der Meldungen.
+
+\\
+Durch auswählen eines der Listenelemente öffnet sich einer Detailansicht über die die Informationen der Meldung verändert werden können zum Beispiel der Titel oder der Anzeigezeitraum. Wird der FloatingActionButton im unteren rechten teil der Ansicht gedrückt so öffnet sich ein Detailfenster welches noch keine Daten eingetragen hat um eine neue Meldung zu erstellen. (Siehe Abbildung \ref{fig:06_NewNewsEdit})
+\\
+\begin{figure}[H]
+    \centering
+    \subfloat{{\includegraphics[width=6cm]{images/06_AndroidApp/06_NewNewsEdit}}}%
+    \qquad
+    \subfloat{{\includegraphics[width=6cm]{images/06_AndroidApp/06_EditNews}}}%
+    \caption{Anzeige für ein neues/zu veränderndes DataSet}
+    \label{fig:06_NewNewsEdit}
+\end{figure}
+\\
+Vorgenommene Änderungen oder neu erstellte Meldungen können mittels Save Button übernommen werden. Dieser befindet sich im unteren teil der Detailansicht. Nach speichern einer Meldung navigiert die Applikation wieder auf die Übersicht der Meldungen.(Siehe Abbildung \ref{fig:06_EditNewsSaveButton})
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_EditNewsSaveButton}
 \caption{Markierter speichern Button}
-\label{fig:mediaNav}
+\label{fig:06_EditNewsSaveButton}
 \end{figure}
 
 \subsection{Strukturübersich}
-Ist es von Nöten eine detailierte Übersicht über die am Server liegenden Layouts zu bekommen kann dies über den Navigationstab ''Structure Plan'' getan werden. 
+Ist es von Nöten eine detailierte Übersicht über die am Server liegenden Layouts zu bekommen kann dies über den Navigationstab ''Structure Plan'' getan werden.(Siehe Abbildung \ref{fig:06_EditNewsSaveButton}) 
 \\
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_EditNewsSaveButton}
 \caption{Markierte Liste mit Layouts und Navigationstab}
-\label{fig:mediaNav}
+\label{fig:06_EditNewsSaveButton}
 \end{figure}
 \\
-Die Liste zeigt alle am Server befindlichen Layouts durch klicken einer der Listenelemente navigiert die Applikation zu einer Detailansicht des Layouts.
+Die Liste zeigt alle am Server befindlichen Layouts durch klicken einer der Listenelemente navigiert die Applikation zu einer Detailansicht des Layouts.(Siehe Abbildung \ref{fig:06_StructureNavigationToDetail})
 \\
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_StructureNavigationToDetail}
 \caption{Markiertes Element um auf die Detailansicht zu gelangen}
-\label{fig:mediaNav}
+\label{fig:06_StructureNavigationToDetail}
 \end{figure}
 \\
 Die Detailansicht eines Layouts zeigt die Grunddaten eines Layouts wie zum Beispiel die ID oder die Besitzer ID. Des weiteren werden alle unterelemente beispielsweise Widget's angezeigt. Dargestellt wird der JSON-String des Layouts.
+(Siehe Abbildung \ref{fig:06_StructureDetail})
 \\
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.35]{images/06_AndroidApp/06_StructureDetail}
 \caption{Markierte Details des Layouts}
-\label{fig:mediaNav}
+\label{fig:06_StructureDetail}
 \end{figure}
 \\
 \section{MainBottomNavigationActivity und OverviewFragment}

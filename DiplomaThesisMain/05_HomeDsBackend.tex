@@ -1,4 +1,12 @@
 \chapter{HomeDS - Server}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/08_HomeDsWeb/javaee.png}
+\caption{JavaEE - HomeDS}
+\label{img:javaeebigpicture}
+\end{figure}
+
 \section{Einleitung}\label{sec:einleitung}
 Im Rahmen der Diplomarbeit muss neben dem XIBO-Server ein weiterer Server eingesetzt werden. Es handelt sich um einen Java Enterprise Edition Server. Aufgrund der hohen Komplexität des Signage-Servers aber dünn dokumentierten API-Schnittstellen und begrenzten technischen Möglichkeiten, muss ein weiterer Server eingesetzt werden. Dieser wird für die Kommunikation zwischen Signage Server und Applikation-Client erleichtern. Der JavaEE Server verwendet die Funktionen des Signage Servers und baut diese meist aus, sodass neue Funktionen entstehen können.
 
@@ -14,18 +22,23 @@ Der JavaEE Server soll die verschiedenen komplizierten Abläufe des XIBO-Servers
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{images/08_HomeDsWeb/SignageEngine.png}
+\includegraphics[width=0.7\textwidth]{images/08_HomeDsWeb/SignageEngine.png}
 \caption{Signage Server die Engine - HomeDS}
 \label{img:xiboengine}
 \end{figure}
  
 \section{Komponenten des HomeDS Server}\label{sec:homedscomponents}
-Der Server ist in Java programmiert und verfügt über eine eigene MySQL Datenbank. Über REST Schnittstellen sind die Funktionen des Servers verfügbar. Des Weiteren befindet sich auf dem Server auch eine JSF Weboberfläche also Java Server Faces Komponente. Der ganze Server wird auf einem Wildfy Application Server mittels continuous integration deployed. 
+Der Server ist in Java programmiert und verfügt über eine eigene MySQL Datenbank. Über REST Schnittstellen sind die Funktionen des Servers verfügbar. Des Weiteren befindet sich auf dem Server auch eine JSF Weboberfläche also Java Server Faces Komponente. Der ganze Server wird auf einem Wildfy Application Server mittels continuous integration deployed.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{images/08_HomeDsWeb/components.png}
+\caption{Komponenten des HomeDS Server}
+\label{img:components}
+\end{figure}
  
 \section{Funktionen des JavaEE}
 \subsection{Weboberfläche des JavaEE}\label{sec:javaeejsfweb}
 Die HTL Leonding kann mithilfe von einem Signage Server und der HomeDS Webapplikation Projektvideos der Schüler auf einen gewünschten Bildschirm anzeigen.  Zum Beispiel kann das Sekretariat der HTL Leonding neuste Nachrichten oder Informationen in kürzester Zeit in der ganzen Schule auf allen Bildschirmen im System anzeigen lassen.
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{images/08_HomeDsWeb/DashboardHomeDsWeb.png}
@@ -121,6 +134,13 @@ Die Weboberfläche der HomeDS Anwendung ist vollständig in Englisch und Deutsch
 \label{sec:javaeetechnicalbackground}
 Um den Benutzern die Möglichkeit zu geben die Funktionen des Servers zu nutzen, wurde auch eine Webapplikation erstellt. Die Entscheidung mit welcher Technologie die Weboberfläche programmiert werden soll ist schnell auf JSF gefallen. Diese hat nämlich viele Vorteile, wie zum Beispiel die Platzformunabhängigkeit und auch schnelle Entwicklung im Vergleich zu anderen Clients. Mit JSF wird nämlich über eine Managed Bean direkt im XHTML auf die Funktionen des Servers zugegriffen. Somit sind keine REST Zugriffe nötig.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/08_HomeDsWeb/javaee.png}
+\caption{JavaEE - Technischer Hintergrund}
+\label{img:crawler}
+\end{figure}
+
 \subsection{Nachrichten-Pakete ändern - Technisch}\label{sec:datasetexpiredatetechnical}
 Der Benutzer kann Start- und Enddatum für jeden einzelnen DataSet eingeben. Erst wenn das Datum genau in diesem Zeitintervall inklusive den Grenzen liegt, wird das DataSet an den Xibo mittels API-Schnittstelle weitergegeben. Es wurde auch so programmiert, dass bei keinem Startdatum das Nachrichten Paket sofort angezeigt wird, oder wenn kein Enddatum festgelegt wird, dass es bis zum manuellen Deaktivieren angezeigt wird.
 
@@ -154,12 +174,33 @@ Der Server stellt Funktionen wie Medien abspielen, Nachrichten Paket ändern, l�
 
 Die REST Schnittstellen sind mithilfe von Swagger dokumentiert. (siehe Seite \pageref{sec:javaeeandroidrestswagger})
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/08_HomeDsWeb/rest.png}
+\caption{JavaEE REST-Service}
+\label{img:crawler}
+\end{figure}
+
 \subsection{Swagger}\label{sec:javaeeandroidrestswagger}
 Swagger wird verwendet um Funktionalität und Möglichkeit einer API übersichtlich zu gestalten. Swagger dokumentiert welche Response Code's man erwarten kann, wie bei einem POST oder PUT der Body aussehen muss oder welche Pathparams mitgegeben werden müssen oder welche nur optional sind. Dabei gibt es zwei verschiedene Arten eine REST-Dokumentation zu erstellen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/08_HomeDsWeb/swaggerget.png}
+\caption{GET Request Dokumentation}
+\label{img:swaggerdoku}
+\end{figure}
 
 Die erste Möglichkeit wäre, mit dem Swagger Editor die Dokumentation in der JSON-Ausdruckssprache mit der Hand zu schreiben und immer wieder zu aktualisieren. Natürlich ist dies bei vielen verschiedenen GETs, POSTs, PUTs und DELETEs sehr aufwendig und mühsam.
 
 Bei der zweiten Methode, die auch bei der Diplomarbeit zum Einsatz kommt, werden die API's automatisch von der im Projekt eingebundenen Swagger Engine erkannt. Daraus wird dann auch wieder eine JSON-File generiert, die dann mithilfe von Swagger-UI gut im Browser über eine Webseiten URL erreichbar ist.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/08_HomeDsWeb/swagger.png}
+\caption{JavaEE REST- Service}
+\label{img:swaggerdoku}
+\end{figure}
 
 Unsere Swagger-Dokumentation ist unter \newblock{\small \url{http://vm59.htl-leonding.ac.at:8080/homeds/swagger/swagger.html}}  oder \newblock{\small \url{'BASE\_URL:PORT/homeds/swagger/swagger.html}} zu finden. \cite{swagger}
 

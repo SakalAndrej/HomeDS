@@ -10,7 +10,7 @@ Im Rahmen der Diplomarbeit muss neben dem XIBO-Server ein weiterer Server einges
 \end{figure}
  
 \section{Anforderungen an den HomeDS Server}\label{sec:homeds}
-Der JavaEE Server soll die verschiedenen komplizierten Abläufe des XIBO-Servers vereinfachen. Die Zugriffe mittels REST die eigentlich direkt auf den XIBO laufen sollen, werden über den JavaEE Server verwaltet. Siehe Abblidung \ref{img:systemarchitektur}. Das heißt, der Java Enterprise Server empfängt REST Zugriffe, verarbeitet diese entsprechend und tätigt dann REST Abfragen auf den XIBO Server dieser benachrichtigt dann mittels PUSH Notifications über ZeroMQ die Display Clients. Das Einsetzten eines weiteren JavaEE Server hat insofern einen großen Vorteil, da die komplizierte Authentifizierungen wegfällt. Des Weiteren können ohne Probleme neue Funktionen hinzugefügt und neue Anforderungen flexibel erfüllt werden. Aufgrund dieser Vorgehensweise müssen Grundfunktionen des Signage Servers nicht erneut programmiert werden. Es werden lediglich über die möglichen API-Schnittstellen neue Funktionen und Erweiterungen speziell für die benötigten Anwendungsfälle erstellt. Siehe Abbildung \ref{img:xiboengine}
+Der JavaEE Server soll die verschiedenen komplizierten Abläufe des XIBO-Servers vereinfachen. Die Zugriffe mittels REST die eigentlich direkt auf den XIBO laufen sollen, werden über den JavaEE Server verwaltet. (siehe Abbildung \ref{img:systemarchitektur}) Das heißt, der Java Enterprise Server empfängt REST Zugriffe, verarbeitet diese entsprechend und tätigt dann REST Abfragen auf den XIBO Server dieser benachrichtigt dann mittels PUSH Notifications über ZeroMQ die Display Clients. Das Einsetzten eines weiteren JavaEE Server hat insofern einen großen Vorteil, da die komplizierte Authentifizierungen wegfällt. Des Weiteren können ohne Probleme neue Funktionen hinzugefügt und neue Anforderungen flexibel erfüllt werden. Aufgrund dieser Vorgehensweise müssen Grundfunktionen des Signage Servers nicht erneut programmiert werden. Es werden lediglich über die möglichen API-Schnittstellen neue Funktionen und Erweiterungen speziell für die benötigten Anwendungsfälle erstellt. (siehe Abbildung \ref{img:xiboengine})
 
 \begin{figure}[H]
 \centering
@@ -61,11 +61,11 @@ Teil 1 kümmert sich um das Anzeigen aller DataSets in einer Responisve Komponen
 \end{figure}
 
 
-Es ist auch durch die editierbaren Textfelder und DatePicker möglich die DataSets zu ändern. Durch klicken auf den Speichern Button wird die Änderung des einzelnen DataSets bestätigt. Durch klicken auf den roten Löschen Button wird das Nachrichtenpaket gelöscht falls es aktiv war wird es auch aus dem XIBO System entfernt. Die Logik ist im \pageref{sec:datasetexpiredate} nochmals genauer erklärt. 
+Es ist auch durch die editierbaren Textfelder und DatePicker möglich die DataSets zu ändern. Durch klicken auf den Speichern Button wird die Änderung des einzelnen DataSets bestätigt. Durch klicken auf den roten Löschen Button wird das Nachrichtenpaket gelöscht falls es aktiv war wird es auch aus dem XIBO System entfernt. Die technische Umsetzung ist in der Sektion ''\nameref{sec:datasetexpiredatetechnical}'' nochmals genauer erklärt. 
 
 Der zweite Teil der ''Datensatz ändern'' Seite ist das Hinzufügen von Nachrichtenpaketen, dabei ist der Titel und der Inhalt der Nachricht natürlich erforderlich. Bei nicht eingeben von Start Datum des Nachrichtenpakets wird davon ausgegangen das es sofort in den XIBO gespeichert werden soll und somit auf aktiv gesetzt wird. Andersrum wenn kein Ablaufdatum eingegeben wird, wird das DataSet solange angezeigt bis entweder ein Ablaufdatum im Nachhinein hinzugefügt wird oder es manuell einfach wieder gelöscht wird.
 
-Nach jeder Aktion wird die Webseite mit einer Loading Animation versehen und der Nutzer bekommt dann ein Feedback ob die jeweilige Operation erfolgreich oder fehlgeschlagen ist. Siehe Abbildung \ref{img:feedback}
+Nach jeder Aktion wird die Webseite mit einer Loading Animation versehen und der Nutzer bekommt dann ein Feedback ob die jeweilige Operation erfolgreich oder fehlgeschlagen ist. (siehe Abbildung \ref{img:feedback})
 
 \begin{figure}[H]
 \centering
@@ -84,7 +84,7 @@ Eine weitere Funktion ist das Abspielen von Medien die im XIBO hinterlegt sind. 
 \label{img:playmedia}
 \end{figure}
 
-Die Medien im XIBO müssen mit einem Schlagwort versehen werden. Diese Schlagwörter können sein, die jeweilige Abteilung also Informatik, Medientechnik oder Elektronik. Es kann sich aber auch um ein Projekt oder sonstiges handeln. Die Wahl der Schlagworte bleibt dem Nutzer überlassen.  Siehe Abbildung \ref{img:playmedia}
+Die Medien im XIBO müssen mit einem Schlagwort versehen werden. Diese Schlagwörter können sein, die jeweilige Abteilung also Informatik, Medientechnik oder Elektronik. Es kann sich aber auch um ein Projekt oder sonstiges handeln. Die Wahl der Schlagworte bleibt dem Nutzer überlassen. (siehe Abbildung \ref{img:playmedia})
 
 Mithilfe dieser Tags wollen wir dem Nutzer die Suche nach dem richtigen Video erleichtern. Der Nutzer bekommt die Möglichkeit einer dieser Tags auf der HomeDs Weboberfläche auszuwählen, daraufhin werden nur die Videos mit dem entsprechendem Tag angezeigt.
 
@@ -155,7 +155,7 @@ Das heißt, wenn gerade Nachrichten vom Sekretariat auf einem Bildschirm angezei
 \subsection{JavaEE mit REST}\label{sec:javaeeresttechnical}
 Der Server stellt Funktionen wie Medien abspielen, Nachrichten Paket ändern, löschen, hinzufügen oder abfragen, Status abfragen und den Crawler per REST zur Verfügung.
 
-Die REST Schnittstellen sind mithilfe von Swagger dokumentiert. \pageref{sec:javaeeandroidrestswagger}
+Die REST Schnittstellen sind mithilfe von Swagger dokumentiert. (siehe Seite \pageref{sec:javaeeandroidrestswagger})
 
 \subsection{Swagger}\label{sec:javaeeandroidrestswagger}
 Swagger wird verwendet um Funktionalität und Möglichkeit einer API übersichtlich zu gestalten. Swagger dokumentiert welche Response Code's man erwarten kann, wie bei einem POST oder PUT der Body aussehen muss oder welche Pathparams mitgegeben werden müssen oder welche nur optional sind. Dabei gibt es zwei verschiedene Arten eine REST-Dokumentation zu erstellen.
@@ -164,19 +164,19 @@ Die erste Möglichkeit wäre, mit dem Swagger Editor die Dokumentation in der JS
 
 Bei der zweiten Methode, die auch bei der Diplomarbeit zum Einsatz kommt, werden die API's automatisch von der im Projekt eingebundenen Swagger Engine erkannt. Daraus wird dann auch wieder eine JSON-File generiert, die dann mithilfe von Swagger-UI gut im Browser über eine Webseiten URL erreichbar ist.
 
-Unsere Swagger-Dokumentation ist unter ''http://vm59.htl-leonding.ac.at:8080/homeds/swagger/swagger.html'' oder ''BASE_URL:PORT/homeds/swagger/swagger.html'' zu finden
-
-
-Verweis: https://swagger.io/
+Unsere Swagger-Dokumentation ist unter \newblock{\small \url{http://vm59.htl-leonding.ac.at:8080/homeds/swagger/swagger.html}}  oder \newblock{\small \url{'BASE\_URL:PORT/homeds/swagger/swagger.html}} zu finden. \cite{swagger}
 
 \subsection{Structure Crawler - Technisch}\label{sec:structurecrawlertechnical}
 Der Crawler holt sich per REST vom XIBO ein Layout mit allen Sub-Entitäten. Ohne parameter gibt XIBO aber nur das Model von Layout im JSON zurück um aber auch weitere Enitäten mit zu laden musste mit dem Querparam  ''embed='' der REST Zugriff modifiziert werden. Dabei müssen mit einem Komma getrennt, die weiteren Entitäten angegeben werden, die mit geladen werden sollen.
 
 \begin{lstlisting}[language=Java, caption={Crawler GET Request}]
 HttpURLConnection con = new RequestHelper()
-                    .executeRequest(RequestTypeEnum.GET, null,
-                            new RequestHelper().BASE_URL + "api/layout?" + "embed=regions,playlists,widgets,widgetOptions" + query,
-                            AuthentificationHandler.getTOKEN());
+         	.executeRequest(RequestTypeEnum.GET, null,
+             	new RequestHelper().BASE_URL + 
+             	"api/layout?" + 
+             	"embed=regions,playlists" + 
+              ",widgets,widgetOptions" + 
+              query, AuthentificationHandler.getTOKEN());
 \end{lstlisting}
 
 \subsection{HomeDS Server Slideshow - Technisch}\label{sec:slideshowtechnical}

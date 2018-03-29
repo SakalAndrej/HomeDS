@@ -22,20 +22,16 @@ Es gibt zwei Möglichkeiten den Funktionsumfang des XIBO-Servers zu nutzen. Zum 
 \caption{Gliederung Ubuntu-Server}
 \label{fig:mediaNav}
 \end{figure}
-Die API des XIBO-Servers ist mittels Swagger dokumentiert. Diese Dokumentation deckt die Grundfunktionalitäten und die Form der Anfragen ab. Die Schnittstelle des Servers dient als wesentliches Verbindungsstück zwischen der eigens entwickelten Steuerungssoftware und dem XIBO-Server. Wie der XIBO-Server die verschiedenen Anfragen verarbeitet und entgegen nimmt, wird, bevor die Implementierung des Java-EE-Servers beginnt, mittels Postman getestet. Diese Vorgehensweise ist Nötig um festzustellen, ob das XIBO-System über REST-API ausreichend konfigurierbar und im operativen Betrieb steuerbar ist. Die Anfragen an den Server werden im Java Code durch die ''libary'' OkHttp3 übernommen.
+Die API des XIBO-Servers ist mittels Swagger dokumentiert. Diese Dokumentation deckt die Grundfunktionalitäten und die Form der Anfragen ab. Die Schnittstelle des Servers dient als wesentliches Verbindungsstück zwischen der eigens entwickelten Steuerungssoftware und dem XIBO-Server. Wie der XIBO-Server die verschiedenen Anfragen verarbeitet und entgegen nimmt, wird, bevor die Implementierung des Java-EE-Servers beginnt, mittels Postman getestet. Diese Vorgehensweise ist Nötig um festzustellen, ob das XIBO-System über REST-API ausreichend konfigurierbar und im operativen Betrieb steuerbar ist. Die Anfragen an den Server werden im Java Code durch die ''libary'' OkHttp3 übernommen.\cite{swagger}\cite{postman}\cite{OkHttp3}
 
-\cite{swagger}
-\cite{postman}
-\cite{Okhttp3}
 \section{Authentifizierung}
-
-Die Authentifizierung einer Client-Applikation per REST-Anfrage am XIBO-Server erfolgt über OAuth2 , also mittels Access Token.
+Die Authentifizierung einer Client-Applikation per REST-Anfrage am XIBO-Server erfolgt über OAuth2 , also mittels Access Token. \cite{oAuth2}
 
 Zunächst ist am XIBO-Server ein ''Application''-Objekt im Webinterface zu erstellen. Beim Erstellen des ''Application''-Objekts können die Berechtigungen für den Client festgelegt werden. Nachdem das Objekt erstellt wird, stellt dieses ein ''Client Secret'' zur Verfügung. Dieses ist für jeden Client eindeutig.
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{images/03_XIBO-Server/03_EditApplikation}
-\caption{Grundeinstellungen einer XIBO-Anwendnug}
+\caption{Grundeinstellungen einer XIBO-Anwendung}
 \label{fig:mediaNav}
 \end{figure}
 \begin{figure}[H]
@@ -49,8 +45,8 @@ Damit ein externer Client auf den XIBO-Server per REST-Request zugreifen beziehu
 
 Die Parameter: 
 \begin{itemize}
-	\item {\em Client\_ID:} XIBO-Server Anwendungen neue Anwendung
-	\item {\em Client\_Secret:}  XIBO-Server Anwendungen neue Anwendung
+	\item {\em Client\_ID:} Wird vom XIBO-Server bereitgestellt
+	\item {\em Client\_Secret:} Wird vom XIBO-Server bereitgestellt
 	\item{\em grant\_type:} Muss in der Form ''&grant\_type=client\_credentials''
 \end{itemize}
 
@@ -58,10 +54,9 @@ Die über den POST-Request erhaltene Antwort, liefert einen Access Token, welche
 Dieser Token muss bei jedem Request an den XIBO-Server im Header des Requests übergeben werden, damit der XIBO-Server feststellen kann, ob es sich um einen registrierten Client handelt.
 
 
-Um die Authentifizierung zu automatisieren, wurde eine Java Klasse entwickelt, diese ist zu finden im HomeDsBackend (HomeDS/HomeDsBackend/src/main/java/at/htl/utils/AuthentificationHandler.java
-). Funktionsweise dieser wird nachfolgend geschildert: 
+Um die Authentifizierung zu automatisieren, wurde eine Java Klasse entwickelt, diese ist zu finden im HomeDsBackend (HomeDS/HomeDsBackend/src/main/java/at/htl/utils/AuthentificationHandler.java). Funktionsweise dieser wird nachfolgend geschildert: 
 
-Um eine Verbindung zum XIBO-Server herstellen zu können wird eine URL und eine HttpURLConnection deklariert. Im Anschluss wird die URL mit der richtigen Adresse belegt. Die httpURLConnection wird über den Befehl ''httpURLConnection.openConnection()'' dazu angewiesen, eine Verbindung aufzubauen. Durch die Anweisung ''httpURLConnection.setDoOutput(true)'' wird der Connection mitgeteilt, dass als Antwort Daten erhalten werden. Die Art der Anfrage wird als POST-Request festgelegt. 
+Um eine Verbindung zum XIBO-Server herstellen zu können wird eine URL und eine HttpURLConnection deklariert. Im Anschluss wird die URL mit der richtigen Adresse belegt. Die httpURLConnection wird über den Befehl ''httpURLConnection.openConnection()'' dazu angewiesen, eine Verbindung aufzubauen. Durch die Anweisung ''httpURLConnection.setDoOutput(true)'' wird der Connection mitgeteilt, dass als Antwort Daten erhalten werden. Die Art der Anfrage wird als POST-Request festgelegt.  \citep{httpurlconnection}
 
 \begin{lstlisting}[language=Java,caption={Erstellen der Verbindung zum Server}]
 URL obj;

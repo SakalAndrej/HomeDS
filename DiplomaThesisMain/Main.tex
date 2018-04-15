@@ -1,6 +1,8 @@
 \documentclass[12pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\renewcommand*\familydefault{\sfdefault}
 \usepackage{german}
 \usepackage{geometry}                
 \geometry{a4paper}                   
@@ -11,12 +13,14 @@
 \usepackage{graphicx}
 \usepackage[usenames,dvipsnames,table]{xcolor}
 \usepackage{amssymb}
+\usepackage{memhfixc}
 \usepackage{epstopdf}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{multirow}
 \usepackage{listings}
 \usepackage{tabularx} 
+\usepackage{caption}
 \usepackage{longtable}
 \usepackage{booktabs} 	% Tabellenstyle
 
@@ -90,17 +94,42 @@
 \include{03_XiboApi}
 \include{04_Technologien}
 \include{05_HomeDsBackend}
-\include{06_LeoDsAndroid}
-\include{08_CI-Continous_Integration}
-\include{07_Verweise}
+\include{06_AndroidApplikation}
+\include{07_CI-Continous_Integration}
+\include{08_Verweise} % und Arbeitsauftrag
+
 
 \listoffigures
-\addcontentsline{toc}{section}{Listings}
-\lstlistoflistings
+\addcontentsline{toc}{section}{Abbildungsverzeichnis}
+
+\lstlistoflistings \addcontentsline{toc}{section}{Codebeispiele}
 \newpage
+
+
+\chapter*{\centering HomeDS - Repository\hline}
 \centering
-\textbf{GitHub Repository - HomeDS}
-\\
-\newblock Link: {\small \url{https://github.com/SakalAndrej/HomeDS}}
+\large{\textbf{\newblock{\small \url{https://github.com/SakalAndrej/HomeDS}}}}
+
+\newline
+\newline
+\newline
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/cdBackground.png}
+\caption*{CD-Datenträger}
+\end{figure}
+
+\newline
+\newline
+\newline
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\textwidth]{images/usb.png}
+\caption*{USB-Datenträger}
+\end{figure}
+\addcontentsline{toc}{section}{HomeDS - Repository}
+
 \appendix
 \end{document}  

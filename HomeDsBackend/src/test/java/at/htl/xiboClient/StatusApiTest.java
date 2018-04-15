@@ -21,7 +21,7 @@ public class StatusApiTest {
     @Test
     public void getIsOnline() {
         try {
-            assertThats("It could not be established a connection maybe connection string incorrect" + new RequestHelper().BASE_URL ,statusApi.getIsOnline(),is(false));
+            assertThat("It could not be established a connection maybe connection string incorrect" + new RequestHelper().BASE_URL ,statusApi.getIsOnline(),is(true));
         } catch (NoConnectionException e) {
             e.printStackTrace();
         }
